@@ -4,8 +4,16 @@
 <br />
 
 <div class="center">
-    <img src="img/Devops-toolchain-original.svg" />
+    <img src="img/Devops-toolchain.svg" />
 </div>
+
+---
+
+# Sommaire
+
+* [Les origines de DevOps](#les-origines-de-devops)
+* Les objectifs de DevOps
+* [Les principes de DevOps](#les-principes-de-devops)
 
 ---
 
@@ -15,8 +23,6 @@ De nombreux cours sur DevOps se concentrent sur l'automatisation des déploiemen
 
 ---
 
-# Les origines de DevOps
-
 ## L'agilité dans les développements
 
 La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marque un tournant dans les méthodes de développement. L'agilité inclue entre autre de :
@@ -25,8 +31,6 @@ La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marq
 * **Faire travailler ensemble** les personnes en charge du **métier ou des affaires** et les personnes en charge de la **réalisation** au quotidien tout au long du projet.
 
 ---
-
-# Les origines de DevOps
 
 ## L'automatisation des tests sur le code
 
@@ -38,8 +42,6 @@ On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org
 
 ---
 
-# Les origines de DevOps
-
 ## L'intégration continue
 
 Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_(software)) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagnent en popularités. Ils sont utilisés entre autre pour :
@@ -49,8 +51,6 @@ Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wi
 * **Produire des livrables** à déployer (archive zip/tar, paquet debian/centos, installeur)
 
 ---
-
-# Les origines de DevOps
 
 ## Le cloud
 
@@ -66,8 +66,6 @@ Avec ces services :
 
 ---
 
-# Les origines de DevOps
-
 ## Les limites de l'exploitation traditionnelle (1/6)
 
 A ce stade, si les méthodes agiles ont brisés les murs entre le métier et les développeurs, l'exploitation traditionnelle induit toujours un mur entre :
@@ -76,8 +74,6 @@ A ce stade, si les méthodes agiles ont brisés les murs entre le métier et les
 * L'équipe en charge de l'exploitation (OPS) qui déploie et veille au bon fonctionnement de l'application
 
 ---
-
-# Les origines de DevOps
 
 ## Les limites de l'exploitation traditionnelle (2/6)
 
@@ -92,8 +88,6 @@ L'**exploitation traditionnelle** se traduit généralement par un **processus s
 
 ---
 
-# Les origines de DevOps
-
 ## Les limites de l'exploitation traditionnelle (3/6)
 
 Sur le papier, un telle approche est parfaite :
@@ -104,8 +98,6 @@ Sur le papier, un telle approche est parfaite :
 C'est oublier la loi de Murphy!
 
 ---
-
-# Les origines de DevOps
 
 ## Les limites de l'exploitation traditionnelle (4/6)
 
@@ -121,8 +113,6 @@ D'expérience, il en sera de même pour **chaque évolution induisant le moindre
 
 ---
 
-# Les origines de DevOps
-
 ## Les limites de l'exploitation traditionnelle (5/6)
 
 La sacralisation d'une frontière entre les développeurs et les administrateurs systèmes induit aussi des **problèmes en production** quand une **demande d'exploitation ou une procédure** est **mal comprise** ou **mal traduite en opération** :
@@ -131,8 +121,6 @@ La sacralisation d'une frontière entre les développeurs et les administrateurs
 * **Les DEV** n'étant pas partie prenante dans la conception de l'infrastructure **n'exploitent pas le système de manière optimale** : Utilisation du mauvais système de stockage, saturation de débit réseau,...
 
 ---
-
-# Les origines de DevOps
 
 ## Les limites de l'exploitation traditionnelle (6/6)
 
@@ -145,8 +133,6 @@ Typiquement, avant de chercher une solution :
 
 ---
 
-# Les origines de DevOps
-
 ## La naissance de DevOps (1/2)
 
 [devopssec.fr - L'histoire du DevOps](https://devopssec.fr/article/histoire-du-devops) souligne les éléments suivants :
@@ -158,11 +144,48 @@ Typiquement, avant de chercher une solution :
 
 ---
 
-# Les origines de DevOps
-
 ## La naissance de DevOps (2/2)
 
 Cette génèse montre que :
 
 * DevOps est avant tout un **rapprochement entre les activités de développement et d'exploitation**.
 * Ce rapprochement est nécessaire pour introduire de l'**agilité dans la gestion des infrastructures** pour pouvoir **livrer régulièrement et fréquemment des applications**.
+
+---
+
+# Les objectifs de DevOps
+
+
+
+TODO
+
+---
+
+# Les principes de DevOps
+
+* Un processus unifiant le DEV et l'OPS
+* Une culture partagée
+* ... TODO
+
+---
+
+## Un processus unifiant le DEV et l'OPS (1/2)
+
+La mise en oeuvre d'une démarche DevOps conduira à **unifier les processus de développement et de déploiement** :
+
+<div class="center">
+    <img src="img/Devops-toolchain.svg" style="height: 300px" />
+</div>
+
+---
+
+## Un processus unifiant le DEV et l'OPS (2/2)
+
+On reconnaîtra dans cette approche des similarités avec la **roue de Deming** bien connue dans le **domaine de la qualité** :
+
+<div class="center">
+    <img src="img/PDCA_Cycle_FR.svg?test=meuh" style="height: 300px" />
+    <p class="text-center">
+    (Source : <a href="https://commons.wikimedia.org/wiki/File:PDCA_Cycle_FR.svg">wikimedia.org - Michel Weinachter</a>)
+    </p>
+</div>
