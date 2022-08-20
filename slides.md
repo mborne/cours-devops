@@ -196,7 +196,7 @@ Il convient de souligner que la **gestion des infrastructures est un sujet sensi
 
 * De **ce qu'est l'agilité dans le développement** (et de ce que ça implique au niveau de l'exploitation, de la prévibilité des coûts, des plannings de livraison des fonctionnalités...) 
 * Des **limites des méthodes d'exploitation traditionnelle** (d'où les 6 slides)
-* Des **améliorations nécessaires et envisageables dans les méthodes de gestion du SI**
+* Des **problèmes et améliorations possibles**
 
 ---
 
@@ -206,10 +206,10 @@ Il convient de souligner que la **gestion des infrastructures est un sujet sensi
 
 Pour faire simple, avant de cibler une **infrastructure agile**, il faut être nombreux à voir qu'il y a un problème quand :
 
-* Il faut faire signer une commande de VM (en ayant prévue la commande l'année précédente)
-* Il faut maintenir des documents word contenant des informations de dimensionnement
 * Il faut des jours pour relivrer une application avec une mise à jour de ses dépendances (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
-* Il faut exhumer une procédure pour re-déployer cette application (et croiser les doigts pour qu'elle soit à jour)
+* Il faut exhumer une procédure pour re-déployer cette application (et croiser les doigts pour que le procédure soit à jour)
+* Il faut faire signer une commande de VM pour faire face à un pic de charge (en ayant prévue la commande l'année précédente)
+* Il faut maintenir des documents word contenant ces informations de dimensionnement
 * ...
 
 ---
@@ -222,7 +222,7 @@ En pratique, s'orienter vers la méthode DevOps sera délicat sans une **politiq
 
 Nous trouverons à ce titre des **framework d'agilité à l'échelle** tels [Scaled agile framework (SAFe)](https://www.scaledagileframework.com/) qui inclueront DevOps dans une démarche plus globale.
 
-Sans entrer dans les détails, avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...), il sera par exemple difficile d'avoir des métriques pour justifier le besoin de transformation et mettre en évidence les améliorations...
+Sans entrer dans les détails, avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...), il sera par exemple difficile d'avoir des métriques pour mettre en évidence les problèmes et les améliorations...
 
 ---
 
@@ -287,17 +287,35 @@ Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importan
 
 ## Le modèle CALM
 
-### Measurement
+### Measurement (1/2)
 
-> Indicateur de qualité, productivité, capacité, stratégique
+"Ce qui ne se mesure pas n'existe pas" (et ce qui n'est pas affiché en rouge sur un graphique ne percutera pas au niveau de la direction).
 
-Ce que l'on 
+A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métriques associées**. Par exemple :
 
-* Déployer rapidement une nouvelle version
-* Assurer un haut niveau de disponibilité
-* Assurer la cohérence entre l'état du système et sa documentation
-* Assurer la traçabilité des déploiements
-* Traiter efficacement les problématiques de sécurité
+| Objectif                                            | Exemples de métriques                                                             |
+| --------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Déployer rapidement une nouvelle version            | Nombre de livraison par mois (ou par an au début)                                 |
+| Assurer un haut niveau de disponibilité             | Taux de disponibilité                                                             |
+| Assurer un haut niveau de performance               | Taux de réponse dans temps acceptable (SLA)                                       |
+| Limiter le nombre d'incident                        | Nombre de ticket ouvert                                                           |
+| Traiter rapidement les incidents                    | Durée de vie des tickets d'incident                                               |
+| Traiter efficacement les problématiques de sécurité | Durée du déploiement d'un patch, nombre de vulnérabilité dans les dépendances,... |
+
+---
+
+## Le modèle CALM
+
+### Measurement (2/2)
+
+On soulignera que définir des métriques et faire en sorte pouvoir les calculer est loin d'être trivial.
+
+A titre d'exemple, il sera par exemple intéressant de :
+
+* Prévoir une catégorisation des incidents pour distinguer les erreurs de programmation, les erreurs de déploiement, les problèmes d'infrastructure,...
+* Prévoir plusieurs niveaux d'attente pour les performances des services (degradé, non acceptable)
+* ...
+
 
 ---
 
@@ -335,3 +353,5 @@ On reconnaîtra dans cette approche des similarités avec la **roue de Deming** 
     (Source : <a href="https://commons.wikimedia.org/wiki/File:PDCA_Cycle_FR.svg">wikimedia.org - Michel Weinachter</a>)
     </p>
 </div>
+
+
