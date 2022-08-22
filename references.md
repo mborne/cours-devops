@@ -8,6 +8,11 @@
 * [www.commitstrip.com - Comment savoir si votre entreprise est DevOps](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?)
 * [www.commitstrip.com - Tout automatisé… ou presque](https://www.commitstrip.com/fr/2015/06/22/can-we-automate-everything/?setLocale=1)
 
+Pour DevSecOps :
+
+* [www.commitstrip.com - La sécurité coûte cher ? Essayez le piratage](https://www.commitstrip.com/fr/2017/06/19/security-too-expensive-try-a-hack/?)
+
+
 ## Autres présentation
 
 * https://meritis.fr/devops-avez-dit-devops/
