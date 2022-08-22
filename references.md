@@ -3,6 +3,10 @@
 
 * [fr.kaizen.com - L'importance du Time to Market](https://fr.kaizen.com/produits/importance-time-to-market-fr) qui aborde les notions d'efficacité des ressources et des flux.
 
+## Illustration
+
+* [www.commitstrip.com - Comment savoir si votre entreprise est DevOps](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?)
+
 ## Autres présentation
 
 * https://meritis.fr/devops-avez-dit-devops/
