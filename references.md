@@ -1,3 +1,6 @@
+## Bonnes pratiques
+
+* https://github.com/microsoftdocs/architecture-center/blob/main/docs/checklist/dev-ops.md
 
 ## Lean
 
