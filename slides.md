@@ -30,13 +30,13 @@ La fin des années 90 marque le début de la démocratisation d'internet :
     <img src="img/credoc-internet-historique.png" style="width: 80%" />
 </div>
 
-Le nombre de clients potentiels pour une application en ligne explose en suivant cette courbe!
+Le nombre de clients potentiels pour une application en ligne suivra cette courbe.
 
 ---
 
-## La naissance des géants du web
+## Les géants du web (1/3)
 
-Les futurs **[géants du web](https://fr.wikipedia.org/wiki/G%C3%A9ants_du_Web)** naîtront sur cette période et feront rapidement face aux requêtes de **plusieurs millions d'utilisateurs** :
+Les **[géants du web](https://fr.wikipedia.org/wiki/G%C3%A9ants_du_Web)** naîtront sur cette période et feront rapidement face aux requêtes de **plusieurs millions d'utilisateurs** :
 
 * Amazon (1994)
 * Netflix (1997)
@@ -44,13 +44,37 @@ Les futurs **[géants du web](https://fr.wikipedia.org/wiki/G%C3%A9ants_du_Web)*
 * Facebook (2004)
 * ...
 
-Ces acteurs auront un grand **besoin de scalabilité** amenant de nouvelles approches ([MapReduce (2004)](https://fr.wikipedia.org/wiki/MapReduce), [stockage NoSQL](https://fr.wikipedia.org/wiki/NoSQL),...)
+---
+
+## Les géants du web (2/3)
+
+Ils répondront par des **architectures scalables** avec de nouvelles approches au niveau des traitements (ex : [MapReduce (2004)](https://fr.wikipedia.org/wiki/MapReduce)) et du stockage (ex : [stockage NoSQL](https://fr.wikipedia.org/wiki/NoSQL))
 
 ---
 
-## L'agilité dans les développements
+## Les géants du web (3/3)
 
-La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marque un tournant dans les méthodes de développement. L'agilité inclue entre autre de :
+Ces acteurs seront aussi des pionniers en matière de DevOps en répondant avec une nouvelle approche en matière de gestion des infrastructures. 
+
+En 2003, Google pose un nouveau rôle : Le [Site Reliability Engineer (SRE)](https://sre.google/books/) qui doit assurer un haut niveau de disponibilité des services **collobaration étroite avec les développeurs**.
+
+---
+
+## L'agilité dans les développements (1/2)
+
+La démocratisation d'internet et des applications en réseau se traduira aussi par **la possibilité de livrer à moindre frais des évolutions et des correctifs**
+
+<div class="center">
+    <img src="img/livraison-avant-apres.png" style="height: 300px" />
+</div>
+
+---
+
+## L'agilité dans les développements (2/2)
+
+La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marquera un tournant dans les méthodes de développement en embrassant cette possibilité.
+
+L'agilité incluera entre autre de :
 
 * **Livrer rapidement et régulièrement** une nouvelle version de l'application.
 * **Faire travailler ensemble** les personnes en charge du **métier ou des affaires** et les personnes en charge de la **réalisation** au quotidien tout au long du projet.
@@ -93,16 +117,17 @@ Avec ces services :
 
 ## Les limites de l'exploitation traditionnelle (1/6)
 
-A ce stade, si les méthodes agiles ont rapproché le métier et les développeurs, l'exploitation traditionnelle induit toujours un mur entre :
+### Une séparation stricte des rôles
 
-* L'équipe en charge du développement (DEV) qui fournit l'application
-* L'équipe en charge de l'exploitation (OPS) qui déploie et veille au bon fonctionnement de l'application
+A ce stade, si les méthodes agiles ont rapproché le métier et les développeurs, l'**exploitation traditionnelle** se traduit généralement par un **processus sacralisant un cloisonnement stricts des rôles entre les DEV et les OPS**.
 
 ---
 
 ## Les limites de l'exploitation traditionnelle (2/6)
 
-L'**exploitation traditionnelle** se traduit généralement par un **processus sacralisant un cloisonnement stricts des rôles entre les DEV et les OPS** :
+### Une communication centrée sur des documents
+
+On trouvera par exemple le processus suivant pour déployer une application :
 
 * Les DEV préparent une version à déployer (ex : `v0.1.0`)
 * Les DEV rédigent un **dossier d'architecture Technique (DAT)** (schéma d'architecture, description des services, dimensionnement demandé, URL à exposer...).
@@ -115,7 +140,7 @@ L'**exploitation traditionnelle** se traduit généralement par un **processus s
 
 ## Les limites de l'exploitation traditionnelle (3/6)
 
-Sur le papier, un telle approche est parfaite :
+### Une approche en apparence sécurisée
 
 * Seuls des **administrateurs systèmes configurent le système** ([ce qui conforme à la PSSIE rédigée en 2014...](https://www.ssi.gouv.fr/entreprise/reglementation/protection-des-systemes-dinformations/la-politique-de-securite-des-systemes-dinformation-de-letat-pssie/))
 * Les **développeurs** sont **déchargés des problématiques d'exploitation**
@@ -126,7 +151,9 @@ Sur le papier, un telle approche est parfaite :
 
 ## Les limites de l'exploitation traditionnelle (4/6)
 
-En pratique, une telle approche **empêchera de livrer rapidement et régulièrement**. La **mise en production initiale** de l'application prendra alors facilement **1 mois** pour diverses raisons :
+### Une approche qui empêche de livrer rapidement et régulièrement
+
+La **mise en production initiale** de l'application prendra alors facilement **1 mois** pour diverses raisons :
 
 * Problème de **compréhension du DAT ou du DEX**
 * Problème de **complétude du DAT ou du DEX**
@@ -140,7 +167,11 @@ Il en sera de même pour **chaque évolution induisant le moindre d'architecture
 
 ## Les limites de l'exploitation traditionnelle (5/6)
 
-Une telle méthode induit aussi des **problèmes en production** quand une **demande d'exploitation ou une procédure** est **mal comprise** ou **mal traduite en opérations** :
+### Une approche qui génère des problèmes en production
+
+Une **demande d'exploitation ou une procédure** est **mal comprise** ou **mal traduite en opérations**.
+
+On soulignera que :
 
 * **Les OPS** n'étant pas partie prenante dans la conception de l'application **ne peuvent avoir un regard critique et une compréhension des demandes** (une mise à jour devient une montée en version, une action demandée en QUALIFICATION est appliquée en PRODUCTION,...)
 * **Les DEV** n'étant pas partie prenante dans la conception de l'infrastructure **n'exploitent pas le système de manière optimale** (utilisation du mauvais système de stockage, saturation de débit réseau,...)
@@ -160,9 +191,8 @@ Typiquement, avant de chercher une solution :
 
 ## La naissance de DevOps (1/2)
 
-La naissance de DevOps est associée aux événements suivants :
+Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
-* En 2003, Google pose un nouveau rôle : Le [Site Reliability Engineer (SRE)](https://sre.google/) qui doit assurer un haut niveau de disponibilité des services **collobaration étroite avec les développeurs**.
 * En 2008, une conférence Agile à Toronto permet la rencontre entre l'organisateur d'une rencontre sur le thème **« Infrastructure Agile »** et un chef de projet Patrick Debois faisant face au manque de  **cohésion entre les équipes de développement d'applications et les équipes d'exploitation**
 * En 2009, deux responsables de Flickr proposent une solution à ce problème : Embaucher des **« Ops qui pensent comme des Devs »** et des **« Devs qui pensent comme des Ops »**.
 * En 2009, Patrick Debois contracte **développements (DEV)** et **opérations (OPS)** dans un hashtag pour annoncer la première [DevOpsDays](https://devopsdays.org/): **DevOps est né**.
@@ -173,18 +203,41 @@ La naissance de DevOps est associée aux événements suivants :
 
 ## La naissance de DevOps (2/2)
 
-Cette génèse montre que :
+DevOps dépassera à ce titre la simple problématique de l'automatisation des déploiement. DevOps est avant tout un constat :
 
-* DevOps est avant tout un **rapprochement entre les activités de développement et d'exploitation**.
-* Ce rapprochement est nécessaire pour introduire de l'**agilité dans la gestion des infrastructures** pour pouvoir **livrer régulièrement et fréquemment des applications**.
+* Pour pouvoir **livrer régulièrement et fréquemment des applications** et **s'adapter à la charge**, l'**agilité dans la gestion des infrastructures**.
+* Pour introduire de l'**agilité dans les infrastructures**, il faut un **rapprochement entre les activités de développement (DEV) et d'exploitation (OPS)**.
 
 ---
 
 # Les principes de DevOps
 
-* Le modèle CALMS (Culture, Automation, Lean, Measurement & Sharing)
 * Un processus unifiant le DEV et l'OPS
+* Le modèle CALMS (Culture, Automation, Lean, Measurement & Sharing)
 * ... TODO
+
+---
+
+## Un processus unifiant le DEV et l'OPS (1/2)
+
+La mise en oeuvre d'une démarche DevOps conduira à **unifier les processus de développement et de déploiement** :
+
+<div class="center">
+    <img src="img/Devops-toolchain.svg" style="height: 300px" />
+</div>
+
+---
+
+## Un processus unifiant le DEV et l'OPS (2/2)
+
+On reconnaîtra dans cette approche des similarités avec la **roue de Deming** bien connue dans le **domaine de la qualité** :
+
+<div class="center">
+    <img src="img/PDCA_Cycle_FR.svg" style="height: 300px" />
+    <p class="text-center">
+    (Source : <a href="https://commons.wikimedia.org/wiki/File:PDCA_Cycle_FR.svg">wikimedia.org - Michel Weinachter</a>)
+    </p>
+</div>
 
 ---
 
@@ -192,10 +245,10 @@ Cette génèse montre que :
 
 ### Culture (1/3)
 
-Il convient de souligner que la **gestion des infrastructures est un sujet sensible** où pour faire évoluer les pratiques et les processus, il faudra une compréhension partagée :
+Il convient de souligner que la **gestion des infrastructures est un sujet sensible**. Pour faire évoluer les pratiques et les processus, il faudra d'abord une compréhension partagée :
 
 * De **ce qu'est l'agilité dans le développement** (et de ce que ça implique au niveau de l'exploitation, de la prévibilité des coûts, des plannings de livraison des fonctionnalités...) 
-* Des **limites des méthodes d'exploitation traditionnelle** (d'où les 6 slides)
+* Des **limites des méthodes d'exploitation traditionnelle** (d'où les nombreuses slides)
 * Des **problèmes et améliorations possibles**
 
 ---
@@ -222,7 +275,7 @@ En pratique, s'orienter vers la méthode DevOps sera délicat sans une **politiq
 
 Nous trouverons à ce titre des **framework d'agilité à l'échelle** tels [Scaled agile framework (SAFe)](https://www.scaledagileframework.com/) qui inclueront DevOps dans une démarche plus globale.
 
-Sans entrer dans les détails, avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...), il sera par exemple difficile d'avoir des métriques pour mettre en évidence les problèmes et les améliorations...
+Sans entrer dans les détails, avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...), il sera par exemple difficile d'avoir des métriques pour mettre en évidence les problèmes et les améliorations.
 
 ---
 
@@ -331,27 +384,5 @@ Le partage sera important à plusieurs niveaux :
 * ...
 
 
----
-
-## Un processus unifiant le DEV et l'OPS (1/2)
-
-La mise en oeuvre d'une démarche DevOps conduira à **unifier les processus de développement et de déploiement** :
-
-<div class="center">
-    <img src="img/Devops-toolchain.svg" style="height: 300px" />
-</div>
-
----
-
-## Un processus unifiant le DEV et l'OPS (2/2)
-
-On reconnaîtra dans cette approche des similarités avec la **roue de Deming** bien connue dans le **domaine de la qualité** :
-
-<div class="center">
-    <img src="img/PDCA_Cycle_FR.svg?test=meuh" style="height: 300px" />
-    <p class="text-center">
-    (Source : <a href="https://commons.wikimedia.org/wiki/File:PDCA_Cycle_FR.svg">wikimedia.org - Michel Weinachter</a>)
-    </p>
-</div>
 
 
