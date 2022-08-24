@@ -72,7 +72,7 @@ La démocratisation d'internet et des applications en réseau se traduira aussi 
 
 ## L'agilité dans les développements (2/2)
 
-La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marquera un tournant dans les méthodes de développement en embrassant cette possibilité.
+La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marquera un tournant dans les méthodes de développement en exploitant cette possibilité.
 
 L'agilité incluera entre autre de :
 
@@ -212,15 +212,39 @@ DevOps dépassera à ce titre la simple problématique de l'automatisation des d
 
 # Les principes de DevOps
 
+* Un objectif commun
 * Un processus unifiant le DEV et l'OPS
 * Le modèle CALMS (Culture, Automation, Lean, Measurement & Sharing)
 * ... TODO
+
+
+---
+
+## Un objectif commun (1/2)
+
+La séparation des DEV et des OPS conduit à des objectifs distincts :
+
+* Les DEV veulent livrer rapidement des évolutions
+* Les OPS doivent avant tout assurer la disponibilité
+  
+Il en résulte le mur de la confusion :
+
+![Mur de la confusion](img/mur-de-la-confusion.png)
+
+
+---
+
+## Un objectif commun (2/2)
+
+Pour rémédier à cette situation, il sera impératif de **replacer au centre le(s) produit(s)** et la **création de valeur** en fixant un commun aux DEV et OPS :
+
+**Livrer rapidement des évolutions tout en assurant la disponibilité**
 
 ---
 
 ## Un processus unifiant le DEV et l'OPS (1/2)
 
-La mise en oeuvre d'une démarche DevOps conduira à **unifier les processus de développement et de déploiement** :
+Le partage de ce même objectif conduira à **unifier les processus de développement et de déploiement** :
 
 <div class="center">
     <img src="img/Devops-toolchain.svg" style="height: 300px" />
@@ -230,7 +254,7 @@ La mise en oeuvre d'une démarche DevOps conduira à **unifier les processus de 
 
 ## Un processus unifiant le DEV et l'OPS (2/2)
 
-On reconnaîtra dans cette approche des similarités avec la **roue de Deming** bien connue dans le **domaine de la qualité** :
+On reconnaîtra dans ce processus la **roue de Deming** bien connue dans le **domaine de la qualité** :
 
 <div class="center">
     <img src="img/PDCA_Cycle_FR.svg" style="height: 300px" />
@@ -239,9 +263,18 @@ On reconnaîtra dans cette approche des similarités avec la **roue de Deming** 
     </p>
 </div>
 
+
 ---
 
-## Le modèle CALM
+## Un processus sujet à l'amélioration continue
+
+Il convient de souligner que la mise en oeuvre d'un tel processus prendra du temps et qu'il sera toujours perfectible.
+
+A ce titre, il conviendra d'**améliorer en continu ce processus**.
+
+---
+
+## Le modèle CALMS
 
 ### Culture (1/3)
 
@@ -253,7 +286,7 @@ Il convient de souligner que la **gestion des infrastructures est un sujet sensi
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
 ### Culture (2/3)
 
@@ -267,7 +300,7 @@ Pour faire simple, avant de cibler une **infrastructure agile**, il faut être n
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
 ### Culture (3/3)
 
@@ -279,9 +312,9 @@ Sans entrer dans les détails, avec des projets gérés avec des méthodes hét�
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
-### Automation (1/3)
+### Automatisation (1/3)
 
 DevOps mettra un fort accent sur **l'automatisation**. Elle prendra plusieurs formes :
 
@@ -293,9 +326,9 @@ DevOps mettra un fort accent sur **l'automatisation**. Elle prendra plusieurs fo
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
-### Automation (2/3)
+### Automatisation (2/3)
 
 Pour l'automatisation des déploiements, on s'appuiera sur l'approche **Infrastructure as Code (IaC)** qui consiste à gérer une infrastructure informatique à l'aide de programmes :
   
@@ -311,9 +344,9 @@ Ceci permettra entre autre de répondre à des problématiques de **tracabilité
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
-### Automation (3/3)
+### Automatisation (3/3)
 
 Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code**](https://www.writethedocs.org/guide/docs-as-code/) consiste à **gérer la documentation avec les mêmes outils que ceux qui servent à construire des applications** :
 
@@ -330,17 +363,20 @@ Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importan
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
-### Lean
+### *Lean*
 
-> TODO (rebondir sur la gestion documentaire)
+Avec DevOps, on se concentrera sur la production de valeur en faisant la **chasse aux activités à faibles valeurs ajoutées** entre :
+
+* Le début d'un développement
+* La mise à disposition du résultat
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
-### Measurement (1/2)
+### Mesure (1/2)
 
 "Ce qui ne se mesure pas n'existe pas" (et ce qui n'est pas affiché en rouge sur un graphique ne percutera pas au niveau de la direction).
 
@@ -357,9 +393,9 @@ A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métri
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
-### Measurement (2/2)
+### Mesure (2/2)
 
 On soulignera que définir des métriques et faire en sorte pouvoir les calculer est loin d'être trivial.
 
@@ -372,16 +408,17 @@ A titre d'exemple, il sera par exemple intéressant de :
 
 ---
 
-## Le modèle CALM
+## Le modèle CALMS
 
-### Sharing
+### Partage
 
-Le partage sera important à plusieurs niveaux :
+Le **partage** et la **transparence** seront important à plusieurs niveaux. Ils favoriseront :
 
-* Partager la compréhension du système
-* Partager la connaissance des outils
-* Partager l'expérience
+* La confiance entre les différents acteurs
+* La compréhension partagées des objectifs et des enjeux
+* Les transferts de compétences entre équipes
 * ...
+
 
 
 

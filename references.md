@@ -19,7 +19,10 @@ Pour ouverture DevSecOps :
 
 ## Autres présentation
 
-* https://meritis.fr/devops-avez-dit-devops/
+* [www.atlassian.com - Framework CALMS](https://www.atlassian.com/fr/devops/frameworks/calms-framework)
+* [www.atlassian.com - Métriques DevOps](https://www.atlassian.com/fr/devops/frameworks/devops-metrics)
+
+* [meritis.fr - Qu’est-ce que le DevOps ? Concepts fondamentaux et bonnes pratiques du DevOps](https://meritis.fr/devops-avez-dit-devops/)
 
 
 
