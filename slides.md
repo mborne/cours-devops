@@ -101,7 +101,11 @@ Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wi
 
 ---
 
-## Le cloud
+---
+
+## La démocratisation du cloud (1/2)
+
+### Un coût d'entrée faible pour la scalabilité
 
 En 2006, Amazon lance deux services qui vont contribuer à populariser le concept d'informatique en nuage :
 
@@ -115,11 +119,26 @@ Avec ces services :
 
 ---
 
+## La démocratisation du cloud (2/2)
+
+### Une conception permettant l'automatisation
+
+Au niveau d'AWS, Jeff BEZOS posera une règle d'architecture importante : **Toutes les communications entre les projets doivent passer par l'exposition et l'utilisation d'API en réseau** ( c.f. [The API Mandate: How a mythical memo from Jeff Bezos changed software forever](https://konghq.com/jblog/api-mandate) ).
+
+Ceci jouera beaucoup dans :
+
+* La capacité d'AWS à accroître efficacement son offre de service (couplage faible, interfaces clairement définies,...)
+* La capacité des clients à **automatiser l'utilisation des ressources mise à disposition par AWS** (des appels à un service étant plus facilement automatisable que des clics dans une interface graphique)
+
+Remarque : On notera que cette règle s'applique aux <u>communications entre les services</u> (s'efforcer de construire toutes ses applications sur la base d'API REST/JSON est assez limitant).
+
+---
+
 ## Les limites de l'exploitation traditionnelle (1/6)
 
 ### Une séparation stricte des rôles
 
-A ce stade, si les méthodes agiles ont rapproché le métier et les développeurs, l'**exploitation traditionnelle** se traduit généralement par un **processus sacralisant un cloisonnement stricts des rôles entre les DEV et les OPS**.
+A ce stade, les méthodes agiles ont rapproché le métier et les développeurs, l'**exploitation traditionnelle** se traduit généralement par un **processus sacralisant un cloisonnement stricts des rôles entre les DEV et les OPS**.
 
 ---
 
@@ -180,12 +199,16 @@ On soulignera que :
 
 ## Les limites de l'exploitation traditionnelle (6/6)
 
+### Une approche amenant à chercher un coupable plutôt qu'une solution
+
 La frontière entre les rôles se traduit humainement par une tendance des équipes DEV et OPS à **chercher à limiter leur responsabilité en cas de problème** plutôt qu'une recherche collective pour **éviter l'apparition de problèmes** voire **corriger rapidement un problème**.
 
 Typiquement, avant de chercher une solution :
 
 * Il faut prouver côté DEV que le problème n'est pas au niveau du code pour que les OPS commencent à analyser les logs.
 * Il faut prouver côté OPS que le problème est lié à une augmentation de la consommation non compatible avec la conception initiale.
+
+Voir [www.commitstrip.com - Comment savoir si votre entreprise est DevOps?](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?).
 
 ---
 
@@ -226,7 +249,7 @@ La séparation des DEV et des OPS conduit à des objectifs distincts :
 
 * Les DEV veulent livrer rapidement des évolutions
 * Les OPS doivent avant tout assurer la disponibilité
-  
+
 Il en résulte le mur de la confusion :
 
 ![Mur de la confusion](img/mur-de-la-confusion.png)
