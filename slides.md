@@ -374,35 +374,11 @@ Avec DevOps, on se concentrera sur la production de valeur en faisant la **chass
 
 ## Le modèle CALMS
 
-### Mesure (1/2)
+### Mesure
 
 "Ce qui ne se mesure pas n'existe pas" (et ce qui n'est pas affiché en rouge sur un graphique ne percutera pas au niveau de la direction).
 
-A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métriques associées**. Par exemple :
-
-| Objectif                                            | Exemples de métriques                                                             |
-| --------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Déployer rapidement une nouvelle version            | Nombre de livraison par mois (ou par an au début)                                 |
-| Assurer un haut niveau de disponibilité             | Taux de disponibilité                                                             |
-| Assurer un haut niveau de performance               | Taux de réponse dans temps acceptable (SLA)                                       |
-| Limiter le nombre d'incident                        | Nombre de ticket ouvert                                                           |
-| Traiter rapidement les incidents                    | Durée de vie des tickets d'incident                                               |
-| Traiter efficacement les problématiques de sécurité | Durée du déploiement d'un patch, nombre de vulnérabilité dans les dépendances,... |
-
----
-
-## Le modèle CALMS
-
-### Mesure (2/2)
-
-On soulignera que définir des métriques et faire en sorte pouvoir les calculer est loin d'être trivial.
-
-A titre d'exemple, il sera par exemple intéressant de :
-
-* Prévoir une catégorisation des incidents pour distinguer les erreurs de programmation, les erreurs de déploiement, les problèmes d'infrastructure,...
-* Prévoir plusieurs niveaux d'attente pour les performances des services (degradé, non acceptable)
-* ...
-
+A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métriques associées**.
 
 ---
 
@@ -416,6 +392,34 @@ Le **partage** et la **transparence** seront important à plusieurs niveaux. Ils
 * La compréhension partagées des objectifs et des enjeux
 * Les transferts de compétences entre équipes
 * ...
+
+---
+
+## Les métriques
+
+
+| Objectif                                            | Exemples de métriques                                                             |
+| --------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Déployer rapidement une nouvelle version            | Nombre de livraison par mois (ou par an au début)                                 |
+| Assurer un haut niveau de disponibilité             | Taux de disponibilité                                                             |
+| Assurer un haut niveau de performance               | Taux de réponse dans temps acceptable (SLA)                                       |
+| Limiter le nombre d'incident                        | Nombre de ticket ouvert                                                           |
+| Traiter rapidement les incidents                    | Durée de vie des tickets d'incident                                               |
+| Traiter efficacement les problématiques de sécurité | Durée du déploiement d'un patch, nombre de vulnérabilité dans les dépendances,... |
+
+---
+
+## La pertinence et le calcul des métriques
+
+On soulignera que définir des métriques pertinentes et faire en sorte pouvoir les calculer est loin d'être trivial.
+
+A titre d'exemple, il sera par exemple intéressant de :
+
+* Prévoir une catégorisation des incidents pour distinguer les erreurs de programmation, les erreurs de déploiement, les problèmes d'infrastructure,...
+* Prévoir plusieurs niveaux d'attente pour les performances des services (degradé, non acceptable)
+* ...
+
+Remarque : Se contenter d'avoir des métriques et avoir des métriques non pertinentes sera contre-productif (exemple : traiter les faux positifs dans la détection automatique de faille de sécurité plutôt que mener une véritable analyse des risques!)
 
 ---
 
