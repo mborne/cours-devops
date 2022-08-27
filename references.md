@@ -24,7 +24,7 @@ Pour ouverture DevSecOps :
 
 * [meritis.fr - Qu’est-ce que le DevOps ? Concepts fondamentaux et bonnes pratiques du DevOps](https://meritis.fr/devops-avez-dit-devops/)
 
-## Divers
+## Divers
 
 * [honghq.com - The API Mandate: How a mythical memo from Jeff Bezos changed software forever](https://konghq.com/blog/api-mandate)
 
