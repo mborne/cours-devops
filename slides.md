@@ -251,6 +251,7 @@ DevOps dépassera à ce titre la simple problématique de l'automatisation des d
 * Infrastructure as Code
 * GitOps
 * Docs as Code
+* L'observabilité
 
 ---
 
@@ -499,6 +500,31 @@ Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importan
 * Assurer la **cohérence entre la description du système et l'état du système**
 * Ne pas **gaspiller de l'énergie en traitant manuellement des mises à jour de document**
 
+---
+
+## L'observabilité
+
+### La supervision du système
+
+> TODO : principes et quelques outils
+
+---
+
+## L'observabilité
+
+### Les journaux applicatifs
+
+> TODO : principes et quelques outils (ELK/EFK)
+
+---
+
+## L'observabilité
+
+### Les sondes web
+
+> TODO : principes et quelques outils (UptimeRobot, prometheus/grafana,...)
+
+---
 
 # DevOps avec des VM
 
@@ -506,6 +532,7 @@ Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importan
 * La création d'un livrable
 * La création des VM avec terraform
 * Le déploiement de l'application avec ansible
+* Les alternatives possibles...
 
 # DevOps avec des conteneurs
 
@@ -525,18 +552,12 @@ Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importan
   * CaaS (conteneur)
   * FaaS (Fonction - code)
 
-* Quelques principes d'architecture
+* La variété des services supports
 
-* Un exemple d'architecture
+  * Gestion des journaux applicatifs
+  * Supervision système
 
+# Un exemple d'architecture DevOps
 
-
-
-
-
-
-
-
-
-
-
+* Vue d'ensemble
+* Principes et explications
