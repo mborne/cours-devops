@@ -417,10 +417,53 @@ Le **partage** et la **transparence** seront important à plusieurs niveaux. Ils
 
 ## Infrastructure as Code
 
+### Principe
+
 L'approche **Infrastructure as Code (IaC)** sera fondamentale en matière d'**automatisation des déploiements**. Elle consiste à gérer une infrastructure informatique à l'aide de programmes :
   
 * Les **procédures de déploiement** deviennent des **scripts de déploiements**.
 * Les **informations prisonnières des documents** deviennent des **paramètres ou des secrets** pour ces scripts de déploiement.
+
+---
+
+## Infrastructure as Code
+
+### Plusieurs étages à configurer
+
+L'automatisation d'un déploiement concernera plusieurs couches du système :
+
+* La création des ressources systèmes (machines virtuelles, réseaux privés,...)
+* La configuration du système (installer et configurer les "middlewares")
+* Le déploiement de l'applicatif
+* Les services d'infrastructure (reverse proxy/load balancer, DNS,...)
+
+---
+
+## Infrastructure as Code
+
+### Une automatisation partielle possible mais limitante
+
+L'**automatisation pourra être partielle** en fonction des possibilités offertes par l'infrastructure et de la politique de l'entreprise mais il faudra **être conscient des conséquences**.
+
+A titre d'exemple, si l'exposition des services (reverse proxy/load balancer) n'est pas automatisée :
+
+* Comment pourrez vous **avoir un système qui s'adapte à la charge**?
+* Comment pourrez vous **éviter les indisponibilités pendant les déploiements**?
+
+---
+
+## Infrastructure as Code
+
+### Pré-requis : choisir des outils compatibles avec l'automatisation!
+
+L'approche IaC laissera une grande liberté de choix dans les outils. Il conviendra toutefois d'**être attentif aux méthodes de configuration disponibles lors du choix des outils** :
+
+* **Une API est disponible** pour configurer l'outil?
+* La configuration est basée sur des **fichiers de configuration**?
+* La configuration est basée sur des **variables d'environnements**?
+* La configuration se fait par des **appels en ligne de commande**?
+
+En substance, <span style="color: red; font-weight: bold">les outils pouvant être configurés <u>uniquement</u> via une IHM sont à bannir!</span>.
 
 ---
 
