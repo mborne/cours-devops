@@ -13,6 +13,9 @@
 
 * [Les origines de DevOps](#les-origines-de-devops)
 * [Les principes de DevOps](#les-principes-de-devops)
+* DevOps avec des VM
+* DevOps avec des conteneurs
+* DevOps dans le cloud
 
 ---
 
@@ -495,5 +498,45 @@ Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importan
 
 * Assurer la **cohérence entre la description du système et l'état du système**
 * Ne pas **gaspiller de l'énergie en traitant manuellement des mises à jour de document**
+
+
+# DevOps avec des VM
+
+* Le socle technique d'exploitation
+* La création d'un livrable
+* La création des VM avec terraform
+* Le déploiement de l'application avec ansible
+
+# DevOps avec des conteneurs
+
+* Les principaux concepts
+* L'intérêt des conteneurs
+* Le déploiement de l'application avec docker compose
+* Qu'est-ce qu'il manque à ce stade?
+* Kubernetes!
+
+# DevOps dans le cloud
+
+* La variété des offres
+
+  * IaaS (VM, stockage,...)
+  * SaaS (service)
+  * PaaS (Application - code)
+  * CaaS (conteneur)
+  * FaaS (Fonction - code)
+
+* Quelques principes d'architecture
+
+* Un exemple d'architecture
+
+
+
+
+
+
+
+
+
+
 
 
