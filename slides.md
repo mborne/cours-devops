@@ -18,7 +18,14 @@
 
 # Les origines de DevOps
 
-De nombreux cours sur DevOps se concentrent sur l'automatisation des déploiements. Nous allons tâcher ici de prendre un peu de recul sur l'histoire récente pour comprendre comment DevOps s'inscrit dans l'évolution des méthodes de développement et de déploiement.
+* La démocratisation d'internet
+* Les géants du web
+* L'agilité dans les développements
+* L'automatisation des tests sur le code
+* L'intégration continue
+* La démocratisation du cloud
+* Les limites de l'exploitation traditionnelle
+* La naissance du terme DevOps
 
 ---
 
@@ -212,7 +219,7 @@ Voir [www.commitstrip.com - Comment savoir si votre entreprise est DevOps?](http
 
 ---
 
-## La naissance de DevOps (1/2)
+## La naissance du terme DevOps (1/2)
 
 Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
@@ -224,7 +231,7 @@ Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
 ---
 
-## La naissance de DevOps (2/2)
+## La naissance du terme DevOps (2/2)
 
 DevOps dépassera à ce titre la simple problématique de l'automatisation des déploiement. DevOps est avant tout un constat :
 
@@ -238,8 +245,9 @@ DevOps dépassera à ce titre la simple problématique de l'automatisation des d
 * Un objectif commun
 * Un processus unifiant le DEV et l'OPS
 * Le modèle CALMS (Culture, Automation, Lean, Measurement & Sharing)
-* ... TODO
-
+* Infrastructure as Code
+* GitOps
+* Docs as Code
 
 ---
 
@@ -337,7 +345,7 @@ Sans entrer dans les détails, avec des projets gérés avec des méthodes hét�
 
 ## Le modèle CALMS
 
-### Automatisation (1/3)
+### Automatisation
 
 DevOps mettra un fort accent sur **l'automatisation**. Elle prendra plusieurs formes :
 
@@ -346,43 +354,6 @@ DevOps mettra un fort accent sur **l'automatisation**. Elle prendra plusieurs fo
 * L'**automatisation de la surveillance** pour détecter et traiter rapidement les problèmes
 * L'**automatisation de la génération de la documentation** pour s'assurer qu'elle correspond à l'état du système
 * ...
-
----
-
-## Le modèle CALMS
-
-### Automatisation (2/3)
-
-Pour l'automatisation des déploiements, on s'appuiera sur l'approche **Infrastructure as Code (IaC)** qui consiste à gérer une infrastructure informatique à l'aide de programmes :
-  
-* Les **procédures de déploiement** deviennent des **scripts de déploiements**.
-* Les **informations prisonnières des documents** deviennent des **paramètres ou des secrets** pour ces scripts de déploiement.
-
-L'approche [**GitOps**](https://www.redhat.com/fr/topics/devops/what-is-gitops) ira un cran plus loin :
-
-* La branche principale du dépôt IaC sera le reflet de l'état du système
-* La validation d'une **pull request** sur la branche principale déclenchera le déploiement
-
-Ceci permettra entre autre de répondre à des problématiques de **tracabilité des déploiements** (qui a lancé quelle version du script de déploiement? qui a proposé/validé la configuration?)
-
----
-
-## Le modèle CALMS
-
-### Automatisation (3/3)
-
-Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code**](https://www.writethedocs.org/guide/docs-as-code/) consiste à **gérer la documentation avec les mêmes outils que ceux qui servent à construire des applications** :
-
-* Le **système de gestion de ticket** permet de **gérer les évolutions et les anomalies**.
-* Le gestionnaire de code source (GIT) permet de **versionner le code source de la documentation** et de **prévisualiser le contenu**.
-* Le source du document est au format texte (Markdown, reStructuredText, Asciidoc).
-* Le mécanisme de revue de code est utilisé pour les revues de documentation.
-* La chaîne CI/CD permet de **générer et de publier la documentation**.
-
-Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importante pour :
-
-* Assurer la **cohérence entre la description du système et l'état du système**
-* Ne pas **gaspiller de l'énergie en traitant manuellement des mises à jour de document**
 
 ---
 
@@ -442,7 +413,44 @@ Le **partage** et la **transparence** seront important à plusieurs niveaux. Ils
 * Les transferts de compétences entre équipes
 * ...
 
+---
 
+## Infrastructure as Code
 
+L'approche **Infrastructure as Code (IaC)** sera fondamentale en matière d'**automatisation des déploiements**. Elle consiste à gérer une infrastructure informatique à l'aide de programmes :
+  
+* Les **procédures de déploiement** deviennent des **scripts de déploiements**.
+* Les **informations prisonnières des documents** deviennent des **paramètres ou des secrets** pour ces scripts de déploiement.
+
+---
+
+## GitOps
+
+L'approche [**GitOps**](https://www.redhat.com/fr/topics/devops/what-is-gitops) ira un cran plus loin que Infrastructure as Code :
+
+* La branche principale du dépôt IaC sera le reflet de l'état du système
+* La validation d'une **pull request** sur la branche principale déclenchera le déploiement
+
+Ceci permettra entre autre de répondre à des problématiques de **tracabilité des déploiements** :
+
+* Qui a lancé quelle version du script de déploiement?
+* Qui a proposé/validé la configuration?
+
+---
+
+## Docs as Code
+
+Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code**](https://www.writethedocs.org/guide/docs-as-code/) consiste à **gérer la documentation avec les mêmes outils que ceux qui servent à construire des applications** :
+
+* Le **système de gestion de ticket** permet de **gérer les évolutions et les anomalies**.
+* Le gestionnaire de code source (GIT) permet de **versionner le code source de la documentation** et de **prévisualiser le contenu**.
+* Le source du document est au format texte (Markdown, reStructuredText, Asciidoc).
+* Le mécanisme de revue de code est utilisé pour les revues de documentation.
+* La chaîne CI/CD permet de **générer et de publier la documentation**.
+
+Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importante pour :
+
+* Assurer la **cohérence entre la description du système et l'état du système**
+* Ne pas **gaspiller de l'énergie en traitant manuellement des mises à jour de document**
 
 
