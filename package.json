@@ -1,0 +1,28 @@
+{
+  "name": "cours-devops",
+  "version": "0.1.0-pre",
+  "description": "Introduction à la méthode DevOps",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mborne/cours-devops.git"
+  },
+  "keywords": [
+    "formation",
+    "devops",
+    "introduction"
+  ],
+  "author": "Mickaël Borne <mborne@users.noreply.github.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/mborne/cours-devops/issues"
+  },
+  "homepage": "https://mborne.github.io/cours-devops",
+  "devDependencies": {
+    "@mborne/markdown-to-html": "git+https://github.com/mborne/markdown-to-html.git#v0.7.0",
+    "shelljs": "^0.8.5"
+  }
+}

@@ -4,7 +4,7 @@
 <br />
 
 <div class="center">
-    <img src="img/Devops-toolchain.svg" />
+    <img src="img/Devops-toolchain.svg" style="height: 300px" />
 </div>
 
 ---
