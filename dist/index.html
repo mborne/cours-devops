@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>index.md</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+    <textarea id="source">
+    
+# Introduction à la méthode DevOps
+
+<br />
+
+<div class="center">
+    <img src="img/Devops-toolchain.svg" style="height: 300px" />
+</div>
+
+---
+
+# Sommaire
+
+* [Les origines de DevOps](origines.html)
+* [Les principes de DevOps](principes.html)
+* DevOps avec des VM
+* DevOps avec des conteneurs
+* DevOps dans le cloud
+* DevOps et l'architecture
+
+    </textarea>
+
+    <script src="assets/remarkjs/remark-latest.min.js"></script>
+    <script src="assets/jquery/jquery-3.3.1.min.js"></script>
+    <script>
+        var slideshow = remark.create();
+
+        /* footer */
+        $('.remark-slide-content').each(function (index, data) {
+            var footer = '<span class="footer">ENSG - Introduction DevOps, Mickaël BORNE, Octobre 2022</span>';
+            $(data).append(footer);
+        });
+    </script>
+
+</body>
+
+</html>
