@@ -1,7 +1,7 @@
 
 # DevOps dans le cloud
 
-* La variété des offres
+* La variété des solutions
 
   * IaaS (VM, stockage,...)
   * SaaS (service)

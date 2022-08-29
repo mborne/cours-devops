@@ -23,6 +23,11 @@ Pour ouverture DevSecOps :
 * [www.commitstrip.com - La sécurité coûte cher ? Essayez le piratage](https://www.commitstrip.com/fr/2017/06/19/security-too-expensive-try-a-hack/?)
 * [geekflare.com - Une introduction à DevSecOps pour les débutants](https://geekflare.com/fr/devsecops-introduction/)
 
+## Cloud
+
+* [www.redhat.com - IaaS, PaaS, SaaS : quelles sont les différences ?](https://www.redhat.com/fr/topics/cloud-computing/iaas-vs-paas-vs-saas)
+* [www.ovhcloud.com - IaaS, PaaS, SaaS : quelle solution cloud choisir ?](https://www.ovhcloud.com/fr/public-cloud/cloud-computing/iaas-paas-saas/)
+
 ## Divers
 
 * [honghq.com - The API Mandate: How a mythical memo from Jeff Bezos changed software forever](https://konghq.com/blog/api-mandate)

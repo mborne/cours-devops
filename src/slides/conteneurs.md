@@ -4,5 +4,5 @@
 * Les principaux concepts
 * L'intérêt des conteneurs
 * Le déploiement de l'application avec docker compose
-* Qu'est-ce qu'il manque à ce stade?
+* Que manque-t'il à ce stade?
 * Kubernetes!
