@@ -126,6 +126,8 @@ Avec DevOps, on se concentrera sur la production de valeur en faisant la **chass
 * Le début d'un développement
 * La mise à disposition du résultat
 
+On cherche égalemet à réduire les gaspillages, il s'agit par exemple de réduire la quantité de code développé mais pas testé ou testé mais pas mis en production. Le fait d'effectuer des petits changements et de jouer le cycle dev/test/prod régulièrement accélère la cadence du développement.
+
 ---
 
 ## Le modèle CALMS
@@ -227,7 +229,7 @@ L'approche IaC laissera une grande liberté de choix dans les outils. Il convien
 * La configuration est basée sur des **variables d'environnements**?
 * La configuration se fait par des **appels en ligne de commande**?
 
-En substance, <span style="color: red; font-weight: bold">les outils pouvant être configurés <u>uniquement</u> via une IHM sont à bannir!</span>.
+En substance, <span style="color: red; font-weight: bold">les outils pouvant être configurés <u>uniquement</u> via une IHM sont à bannir!</span>
 
 ---
 
@@ -266,7 +268,7 @@ Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importan
 
 ### La supervision du système
 
-> TODO : principes et quelques outils
+> TODO : principes et quelques outils (parler des APM)
 
 ---
 
