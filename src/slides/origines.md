@@ -117,7 +117,7 @@ Au niveau d'AWS, Jeff BEZOS posera une règle d'architecture importante : **Tout
 Ceci jouera beaucoup dans :
 
 * La capacité d'AWS à accroître efficacement son offre de service (couplage faible, interfaces clairement définies,...)
-* La capacité des clients à **automatiser l'utilisation des ressources mise à disposition par AWS** (des appels à un service étant plus facilement automatisable que des clics dans une interface graphique)
+* La capacité des clients à **automatiser l'utilisation des ressources mises à disposition par AWS** (des appels à un service étant plus facilement automatisable que des clics dans une interface graphique)
 
 Remarque : On notera que cette règle s'applique aux <u>communications entre les services</u> (s'efforcer de construire toutes ses applications sur la base d'API REST/JSON est assez limitant).
 
