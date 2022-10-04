@@ -11,8 +11,8 @@
 
 # Sommaire
 
-* [Les origines de DevOps](origines.html)
-* [Les principes de DevOps](principes.html)
+* [Les origines de DevOps](origines.md)
+* [Les principes de DevOps](principes.md)
 * DevOps avec des VM
 * DevOps avec des conteneurs
 * DevOps dans le cloud
