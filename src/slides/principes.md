@@ -227,6 +227,7 @@ En substance, <span style="color: red; font-weight: bold">les outils pouvant êt
 On veillera à s'assurer que les scripts de configuration puissent :
 
 * Ếtre exécuter plusieurs fois (**indépotence**)
+* Être interrompu et relancé (**atomicité** - TODO exemple UFW)
 * [Cohabiter avec d'autres](annexe/iac-cohabitation.html)
 * Permettre à la fois la mise à jour du système et sa reconstruction.
 
