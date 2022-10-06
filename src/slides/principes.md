@@ -207,6 +207,35 @@ L'automatisation d'un déploiement concernera plusieurs couches du système :
 
 ## Infrastructure as Code
 
+### Quels sont les pré-requis?
+
+L'approche IaC laissera une grande liberté de choix dans les outils du cadre technique dès lors qu'ils sont **compatibles avec l'automatisation**. Il conviendra principalement d'**être attentif aux méthodes de configuration disponibles** :
+
+* **Une API est disponible** pour configurer l'outil?
+* La configuration est basée sur des **fichiers de configuration**?
+* La configuration est basée sur des **variables d'environnements**?
+* La configuration se fait par des **appels en ligne de commande**?
+
+En substance, <span style="color: red; font-weight: bold">les outils pouvant être configurés <u>uniquement</u> via une IHM sont à bannir!</span>
+
+---
+
+## Infrastructure as Code
+
+### Quelles bonnes pratiques?
+
+On veillera à s'assurer que les scripts de configuration puissent :
+
+* Ếtre exécuter plusieurs fois (**indépotence**)
+* [Cohabiter avec d'autres](annexe/iac-cohabitation.html)
+* Permettre à la fois la mise à jour du système et sa reconstruction.
+
+> TODO : Note sur les tests
+
+---
+
+## Infrastructure as Code
+
 ### Une automatisation partielle possible mais limitante
 
 L'**automatisation pourra être partielle** en fonction des possibilités offertes par l'infrastructure et de la politique de l'entreprise mais il faudra **être conscient des conséquences**.
@@ -215,21 +244,6 @@ A titre d'exemple, si l'exposition des services (reverse proxy/load balancer) n'
 
 * Comment pourrez vous **avoir un système qui s'adapte à la charge**?
 * Comment pourrez vous **éviter les indisponibilités pendant les déploiements**?
-
----
-
-## Infrastructure as Code
-
-### Pré-requis : choisir des outils compatibles avec l'automatisation!
-
-L'approche IaC laissera une grande liberté de choix dans les outils. Il conviendra toutefois d'**être attentif aux méthodes de configuration disponibles lors du choix des outils** :
-
-* **Une API est disponible** pour configurer l'outil?
-* La configuration est basée sur des **fichiers de configuration**?
-* La configuration est basée sur des **variables d'environnements**?
-* La configuration se fait par des **appels en ligne de commande**?
-
-En substance, <span style="color: red; font-weight: bold">les outils pouvant être configurés <u>uniquement</u> via une IHM sont à bannir!</span>
 
 ---
 
