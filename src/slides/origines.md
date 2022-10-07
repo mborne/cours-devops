@@ -61,7 +61,7 @@ La démocratisation d'internet et des applications en réseau se traduira aussi 
 
 ## L'agilité dans les développements (2/2)
 
-La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marquera un tournant dans les méthodes de développement en exploitant cette possibilité.
+La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marquera un tournant dans les méthodes de développement qui exploitera pleinement la possibilité de livrer à moindre frais.
 
 L'agilité incluera entre autre de :
 
@@ -76,19 +76,19 @@ Livrer rapidement et régulièrement est **incompatible** avec le fait procéder
 
 L'agilité se décline en plusieurs méthodes de développement qui incitent à **réduire le risque de régression** à l'aide de **tests unitaires et fonctionnels**.
 
-On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)** formalisée **en 2003** par Kent Beck.
+On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)** formalisée **en 2003** par Kent Beck où l'idée est de commencer par écrire les tests unitaires.
 
 ---
 
 ## L'intégration continue
 
-Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_(software)) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagnent en popularités. Ils sont utilisés entre autre pour :
+Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_(software) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagnent en popularités. Ils sont utilisés entre autre pour :
 
 * **Centraliser l'exécution des tests** (et s'assurer qu'ils sont bien exécutés)
 * Présenter pour tous les **rapports d'exécution des tests**
 * **Produire des livrables** à déployer (archive zip/tar, paquet debian/centos, installeur)
 
----
+Il sera très rapidement tentant d'exécuter ces tests avant d'accepter des demandes de modification du code (*pull request*), d'où l'apparition de solution d'intégration continue intégrées aux gestionnaires de code source telles GitHub actions et GitLab-CI quelques années plus tard.
 
 ---
 
@@ -163,8 +163,9 @@ On trouvera par exemple le processus suivant pour déployer une application :
 
 La **mise en production initiale** de l'application prendra alors facilement **1 mois** pour diverses raisons :
 
-* Problème de **compréhension du DAT ou du DEX**
-* Problème de **complétude du DAT ou du DEX**
+* Problème de **compréhension des documents**
+* Problème de **complétude des documents**
+* Problème d'**actualité des documents**
 
 Il en sera de même pour **chaque évolution induisant le moindre d'architecture** (ajout d'un service support, changement de méthode de gestion d'un paramètre,...) ce qui laissera deux options :
 
@@ -217,7 +218,5 @@ Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
 DevOps dépassera à ce titre la simple problématique de l'automatisation des déploiement. DevOps est avant tout un constat :
 
-* Pour pouvoir **livrer régulièrement et fréquemment des applications** et **s'adapter à la charge**, l'**agilité dans la gestion des infrastructures**.
+* Pour pouvoir **livrer régulièrement et fréquemment des applications** et **s'adapter à la charge**, il faut de **l'agilité dans la gestion des infrastructures**.
 * Pour introduire de l'**agilité dans les infrastructures**, il faut un **rapprochement entre les activités de développement (DEV) et d'exploitation (OPS)**.
-
----
