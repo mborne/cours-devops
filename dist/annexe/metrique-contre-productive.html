@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>metrique-contre-productive.md</title>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
+  <style>
+    html, body {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="cas-décole-de-métrique-contre-productive">Cas d&#39;école de métrique contre-productive</h1><p>Le cas suivant semble courant :</p>
+<ul>
+<li>On utilise uniquement un outil d&#39;analyse statique du code pour définir une métrique sécurité du code (Ex : &quot;nombre de failles détectées dans le code&quot;)</li>
+<li>On concentre tous les efforts sur le traitement des alertes levées automatiquement.</li>
+</ul>
+<p>On se retrouve alors à traiter principalement des problèmes de sécurité mineurs et des faux positifs.</p>
+<p>Les failles critiques ne pouvant être décelées par ce type d&#39;outils peuvent par contre faire de vieux os car on a oublié de définir une métrique &quot;Fréquence des audits de sécurité complet&quot; pour les failles ne pouvant être détecté que par :</p>
+<ul>
+<li>Une revue du code</li>
+<li>Une revue de l&#39;architecture</li>
+<li>Une revue de la méthode de déploiement</li>
+<li>Une revue de la méthode de sauvegarde</li>
+<li>...</li>
+</ul>
+
+  </article>
+
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+</html>
