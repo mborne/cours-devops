@@ -3,6 +3,7 @@
 
 * Un objectif commun
 * Un processus unifiant le DEV et l'OPS
+* Un processus sujet à l'amélioration continue
 * Le modèle CALMS
 * Les métriques
 * L'observabilité
@@ -56,7 +57,7 @@ On reconnaîtra dans ce processus la **roue de Deming** bien connue dans le **do
     </p>
 </div>
 
-On notera qu'il est principalement question de **ne pas avoir deux processus distincts**.
+On notera qu'il est principalement question avec DevOps de **ne pas avoir deux processus distincts**.
 
 ---
 
@@ -74,7 +75,7 @@ A ce titre, il conviendra d'**améliorer en continu ce processus**.
 
 Il convient de souligner que la **gestion des infrastructures est un sujet sensible**. Pour faire évoluer les pratiques et les processus, il faudra d'abord une compréhension partagée :
 
-* De **ce qu'est l'agilité dans le développement** (et de ce que ça implique au niveau de l'exploitation, de la prévibilité des coûts, des plannings de livraison des fonctionnalités...) 
+* De **ce qu'est l'agilité dans le développement** (et de ce que ça implique au niveau de l'exploitation, de la prévisibilité des coûts, des plannings de livraison des fonctionnalités...) 
 * Des **limites des méthodes d'exploitation traditionnelle** (d'où les nombreuses slides)
 * Des **problèmes et améliorations possibles**
 
@@ -432,6 +433,8 @@ Plus généralement, vous aurez sûrement la chance de comparer avec d'autres ap
 ## Everything as Code!
 
 Au final, il sera très vite tentant de gérer un maximum d'élément à l'aide du gestionnaire de code source car il offre **un cadre pour la gestion des évolutions**.
+
+<span style="color: red; font-weight: bold;">La seule exception concerne les secrets qui ne doivent jamais être stocké dans un dépôt!</span>
 
 Il est intéressant de voir apparaître :
 

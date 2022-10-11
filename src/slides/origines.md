@@ -45,7 +45,7 @@ Ils répondront par des **architectures scalables** avec de nouvelles approches 
 
 Ces acteurs seront aussi des pionniers en matière de DevOps en répondant avec une nouvelle approche en matière de gestion des infrastructures. 
 
-En 2003, Google pose un nouveau rôle : Le [Site Reliability Engineer (SRE)](https://sre.google/books/) qui doit assurer un haut niveau de disponibilité des services **collobaration étroite avec les développeurs**.
+Le rôle de [Site Reliability Engineer (SRE)](https://sre.google/books/) posé par Google en 2003 pour assurer un haut niveau de disponibilité des services en **collobaration étroite avec les développeurs** sera précurseur en matière de DevOps.
 
 ---
 
@@ -82,13 +82,13 @@ On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org
 
 ## L'intégration continue
 
-Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_(software) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagnent en popularités. Ils sont utilisés entre autre pour :
+Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_(software)) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagneront naturellement en popularité. Ils seront utilisés entre autre pour :
 
 * **Centraliser l'exécution des tests** (et s'assurer qu'ils sont bien exécutés)
 * Présenter pour tous les **rapports d'exécution des tests**
 * **Produire des livrables** à déployer (archive zip/tar, paquet debian/centos, installeur)
 
-Il sera très rapidement tentant d'exécuter ces tests avant d'accepter des demandes de modification du code (*pull request*), d'où l'apparition de solution d'intégration continue intégrées aux gestionnaires de code source telles GitHub actions et GitLab-CI quelques années plus tard.
+Il sera très rapidement tentant d'**exécuter ces tests avant d'accepter des demandes de modification du code (*pull request*)**. Des solutions d'intégration continue telles [GitHub actions](https://github.com/features/actions) et [GitLab-CI](https://docs.gitlab.com/ee/ci/) seront donc intégrées aux gestionnaires de code source quelques années plus tard.
 
 ---
 
@@ -127,7 +127,7 @@ Remarque : On notera que cette règle s'applique aux <u>communications entre les
 
 ### Une séparation stricte des rôles
 
-A ce stade, les méthodes agiles ont rapproché le métier et les développeurs, l'**exploitation traditionnelle** se traduit généralement par un **processus sacralisant un cloisonnement stricts des rôles entre les DEV et les OPS**.
+L'**exploitation traditionnelle** se traduit généralement par un **processus sacralisant un cloisonnement stricts des rôles entre les DEV et les OPS**.
 
 ---
 
@@ -140,7 +140,8 @@ On trouvera par exemple le processus suivant pour déployer une application :
 * Les DEV préparent une version à déployer (ex : `v0.1.0`)
 * Les DEV rédigent un **dossier d'architecture Technique (DAT)** (schéma d'architecture, description des services, dimensionnement demandé, URL à exposer...).
 * Les DEV régigent un **dossier d'exploitation (DEX)** décrivant les procédures d'installation, le paramétrage, les éléments à surveiller...
-* Les OPS **provisionnent l'infrastructure** à partir du DAT et du DEX (création des VM, configuration réseau, reverse proxy,...)
+* Les OPS **provisionnent l'infrastructure** à partir du DAT (création des VM, configuration réseau, reverse proxy,...)
+* Les OPS **installent l'application** à partir du DEX
 * Les DEV valident le déploiement
 * Les OPS surveillent l'infrastructure et traitent les problèmes techniques.
 
@@ -148,18 +149,18 @@ On trouvera par exemple le processus suivant pour déployer une application :
 
 ## Les limites de l'exploitation traditionnelle (3/6)
 
-### Une approche en apparence sécurisée
+### Une approche en apparence parfaite!
 
 * Seuls des **administrateurs systèmes configurent le système** ([ce qui conforme à la PSSIE rédigée en 2014...](https://www.ssi.gouv.fr/entreprise/reglementation/protection-des-systemes-dinformations/la-politique-de-securite-des-systemes-dinformation-de-letat-pssie/))
 * Les **développeurs** sont **déchargés des problématiques d'exploitation**
 
-**C'est oublier la loi de Murphy!**
+**C'est oublier la [loi de Murphy](https://fr.wikipedia.org/wiki/Loi_de_Murphy)!**
 
 ---
 
 ## Les limites de l'exploitation traditionnelle (4/6)
 
-### Une approche qui empêche de livrer rapidement et régulièrement
+### Une approche qui empêche de livrer rapidement!
 
 La **mise en production initiale** de l'application prendra alors facilement **1 mois** pour diverses raisons :
 
@@ -176,20 +177,20 @@ Il en sera de même pour **chaque évolution induisant le moindre d'architecture
 
 ## Les limites de l'exploitation traditionnelle (5/6)
 
-### Une approche qui génère des problèmes en production
+### Une approche qui génère des problèmes en production!
 
 Une **demande d'exploitation ou une procédure** est **mal comprise** ou **mal traduite en opérations**.
 
 On soulignera que :
 
-* **Les OPS** n'étant pas partie prenante dans la conception de l'application **ne peuvent avoir un regard critique et une compréhension des demandes** (une mise à jour devient une montée en version, une action demandée en QUALIFICATION est appliquée en PRODUCTION,...)
-* **Les DEV** n'étant pas partie prenante dans la conception de l'infrastructure **n'exploitent pas le système de manière optimale** (utilisation du mauvais système de stockage, saturation de débit réseau,...)
+* **Les OPS** ne participant pas à la conception de l'application **ne peuvent avoir un regard critique et une compréhension des demandes** (une mise à jour devient une montée en version, une action demandée en QUALIFICATION est appliquée en PRODUCTION,...)
+* **Les DEV** ne participant pas à la conception de l'infrastructure **n'exploitent pas le système de manière optimale** (utilisation du mauvais système de stockage, saturation de débit réseau,...)
 
 ---
 
 ## Les limites de l'exploitation traditionnelle (6/6)
 
-### Une approche amenant à chercher un coupable plutôt qu'une solution
+### Une approche amenant à chercher un coupable plutôt qu'une solution!
 
 La frontière entre les rôles se traduit humainement par une tendance des équipes DEV et OPS à **chercher à limiter leur responsabilité en cas de problème** plutôt qu'une recherche collective pour **éviter l'apparition de problèmes** voire **corriger rapidement un problème**.
 
@@ -206,9 +207,8 @@ Voir [www.commitstrip.com - Comment savoir si votre entreprise est DevOps?](http
 
 Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
-* En 2008, une conférence Agile à Toronto permet la rencontre entre l'organisateur d'une rencontre sur le thème **« Infrastructure Agile »** et un chef de projet Patrick Debois faisant face au manque de  **cohésion entre les équipes de développement d'applications et les équipes d'exploitation**
-* En 2009, deux responsables de Flickr proposent une solution à ce problème : Embaucher des **« Ops qui pensent comme des Devs »** et des **« Devs qui pensent comme des Ops »**.
-* En 2009, Patrick Debois contracte **développements (DEV)** et **opérations (OPS)** dans un hashtag pour annoncer la première [DevOpsDays](https://devopsdays.org/): **DevOps est né**.
+* En 2008, une conférence Agile à Toronto permettra la rencontre entre l'organisateur d'une rencontre sur le thème **« Infrastructure Agile »** et un chef de projet Patrick Debois faisant face au manque de  **cohésion entre les équipes de développement d'applications et les équipes d'exploitation**
+* En 2009, Patrick Debois contractera **développements (DEV)** et **opérations (OPS)** dans un hashtag pour annoncer la première [DevOpsDays](https://devopsdays.org/): **DevOps est né**.
 
 (voir [devopssec.fr - L'histoire du DevOps](https://devopssec.fr/article/histoire-du-devops) qui aborde tout ça plus en détail)
 
@@ -216,7 +216,7 @@ Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
 ## La naissance du terme DevOps (2/2)
 
-DevOps dépassera à ce titre la simple problématique de l'automatisation des déploiement. DevOps est avant tout un constat :
+DevOps dépasse à ce titre la simple problématique de l'automatisation des déploiement. DevOps est avant tout un constat :
 
 * Pour pouvoir **livrer régulièrement et fréquemment des applications** et **s'adapter à la charge**, il faut de **l'agilité dans la gestion des infrastructures**.
 * Pour introduire de l'**agilité dans les infrastructures**, il faut un **rapprochement entre les activités de développement (DEV) et d'exploitation (OPS)**.

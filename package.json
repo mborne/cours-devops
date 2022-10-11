@@ -22,7 +22,7 @@
   },
   "homepage": "https://mborne.github.io/cours-devops",
   "devDependencies": {
-    "@mborne/markdown-to-html": "^0.8.0",
+    "@mborne/markdown-to-html": "^0.8.1",
     "shelljs": "^0.8.5"
   }
 }

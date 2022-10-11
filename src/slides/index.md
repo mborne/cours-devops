@@ -13,7 +13,7 @@
 
 * [Les origines de DevOps](origines.md)
 * [Les principes de DevOps](principes.md)
-* DevOps avec des VM
-* DevOps avec des conteneurs
-* DevOps dans le cloud
-* DevOps et l'architecture
+* [DevOps avec des VM](vm.md)
+* [DevOps avec des conteneurs](conteneurs.md)
+* [DevOps dans le cloud](cloud.md)
+
