@@ -19,7 +19,7 @@ L'idée est ensuite d'entrer dans la pratique avec :
 * [DevOps avec des conteneurs](src/slides/conteneurs.md) pour expliquer l'intérêt des conteneurs (livrable universel) et introduire CaaS avec un survol de Kubernetes.
 * [DevOps dans le cloud](src/slides/cloud.md) pour faire un focus sur les problématiques d'architecture liées à l'hybridation d'IaaS, SaaS et CaaS.
 
-Sur ces dernières parties, l'idée est de prendre des exemples concrets de déploiement et de faire des démonstrations.
+Sur ces dernières parties, l'idée est de prendre des exemples concrets de déploiement et de faire des démonstrations dont le volume variera selon le nombre de séances.
 
 ## License
 
