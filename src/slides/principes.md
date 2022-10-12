@@ -304,7 +304,7 @@ Pour diagnostiquer des problèmes de performances dans des systèmes complexes, 
 ### Principe
 
 L'approche **Infrastructure as Code (IaC)** sera fondamentale en matière d'**automatisation des déploiements**. Elle consiste à gérer une infrastructure informatique à l'aide de programmes :
-  
+
 * Les **procédures de déploiement** deviennent des **scripts de déploiements**.
 * Les **informations prisonnières des documents** deviennent des **paramètres ou des secrets** pour ces scripts de déploiement.
 
@@ -388,7 +388,7 @@ L'approche [**GitOps**](https://www.redhat.com/fr/topics/devops/what-is-gitops) 
 Cette approche permettra de :
 
 * Mettre en oeuvre un **déploiement en continu**
-* Résoudre des problématiques de **tracabilité des déploiements** :
+* Résoudre des problématiques de **traçabilité des déploiements** :
   * Qui a lancé quelle version du script de déploiement?
   * Qui a proposé/validé la configuration?
 * S'appuyer sur **cadre de gestion des droits du gestionnaire de code source** :
@@ -423,9 +423,9 @@ Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importan
 
 Plus généralement, vous aurez sûrement la chance de comparer avec d'autres approches où :
 
-* Les documents sont extraits d'une solution bureautique, édité sur un poste et renvoyé par mail
+* Un est extrait d'une solution bureautique, édité sur un poste et renvoyé par mail
 * Vous vous demandez où est la dernière version du document (c.f. point précédent...)
-* Vous perdrez les traces des modifications (qui a introduit ou levé cette exigence? quand? pourquoi?)
+* Vous perdez les traces des modifications (qui a introduit ou levé cette exigence? quand? pourquoi?)
 * ...
 
 ---
