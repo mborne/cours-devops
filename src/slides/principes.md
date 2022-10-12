@@ -30,7 +30,7 @@ Il en résulte le mur de la confusion :
 
 ## Un objectif commun (2/2)
 
-Pour rémédier à cette situation, il sera impératif de **replacer le produit et la création de valeur au centre** en fixant un objectif commun aux DEV et OPS :
+Pour remédier à cette situation, il sera impératif de **replacer le produit et la création de valeur au centre** en fixant un objectif commun aux DEV et OPS :
 
 **Livrer rapidement des évolutions tout en assurant la disponibilité**
 
@@ -101,7 +101,7 @@ Pour faire simple, avant de cibler une **infrastructure agile**, il faut être n
 
 En pratique, s'orienter vers la méthode DevOps sera délicat sans une **politique globale permettant l'agilité au niveau de l'entreprise**.
 
-Nous trouverons à ce titre des **framework d'agilité à l'échelle** tels [Scaled agile framework (SAFe)](https://www.scaledagileframework.com/) qui inclueront DevOps dans une démarche plus globale.
+Nous trouverons à ce titre des **framework d'agilité à l'échelle** tels [Scaled agile framework (SAFe)](https://www.scaledagileframework.com/) qui incluront DevOps dans une démarche plus globale.
 
 Sans entrer dans les détails, avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...), il sera par exemple difficile d'avoir des métriques pour mettre en évidence les problèmes et les améliorations.
 
@@ -214,8 +214,8 @@ Pour mesurer la qualité du code, il sera possible de s'appuyer sur :
 
 Remarque :
 
-* SonarQube a le mérite d'offir une interface unifiée pour différents langages (ce qui plait aux décideurs).
-* Les outils d'analyse de code dédiés aux langages (jshint, jslint, phpmd, phpstan,...) offriront parfois des alertes et une démarche plus "as code".
+* [SonarQube](https://www.sonarqube.org/) a le mérite d'offrir une interface unifiée pour différents langages (ce qui plait aux décideurs).
+* Les outils d'analyse de code dédiés aux langages (jshint, jslint, phpmd, phpstan,...) offriront parfois des alertes plus pertinente ainsi qu'une démarche plus "as code".
 
 
 ---
@@ -251,12 +251,12 @@ Une compréhension vision partagée du comportement du système et des contraint
 
 Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin.openstreetmap.org/), [netdata](https://www.netdata.cloud/),...) permettent de :
 
-* Surveiller la consommation de ressource (RAM, CPU, stockage, bande passante,...)
+* Surveiller la consommation de ressources (RAM, CPU, stockage, bande passante,...)
 * Mettre en oeuvre des alertes pour :
-  * Éviter l'apparition de problèmes (si >=90% de stockage utilisé)
-  * Détecter des problèmes (atteinte de limite de bande passante, limite de nombre de connexion simultanées, >=80% de CPU utilisé pendant 10 minutes)
+  * Éviter l'apparition de problèmes (si >=90% de stockage est utilisé)
+  * Détecter des problèmes (atteinte de limite de bande passante, de la limite de nombre de connexion simultanées, >=80% de CPU utilisé pendant 10 minutes)
 
-Ils offrent au passage un terrain de discussion intéressant entre les DEV et les OPS.
+**Les outils de supervision offrent au passage un terrain de discussion intéressant entre les DEV et les OPS.**
 
 ---
 
@@ -272,7 +272,13 @@ Une sonde web interroge périodiquement une URL en vérifiant la réponse (code 
 
 On soulignera que la mise en oeuvre est triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/).
 
-On notera qu'il sera intéressant de prévoir des URL dédiées à la surveillance (ex : `/health/db`, `/health/wfs-geoportail`,...) pour faciliter l'interprétation des problèmes au niveau des sondes dans les applications complexes.
+### Les sondes web unitaires
+
+Interpréter un échec sur une sonde impliquant plusieurs services en backend n'est pas trivial.
+
+Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des outils tels [stackstorm](https://stackstorm.com/) encore moins.
+
+Il sera donc intéressant de prévoir des URL dédiées à la surveillance (ex : `/health/db`, `/health/wfs-geoportail`,...).
 
 ---
 
@@ -282,12 +288,13 @@ On notera qu'il sera intéressant de prévoir des URL dédiées à la surveillan
 
 En cas de problème, il sera nécessaire d'**avoir une vision sur les traitements réalisés dans une application**.
 
-En ce sens, il convient de **produire des journaux applicatifs exploitables** et de les centraliser dans un **puit de log** offrant une interface de recherche efficace.
+En ce sens, il convient de **produire des journaux applicatifs exploitables** et de les centraliser dans un **puits de log** offrant une interface de recherche efficace.
 
 La référence historique en la matière est la suite ELK où :
 
 * **ElasticSearch** est utilisée pour stocker les journaux applicatifs
-* **Logstash** analse
+* **Logstash** parse et intègre les logs dans **ElasticSearch**
+* **Kibana** offre une interface d'exploration des logs.
 
 ---
 
@@ -329,7 +336,7 @@ L'automatisation d'un déploiement concernera plusieurs couches du système :
 
 On veillera à s'assurer que les scripts de configuration puissent :
 
-* Ếtre exécuter plusieurs fois (**[indépotence](annexe/iac-indepotence.html)**)
+* Ếtre exécuter plusieurs fois (**[idempotence](annexe/iac-idempotence.html)**)
 * Être interrompu et relancé (**atomicité**)
 * [Cohabiter avec d'autres](annexe/iac-cohabitation.html)
 * Être testés par exemple avec des environnements de qualification et de pré-production.
