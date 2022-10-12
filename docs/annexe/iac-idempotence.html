@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-  <title>iac-indepotence.md</title>
+  <title>iac-idempotence.md</title>
 
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
@@ -19,7 +19,7 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="iac---lindépotence">IaC - l&#39;indépotence</h1><h2 id="cas-décole">Cas d&#39;école</h2><p>Je souhaite configurer l&#39;authentification SSH en renseignant les clés publiques (ex : <a href="https://github.com/mborne.keys" target="_blank">https://github.com/mborne.keys</a>) pour un utilisateur (ex : <code>mborne</code>).</p>
+    <h1 id="iac---lidempotence">IaC - l&#39;idempotence</h1><h2 id="cas-décole">Cas d&#39;école</h2><p>Je souhaite configurer l&#39;authentification SSH en renseignant les clés publiques (ex : <a href="https://github.com/mborne.keys" target="_blank">https://github.com/mborne.keys</a>) pour un utilisateur (ex : <code>mborne</code>).</p>
 <h2 id="contre-exemple">Contre-exemple</h2><p>J&#39;ajoute les clés en question au fichier <code>/home/${USER}/authorized_keys</code> : <strong>Pas bien!</strong> (avec plusieurs exécutions, le fichier grossira innutilement)</p>
 <h2 id="exemple">Exemple</h2><p>Je m&#39;assure que les clés en question sont bien dans le fichier <code>/home/${USER}/authorized_keys</code> : <strong>Bien!</strong></p>
 
