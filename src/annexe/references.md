@@ -18,6 +18,7 @@
 
 ## Cloud
 
+* [12factor.net - Les 12 facteurs](https://12factor.net) pour des applications "*cloud ready*"
 * [ENSG - Technologies de Cloud Computing (Cédric Esnault)](https://cedricici.github.io/cours-cloud/public/#/)
 * [honghq.com - The API Mandate: How a mythical memo from Jeff Bezos changed software forever](https://konghq.com/blog/api-mandate)
 * [www.redhat.com - IaaS, PaaS, SaaS : quelles sont les différences ?](https://www.redhat.com/fr/topics/cloud-computing/iaas-vs-paas-vs-saas)
