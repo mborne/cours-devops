@@ -1,6 +1,8 @@
 
 # DevOps dans le cloud
 
+**En construction!**
+
 * La variété des offres
 
   * IaaS (VM, stockage,...)
