@@ -18,6 +18,8 @@ Nous allons voir en pratique comment se passe le déploiement d'une application 
 * [PostgreSQL](https://www.postgresql.org/) avec l'extension [PostGIS](https://postgis.net/) pour stocker des données géographiques.
 * [GeoServer](https://geoserver.org/) pour diffuser ces données en WMS et WFS.
 
+Nous appelerons le système résultant **GeoStack** (afin d'avoir un nom de base pour le dépôt dédié au déploiement : `geostack-deploy`)
+
 ---
 
 ## Architecture initiale
@@ -68,8 +70,6 @@ Dans le cas présent, nous avons cette chance :
 
 * [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous pourrons utiliser le dépôt [apt.postgresql.org](http://apt.postgresql.org/) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
 * [GeoServer](https://geoserver.org/release/stable/) met lui aussi à disposition des livrables prêts à l'emploi.
-
-Nous appelerons le système résultant **GeoStack** (afin d'avoir un nom de base pour faire un dépôt)
 
 ---
 
@@ -144,14 +144,15 @@ Nous allons analyser et utiliser le dépôt [mborne/vagrantbox](https://github.c
 Nous soulignerons que :
 
 * La principale difficulté traitée dans ce dépôt est l'utilisation optionnelle d'un proxy sortant avec le plugin [vagrant-proxyconf](https://rubygems.org/gems/vagrant-proxyconf/versions/1.5.2).
-* Vous pourrez initialiser vos propre `Vagrantfile` en suivant [Vagrant - getting started](https://learn.hashicorp.com/collections/vagrant/getting-started) :
+* Vous pourrez créer vos propres `Vagrantfile` en suivant [Vagrant - getting started](https://learn.hashicorp.com/collections/vagrant/getting-started) :
 
 ```bash
 vagrant init ubuntu/focal64
+# lire et adapter le Vagrantfile généré...
 vagrant up
 ```
 * Vous trouverez de nombreux tutorials et [cheat sheet](https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md) en ligne pour utiliser cet outil.
-* Vagrant est aussi pratique pour créer une VM de DEV Linux avec un environnement graphique (`apt-get install ubuntu-desktop`)
+* Vagrant sera aussi pratique pour créer une VM de DEV Linux avec un environnement graphique (`apt-get install ubuntu-desktop`)
 
 ---
 
@@ -202,20 +203,66 @@ Nous trouverons plusieurs exécutable avec Ansible :
 
 Présenter proprement l'ensemble des [concepts ansible](https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html#basic-concepts) demanderait plusieurs séances.
 
-Nous allons ici nous contenter d'une démonstration de l'utilisation de PostgreSQL et GeoServer avec cet outils :
-
-**TODO : liens vers geostack-deploy/ansible**
+Nous allons ici nous contenter d'une démonstration : [mborne/geostack-deploy - Déploiement de GeoStack avec ansible](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible)
 
 ---
 
-## Le déploiement de l'application
+## Que manque-t'il?
 
-**TODO**
+### La sécurité!
 
-* Configurer un pare-feu (sensibilisation avec [www.shodan.io](https://www.shodan.io/))
-* Configurer un reverse proxy (ex : nginx)
-* Mettre en oeuvre HTTPS (letsencrypt, blinder la configuration TLS : https://www.ssllabs.com/ssltest/,...)
-* Blinder la configuration des VM (parenthèse DevSecOps avec https://dev-sec.io/baselines/linux/ )
+Nous ne pourrions pas procéder ainsi avec des VM exposées sur internet :
+
+* Nous finirions sur [www.shodan.io](https://www.shodan.io/)
+* Un des nombreux bots qui scannent le web trouverait vite nos services
+
+---
+
+## Que manque-t'il?
+
+### Un reverse proxy
+
+Il conviendrait à minima de passer sur une architecture du type suivant en ajoutant un reverse proxy ("lb") :
+
+![GeoStack v0.2](src/slides/schema/geostack-0.2.png)
+
+Ceci nous permettrait par exemple :
+
+* D'exposer publiquement uniquement les services WMS et WFS de GeoServer
+* D'exposer l'interface d'interface d'administration avec un filtrage par IP
+
+---
+
+## Que manque-t'il?
+
+### La mise en oeuvre de HTTPS
+
+En HTTP, le mot de passe de l'administrateur GeoServer circulera en clair sur le réseau.
+
+Il conviendrait donc de mettre en oeuvre HTTPS pour y remédier. On soulignera que :
+
+* HTTPS peut être mis en oeuvre au niveau du reverse proxy
+* La mise en oeuvre HTTPS requière l'achat d'un certificat ou la génération de celui-ci avec [Let's Encrypt](https://letsencrypt.org/fr/)
+* Pour les services exposés sur INTERNET, il existe des outils pour tester et blinder la configuration de TLS (cyphers, entêtes de sécurité, certificat intermédiaire...) : [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/), [www.sslshopper.com](https://www.sslshopper.com/),...
+* Pour les autres (intranet, RIE), il faudra maîtriser `openssl` pour diagnostiquer les problèmes et faire des contrôles.
+
+---
+
+## Que manque-t'il?
+
+### Et ça n'est pas tout...
+
+Pour pouvoir exploiter ces deux composants, il faudrait :
+
+* Configurer la centralisation des logs
+* Configurer un système de supervision
+* Configurer des sauvegardes
+
+De même, la sécurisation est imcomplète car il faudrait logiquement :
+
+* Utiliser un réseau privé
+* Configurer un pare-feu
+* Blinder la configuration des VM ( c.f. [dev-sec.io - DevSec Hardening Framework](https://dev-sec.io/baselines/linux/) )
 * ...
 
 
@@ -223,12 +270,40 @@ Nous allons ici nous contenter d'une démonstration de l'utilisation de PostgreS
 
 ## L'incontournable zone d'hébergement
 
-TODO : présenter l'architecture classique d'une zone d'hébergement IaaS :
+### La nécessité de traiter globalement ces problèmes
 
-* Bastion SSH
-* Reverse Proxy / Load Balancer communs aux applications
-* Services supports
-* Puits de logs
-* Système de supervision
+Il est illusoire d'espérer traiter de manière homogène ces problématiques au niveau de chaque application.
 
+Traiter ces problématiques de manière efficace demandera la mise en place d'une infrastructure pour l'accueil des applications dont le nom variera entre :
+
+* Zone d'hébergement
+* *Landing zone*
+* Socle technique d'exploitation
+* ...
+
+---
+
+## L'incontournable zone d'hébergement
+
+### Les principaux composants
+
+Dans la zone d'hébergement, nous trouverons par exemple :
+
+* Un **Bastion SSH** pour l'accès aux VM par les administrateurs
+* Un **Reverse Proxy / Load Balancer** communs aux applications
+* Des **services supports** (SMTP, DNS,...) communs aux applications
+* Un puits de logs
+* Un système de supervision
+* Un serveur de déploiement
+* ...
+
+---
+
+## L'incontournable zone d'hébergement
+
+### Une compatibilité avec DevOps à garantir...
+
+En cas de recours à une équipe dédiée ou un prestataire pour construire cette zone d'hébergement, il conviendra de s'assurer que la méthode permet l'automatisation des déploiements.
+
+Typiquement, s'il faut faire un ticket au prestataire pour mettre à jour la configuration du reverse proxy et que la prise en compte de votre demande est garantie sous 6 jours, vous serez limiter dans la mise en oeuvre d'automatisme pour faire face à des pics de charge...
 
