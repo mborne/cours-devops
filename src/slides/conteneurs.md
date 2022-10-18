@@ -73,11 +73,13 @@ Pour déployer GeoStack, nous trouvons :
 
 ## La construction d'une image
 
-Pour illustrer la construction d'une image docker à partir d'un Dockerfile, nous allons faire l'exercice de créer nous même l'image pour GeoServer.
+Pour illustrer la construction d'une image docker à partir d'un Dockerfile, nous allons faire l'exercice de créer nous même l'image pour GeoServer dans le dépôt [github.com - mborne/docker-geoserver](https://github.com/mborne/docker-geoserver#readme).
 
-Nous travaillons dans un dépôt dédié pour faciliter au passage la mise en oeuvre d'une intégration continue : **TODO - EN CONSTRUCTION**
+Nous l'inspecterons ensemble et soulignerons que nous pourrons récupérer l'image comme suit pour la suite :
 
-(extraire [docker-devbox - geoserver/Dockerfile](https://github.com/mborne/docker-devbox/blob/master/geoserver/Dockerfile) pour illustrer au passage l'utilisation de GitHub Docker Registry + GitHub Actions)
+```bash
+docker pull ghcr.io/mborne/geoserver:v2.21.1
+```
 
 ---
 
