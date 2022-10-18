@@ -164,7 +164,7 @@ A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métri
 
 ### Partage (Sharing)
 
-Le **partage** et la **transparence** seront important à plusieurs niveaux. Ils favoriseront :
+Le **partage** et la **transparence** seront importants à plusieurs niveaux. Ils favoriseront :
 
 * La confiance entre les différents acteurs
 * La compréhension partagées des objectifs et des enjeux
@@ -177,9 +177,7 @@ Le **partage** et la **transparence** seront important à plusieurs niveaux. Ils
 
 ### Introduction
 
-On soulignera que **définir des métriques pertinentes** et **faire en sorte pouvoir les calculer** est loin d'être trivial.
-
-Se contenter d'avoir des métriques et [avoir des métriques non pertinentes sera contre-productif](annexe/metrique-contre-productive.html).
+**Définir des métriques pertinentes** et **faire en sorte pouvoir les calculer** sera loin d'être trivial. Se contenter d'avoir des métriques et [avoir des métriques non pertinentes sera contre-productif](annexe/metrique-contre-productive.html).
 
 Nous allons ici nous limiter à quelques métriques parlantes et pas très complexe à calculer. Vous en rencontrerez bien d'autres.
 
@@ -203,10 +201,10 @@ Les métriques suivantes seront caractéristiques de l'**automatisation du dépl
 
 ### Les métriques DevOps (2/3)
 
-Les métriques suivantes donneront une indication sur la qualité de l'**automatisation du déploiement** :
+Les métriques suivantes donneront une indication sur la **qualité de l'automatisation du déploiement** :
 
 * Le taux d'échec des déploiements
-* Le temps moyen pour résoudre un problème d'indisponibilité (**Mean Time To Recovery (MTTR)**)
+* Le temps moyen pour résoudre un problème d'indisponibilité (*Mean Time To Recovery (MTTR)*)
 
 ---
 
@@ -228,10 +226,7 @@ Pour mesurer la qualité du code, il sera possible de s'appuyer sur :
 * Les **indicateurs produits par les outils d'analyse statique du code** tels [SonarQube](https://www.sonarqube.org/)
 * Les **indicateurs produits par les outils d'analyse des dépendances** (nombre de dépendances obsolètes, vulnérables,...)
 
-Remarque :
-
-* [SonarQube](https://www.sonarqube.org/) a le mérite d'offrir une interface unifiée pour différents langages (ce qui plait aux décideurs).
-* Les outils d'analyse de code dédiés aux langages (jshint, jslint, phpmd, phpstan,...) offriront parfois des alertes plus pertinente ainsi qu'une démarche plus "as code".
+> [SonarQube](https://www.sonarqube.org/) a le mérite d'offrir une interface unifiée pour différents langages (ce qui plait aux décideurs) mais les outils d'analyse de code dédiés aux langages (jshint, jslint, phpmd, phpstan,...) offriront parfois des alertes plus pertinentes ainsi qu'une démarche "as code" dans la gestion des exceptions.
 
 
 ---
@@ -242,14 +237,15 @@ Remarque :
 
 Les indicateurs suivants donneront une vision plus globale de la qualité d'une application :
 
-* Volume de ticket incident (par mois, par an,...)
+* Nombre de tickets incidents (par mois, par an,...)
 * Nombre de ticket incident ouvert
 * Durée de vie moyenne des tickets incidents
 
-On soulignera que le calcul de ces métriques sera délicat sans :
+Le calcul de ces métriques sera délicat sans :
 
-* L'utilisation d'un système de ticket pour la gestion des incidents (Jira, redmine, issues du gestionnaire de code source,...)
-* Une gestion rigoureuse des tickets (demande vs incident, gravité des incidents,...) avec l'ajout des métadonnées nécessaires au calcul des métriques.
+* L'utilisation d'un système de ticket (Jira, redmine, issues du gestionnaire de code source,...)
+* Une gestion rigoureuse des tickets (demande vs incident, gravité des incidents,...)
+* L'ajout des métadonnées nécessaires au calcul des métriques.
 
 ---
 
@@ -286,7 +282,11 @@ Une sonde web interroge périodiquement une URL en vérifiant la réponse (code 
 * Mesurer un **temps de réponse moyen** (indicateur de performance)
 * Mettre en oeuvre une **alerte pour traiter au plus vite une indisponibilité**
 
-On soulignera que la mise en oeuvre est triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/).
+La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/). Les outils de supervision pourront généralement être étendus pour ajouter ce type de sonde (ex : [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter#blackbox-exporter-)).
+
+---
+
+## L'observabilité
 
 ### Les sondes web unitaires
 
@@ -304,13 +304,19 @@ Il sera donc intéressant de prévoir des URL dédiées à la surveillance (ex :
 
 En cas de problème, il sera nécessaire d'**avoir une vision sur les traitements réalisés dans une application**.
 
-En ce sens, il convient de **produire des journaux applicatifs exploitables** et de les centraliser dans un **puits de log** offrant une interface de recherche efficace.
-
-La référence historique en la matière est la suite ELK où :
+En ce sens, il convient de **produire des journaux applicatifs exploitables** et de les centraliser dans un **puits de log** offrant une interface de recherche efficace. La référence historique en la matière est [la suite ELK](https://www.elastic.co/fr/what-is/elk-stack) où :
 
 * **ElasticSearch** est utilisée pour stocker les journaux applicatifs
 * **Logstash** parse et intègre les logs dans **ElasticSearch**
 * **Kibana** offre une interface d'exploration des logs.
+
+Il sera là aussi possible de choisir des alternatives :
+
+* [OpenSearch](https://opensearch.org/) plutôt que ElasticSearch et Kibana
+* [fluent](https://github.com/fluent) plutôt que Logstash
+* [grafana - loki](https://grafana.com/oss/loki/)
+* La solution de l'hébergeur (ex : [OVHCloud - Logs Data Platform](https://docs.ovh.com/fr/logs-data-platform/))
+* ...
 
 ---
 
@@ -340,9 +346,9 @@ L'approche **Infrastructure as Code (IaC)** sera fondamentale en matière d'**au
 L'automatisation d'un déploiement concernera plusieurs couches du système :
 
 * La création des ressources systèmes (machines virtuelles, réseaux privés,...)
-* La configuration du système (installer et configurer les "middlewares")
+* La configuration du système (installer et configurer les cadriciels tels PHP, NodeJS, Java,...)
 * Le déploiement de l'applicatif
-* Les services d'infrastructure (reverse proxy/load balancer, DNS,...)
+* La configuration des services d'infrastructure (reverse proxy/load balancer, DNS,...)
 
 ---
 
@@ -352,13 +358,13 @@ L'automatisation d'un déploiement concernera plusieurs couches du système :
 
 On veillera à s'assurer que les scripts de configuration puissent :
 
-* Ếtre exécuter plusieurs fois (**[idempotence](annexe/iac-idempotence.html)**)
+* Être exécuter plusieurs fois (**[idempotence](annexe/iac-idempotence.html)**)
 * Être interrompu et relancé (**atomicité**)
 * [Cohabiter avec d'autres](annexe/iac-cohabitation.html)
 * Être testés par exemple avec des environnements de qualification et de pré-production.
 * Permettre à la fois la mise à jour du système et sa reconstruction.
 
-En outre, on notera qu'**on privilégiera une approche déclarative** à une approche impérative pour faciliter la mise en oeuvre de ces principes.
+On privilégiera **une approche déclarative** à une approche impérative pour faciliter la mise en oeuvre de ces principes.
 
 ---
 
@@ -366,14 +372,16 @@ En outre, on notera qu'**on privilégiera une approche déclarative** à une app
 
 ### Quels pré-requis sur l'infrastructure?
 
-L'approche IaC laissera une grande liberté de choix dans les outils du cadre technique dès lors qu'ils sont **compatibles avec l'automatisation**. Il conviendra principalement d'**être attentif aux méthodes de configuration disponibles** :
+L'approche IaC laissera une grande liberté de choix dans les outils du cadre technique dès lors qu'ils sont **compatibles avec l'automatisation**. Il conviendra principalement d'**être attentif aux méthodes de configuration disponibles** (1) :
 
-* **Une API est disponible** pour configurer l'outil?
-* La configuration est basée sur des **fichiers de configuration**?
 * La configuration est basée sur des **variables d'environnements**?
-* La configuration se fait par des **appels en ligne de commande**?
+* La configuration est basée sur des **fichiers de configuration**?
+* La configuration se fait par des **appels en ligne de commande (CLI)**? 
+* **Une API WEB est disponible** pour configurer l'outil?
 
 En substance, <span style="color: red; font-weight: bold">les outils pouvant être configurés <u>uniquement</u> via une IHM sont à bannir!</span>
+
+> (1) L'ordre correspond à la facilité avec laquelle nous pourrons configurer l'outil en contexte IaC (si un tiers n'a pas encapsulé les appels à une API WEB ou API CLI)
 
 ---
 
@@ -381,9 +389,9 @@ En substance, <span style="color: red; font-weight: bold">les outils pouvant êt
 
 ### Une automatisation partielle possible mais limitante
 
-L'**automatisation pourra être partielle** en fonction des possibilités offertes par l'infrastructure et de la politique de l'entreprise mais il faudra **être conscient des conséquences**.
+En fonction des possibilités offertes par l'infrastructure et de la politique de l'entreprise, l'**automatisation pourra être partielle** mais il faudra **être conscient des conséquences**.
 
-A titre d'exemple, si l'exposition des services (reverse proxy/load balancer) ne peut-être automatisée :
+A titre d'exemple, si l'exposition des services (configuration du reverse proxy/load balancer) ne peut-être automatisée :
 
 * Comment pourrez vous **avoir un système qui s'adapte à la charge**?
 * Comment pourrez vous **éviter les indisponibilités pendant les déploiements**?
@@ -394,10 +402,7 @@ A titre d'exemple, si l'exposition des services (reverse proxy/load balancer) ne
 
 ### Quels outils pour l'automatisation des déploiements?
 
-Les outils disponibles varieront en fonction de la cible. Nous verrons par la suite ces outils en abordant :
-
-* DevOps avec des environnements basé sur des machines virtuelles
-* DevOps avec des environnements basé sur des conteneurs
+Les outils disponibles varieront en fonction de la cible. Nous verrons par la suite ces outils en abordant le cas des VM et des conteneurs.
 
 ---
 
@@ -405,18 +410,18 @@ Les outils disponibles varieront en fonction de la cible. Nous verrons par la su
 
 L'approche [**GitOps**](https://www.redhat.com/fr/topics/devops/what-is-gitops) ira un cran plus loin que Infrastructure as Code :
 
-* La branche principale du dépôt IaC sera le reflet de l'état du système
+* La **branche principale** du dépôt contenant le code de déploiement sera le reflet de l'**état du système**.
 * La validation d'une **pull request** sur la branche principale déclenchera le déploiement
 
 Cette approche permettra de :
 
 * Mettre en oeuvre un **déploiement en continu**
+* S'appuyer sur **cadre de gestion des droits et des évolutions du gestionnaire de code source** :
+  * Les branches protégées
+  * Les rôles habilités à valider les *pull request*
 * Résoudre des problématiques de **traçabilité des déploiements** :
   * Qui a lancé quelle version du script de déploiement?
   * Qui a proposé/validé la configuration?
-* S'appuyer sur **cadre de gestion des droits du gestionnaire de code source** :
-  * Les branches protégées
-  * Les rôles habilités à valider les *pull request*
 
 ---
 
@@ -428,7 +433,7 @@ Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code*
 
 * Le **système de gestion de ticket** permet de **gérer les évolutions et les anomalies**.
 * Le gestionnaire de code source (GIT) permet de **versionner le code source de la documentation** et de **prévisualiser le contenu**.
-* Le source du document est au format texte (Markdown, reStructuredText, Asciidoc).
+* Le **source du document** est dans un **format texte** permettant le **calcul de différentiel** (Markdown, reStructuredText, Asciidoc).
 * Le mécanisme de **merge request** est exploité pour valider des modifications.
 * La chaîne CI/CD permet de **générer et de publier la documentation**.
 
@@ -440,13 +445,13 @@ Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code*
 
 Cette approche a de nombreux avantages. Dans le cas de DevOps, elle est importante pour :
 
-* Assurer la **cohérence entre la description du système et l'état du système**
-* Ne pas **gaspiller de l'énergie en traitant manuellement des mises à jour de document**
 * Que la **production documentaire ne freine pas le rythme des déploiements**
+* Ne pas **gaspiller de l'énergie en traitant manuellement des mises à jour de document**
+* Assurer la **cohérence entre la description du système et l'état du système**
 
 Plus généralement, vous aurez sûrement la chance de comparer avec d'autres approches où :
 
-* Un est extrait d'une solution bureautique, édité sur un poste et renvoyé par mail
+* Un document est extrait d'une solution bureautique, édité sur un poste et renvoyé par mail
 * Vous vous demandez où est la dernière version du document (c.f. point précédent...)
 * Vous perdez les traces des modifications (qui a introduit ou levé cette exigence? quand? pourquoi?)
 * ...
@@ -457,13 +462,16 @@ Plus généralement, vous aurez sûrement la chance de comparer avec d'autres ap
 
 Au final, il sera très vite tentant de gérer un maximum d'élément à l'aide du gestionnaire de code source car il offre **un cadre pour la gestion des évolutions**.
 
-<span style="color: red; font-weight: bold;">La seule exception concerne les secrets qui ne doivent jamais être stocké dans un dépôt!</span>
+<span style="color: red; font-weight: bold;">La seule exception concerne les secrets qui ne doivent jamais être stocké dans un dépôt!</span> (pas même dans un dépôt privé qui sera peut-être ouvert un jour!)
 
 Il est intéressant de voir apparaître :
 
 * Des standards *as code* (ex : [cnigfr - PCRS](https://github.com/cnigfr/PCRS#pcrs))
 * Des référentiels *as code* quand la volumétrie le permet (ex : [BaseAdresseNationale/codes-postaux](https://github.com/BaseAdresseNationale/codes-postaux#codes-postaux), [gregoiredavid/france-geojson](https://github.com/gregoiredavid/france-geojson#france-geojson),...)
 * ...
+
+> Il existe des outils pour détecter les secrets dans les dépôts, par exemple [git-secrets](https://github.com/awslabs/git-secrets#git-secrets). Il est conseillé de les utiliser avant la concurrence...
+
 
     </textarea>
 
