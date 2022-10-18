@@ -122,7 +122,7 @@ Pour **gérer une infrastructure "as code" en production** sans programmer les a
   * Les clouds privés : [vsphere](https://registry.terraform.io/providers/hashicorp/vsphere/latest/docs), [openstack](https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs),...
 
 
-Nous nous contenterons de survoler quelques exemples et noterons que **Terraform n'est pas stateless** (il convient de [configurer un backend pour le stockage de l'état du système](https://www.terraform.io/language/settings/backends/configuration))
+Nous nous contenterons de survoler quelques exemples et de souligner que **Terraform n'est pas stateless** (il convient de [configurer un backend pour le stockage de l'état du système](https://www.terraform.io/language/settings/backends/configuration))
 
 ---
 
