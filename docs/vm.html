@@ -95,7 +95,7 @@ Dans le cas où il convient de créer un livrable pour sa propre application, on
 * Il existe une **grande variété de formats de livrables possibles** fonction des technologies et OS cible (c.f. [format supportés par Nexus qui permet de créer différents types de dépôt](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats) )
 * Packager des applications telles PostgreSQL est un métier (construire et maintenir des .deb ou .rpm dans les règles de l'art n'est pas trivial).
 * Dans le cas des **langages interprétés** (NodeJS, PHP...) :
-  * Nous pourrons nous contenter en guise de livrable d'une simple archive (.zip, du code et de ses dépendances avec **le code de la version + les dépendances**
+  * Nous pourrons nous contenter en guise de livrable d'une simple archive (**.zip avec le code de la version + les dépendances**)
   * Nous pourrons aussi facilement produire des .deb ou .rpm avec des outils tels [FPM](https://fpm.readthedocs.io)
 
 Nous n'entrerons pas trop dans le détail (*spoiler* : nous verrons comment l'utilisation de conteneurs solutionne ce problème)
