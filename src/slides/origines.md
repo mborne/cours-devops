@@ -43,9 +43,9 @@ Ils répondront par des **architectures scalables** avec de nouvelles approches 
 
 ## Les géants du web (3/3)
 
-Ces acteurs seront aussi des pionniers en matière de DevOps en répondant avec une nouvelle approche en matière de gestion des infrastructures. 
+Ces acteurs seront aussi des pionniers en matière de DevOps en répondant avec **une nouvelle approche dans la gestion des infrastructures**. 
 
-Le rôle de [Site Reliability Engineer (SRE)](https://sre.google/books/) posé par Google en 2003 pour assurer un haut niveau de disponibilité des services en **collobaration étroite avec les développeurs** sera précurseur en matière de DevOps.
+Le rôle de [Site Reliability Engineer (SRE)](https://sre.google/books/) posé par Google en 2003 pour assurer un haut niveau de disponibilité des services en **collaboration étroite avec les développeurs** sera précurseur en matière de DevOps.
 
 ---
 
@@ -63,7 +63,7 @@ La démocratisation d'internet et des applications en réseau se traduira aussi 
 
 La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marquera un tournant dans les méthodes de développement qui exploitera pleinement la possibilité de livrer à moindre frais.
 
-L'agilité incluera entre autre de :
+En effet, l'agilité inclura entre autre de :
 
 * **Livrer rapidement et régulièrement** une nouvelle version de l'application.
 * **Faire travailler ensemble** les personnes en charge du **métier ou des affaires** et les personnes en charge de la **réalisation** au quotidien tout au long du projet.
@@ -72,11 +72,11 @@ L'agilité incluera entre autre de :
 
 ## L'automatisation des tests sur le code
 
-Livrer rapidement et régulièrement est **incompatible** avec le fait procéder à de longues **recettes manuelles** pour **éviter l'introduction de bug**.
+Livrer rapidement et régulièrement sera **incompatible** avec le fait procéder à de longues **recettes manuelles** pour **éviter l'introduction de bug**.
 
-L'agilité se décline en plusieurs méthodes de développement qui incitent à **réduire le risque de régression** à l'aide de **tests unitaires et fonctionnels**.
+L'agilité se déclinera donc en plusieurs méthodes de développement qui inciteront à **réduire le risque de régression** à l'aide de **tests unitaires et fonctionnels**.
 
-On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)** formalisée **en 2003** par Kent Beck où l'idée est de commencer par écrire les tests unitaires.
+On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)** formalisée **en 2003** par Kent Beck où l'idée est de **commencer par écrire les tests unitaires**.
 
 ---
 
@@ -86,7 +86,7 @@ Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wi
 
 * **Centraliser l'exécution des tests** (et s'assurer qu'ils sont bien exécutés)
 * Présenter pour tous les **rapports d'exécution des tests**
-* **Produire des livrables** à déployer (archive zip/tar, paquet debian/centos, installeur)
+* **Produire des livrables** à déployer (archive zip/tar, paquet .deb pour debian, .rpm pour centos, installeur windows,...)
 
 Il sera très rapidement tentant d'**exécuter ces tests avant d'accepter des demandes de modification du code (*pull request*)**. Des solutions d'intégration continue telles [GitHub actions](https://github.com/features/actions) et [GitLab-CI](https://docs.gitlab.com/ee/ci/) seront donc intégrées aux gestionnaires de code source quelques années plus tard.
 
@@ -96,7 +96,7 @@ Il sera très rapidement tentant d'**exécuter ces tests avant d'accepter des de
 
 ### Un coût d'entrée faible pour la scalabilité
 
-En 2006, Amazon lance deux services qui vont contribuer à populariser le concept d'informatique en nuage :
+En 2006, Amazon lancera deux services qui vont contribuer à populariser le concept d'informatique en nuage :
 
 * [Amazon S3](https://en.wikipedia.org/wiki/Amazon_S3) pour le stockage de données.
 * [Amazon Elastic Compute Cloud (EC2)](https://en.wikipedia.org/wiki/Amazon_Elastic_Compute_Cloud) pour l'exécution d'application.
@@ -104,7 +104,8 @@ En 2006, Amazon lance deux services qui vont contribuer à populariser le concep
 Avec ces services :
 
 * Disposer d'une infrastructure de stockage et de calcul capable de s'**adapter à la charge** n'est plus réservée à quelques grands groupes.
-* La **facturation à la consommation** donne l'opportunité aux entreprises de taille modeste d'**introduire un nouveau service qui ne sera pas victime de son succès**.
+* La **facturation à la consommation** donne l'opportunité aux entreprises de taille modeste de **lancer un nouveau service qui ne sera pas victime de son succès**.
+
 
 ---
 
@@ -116,10 +117,10 @@ Au niveau d'AWS, Jeff BEZOS posera une règle d'architecture importante : **Tout
 
 Ceci jouera beaucoup dans :
 
-* La capacité d'AWS à accroître efficacement son offre de service (couplage faible, interfaces clairement définies,...)
+* La capacité d'AWS à **accroître efficacement son offre de service** (couplage faible, interfaces clairement définies,...)
 * La capacité des clients à **automatiser l'utilisation des ressources mises à disposition par AWS** (des appels à un service étant plus facilement automatisable que des clics dans une interface graphique)
 
-Remarque : On notera que cette règle s'applique aux <u>communications entre les services</u> (s'efforcer de construire toutes ses applications sur la base d'API REST/JSON est assez limitant).
+> NB : Cette règle s'applique aux <u>communications entre les services</u> (s'efforcer de construire toutes ses applications sur la base d'API REST/JSON développées par d'autres serait assez limitant...)
 
 ---
 
@@ -127,7 +128,7 @@ Remarque : On notera que cette règle s'applique aux <u>communications entre les
 
 ### Une séparation stricte des rôles
 
-L'**exploitation traditionnelle** se traduit généralement par un **processus sacralisant un cloisonnement stricts des rôles entre les DEV et les OPS**.
+A ce stade, les possibilités d'automatisation des déploiements sont là mais les méthodes héritées de l'**exploitation traditionnelle** se traduisent généralement par un **processus sacralisant un cloisonnement strict des rôles entre les DEV et les OPS**.
 
 ---
 
@@ -139,9 +140,9 @@ On trouvera par exemple le processus suivant pour déployer une application :
 
 * Les DEV préparent une version à déployer (ex : `v0.1.0`)
 * Les DEV rédigent un **dossier d'architecture Technique (DAT)** (schéma d'architecture, description des services, dimensionnement demandé, URL à exposer...).
-* Les DEV régigent un **dossier d'exploitation (DEX)** décrivant les procédures d'installation, le paramétrage, les éléments à surveiller...
+* Les DEV rédigent un **dossier d'exploitation (DEX)** décrivant les procédures d'installation, le paramétrage, les éléments à surveiller...
 * Les OPS **provisionnent l'infrastructure** à partir du DAT (création des VM, configuration réseau, reverse proxy,...)
-* Les OPS **installent l'application** à partir du DEX
+* Les OPS **installent l'application** et **configurent la supervision** à partir du DEX.
 * Les DEV valident le déploiement
 * Les OPS surveillent l'infrastructure et traitent les problèmes techniques.
 
@@ -151,8 +152,8 @@ On trouvera par exemple le processus suivant pour déployer une application :
 
 ### Une approche en apparence parfaite!
 
-* Seuls des **administrateurs systèmes configurent le système** ([ce qui conforme à la PSSIE rédigée en 2014...](https://www.ssi.gouv.fr/entreprise/reglementation/protection-des-systemes-dinformations/la-politique-de-securite-des-systemes-dinformation-de-letat-pssie/))
 * Les **développeurs** sont **déchargés des problématiques d'exploitation**
+* Seuls des **administrateurs systèmes configurent le système** ([ce qui conforme à la PSSIE rédigée en 2014...](https://www.ssi.gouv.fr/entreprise/reglementation/protection-des-systemes-dinformations/la-politique-de-securite-des-systemes-dinformation-de-letat-pssie/))
 
 **C'est oublier la [loi de Murphy](https://fr.wikipedia.org/wiki/Loi_de_Murphy)!**
 
@@ -160,17 +161,18 @@ On trouvera par exemple le processus suivant pour déployer une application :
 
 ## Les limites de l'exploitation traditionnelle (4/6)
 
-### Une approche qui empêche de livrer rapidement!
+### Cette approche empêche de livrer rapidement!
 
-La **mise en production initiale** de l'application prendra alors facilement **1 mois** pour diverses raisons :
+La **mise en production initiale** de l'application prendra facilement **1 mois** pour diverses raisons :
 
 * Problème de **compréhension des documents**
 * Problème de **complétude des documents**
 * Problème d'**actualité des documents**
+* Problème de **disponibilité** des équipes
 
-Il en sera de même pour **chaque évolution induisant le moindre d'architecture** (ajout d'un service support, changement de méthode de gestion d'un paramètre,...) ce qui laissera deux options :
+Il en sera de même pour **chaque évolution induisant le moindre changement d'architecture** (ajout d'un paramètre, ajout d'un service support,...) ce qui laissera deux options :
 
-* Conserver volontairement une **architecture non optimimale**.
+* Conserver volontairement une **architecture non optimale**.
 * **Regrouper de nombreuses transformations** dans une version majeure où la **livraison sera longue et risquée**.
 
 ---
@@ -179,12 +181,10 @@ Il en sera de même pour **chaque évolution induisant le moindre d'architecture
 
 ### Une approche qui génère des problèmes en production!
 
-Une **demande d'exploitation ou une procédure** est **mal comprise** ou **mal traduite en opérations**.
-
-On soulignera que :
+Une **demande d'exploitation ou une procédure** est **mal comprise** ou **mal traduite en opérations** sans que l'expertise de chacun soit mise à contribution :
 
 * **Les OPS** ne participant pas à la conception de l'application **ne peuvent avoir un regard critique et une compréhension des demandes** (une mise à jour devient une montée en version, une action demandée en QUALIFICATION est appliquée en PRODUCTION,...)
-* **Les DEV** ne participant pas à la conception de l'infrastructure **n'exploitent pas le système de manière optimale** (utilisation du mauvais système de stockage, saturation de débit réseau,...)
+* **Les DEV** ne participant pas à la conception de l'infrastructure **n'exploitent pas le système de manière optimale** (utilisation du mauvais système de stockage, absence de compression, saturation de la bande passante,...)
 
 ---
 
@@ -192,14 +192,14 @@ On soulignera que :
 
 ### Une approche amenant à chercher un coupable plutôt qu'une solution!
 
-La frontière entre les rôles se traduit humainement par une tendance des équipes DEV et OPS à **chercher à limiter leur responsabilité en cas de problème** plutôt qu'une recherche collective pour **éviter l'apparition de problèmes** voire **corriger rapidement un problème**.
+La frontière entre les rôles se traduit humainement par une tendance des équipes DEV et OPS à **chercher à limiter leur responsabilité en cas de problème** avant de chercher à **éviter l'apparition de problèmes** voire à **corriger rapidement un problème**.
 
 Typiquement, avant de chercher une solution :
 
-* Il faut prouver côté DEV que le problème n'est pas au niveau du code pour que les OPS commencent à analyser les logs.
-* Il faut prouver côté OPS que le problème est lié à une augmentation de la consommation non compatible avec la conception initiale.
+* Il faut **prouver côté DEV que le problème n'est pas au niveau du code** pour que les OPS commencent à analyser la supervision et les logs.
+* Il faut **prouver côté OPS que le problème est lié au code ou à la conception** pour que les DEV revoient leur copie.
 
-Voir [www.commitstrip.com - Comment savoir si votre entreprise est DevOps?](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?).
+> Voir la BD [www.commitstrip.com - Comment savoir si votre entreprise est DevOps?](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?) qui résume bien la situation.
 
 ---
 
@@ -207,10 +207,10 @@ Voir [www.commitstrip.com - Comment savoir si votre entreprise est DevOps?](http
 
 Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
-* En 2008, une conférence Agile à Toronto permettra la rencontre entre l'organisateur d'une rencontre sur le thème **« Infrastructure Agile »** et un chef de projet Patrick Debois faisant face au manque de  **cohésion entre les équipes de développement d'applications et les équipes d'exploitation**
+* En 2008, une conférence permettra la rencontre entre l'organisateur d'une rencontre sur le thème **« Infrastructure Agile »** et un chef de projet Patrick Debois faisant face au manque de  **cohésion entre les équipes de développement d'applications et les équipes d'exploitation**
 * En 2009, Patrick Debois contractera **développements (DEV)** et **opérations (OPS)** dans un hashtag pour annoncer la première [DevOpsDays](https://devopsdays.org/): **DevOps est né**.
 
-(voir [devopssec.fr - L'histoire du DevOps](https://devopssec.fr/article/histoire-du-devops) qui aborde tout ça plus en détail)
+> [devopssec.fr - L'histoire du DevOps](https://devopssec.fr/article/histoire-du-devops) aborde cette genèse plus en détail.
 
 ---
 

@@ -84,11 +84,11 @@ A ce titre, il conviendra d'**améliorer en continu ce processus**.
 
 ### Culture (1/3)
 
-Il convient de souligner que la **gestion des infrastructures est un sujet sensible**. Pour faire évoluer les pratiques et les processus, il faudra d'abord une compréhension partagée :
+**La gestion des infrastructures est un sujet sensible**. Pour faire évoluer les pratiques et les processus, il faudra d'abord une compréhension partagée :
 
-* De **ce qu'est l'agilité dans le développement** (et de ce que ça implique au niveau de l'exploitation, de la prévisibilité des coûts, des plannings de livraison des fonctionnalités...) 
+* De **ce qu'est l'agilité dans le développement** (et de ce que ça implique au niveau de l'exploitation, de la prévisibilité des coûts et des plannings de livraison des fonctionnalités...) 
 * Des **limites des méthodes d'exploitation traditionnelle** (d'où les nombreuses slides)
-* Des **problèmes et améliorations possibles**
+* Des **problèmes et améliorations possibles** dans les processus en vigueur.
 
 ---
 
@@ -96,12 +96,11 @@ Il convient de souligner que la **gestion des infrastructures est un sujet sensi
 
 ### Culture (2/3)
 
-Pour faire simple, avant de cibler une **infrastructure agile**, il faut être nombreux à voir qu'il y a un problème quand :
+Pour faire simple, avant de cibler une **infrastructure agile**, il faudra être nombreux à voir qu'il y a un problème quand :
 
-* Il faut des jours pour relivrer une application avec une mise à jour de ses dépendances (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
-* Il faut exhumer une procédure pour re-déployer cette application (et croiser les doigts pour que le procédure soit à jour)
+* Il faut des jours pour re-livrer une application avec une mise à jour de ses dépendances (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
+* Il faut croiser les doigts pour que les procédures de déploiement soit à jour.
 * Il faut faire signer une commande de VM pour faire face à un pic de charge (en ayant prévue la commande l'année précédente)
-* Il faut maintenir des documents word contenant ces informations de dimensionnement
 * ...
 
 ---
@@ -110,11 +109,17 @@ Pour faire simple, avant de cibler une **infrastructure agile**, il faut être n
 
 ### Culture (3/3)
 
-En pratique, s'orienter vers la méthode DevOps sera délicat sans une **politique globale permettant l'agilité au niveau de l'entreprise**.
+En pratique, s'orienter vers la méthode DevOps sera délicat sans une **politique globale permettant l'agilité au niveau de l'entreprise**. Sans entrer dans les détails :
+
+* Il sera difficile d'impliquer les DEV dans l'exploitation avec une logique de projet où le travail s'arrête à la mise en production.
+* Il sera par exemple difficile d'avoir des métriques avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...)
+
+Il sera nécessaire de revoir [la gestion du cycle de vie des applications (ALM)](https://www.redhat.com/fr/topics/devops/what-is-application-lifecycle-management-alm) pour :
+
+* **Passer d'une logique de projet à une logique de produit**.
+* Pouvoir **mettre en évidence les problèmes et les améliorations** en systématisant par exemple l'utilisation d'un **gestionnaire de ticket**.
 
 Nous trouverons à ce titre des **framework d'agilité à l'échelle** tels [Scaled agile framework (SAFe)](https://www.scaledagileframework.com/) qui incluront DevOps dans une démarche plus globale.
-
-Sans entrer dans les détails, avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...), il sera par exemple difficile d'avoir des métriques pour mettre en évidence les problèmes et les améliorations.
 
 ---
 
@@ -125,9 +130,9 @@ Sans entrer dans les détails, avec des projets gérés avec des méthodes hét�
 DevOps mettra un fort accent sur **l'automatisation**. Elle prendra plusieurs formes :
 
 * L'**automatisation des déploiements** pour éviter les erreurs humaines, livrer rapidement,...
-* L'**automatisation des tests** pour limiter les risques liés à l'automatisation, réduire les temps de recette manuelle,...
+* L'**automatisation des tests** pour limiter les risques liés à l'automatisation, réduire les temps de recette manuelle...
 * L'**automatisation de la surveillance** pour détecter et traiter rapidement les problèmes
-* L'**automatisation de la génération de la documentation** pour s'assurer qu'elle correspond à l'état du système
+* L'**automatisation de la génération de la documentation** pour s'assurer par construction qu'elle correspond à l'état du système
 * ...
 
 ---
@@ -141,7 +146,7 @@ Avec DevOps, on se concentrera sur la production de valeur en faisant la **chass
 * Le début d'un développement
 * La mise à disposition du résultat
 
-On cherche égalemet à réduire les gaspillages, il s'agit par exemple de réduire la quantité de code développé mais pas testé ou testé mais pas mis en production. Le fait d'effectuer des petits changements et de jouer le cycle dev/test/prod régulièrement accélère la cadence du développement.
+Le fait d'effectuer des petits changements et de jouer le cycle dev/test/prod régulièrement permettra de réduire le gaspillage en terme de quantité de code développé mais pas testé ou testé mais pas mis en production.
 
 ---
 
@@ -149,7 +154,7 @@ On cherche égalemet à réduire les gaspillages, il s'agit par exemple de rédu
 
 ### Mesure
 
-"Ce qui ne se mesure pas n'existe pas" (et ce qui n'est pas affiché en rouge sur un graphique ne percutera pas au niveau de la direction).
+L'adage dit que "ce qui ne se mesure pas n'existe pas"... Du moins, ce qui n'est pas affiché en rouge sur un graphique ne percutera pas au niveau de la direction.
 
 A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métriques associées**.
 

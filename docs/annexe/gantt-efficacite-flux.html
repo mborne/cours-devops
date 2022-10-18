@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>gantt-efficacite-flux.md</title>
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
+  <style>
+    html, body {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="diagramme-de-gantt-illustrant-lefficacité-de-lexploitation-traditionnelle">Diagramme de Gantt illustrant l&#39;efficacité de l&#39;exploitation traditionnelle</h1><p>Illustration de l&#39;effet des temps d&#39;attente sur la durée d&#39;un déploiement avec :</p>
+<ul>
+<li>2 semaines d&#39;attente de l&#39;équipe OPS sur le premier déploiement (temps de découverte de l&#39;application, autres applications à traiter,...)</li>
+<li>1 semaine d&#39;attente pour un nouveau déploiement après reprise de la documentation (autres applications à traiter)</li>
+</ul>
+<pre><code class="language-mermaid">gantt
+    dateFormat  YYYY-MM-DD
+    title       RETEX de la livraison v0.1.0
+    excludes    weekends
+    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week (&quot;sunday&quot;) or &quot;weekends&quot;, but not the word &quot;weekdays&quot;.)
+
+    section Côté DEV
+    Tag v0.1.0                    :active,  dev1, 2022-05-02, 2h
+    Déploiement en DEV            :active,  dev23-dev, after dev1, 2d
+    Rédaction DAT                 :active,  dev2, after dev1, 1d
+    Rédaction DEX                 :active,  dev3, after dev2, 1d
+    Demande déploiement en QUALIF :active,  dev4, after dev3, 1d
+    Attente déploiement en QUALIF :crit,    dev5, after dev4, 10d
+    Recette en QUALIF             :active,  dev6, after dev5, 2d
+    Correction des docs           :active,  dev7, after dev6, 1d
+    Attente correction OPS        :crit,    dev8, after dev7, 6d
+    Recette en QUALIF             :active,  dev9, after dev8, 2d
+</code></pre>
+
+  </article>
+
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+</html>
