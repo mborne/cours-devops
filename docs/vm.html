@@ -264,6 +264,19 @@ Nous insisterons sur l'apport de Ansible pour :
 
 ---
 
+## Le déploiement de l'application
+
+### Processus résultant
+
+En terme de répartition des rôles, nous pourrions aboutir par exemple au processus suivant après adoption des outils par les DEV et les OPS :
+
+<div class="center">
+    <img src="img/processus-exploit-tradi-2.png" alt="Adaptation processus d'exploitation traditionnelle avec terraform et ansible" style="height: 400px" />
+</div>
+
+
+---
+
 ## Que manque-t'il?
 
 ### La sécurité!
@@ -341,10 +354,10 @@ Pour pouvoir exploiter ces deux composants, il faudrait :
 
 En l'état, **si l'une de nos machines vient à s'embraser : Les données sont perdues**. Il serait donc important d'adopter une stratégie de sauvegarde et plusieurs options sont possibles :
 
-* Vous appuyez sur des mécanismes de snapshot de VM.
+* S'appuyer sur des mécanismes de snapshot de VM.
 * Exporter et externaliser régulièrement les seules données de l'application par exemple en créant une archive avec :
   * Une sauvegarde de la base PostgreSQL (`pg_dump`)
-  * Les fichiers `GEOSERVER_DATA_DIR` qu'il conviendrait de restaurer.
+  * Les fichiers de GeoServer (`GEOSERVER_DATA_DIR`).
 
 > Voir [Back up and restore GitLab](https://docs.gitlab.com/ee/raketasks/backup_restore.html) où la commande `gitlab-backup create` permet de générer une sauvegarde de la base et des dépôts.
 
@@ -357,7 +370,7 @@ En l'état, **si l'une de nos machines vient à s'embraser : Les données sont p
 Les deux options sont à mon sens complémentaires :
 
 * L'approche par snapshot permet de redémarrer rapidement en cas de problème simple.
-* L'approche par export des données impose un travail de **cartographie des données** (données métiers, données de configuration, secrets, données temporaires,...) mais offre un avantage non négligeables :
+* L'approche par export des données impose un travail de **cartographie des données** (données métiers, données de configuration, secrets, données temporaires,...) mais offre des avantages non négligeables :
   * Il est relativement simple de **tester ces sauvegardes avec des restaurations régulière des données de la PRODUCTION en RECETTE** (en anonymisant au besoin les données)
   * Ces restaurations régulières sont utiles pour les **tests d'intégration** (ex : valider des scripts de mise à jour de la base de données) et les **tests de performance** (avec des données réalistes)
 
@@ -367,14 +380,16 @@ Quand la volumétrie et la sensibilité des données le permet, il est dommage d
 
 ## Que manque-t'il?
 
-### La résilience et la scalabilité
+### La résilience
 
-Pour les volumétries importantes, il sera difficile de procéder de procéder à des exports complets pour être en mesure de redéployer rapidement en cas de problème.
+Pour les systèmes critiques, il ne sera pas acceptable de devoir attendre la fin d'une restauration de sauvegarde pour que le système redémarre. De même, pour les volumétries importantes, il ne sera pas réaliste de procéder à des sauvegardes complètes.
 
-Nous soulignerons que nous pourrions mettre en oeuvre des mécanismes de redondance au niveau des composants avec des stratégies propres à chaque application. Voir :
+A ce titre, nous soulignerons que nous pourrions mettre en oeuvre de **mécanismes de redondance** au niveau des composants GeoStack avec des stratégies propres à chaque application :
 
 * [PostgreSQL - High Availability, Load Balancing, and Replication](https://www.postgresql.org/docs/current/high-availability.html)
 * [GeoServer - Clustering GeoServer](https://docs.geoserver.geo-solutions.it/edu/en/clustering/index.html#clustering-geoserver)
+
+Nous verrons plus tard que la mise en oeuvre est plus simple avec des applications conçues pour répondre à cette problématique (ElasticSearch, etcd, MongoDB,...)
 
 ---
 
@@ -400,7 +415,8 @@ Dans la zone d'hébergement, nous trouverons par exemple :
 
 * Un **Bastion SSH** pour l'accès aux VM par les administrateurs
 * Un **Reverse Proxy / Load Balancer** communs aux applications
-* Des **services supports** (SMTP, DNS,...) communs aux applications
+* Des **services supports** (SMTP, DNS, proxy sortant...) communs aux applications
+* Des **services de stockages** (PostgreSQL, Redis, MongoDB,...) sur étagères
 * Un puits de logs
 * Un système de supervision
 * Un serveur de déploiement
@@ -410,11 +426,20 @@ Dans la zone d'hébergement, nous trouverons par exemple :
 
 ## L'incontournable zone d'hébergement
 
-### Une compatibilité avec DevOps à garantir...
+### Le délicat recours à un prestataire...
 
-En cas de **recours à une équipe dédiée ou un prestataire** pour construire cette zone d'hébergement, il conviendra de **s'assurer que la méthode permet l'automatisation des déploiements**.
+En cas de **recours à une équipe dédiée** pour construire cette zone d'hébergement, il conviendra de **s'assurer que la méthode permet l'automatisation des déploiements** :
 
-Typiquement, s'il faut faire un ticket au prestataire pour mettre à jour la configuration du reverse proxy et que la prise en compte de votre demande est garantie sous 6 jours, vous serez limité (c.f. impact d'une limitation partielle dans la partie précédente)...
+* **La nécessité de recourir à un ticket pour configurer un seul élément suffira à plomber les capacités d'automatisation**
+* **La moindre imprécision dans les demandes sera source de problèmes de cohabitation**
+
+**Poser un cadre "as code"** et **être précis sur les demandes** sera incontournable :
+
+* Avec "je veux des mises à jour régulière", le prestataire ajoutera potentiellement en bonus un `rm -rf /etc/apt/sources.list.d/*` pour reconfigurer ses seuls dépôts et vous aurez de belles surprises!
+* Avec "je veux une exécution régulière de `apt-get update && apt-get upgrade -y`, il y aura moins de place pour la fantaisie.
+
+> (Du moins, ce type de problématique nous aidera à comprendre l'intérêt des conteneurs et de l'orchestration de conteneur...)
+
 
     </textarea>
 
