@@ -163,7 +163,7 @@ vagrant up
 
 ### Les outils de gestion de configuration
 
-Nous avons avec Vagrant et Terraform des outils capables de **créer nos VM as code**. Il nous reste à choisir une **gestion de configuration** pour **déployer et configurer nos applications**. Les plus connues sont :
+Nous avons avec Vagrant et Terraform des outils capables de **créer nos VM as code**. Il nous reste à choisir un outil **gestion de configuration** pour **déployer et configurer nos applications**. Les plus connus sont :
 
 * [Chef](https://docs.chef.io/platform_overview/)
 * [Puppet](https://puppet.com/docs/puppet/6/puppet_overview.html)
