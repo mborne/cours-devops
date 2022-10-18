@@ -53,12 +53,14 @@ NB : L'utilisation de fichier `package-lock.json`, `composer.lock`,... ne vous p
 
 Pour le déploiement d'une application en PRODUCTION, il est important de :
 
-* Tagger une version au niveau du gestionnaire de code source (ex : `v0.1.0`).
-* Produire un livrable pour cette version du code.
+* **Tagger une version** au niveau du gestionnaire de code source (ex : `v0.1.0`).
+* **Produire un livrable** pour cette version du code.
 * [Stocker ce livrable](annexe/stockage-artefact.html).
 * Déployer en PRODUCTION un livrable stocké en lieu sûr.
 
 (c.f. [Les 12 facteurs - V. Assemblez, publiez, exécutez](https://12factor.net/fr/build-release-run))
+
+> Ce principe n'interdit pas de déployer en continu une version correspondant à la branche principale dans un environnement de DEV.
 
 ---
 
@@ -68,7 +70,7 @@ Pour le déploiement d'une application en PRODUCTION, il est important de :
 
 Dans le cas présent, nous avons cette chance :
 
-* [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous pourrons utiliser le dépôt [apt.postgresql.org](http://apt.postgresql.org/) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
+* [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous avons même un dépôt [apt.postgresql.org](http://apt.postgresql.org/) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
 * [GeoServer](https://geoserver.org/release/stable/) met lui aussi à disposition des livrables prêts à l'emploi.
 
 ---
@@ -77,15 +79,15 @@ Dans le cas présent, nous avons cette chance :
 
 ### Packager sa propre application
 
-Dans le cas où il convient de créer un livrable pour sa propre application, on souligne que :
+Dans le cas où il convient de créer un livrable pour sa propre application, on remarquera que :
 
-* Il existe une **grande variété de formats de livrables possibles** fonction des technologies et OS cible (c.f. [format supportés par Nexus](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats) )
+* Il existe une **grande variété de formats de livrables possibles** fonction des technologies et OS cible (c.f. [format supportés par Nexus qui permet de créer différents types de dépôt](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats) )
 * Packager des applications telles PostgreSQL est un métier (construire et maintenir des .deb ou .rpm dans les règles de l'art n'est pas trivial).
 * Dans le cas des **langages interprétés** (NodeJS, PHP...) :
   * Nous pourrons nous contenter en guise de livrable d'une simple archive (.zip, du code et de ses dépendances avec **le code de la version + les dépendances**
-  * Nous pourrons facilement produire des .deb ou .rpm avec des outils tels [FPM](https://fpm.readthedocs.io)
+  * Nous pourrons aussi facilement produire des .deb ou .rpm avec des outils tels [FPM](https://fpm.readthedocs.io)
 
-Nous n'entrerons pas dans le détail (*spoiler* : nous verrons comment l'utilisation de conteneurs résoud ce problème)
+Nous n'entrerons pas trop dans le détail (*spoiler* : nous verrons comment l'utilisation de conteneurs solutionne ce problème)
 
 ---
 
@@ -112,7 +114,7 @@ Nous trouverons des **concepts spécifiques à chaque solution dans ces API** (c
 
 ### Terraform
 
-Pour **gérer une infrastructure "as code" en production**, nous pourrons nous appuyer sur **[Terraform](https://www.terraform.io/intro#how-does-terraform-work)** qui apporte :
+Pour **gérer une infrastructure "as code" en production** sans programmer les appels à ces API, nous pourrons nous appuyer sur **[Terraform](https://www.terraform.io/intro#how-does-terraform-work)** qui apporte :
 
 * Un **langage déclaratif** pour la création des ressources (machine virtuelle, réseau,...)
 * Le support d'un [grand nombre de **fournisseurs**](https://registry.terraform.io/browse/providers) dont :
@@ -127,13 +129,13 @@ Nous nous contenterons de survoler quelques exemples et d'une mise en garde sur 
 
 ### Vagrant (1/2)
 
-Pour la suite, nous allons plutôt utiliser [Vagrant](https://www.vagrantup.com/) qui est l'équivalent de [Terraform](https://www.terraform.io/) pour les environnements de développement.
+Pour la suite, nous allons plutôt utiliser [Vagrant](https://www.vagrantup.com/), lui aussi développé par [HashiCorp](https://www.hashicorp.com/), qui est l'équivalent de [Terraform](https://www.terraform.io/) pour les environnements de développement.
 
-Nous allons analyser et utiliser le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox) pour démarrer des VM (`vagrantbox-1`, `vagrantbox-2`,...) avec [VirtualBox](https://www.virtualbox.org/) en notant que [Vagrant supporte d'autres fournisseurs](https://www.vagrantup.com/docs/providers).
+Nous allons analyser et utiliser le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) pour démarrer des VM (`vagrantbox-1`, `vagrantbox-2`,...) avec [VirtualBox](https://www.virtualbox.org/).
 
 **Démonstration!** (en espérant que votre proxy de malheur m'épargne l'effet démo)
 
-> La découverte de la plupart des outils de ce cours sera plus simple sur une machine perso. connectée à internet via une box standard.
+> La découverte de la plupart des outils de ce cours sera plus simple sur une machine perso. connectée à internet via une box standard. Sachez aussi que [Vagrant supporte d'autres fournisseurs (ex : KVM)](https://www.vagrantup.com/docs/providers).
 
 ---
 
@@ -160,7 +162,7 @@ vagrant up
 
 ### Les outils de gestion de configuration
 
-Nous avons le choix entre plusieurs solutions de **gestion de configuration** :
+Nous avons avec Vagrant et Terraform des outils capables de **créer nos VM as code**. Il nous reste à choisir une **gestion de configuration** pour **déployer et configurer nos applications**. Les plus connues sont :
 
 * [Chef](https://docs.chef.io/platform_overview/)
 * [Puppet](https://puppet.com/docs/puppet/6/puppet_overview.html)
@@ -201,9 +203,9 @@ Nous trouverons plusieurs exécutable avec Ansible :
 
 ### Le déploiement de GeoStack avec Ansible!
 
-Présenter proprement l'ensemble des [concepts ansible](https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html#basic-concepts) demanderait plusieurs séances.
+Présenter l'ensemble des [concepts ansible](https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html#basic-concepts) demanderait plusieurs séances.
 
-Nous allons ici nous contenter d'une démonstration : [mborne/geostack-deploy - Déploiement de GeoStack avec ansible](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible)
+Nous allons ici nous contenter d'une démonstration et de l'analyse d'un exemple : [mborne/geostack-deploy - Déploiement de GeoStack avec ansible](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible)
 
 ---
 
@@ -220,16 +222,20 @@ Nous ne pourrions pas procéder ainsi avec des VM exposées sur internet :
 
 ## Que manque-t'il?
 
-### Un reverse proxy
+### L'incontournable reverse proxy (1/2)
 
 Il conviendrait à minima de passer sur une architecture du type suivant en ajoutant un reverse proxy ("lb") :
 
-![GeoStack v0.2](src/slides/schema/geostack-0.2.png)
+![GeoStack v0.2](schema/geostack-0.2.png)
 
-Ceci nous permettrait par exemple :
+---
 
-* D'exposer publiquement uniquement les services WMS et WFS de GeoServer
-* D'exposer l'interface d'interface d'administration avec un filtrage par IP
+### L'incontournable reverse proxy (2/2)
+
+Avec un reverse proxy, nous pourrions par exemple :
+
+* Exposer publiquement les seuls services WMS et WFS de GeoServer (`/wms`, `/wfs`)
+* Exposer l'interface d'interface d'administration avec un filtrage par IP (`/geoserver`)
 
 ---
 
@@ -237,31 +243,33 @@ Ceci nous permettrait par exemple :
 
 ### La mise en oeuvre de HTTPS
 
-En HTTP, le mot de passe de l'administrateur GeoServer circulera en clair sur le réseau.
+Tant que nous serons en HTTP, le mot de passe de l'administrateur GeoServer circulera en clair sur le réseau. Il conviendrait donc de mettre en oeuvre HTTPS pour y remédier.
 
-Il conviendrait donc de mettre en oeuvre HTTPS pour y remédier. On soulignera que :
+Nous soulignerons que : 
 
 * HTTPS peut être mis en oeuvre au niveau du reverse proxy
 * La mise en oeuvre HTTPS requière l'achat d'un certificat ou la génération de celui-ci avec [Let's Encrypt](https://letsencrypt.org/fr/)
-* Pour les services exposés sur INTERNET, il existe des outils pour tester et blinder la configuration de TLS (cyphers, entêtes de sécurité, certificat intermédiaire...) : [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/), [www.sslshopper.com](https://www.sslshopper.com/),...
-* Pour les autres (intranet, RIE), il faudra maîtriser `openssl` pour diagnostiquer les problèmes et faire des contrôles.
+* Pour les services exposés sur INTERNET, il existe des outils pour tester et blinder la configuration de TLS (cyphers, entêtes de sécurité, certificat intermédiaire manquant...) tels :
+  * [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/)
+  * [www.sslshopper.com](https://www.sslshopper.com/),...
+* Pour les services non exposés (intranet, RIE), il faudra maîtriser `openssl` pour diagnostiquer et détecter ces problèmes.
 
 ---
 
 ## Que manque-t'il?
 
-### Et ça n'est pas tout...
+### L'exploitabilité!
 
 Pour pouvoir exploiter ces deux composants, il faudrait :
 
-* Configurer la centralisation des logs
-* Configurer un système de supervision
-* Configurer des sauvegardes
+* Configurer la **centralisation des logs**
+* Configurer un **système de supervision**
+* Configurer des **sauvegardes**
 
-De même, la sécurisation est imcomplète car il faudrait logiquement :
+De même, la sécurisation est incomplète car il faudrait logiquement :
 
 * Utiliser un réseau privé
-* Configurer un pare-feu
+* Configurer un pare-feu (au moins localement avec [ufw](https://doc.ubuntu-fr.org/ufw) par exemple)
 * Blinder la configuration des VM ( c.f. [dev-sec.io - DevSec Hardening Framework](https://dev-sec.io/baselines/linux/) )
 * ...
 
@@ -272,12 +280,11 @@ De même, la sécurisation est imcomplète car il faudrait logiquement :
 
 ### La nécessité de traiter globalement ces problèmes
 
-Il est illusoire d'espérer traiter de manière homogène ces problématiques au niveau de chaque application.
-
-Traiter ces problématiques de manière efficace demandera la mise en place d'une infrastructure pour l'accueil des applications dont le nom variera entre :
+Il est illusoire d'espérer traiter de manière homogène ces problématiques au niveau de chaque application. Traiter ces problématiques de manière efficace demandera la **mise en place d'une infrastructure** pour l'accueil des applications dont le nom variera entre :
 
 * Zone d'hébergement
-* *Landing zone*
+* Zone applicative
+* *Landing zone* (AWS)
 * Socle technique d'exploitation
 * ...
 
@@ -303,7 +310,6 @@ Dans la zone d'hébergement, nous trouverons par exemple :
 
 ### Une compatibilité avec DevOps à garantir...
 
-En cas de recours à une équipe dédiée ou un prestataire pour construire cette zone d'hébergement, il conviendra de s'assurer que la méthode permet l'automatisation des déploiements.
+En cas de **recours à une équipe dédiée ou un prestataire** pour construire cette zone d'hébergement, il conviendra de **s'assurer que la méthode permet l'automatisation des déploiements**.
 
-Typiquement, s'il faut faire un ticket au prestataire pour mettre à jour la configuration du reverse proxy et que la prise en compte de votre demande est garantie sous 6 jours, vous serez limiter dans la mise en oeuvre d'automatisme pour faire face à des pics de charge...
-
+Typiquement, s'il faut faire un ticket au prestataire pour mettre à jour la configuration du reverse proxy et que la prise en compte de votre demande est garantie sous 6 jours, vous serez limité (c.f. impact d'une limitation partielle dans la partie précédente)...
