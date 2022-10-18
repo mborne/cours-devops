@@ -6,15 +6,16 @@
 * [www.atlassian.com - Métriques DevOps](https://www.atlassian.com/fr/devops/frameworks/devops-metrics)
 * [meritis.fr - Qu’est-ce que le DevOps ? Concepts fondamentaux et bonnes pratiques du DevOps](https://meritis.fr/devops-avez-dit-devops/)
 * [fr.kaizen.com - L'importance du Time to Market](https://fr.kaizen.com/produits/importance-time-to-market-fr) qui aborde les notions d'efficacité des ressources et des flux.
+* [docs.microsoft.com - Liste de contrôle DevOps](https://docs.microsoft.com/fr-fr/azure/architecture/checklist/dev-ops)
 
 ## Histoire de DevOps
 
 * [devopssec.fr - L'histoire du DevOps](https://devopssec.fr/article/histoire-du-devops)
 * [www.cloud-entreprise.info - L’historique du Cloud computing – Infographie](http://www.cloud-entreprise.info/historique-cloud-computing/)
 
-## CheckLists
+## Automatisation des tests
 
-* [docs.microsoft.com - Liste de contrôle DevOps](https://docs.microsoft.com/fr-fr/azure/architecture/checklist/dev-ops)
+* [blog.octo.com - La pyramide des tests par la pratique](https://blog.octo.com/la-pyramide-des-tests-par-la-pratique-1-5/)
 
 ## Cloud
 

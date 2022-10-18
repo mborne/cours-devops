@@ -283,6 +283,8 @@ Il conviendrait à minima de passer sur une architecture du type suivant en ajou
 
 ---
 
+## Que manque-t'il?
+
 ### L'incontournable reverse proxy (2/2)
 
 Avec un reverse proxy, nous pourrions par exemple :
@@ -296,15 +298,15 @@ Avec un reverse proxy, nous pourrions par exemple :
 
 ### La mise en oeuvre de HTTPS
 
-Tant que nous serons en HTTP, le mot de passe de l'administrateur GeoServer circulera en clair sur le réseau. Il conviendrait donc de mettre en oeuvre HTTPS pour y remédier.
+**Tant que nous serons en HTTP, le mot de passe de l'administrateur GeoServer circulera en clair sur le réseau**. Il conviendrait donc de mettre en oeuvre HTTPS pour y remédier.
 
-Nous soulignerons que : 
+Nous soulignerons que :
 
 * HTTPS pourrait être mis en oeuvre au niveau du reverse proxy
 * La mise en oeuvre HTTPS requière l'achat d'un certificat ou la génération de celui-ci avec [Let's Encrypt](https://letsencrypt.org/fr/)
 * Pour les services exposés sur INTERNET, il existe des outils pour tester et blinder la configuration de TLS (cyphers, entêtes de sécurité, chaîne de certification...) tels :
   * [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/)
-  * [www.sslshopper.com](https://www.sslshopper.com/),...
+  * [www.sslshopper.com](https://www.sslshopper.com/)
 * Pour les services non exposés (intranet, RIE), il faudra maîtriser `openssl` pour diagnostiquer et détecter ces problèmes.
 
 ---
@@ -318,16 +320,50 @@ Pour pouvoir exploiter ces deux composants, il faudrait :
 * Configurer la **centralisation des logs**
 * Configurer un **système de supervision**
 
+![Netdata](img/netdata-screenshot.png)
+
 ---
 
 ## Que manque-t'il?
 
-### Les sauvegardes
+### Les sauvegardes (1/2)
 
+En l'état, **si l'une de nos machines vient à s'embraser : Les données sont perdues**. Il serait donc important d'adopter une stratégie de sauvegarde et plusieurs options sont possibles :
 
-https://docs.geoserver.geo-solutions.it/edu/en/clustering/index.html#clustering-geoserver
+* Vous appuyez sur des mécanismes de snapshot de VM.
+* Exporter et externaliser régulièrement les seules données de l'application par exemple en créant une archive avec :
+  * Une sauvegarde de la base PostgreSQL (`pg_dump`)
+  * Les fichiers `GEOSERVER_DATA_DIR` qu'il conviendrait de restaurer.
 
+> Voir [Back up and restore GitLab](https://docs.gitlab.com/ee/raketasks/backup_restore.html) où la commande `gitlab-backup create` permet de générer une sauvegarde de la base et des dépôts.
 
+---
+
+## Que manque-t'il?
+
+### Les sauvegardes (2/2)
+
+Les deux options sont à mon sens complémentaires :
+
+* L'approche par snapshot permet de redémarrer rapidement en cas de problème simple.
+* L'approche par export des données impose un travail de **cartographie des données** (données métiers, données de configuration, secrets, données temporaires,...) mais offre un avantage non négligeables :
+  * Il est relativement simple de **tester ces sauvegardes avec des restaurations régulière des données de la PRODUCTION en RECETTE** (en anonymisant au besoin les données)
+  * Ces restaurations régulières sont utiles pour les **tests d'intégration** (ex : valider des scripts de mise à jour de la base de données) et les **tests de performance** (avec des données réalistes)
+
+Quand la volumétrie et la sensibilité des données le permet, il est dommage de ce priver de tels mécanismes et d'attendre un sinistre ou une migration pour cartographier les données.
+
+---
+
+## Que manque-t'il?
+
+### La résilience et la scalabilité
+
+Pour les volumétries importantes, il sera difficile de procéder de procéder à des exports complets pour être en mesure de redéployer rapidement en cas de problème.
+
+Nous soulignerons que nous pourrions mettre en oeuvre des mécanismes de redondance au niveau des composants avec des stratégies propres à chaque application. Voir :
+
+* [PostgreSQL - High Availability, Load Balancing, and Replication](https://www.postgresql.org/docs/current/high-availability.html)
+* [GeoServer - Clustering GeoServer](https://docs.geoserver.geo-solutions.it/edu/en/clustering/index.html#clustering-geoserver)
 
 ---
 

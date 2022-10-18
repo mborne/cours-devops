@@ -138,13 +138,9 @@ A ce stade, les possibilités d'automatisation des déploiements sont là mais l
 
 On trouvera par exemple le processus suivant pour déployer une application :
 
-* Les DEV préparent une version à déployer (ex : `v0.1.0`)
-* Les DEV rédigent un **dossier d'architecture Technique (DAT)** (schéma d'architecture, description des services, dimensionnement demandé, URL à exposer...).
-* Les DEV rédigent un **dossier d'exploitation (DEX)** décrivant les procédures d'installation, le paramétrage, les éléments à surveiller...
-* Les OPS **provisionnent l'infrastructure** à partir du DAT (création des VM, configuration réseau, reverse proxy,...)
-* Les OPS **installent l'application** et **configurent la supervision** à partir du DEX.
-* Les DEV valident le déploiement
-* Les OPS surveillent l'infrastructure et traitent les problèmes techniques.
+<div class="center">
+    <img src="img/processus-exploit-tradi.png" alt="Processus d'exploitation traditionnelle" style="height: 400px" />
+</div>
 
 ---
 

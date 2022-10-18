@@ -101,7 +101,7 @@ Pour faire simple, avant de cibler une **infrastructure agile**, il faudra être
 En pratique, s'orienter vers la méthode DevOps sera délicat sans une **politique globale permettant l'agilité au niveau de l'entreprise**. Sans entrer dans les détails :
 
 * Il sera difficile d'impliquer les DEV dans l'exploitation avec une logique de projet où le travail s'arrête à la mise en production.
-* Il sera par exemple difficile d'avoir des métriques avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...)
+* Il sera difficile d'avoir des métriques avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...)
 
 Il sera nécessaire de revoir [la gestion du cycle de vie des applications (ALM)](https://www.redhat.com/fr/topics/devops/what-is-application-lifecycle-management-alm) pour :
 
@@ -120,8 +120,8 @@ DevOps mettra un fort accent sur **l'automatisation**. Elle prendra plusieurs fo
 
 * L'**automatisation des déploiements** pour éviter les erreurs humaines, livrer rapidement,...
 * L'**automatisation des tests** pour limiter les risques liés à l'automatisation, réduire les temps de recette manuelle...
-* L'**automatisation de la surveillance** pour détecter et traiter rapidement les problèmes
-* L'**automatisation de la génération de la documentation** pour s'assurer par construction qu'elle correspond à l'état du système
+* L'**automatisation de la surveillance** pour détecter et traiter rapidement les problèmes.
+* L'**automatisation de la génération de la documentation** pour s'assurer par construction qu'elle correspond à l'état du système.
 * ...
 
 ---
@@ -135,7 +135,7 @@ Avec DevOps, on se concentrera sur la production de valeur en faisant la **chass
 * Le début d'un développement
 * La mise à disposition du résultat
 
-Le fait d'effectuer des petits changements et de jouer le cycle dev/test/prod régulièrement permettra de réduire le gaspillage en terme de quantité de code développé mais pas testé ou testé mais pas mis en production.
+Jouer le cycle dev/test/prod régulièrement réduit le gaspillage. Il y a moins de code développé, donc moins à tester, et moins à tracer.
 
 ---
 

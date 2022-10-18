@@ -5,6 +5,10 @@ h1, h2, h3 {
 	font-weight: 400;
 	margin-bottom: 0;
 }
+img {
+	max-width: 100%;
+	max-height: 60%;
+}
 .remark-slide-content h1 { font-size: 3em; }
 .remark-slide-content h2 { font-size: 1.8em; }
 .remark-slide-content h3 { font-size: 1.5em; }
