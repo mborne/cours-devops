@@ -12,6 +12,7 @@
     
 # DevOps avec des conteneurs
 
+* Principe de fonctionnement
 * Les principaux concepts
 * L'intérêt des conteneurs
 * L'utilisation d'images publiques
@@ -23,50 +24,108 @@
 
 ---
 
-## Les principaux concepts (1/2)
+## Principe de fonctionnement
 
-### Vue d'ensemble
+### Partage de l'OS et isolation des processus
 
-L'utilisation de docker amène à manipuler plusieurs concepts :
+Par rapport aux VM, nous soulignerons que les conteneurs docker sont basés sur des **fonctionnalités d'isolation du noyau Linux** :
+
+<div class="center">
+    <img src="img/docker-vs-vm.png" alt="Conteneur vs VM" style="height: 200px" />
+</div>
+
+> Source : [www.docker.com - Comparing Containers and Virtual Machines](https://www.docker.com/resources/what-container/)
+
+Le **démarrage d'un conteneur sera donc plus rapide que le démarrage d'une VM** :
+
+* Démarrer un conteneur = démarrer un processus isolé
+* Démarrer une VM = démarrer un OS
+
+---
+
+## Principe de fonctionnement
+
+### Utilisation de système de fichier par couche
+
+Avec docker, nous trouverons un **concept d'image fonctionnellement identique à celui auquel nous sommes habitué avec les VM** (ex : les `.box` téléchargé par `vagrant` dans la partie précédente).
+
+La deuxième optimisation notable de docker par rapport aux VM tiendra à l'**utilisation de système de fichier par couche ("overlay") pour matérialiser ces images**.
+
+Nous verrons que ceci permet à docker d'**optimiser le téléchargement et la construction des images avec des mécanismes de cache**.
+
+---
+
+## Principe de fonctionnement
+
+### La surcouche docker
+
+Les mécanismes d'isolation ne sont pas nouveaux dans le noyau Linux. [Les systèmes de fichiers par couches non plus](https://www.adaltas.com/fr/2021/06/03/linux-overlay-filesystem-docker/).
+
+Docker apporte par contre un ensemble cohérent **de concepts et d'outils donnant un cadre pour déployer efficacement des applications** en s'appuyant sur ces mécanismes.
+
+---
+
+## Les principaux concepts (1/3)
+
+### Vue d'ensemble des concepts
+
+L'utilisation de docker amènera en effet à manipuler plusieurs concepts :
 
 * Les **images** qui sont fonctionnellement équivalentes aux images de VM
 * Les `Dockerfile` qui décrivent la construction d'une image à partir d'une image de base et d'instructions.
 * Les **dépôts d'images (*registry*)** qui permettent de télécharger et stocker des images.
 * Les **conteneurs** qui sont des instances des images se comportant comme des VM grace à des mécanismes d'**isolation**.
-* Les **volumes** qui permettent d'externaliser les données des **conteneurs** ("montage")
+* Les **volumes** qui permettent d'externaliser les données des **conteneurs** ("montage de disque")
 * Les **réseaux** qui permettent la communication entre les conteneurs.
 * Le **démon docker** qui met à disposition [une API pour gérer les conteneurs, images, volumes, réseaux,...](https://docs.docker.com/engine/api/v1.41/).
 * L'[exécutable docker](https://docs.docker.com/engine/reference/commandline/cli/) qui est un client de l'API permettant de manipuler les images, les conteneurs, les volumes, les réseaux,...
 
 ---
+## Les principaux concepts (2/3)
 
-## Les principaux concepts (1/2)
+### Découvrir ces concepts par la pratique
 
-### Découverte par la pratique
+Il nous faudrait plusieurs séances pour un cours visant à vous apprendre à utiliser docker.
 
-Nous allons tâcher de faire un premier survol de ces concepts en reprenant le cas pratique du déploiement de GeoStack.
+Nous allons nous contenter ici de découvrir ces concepts en reprenant le cas pratique du déploiement de GeoStack.
 
 Pour approfondir sur cette technologie, vous pourrez vous appuyer sur les ressources suivantes :
 
 * [docs.docker.com - Docker overview](https://docs.docker.com/get-started/overview/)
 * [container.training](https://container.training/)
-* Le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) qui vous permettra de faire vos premiers tests en ligne
+* [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est un de mes terrains de jeu pour progresser sur différentes technologies dont docker et Kubernetes
+
+---
+## Les principaux concepts (3/3)
+
+### Utilisez un bac à sable!
+
+Le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) vous permettra de faire vos premiers tests en ligne :
+
+<div class="center">
+    <img src="img/play-with-docker.png" alt="Screenshot play-with-docker" style="height: 200px" />
+</div>
+
+En alternative, vous pourrez aussi assez facilement installer docker sur une VM Linux.
+
+> **Évitez d'installer directement le démon docker directement sur un poste branché sur le réseau de votre école/entreprise** (il n'est pas trivial d'éviter les conflits d'IP entre docker et le réseau local, de faire cohabiter docker avec un VPN et de [définir les bonnes options de sécurité](https://github.com/docker/docker-bench-security#docker-bench-for-security))
+
 
 ---
 
 ## L'intérêt des conteneurs
 
-Nous soulignerons que le succès de docker doit beaucoup aux points suivants :
+Nous verrons que le succès de docker doit beaucoup aux points suivants :
 
 * **L'image est un livrable universel** (plus besoin de choisir entre un .deb, .rpm, .war, .zip,...)
 * **L'image est définie as code** via le `Dockerfile` (donc **reconstructible**)
-* Le **démarrage** des conteneurs est **rapide** (démarrage d'un processus isolé vs démarrage d'un OS)
-* Les téléchargements et constructions sont optimisés car :
-  * Une image est un système de fichier par couche
-  * Il y a des mécanismes de cache à la construction et au téléchargement
+* **L'image testée en DEV est celle qui s'exécute en PROD**
+* Le **démarrage** des conteneurs est **rapide**.
+* Les **téléchargements et constructions d'images sont optimisés**.
 * L'API permet la construction d'un écosystème avec par exemple :
   * Le reverse proxy [traefik](https://doc.traefik.io/traefik/) qui se configure automatiquement en inspectant les conteneurs (**introspection**)
   * L'IHM [portainer](https://www.portainer.io/) qui permet de démarrer des conteneurs (**réflexion**)
+
 
 ---
 
