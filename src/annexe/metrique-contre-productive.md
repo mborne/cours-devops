@@ -7,7 +7,7 @@ Le cas suivant semble courant :
 
 On se retrouve alors à traiter principalement des problèmes de sécurité mineurs et des faux positifs.
 
-Les failles critiques ne pouvant être décelées par ce type d'outils peuvent par contre faire de vieux os car on a oublié de définir une métrique "Fréquence des audits de sécurité complet" pour les failles ne pouvant être détecté que par :
+Les failles critiques ne pouvant être décelées par ce type d'outils demeurent car il manque une métrique "Fréquence des audits de sécurité complet" pour les failles ne pouvant être détecté que par :
 
 * Une revue du code
 * Une revue de l'architecture

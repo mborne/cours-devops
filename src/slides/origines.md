@@ -80,7 +80,7 @@ On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org
 
 ---
 
-## L'intégration continue
+## L'intégration continue (1/2)
 
 Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_(software)) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagneront naturellement en popularité. Ils seront utilisés entre autre pour :
 
@@ -88,7 +88,23 @@ Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wi
 * Présenter pour tous les **rapports d'exécution des tests**
 * **Produire des livrables** à déployer (archive zip/tar, paquet .deb pour debian, .rpm pour centos, installeur windows,...)
 
+<div class="center">
+    <img src="img/jenkins-demo-pipeline.png" alt="Jenkins example" style="height: 300px" />
+    <br />
+    <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#creating-a-jenkinsfile">(www.jenkins.io - Creating a Jenkinsfile)</a>
+</div>
+
+---
+
+## L'intégration continue (2/2)
+
 Il sera très rapidement tentant d'**exécuter ces tests avant d'accepter des demandes de modification du code (*pull request*)**. Des solutions d'intégration continue telles [GitHub actions](https://github.com/features/actions) et [GitLab-CI](https://docs.gitlab.com/ee/ci/) seront donc intégrées aux gestionnaires de code source quelques années plus tard.
+
+<div class="center">
+    <img src="img/github-actions-nodejs.png" alt="Exemple de CI NodeJS" style="height: 300px" />
+    <br />
+    <a href="https://github.com/mborne/node-extract/actions">(mborne/node-extract - actions)</a>
+</div>
 
 ---
 

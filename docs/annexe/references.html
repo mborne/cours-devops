@@ -6,13 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>references.md</title>
 
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css">
   <style>
-    html, body {
+    html,
+    body {
       width: 95%;
       margin: auto;
       padding-bottom: 50px;
+    }
+    @media print {
+      .pagebreak { page-break-before: always; }
     }
   </style>
 </head>
@@ -42,6 +48,7 @@
 <h2 id="principes-darchitecture-pour-le-cloud">Principes d&#39;architecture pour le cloud</h2><ul>
 <li><a href="https://12factor.net" target="_blank">12factor.net - Les 12 facteurs</a> pour concevoir des applications &quot;<em>cloud ready</em>&quot;</li>
 <li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/" target="_blank">learn.microsoft.com - Modèles de conception de cloud</a> dont :<ul>
+<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring" target="_blank">learn.microsoft.com - Modèle Surveillance de point de terminaison</a></li>
 <li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/cqrs" target="_blank">learn.microsoft.com - CQRS</a> pour pouvoir s&#39;adapter à la charge plus facilement sur la seule diffusion (dans notre exemple : <code>/wms</code>, <code>/wfs</code>,... vs <code>/geoserver/</code>)</li>
 <li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/strangler-fig" target="_blank">learn.microsoft.com - Modèle Figuier étrangleur</a> pour gérer la migration d&#39;un ancien vers un nouveau service.</li>
 <li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/retry" target="_blank">learn.microsoft.com - Modèle Nouvelle tentative</a> et <a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/circuit-breaker" target="_blank">learn.microsoft.com - Modèle Disjoncteur</a> pour survivre aux instabilités d&#39;une plateforme d&#39;hébergement ou d&#39;un service tiers.</li>
@@ -64,8 +71,35 @@
   </article>
 
   <!-- hightlight.pack.js -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
+
+  <!-- https://www.mathjax.org -->
+  <script>
+    MathJax = {
+      loader: {
+        load: ['input/tex', 'output/svg', 'ui/menu', '[tex]/require']
+      },
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/startup.js"
+    integrity="sha512-LZZ88buOWCaSouKg9UNiW3N/vhBCprp0tpG9uNp+r6maXLDeBddAaqTmDduadI+WghoGaNlZG4NgCX0Xsxlfxg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
 </body>
 
 </html>

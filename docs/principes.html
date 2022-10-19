@@ -59,7 +59,7 @@ Le partage de ce même objectif conduira à **unifier les processus de développ
 
 ## Un processus unifiant le DEV et l'OPS (2/2)
 
-On reconnaîtra dans ce processus la **roue de Deming** bien connue dans le **domaine de la qualité** :
+On reconnaîtra dans ce processus la **roue de Deming** bien connue dans le **domaine de la qualité et l'agilité** :
 
 <div class="center">
     <img src="img/PDCA_Cycle_FR.svg" style="height: 200px" />
@@ -68,7 +68,7 @@ On reconnaîtra dans ce processus la **roue de Deming** bien connue dans le **do
     </p>
 </div>
 
-On notera qu'il est principalement question avec DevOps de **ne pas avoir deux processus distincts**.
+Il est principalement question avec DevOps de **ne pas avoir deux processus distincts pour le développement et le déploiement**.
 
 ---
 
@@ -99,7 +99,7 @@ A ce titre, il conviendra d'**améliorer en continu ce processus**.
 Pour faire simple, avant de cibler une **infrastructure agile**, il faudra être nombreux à voir qu'il y a un problème quand :
 
 * Il faut des jours pour re-livrer une application avec une mise à jour de ses dépendances (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
-* Il faut croiser les doigts pour que les procédures de déploiement soit à jour.
+* Il fallait croiser les doigts pour que la procédure de déploiement soit à jour.
 * Il faut faire signer une commande de VM pour faire face à un pic de charge (en ayant prévue la commande l'année précédente)
 * ...
 
@@ -114,7 +114,7 @@ En pratique, s'orienter vers la méthode DevOps sera délicat sans une **politiq
 * Il sera difficile d'impliquer les DEV dans l'exploitation avec une logique de projet où le travail s'arrête à la mise en production.
 * Il sera difficile d'avoir des métriques avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, GitHub,...)
 
-Il sera nécessaire de revoir [la gestion du cycle de vie des applications (ALM)](https://www.redhat.com/fr/topics/devops/what-is-application-lifecycle-management-alm) pour :
+Il sera souvent nécessaire de revoir [la gestion du cycle de vie des applications (ALM)](https://www.redhat.com/fr/topics/devops/what-is-application-lifecycle-management-alm) pour :
 
 * **Passer d'une logique de projet à une logique de produit**.
 * Pouvoir **mettre en évidence les problèmes et les améliorations** en systématisant par exemple l'utilisation d'un **gestionnaire de ticket**.
@@ -155,6 +155,12 @@ Jouer le cycle dev/test/prod régulièrement réduit le gaspillage. Il y a moins
 ### Mesure
 
 L'adage dit que "ce qui ne se mesure pas n'existe pas"... Du moins, ce qui n'est pas affiché en rouge sur un graphique ne percutera pas au niveau de la direction.
+
+<div class="center">
+    <img src="img/gantt-retex-livraison.png" style="height: 200px" />
+    <br />
+    <a href="annexe/gantt-efficacite-flux.html">(GANTT illustrant la problématique des temps d'attente avec l'approche traditionnelle)</a>
+</div>
 
 A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métriques associées**.
 
@@ -203,8 +209,8 @@ Les métriques suivantes seront caractéristiques de l'**automatisation du dépl
 
 Les métriques suivantes donneront une indication sur la **qualité de l'automatisation du déploiement** :
 
-* Le taux d'échec des déploiements
-* Le temps moyen pour résoudre un problème d'indisponibilité (*Mean Time To Recovery (MTTR)*)
+* Le **taux d'échec des déploiements**
+* Le **temps moyen pour résoudre un problème d'indisponibilité** (*Mean Time To Recovery (MTTR)*)
 
 ---
 
@@ -212,7 +218,7 @@ Les métriques suivantes donneront une indication sur la **qualité de l'automat
 
 ### Les métriques DevOps (3/3)
 
-La mesure du temps moyen pour détecter une problème (*Mean Time To Detect (MTTD)*) donnera quand à elle une indication sur la qualité de l'instrumentation de l'infrastructure.
+La mesure du **temps moyen pour détecter une problème** (*Mean Time To Detect (MTTD)*) donnera quand à elle une indication sur la qualité de l'instrumentation de l'infrastructure.
 
 ---
 
@@ -233,15 +239,27 @@ Pour mesurer la qualité du code, il sera possible de s'appuyer sur :
 
 ## Les métriques
 
-### Les métriques de qualité du développement
+### Les métriques de qualité du développement (1/2)
 
 Les indicateurs suivants donneront une vision plus globale de la qualité d'une application :
 
-* Nombre de tickets incidents (par mois, par an,...)
-* Nombre de ticket incident ouvert
-* Durée de vie moyenne des tickets incidents
+* **Nombre de tickets incidents** (par mois, par an,...)
+* **Nombre de tickets incidents ouverts**
+* **Durée de vie moyenne des tickets incidents**
 
-Le calcul de ces métriques sera délicat sans :
+<div class="center">
+    <img src="img/metrique-ticket.png" style="height: 250px" />
+    <br />
+    (exemple de visualisation de métriques sur des tickets)
+</div>
+
+---
+
+## Les métriques
+
+### Les métriques de qualité du développement (2/2)
+
+Le calcul de telles métriques sera délicat sans :
 
 * L'utilisation d'un système de ticket (Jira, redmine, issues du gestionnaire de code source,...)
 * Une gestion rigoureuse des tickets (demande vs incident, gravité des incidents,...)
@@ -251,17 +269,9 @@ Le calcul de ces métriques sera délicat sans :
 
 ## L'observabilité
 
-### Introduction
-
-Une compréhension vision partagée du comportement du système et des contraintes qu'il subit sera importante pour un travail efficace entre les DEV et les OPS.
-
----
-
-## L'observabilité
-
 ### La supervision du système
 
-Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin.openstreetmap.org/), [netdata](https://www.netdata.cloud/),...) permettent de :
+Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin-monitoring.org/), [netdata](https://www.netdata.cloud/),...) permettent de :
 
 * Surveiller la consommation de ressources (RAM, CPU, stockage, bande passante,...)
 * Mettre en oeuvre des alertes pour :
@@ -269,6 +279,8 @@ Les outils de supervision système ([grafana/prometheus](https://grafana.com/gra
   * Détecter des problèmes (atteinte de limite de bande passante, de la limite de nombre de connexion simultanées, >=80% de CPU utilisé pendant 10 minutes)
 
 **Les outils de supervision offrent au passage un terrain de discussion intéressant entre les DEV et les OPS.**
+
+> (Nous verrons quelques exemples réels dont [munin.openstreetmap.org](https://munin.openstreetmap.org/) et [https://app.netdata.cloud](https://app.netdata.cloud) utilisé dans mon cas pour des machines perso.)
 
 ---
 
@@ -282,7 +294,11 @@ Une sonde web interroge périodiquement une URL en vérifiant la réponse (code 
 * Mesurer un **temps de réponse moyen** (indicateur de performance)
 * Mettre en oeuvre une **alerte pour traiter au plus vite une indisponibilité**
 
-La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/). Les outils de supervision pourront généralement être étendus pour ajouter ce type de sonde (ex : [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter#blackbox-exporter-)).
+La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/) pour les services exposés en ligne.
+
+Pour les services non exposés, nous remarquerons que les outils de supervision pourront généralement être étendus pour ajouter ce type de sonde (ex : [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter#blackbox-exporter-)).
+
+> Nous irons jeter à [la configuration de quelques sondes avec UptimeRobot](https://stats.uptimerobot.com/xlXQNiAKq).
 
 ---
 
@@ -292,9 +308,9 @@ La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptim
 
 Interpréter un échec sur une sonde impliquant plusieurs services en backend n'est pas trivial.
 
-Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des outils tels [stackstorm](https://stackstorm.com/) encore moins.
+Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des outils tels [stackstorm](https://stackstorm.com/) encore moins. Il sera donc intéressant de prévoir des URL dédiées à la surveillance (ex : `/health/db`, `/health/wfs-geoportail`,...).
 
-Il sera donc intéressant de prévoir des URL dédiées à la surveillance (ex : `/health/db`, `/health/wfs-geoportail`,...).
+> Voir [learn.microsoft.com - Modèle Surveillance de point de terminaison](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring).
 
 ---
 
@@ -429,7 +445,7 @@ Cette approche permettra de :
 
 ### Principe
 
-Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code**](https://www.writethedocs.org/guide/docs-as-code/) consiste à **gérer la documentation avec les mêmes outils que ceux qui servent à construire des applications** :
+Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code**](https://www.writethedocs.org/guide/docs-as-code/) qui consiste à **gérer la documentation avec les mêmes outils que ceux qui servent à construire des applications** :
 
 * Le **système de gestion de ticket** permet de **gérer les évolutions et les anomalies**.
 * Le gestionnaire de code source (GIT) permet de **versionner le code source de la documentation** et de **prévisualiser le contenu**.
@@ -464,8 +480,9 @@ Au final, il sera très vite tentant de gérer un maximum d'élément à l'aide 
 
 <span style="color: red; font-weight: bold;">La seule exception concerne les secrets qui ne doivent jamais être stocké dans un dépôt!</span> (pas même dans un dépôt privé qui sera peut-être ouvert un jour!)
 
-Il est intéressant de voir apparaître :
+Il est intéressant de voir par exemple :
 
+* Des schemas *as code** avec des outils tels [Diagrams](https://diagrams.mingrammer.com/docs/getting-started/examples)
 * Des standards *as code* (ex : [cnigfr - PCRS](https://github.com/cnigfr/PCRS#pcrs))
 * Des référentiels *as code* quand la volumétrie le permet (ex : [BaseAdresseNationale/codes-postaux](https://github.com/BaseAdresseNationale/codes-postaux#codes-postaux), [gregoiredavid/france-geojson](https://github.com/gregoiredavid/france-geojson#france-geojson),...)
 * ...

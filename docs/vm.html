@@ -426,19 +426,25 @@ Dans la zone d'hébergement, nous trouverons par exemple :
 
 ## L'incontournable zone d'hébergement
 
-### Le délicat recours à un prestataire...
+### Le délicat recours à un prestataire... (1/2)
 
 En cas de **recours à une équipe dédiée** pour construire cette zone d'hébergement, il conviendra de **s'assurer que la méthode permet l'automatisation des déploiements** :
 
 * **La nécessité de recourir à un ticket pour configurer un seul élément suffira à plomber les capacités d'automatisation**
 * **La moindre imprécision dans les demandes sera source de problèmes de cohabitation**
 
+---
+
+## L'incontournable zone d'hébergement
+
+### Le délicat recours à un prestataire... (2/2)
+
 **Poser un cadre "as code"** et **être précis sur les demandes** sera incontournable :
 
-* Avec "je veux des mises à jour régulière", le prestataire ajoutera potentiellement en bonus un `rm -rf /etc/apt/sources.list.d/*` pour reconfigurer ses seuls dépôts et vous aurez de belles surprises!
+* Avec "je veux des mises à jour régulière", le prestataire ajoutera potentiellement en bonus un `rm -rf /etc/apt/sources.list.d/*` pour reconfigurer ses seuls dépôts.
 * Avec "je veux une exécution régulière de `apt-get update && apt-get upgrade -y`, il y aura moins de place pour la fantaisie.
 
-> (Du moins, ce type de problématique nous aidera à comprendre l'intérêt des conteneurs et de l'orchestration de conteneur...)
+Du moins, ce type de problématique nous aidera à comprendre l'intérêt des conteneurs et de l'orchestration de conteneur que nous allons aborder...
 
 
     </textarea>
