@@ -1,6 +1,6 @@
 # Quelques références
 
-## Généralités
+## Généralités sur DevOps
 
 * [www.atlassian.com - Framework CALMS](https://www.atlassian.com/fr/devops/frameworks/calms-framework)
 * [www.atlassian.com - Métriques DevOps](https://www.atlassian.com/fr/devops/frameworks/devops-metrics)
@@ -17,13 +17,21 @@
 
 * [blog.octo.com - La pyramide des tests par la pratique](https://blog.octo.com/la-pyramide-des-tests-par-la-pratique-1-5/)
 
-## Cloud
+## Généralité sur le cloud
 
-* [12factor.net - Les 12 facteurs](https://12factor.net) pour des applications "*cloud ready*"
 * [ENSG - Technologies de Cloud Computing (Cédric Esnault)](https://cedricici.github.io/cours-cloud/public/#/)
 * [honghq.com - The API Mandate: How a mythical memo from Jeff Bezos changed software forever](https://konghq.com/blog/api-mandate)
 * [www.redhat.com - IaaS, PaaS, SaaS : quelles sont les différences ?](https://www.redhat.com/fr/topics/cloud-computing/iaas-vs-paas-vs-saas)
 * [www.ovhcloud.com - IaaS, PaaS, SaaS : quelle solution cloud choisir ?](https://www.ovhcloud.com/fr/public-cloud/cloud-computing/iaas-paas-saas/)
+
+## Principes d'architecture pour le cloud
+
+* [12factor.net - Les 12 facteurs](https://12factor.net) pour concevoir des applications "*cloud ready*"
+* [learn.microsoft.com - Modèles de conception de cloud](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/) dont :
+  * [learn.microsoft.com - CQRS](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/cqrs) pour pouvoir s'adapter à la charge plus facilement sur la seule diffusion (dans notre exemple : `/wms`, `/wfs`,... vs `/geoserver/`)
+  * [learn.microsoft.com - Modèle Figuier étrangleur](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/strangler-fig) pour gérer la migration d'un ancien vers un nouveau service.
+  * [learn.microsoft.com - Modèle Nouvelle tentative](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/retry) et [learn.microsoft.com - Modèle Disjoncteur](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/circuit-breaker) pour survivre aux instabilités d'une plateforme d'hébergement ou d'un service tiers.
+
 
 ## DevOps en image
 
