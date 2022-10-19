@@ -17,8 +17,9 @@
 * L'utilisation d'images publiques
 * La construction d'une image
 * Le déploiement de l'application avec docker compose
+* La mise en oeuvre d'un reverse proxy
 * Que manque-t'il à ce stade?
-* Kubernetes!
+* L'orchestration de conteneur
 
 ---
 
@@ -71,9 +72,7 @@ Nous soulignerons que le succès de docker doit beaucoup aux points suivants :
 
 ## L'utilisation d'images publiques
 
-Un autre élément joue beaucoup dans le succès de docker : [Le dépôt d'image public gratuit DockerHub](https://hub.docker.com/search?q=).
-
-Nous y trouvons un grand nombre d'image de base d'OS (debian, centos, alpine) et d'applications (postgres, mongodb, redis,...) prêtes à l'emploi.
+Un autre élément joue beaucoup dans le succès de docker : [Le dépôt d'image public gratuit DockerHub](https://hub.docker.com/search?q=). Nous y trouvons un grand nombre d'images d'OS ([ubuntu](https://hub.docker.com/_/ubuntu), [debian](https://hub.docker.com/_/debian), [alpine](https://hub.docker.com/_/alpine),...) et d'applications ([postgres](https://hub.docker.com/_/postgres), [mongodb](https://hub.docker.com/_/mongodb), [redis](https://hub.docker.com/_/redis),...) prêtes à l'emploi.
 
 Pour déployer GeoStack, nous trouvons :
 
@@ -100,33 +99,43 @@ docker pull ghcr.io/mborne/geoserver:v2.21.1
 
 ---
 
-## Que manque-t'il à ce stade?
+## La mise en oeuvre d'un reverse proxy
 
-### La communication entre conteneur sur plusieurs hôtes
+**EN CONSTRUCTION :**
 
-**EN CONSTRUCTION**
+* Présenter [traefik](https://doc.traefik.io/traefik/)
+* La [configuration automatique basée sur des labels permise par l'API docker](https://doc.traefik.io/traefik/providers/docker/)
+* La [capacité à traiter facilement la mise en oeuvre de TLS](https://doc.traefik.io/traefik/https/overview/)
+* Et [bien d'autres points tel la mise en eouvre de limite de nombres d'appel avec les middlewares](https://doc.traefik.io/traefik/middlewares/http/ratelimit/)
 
----
-
-## Que manque-t'il à ce stade?
-
-### Le stockage distribué
-
-**EN CONSTRUCTION**
 
 ---
 
 ## Que manque-t'il à ce stade?
 
-### L'exposition de service web
+En l'état, si cherchions à héberger GeoStack sur plusieurs machines, nous remarquerions que :
 
-**EN CONSTRUCTION**
+* Les conteneurs sur la machine A ne peuvent communiquer avec ceux de la machine B
+* Les démons docker sur les machines ne se connaissent pas (un outil tel traefik devrait moissonner deux API distincte)
+* Il nous est délicat de mettre en oeuvre un volume partagé par les conteneurs sur les deux machines.
 
 ---
 
-## Kubernetes!
+## L'orchestration de conteneur avec Kubernetes
 
-**EN CONSTRUCTION**
+**EN CONSTRUCTION :**
+
+* Introduction :
+  * Les différentes solutions swarm, Kubernetes,...
+  * L'apport de swarm au niveau de docker
+  * (Pas de panique quand vous verrez containerd, c'est la seule partie "run" de docker)
+
+* Une API à l'échelle du cluster
+* Une API avec une approche déclarative
+* Une API riche en concept (LoadBalancer, Ingress,...)
+* Une API extensible permettant l'introspection (exemple avec traefik)
+* Une API permettant aussi la réflexion (zalando/postgresql-operator)
+* Une API permettant **séparer les responsabilités entre les DEV et les OPS** (à comparer avec l'approche IaaS de la partie précédente)
 
     </textarea>
 
