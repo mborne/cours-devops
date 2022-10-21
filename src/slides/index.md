@@ -15,6 +15,4 @@
 * [Les principes de DevOps](principes.md)
 * [DevOps avec des VM](vm.md)
 * [DevOps avec des conteneurs](conteneurs.md)
-* [DevOps dans le cloud](cloud.md)
-
 * [Quelques références](annexe/references.html)

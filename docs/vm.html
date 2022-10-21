@@ -102,7 +102,7 @@ Nous n'entrerons pas trop dans le détail (*spoiler* : nous verrons comment l'ut
 
 ---
 
-## La création des VM (1/4)
+## La création des VM (1/5)
 
 ### La variété des API
 
@@ -121,7 +121,7 @@ Nous trouverons des **concepts spécifiques à chaque solution dans ces API** (c
 
 ---
 
-## La création des VM (2/4)
+## La création des VM (2/5)
 
 ### Terraform
 
@@ -137,36 +137,50 @@ Nous nous contenterons de survoler quelques exemples et de souligner que **Terra
 
 ---
 
-## La création des VM (3/4)
+## La création des VM (3/5)
 
-### Vagrant (1/2)
+### Vagrant (1/3)
 
 Pour la suite, nous allons plutôt utiliser [**Vagrant**](https://www.vagrantup.com/) qui est lui aussi développé par [HashiCorp](https://www.hashicorp.com/) et qui est l'équivalent de [Terraform](https://www.terraform.io/) pour les environnements de développement.
 
-Nous allons analyser et utiliser le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) pour **démarrer des VM en une commande `vagrant up` à partir d'un fichier [Vagrantfile](https://github.com/mborne/vagrantbox/blob/master/Vagrantfile)**.
+---
 
-**Démonstration!** (en espérant que votre proxy de malheur m'épargne l'effet démo)
+## La création des VM (4/5)
 
-> La découverte de la plupart des outils de ce cours sera plus simple sur une machine perso connectée à internet via une box standard. Nous créons ici des VM [VirtualBox](https://www.virtualbox.org/) mais [Vagrant supporte d'autres fournisseurs (ex : KVM)](https://www.vagrantup.com/docs/providers).
+### Vagrant (2/3)
+
+Nous utilisons le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) pour **démarrer des VM en une commande `vagrant up` à partir d'un fichier [Vagrantfile](https://github.com/mborne/vagrantbox/blob/master/Vagrantfile)** :
+
+<div class="center">
+    <img src="img/vagrantbox-up.png" style="height: 300px" />
+</div>
+
+> Nous créons ici des VM [VirtualBox](https://www.virtualbox.org/) mais [Vagrant supporte d'autres fournisseurs (ex : KVM)](https://www.vagrantup.com/docs/providers).
 
 ---
 
 ## La création des VM (4/4)
 
-### Vagrant (2/2)
+### Vagrant (3/3)
 
 Nous soulignerons que :
 
-* La principale difficulté traitée dans ce dépôt est l'utilisation optionnelle d'un proxy sortant avec le plugin [vagrant-proxyconf](https://rubygems.org/gems/vagrant-proxyconf/versions/1.5.2).
-* Vous pourrez créer vos propres `Vagrantfile` en suivant [Vagrant - getting started](https://learn.hashicorp.com/collections/vagrant/getting-started) :
-
-```bash
-vagrant init ubuntu/focal64
-# lire et adapter le Vagrantfile généré...
-vagrant up
-```
-* Vous trouverez de nombreux tutorials et [cheat sheet](https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md) en ligne pour utiliser cet outil.
+* La principale difficulté traitée dans le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) est l'utilisation optionnelle d'un proxy sortant avec le plugin [vagrant-proxyconf](https://rubygems.org/gems/vagrant-proxyconf/versions/1.5.2).
+* Vous trouverez une [annexe/vagrant-helloworld](annexe/vagrant-helloworld.html) pour appendre à créer vos propres `Vagrantfile`.
 * Vagrant sera aussi pratique pour créer une VM de DEV Linux avec un environnement graphique (`apt-get install ubuntu-desktop`)
+
+---
+
+## Le déploiement de l'application
+
+### Le déploiement des applications
+
+Nous avons avec Vagrant et Terraform des outils capables de **créer nos VM as code**. Il nous reste à trouver une solution pour procéder de même pour déployer nos applications comme suit :
+
+<div class="center">
+    <img src="img/vagrantbox-ansible.png" style="height: 300px" />
+</div>
+
 
 ---
 
@@ -174,7 +188,7 @@ vagrant up
 
 ### Les outils de gestion de configuration
 
-Nous avons avec Vagrant et Terraform des outils capables de **créer nos VM as code**. Il nous reste à choisir un outil **gestion de configuration** pour **déployer et configurer nos applications**. Les plus connus sont :
+Les outils de **gestion de configuration** sont les plus adaptés pour **installer et configurer nos applications**. Les plus connus sont :
 
 * [Chef](https://docs.chef.io/platform_overview/)
 * [Puppet](https://puppet.com/docs/puppet/6/puppet_overview.html)
@@ -190,7 +204,7 @@ Nous allons nous appuyer sur Ansible qui est une solution :
 
 * [Libre, OpenSource et référencée dans le SILL (1)](https://sill.etalab.gouv.fr/software?name=Ansible)
 * Basée sur l'utilisation du format YAML
-* Implétentée en Python
+* Implémentée en Python
 * N'imposant pas un serveur de contrôle
 * Permettant l'utilisation d'un serveur de contrôle ([AWX](https://github.com/ansible/awx#readme) par exemple).
 

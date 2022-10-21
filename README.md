@@ -19,9 +19,10 @@ L'idée est ensuite d'entrer dans la pratique avec :
 
 * [DevOps avec des VM](src/slides/vm.md) pour faire un focus sur *Infrastructure as Code* en contexte IaaS.
 * [DevOps avec des conteneurs](src/slides/conteneurs.md) pour expliquer l'intérêt des conteneurs (livrable universel) et introduire CaaS avec un survol de Kubernetes.
-* [DevOps dans le cloud](src/slides/cloud.md) pour faire un focus sur des problématiques d'architecture des zones d'hébergement (parfois nommées *landing zone*).
 
 Sur ces dernières parties, l'idée est de prendre des exemples concrets de déploiement et de faire des démonstrations dont le volume variera selon le nombre de séances.
+
+* ~~[DevOps dans le cloud](src/slides/cloud.md) pour faire un focus sur des problématiques d'architecture des zones d'hébergement (parfois nommées *landing zone*)~~ (annulé cette année, nous manquerons de temps et cette partie manque de précision)
 
 ## License
 

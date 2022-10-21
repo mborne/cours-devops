@@ -143,16 +143,16 @@ docker pull ghcr.io/mborne/geoserver:v2.21.1
 
 ## Le déploiement de l'application avec docker compose
 
-**EN CONSTRUCTION**
+Nous allons écrire ensemble un fichier `docker-compose.yml` permettant de démarrer l'application.
 
 ---
 
 ## La mise en oeuvre d'un reverse proxy
 
-**EN CONSTRUCTION :**
+Nous soulignerons l'existence de [traefik](https://doc.traefik.io/traefik/) doté d'un mécanisme de [configuration automatique permis par la présence d'une API au niveau de docker](https://doc.traefik.io/traefik/providers/docker/).
 
-* Présenter [traefik](https://doc.traefik.io/traefik/)
-* La [configuration automatique basée sur des labels permise par l'API docker](https://doc.traefik.io/traefik/providers/docker/)
+En complément, nous constaterons :
+
 * La [capacité à traiter facilement la mise en oeuvre de TLS](https://doc.traefik.io/traefik/https/overview/)
 * Et [bien d'autres points tel la mise en eouvre de limite de nombres d'appel avec les middlewares](https://doc.traefik.io/traefik/middlewares/http/ratelimit/)
 
@@ -163,24 +163,31 @@ docker pull ghcr.io/mborne/geoserver:v2.21.1
 
 En l'état, si cherchions à héberger GeoStack sur plusieurs machines, nous remarquerions que :
 
-* Les conteneurs sur la machine A ne peuvent communiquer avec ceux de la machine B
-* Les démons docker sur les machines ne se connaissent pas (un outil tel traefik devrait moissonner deux API distincte)
-* Il nous est délicat de mettre en oeuvre un volume partagé par les conteneurs sur les deux machines.
+* Les conteneurs sur **la machine A ne peuvent communiquer avec ceux de la machine B**
+* Les démons docker sur les machines ne se connaissent pas (un outil tel [traefik](https://doc.traefik.io/traefik/) devrait moissonner deux API distinctes)
+* Il nous serait délicat de mettre en oeuvre un volume partagé par les conteneurs sur les deux machines.
 
 ---
 
 ## L'orchestration de conteneur avec Kubernetes
 
-**EN CONSTRUCTION :**
+### Introduction
 
-* Introduction :
-  * Les différentes solutions swarm, Kubernetes,...
-  * L'apport de swarm au niveau de docker
-  * (Pas de panique quand vous verrez containerd, c'est la seule partie "run" de docker)
+Pour répondre à cette problématique, nous trouverons des solutions d'orchestrateur de conteneurs permettant de **gérer des conteneurs sur plusieurs hôtes**.
 
-* Une API à l'échelle du cluster
-* Une API avec une approche déclarative
-* Une API riche en concept (LoadBalancer, Ingress,...)
-* Une API extensible permettant l'introspection (exemple avec traefik)
-* Une API permettant aussi la réflexion (zalando/postgresql-operator)
+Il en existe plusieurs, dont swarm qui est intégrées à docker. Nous allons nous concentrer sur Kubernetes.
+
+### Kubernetes
+
+Nous ne pourrons pas rentrer dans les détails, mais nous soulignerons que Kubernetes amène :
+
+* Une **API à l'échelle du cluster**
+* Une **API avec une approche déclarative** (on spécifie en YAML le nombre de conteneurs attendus, Kubernetes se charge)
+* Une [API riche en concepts](https://kubernetes.io/docs/concepts/) (LoadBalancer, Ingress,...)
+* Une API extensible permettant l'introspection (utilisée par [traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) cette fois à l'échelle d'un cluster)
+* Une API permettant la réflexion qui peut être illustrée par :
+  * [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) qui se charge de déployer les autres applications au sein d'un cluster Kubernetes.
+  * [zalando/postgres-operator](https://github.com/zalando/postgres-operator#getting-started) qui se charge de gérer un cluster PostgreSQL dans Kubernetes.
 * Une API permettant **séparer les responsabilités entre les DEV et les OPS** (à comparer avec l'approche IaaS de la partie précédente)
+
+Si le temps nous le permet, nous regarderons quelques exemples de déploiement avec cette technologie pour se faire une idée de sa puissance.

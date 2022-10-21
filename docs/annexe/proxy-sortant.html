@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>proxy-sortant.md</title>
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css">
+  <style>
+    html,
+    body {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 50px;
+    }
+    @media print {
+      .pagebreak { page-break-before: always; }
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</h1><h2 id="contexte">Contexte</h2><p>En cas de présence d&#39;un proxy sortant pour les accès à internet, les systèmes et navigateurs sont souvent configuré à l&#39;aide d&#39;un fichier <code>proxy.pac</code>.</p>
+<p>Ce fichier <code>proxy.pac</code> est un script JavaScript indiquant s&#39;il faut utiliser tel ou tel proxy pour accéder à une ressource.</p>
+<h2 id="problème">Problème</h2><p>Les outils bas niveau en ligne de commande (<code>curl</code>, <code>vagrant</code>, <code>terraform</code>, <code>ansible</code>,...) ne savent pas exploiter ce script. Il faut configurer des variables d&#39;environnement <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> et éventuellement <code>NO_PROXY</code>.</p>
+<h2 id="exemple-de-configuration-temporaire">Exemple de configuration temporaire</h2><pre><code class="language-bash">export HTTP_PROXY=http://10.0.4.2:3128/
+export HTTPS_PROXY=http://10.0.4.2:3128/
+export http_proxy=http://10.0.4.2:3128/
+export https_proxy=http://10.0.4.2:3128/
+</code></pre>
+<h2 id="exemple-de-configuration-permanente">Exemple de configuration permanente</h2><ul>
+<li><ol>
+<li>Ajouter les lignes suivantes au fichier <code>~/.profile</code> :</li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-bash">export HTTP_PROXY=http://10.0.4.2:3128/
+export HTTPS_PROXY=http://10.0.4.2:3128/
+export http_proxy=http://10.0.4.2:3128/
+export https_proxy=http://10.0.4.2:3128/
+</code></pre>
+<ul>
+<li><ol start="2">
+<li>Recharger ce fichier avec <code>source ~/.profile</code> OU fermer et rouvrir la session</li>
+</ol>
+</li>
+</ul>
+
+  </article>
+
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <!-- https://www.mathjax.org -->
+  <script>
+    MathJax = {
+      loader: {
+        load: ['input/tex', 'output/svg', 'ui/menu', '[tex]/require']
+      },
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/startup.js"
+    integrity="sha512-LZZ88buOWCaSouKg9UNiW3N/vhBCprp0tpG9uNp+r6maXLDeBddAaqTmDduadI+WghoGaNlZG4NgCX0Xsxlfxg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>
