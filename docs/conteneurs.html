@@ -154,7 +154,11 @@ docker pull ghcr.io/mborne/geoserver:v2.21.1
 
 ## Le déploiement de l'application avec docker compose
 
-Nous allons écrire ensemble un fichier `docker-compose.yml` permettant de démarrer l'application.
+Nous trouverons ici la démonstration correspondant à l'utilisation d'un fichier `docker-compose.yml` pour démarrer les deux applications à l'aide d'un simple `docker compose up -d` :
+
+![mborne/geostack-deploy - Déploiement de GeoStack avec docker compose](https://github.com/mborne/geostack-deploy/tree/master/docker#readme)
+
+> Nous soulignerons que sans "docker compose", nous serions amené à exécuter de nombreuses commandes docker.
 
 ---
 
@@ -201,7 +205,7 @@ Nous avons une première solution pour exécuter nos conteneurs sur plusieurs ma
 
 Nous ne pourrons pas rentrer dans les détails, mais nous soulignerons que Kubernetes amène une [API de contrôle de l'exécution des conteneurs à l'échelle d'un cluster](https://container.training/kube-selfpaced.yml.html#85).
 
-* Une **API avec une approche déclarative** (on spécifie en YAML le nombre de conteneurs attendus, Kubernetes se charge)
+* Une **API avec une approche déclarative** (on spécifie en YAML le nombre de conteneurs attendus, Kubernetes se charge de les démarrer)
 * Une architecture réseau permettant par défaut la communication entre les conteneurs :
   * Un réseau de type overlay est présent à l'échelle du cluster
   * Il n'est plus nécessaire de partager explicitement des réseaux
@@ -214,13 +218,13 @@ Nous ne pourrons pas rentrer dans les détails, mais nous soulignerons que Kuber
 
 Nous soulignerons que Kubernetes amène :
 
-* Une [API riche en concepts](https://kubernetes.io/docs/concepts/) (LoadBalancer, Ingress,...)
+* Une [API riche en concepts](https://kubernetes.io/docs/concepts/)
 * Une API extensible permettant l'introspection (utilisée par [traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) cette fois à l'échelle d'un cluster)
 * Une API permettant la réflexion qui peut être illustrée par :
   * [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) qui se charge de déployer les autres applications au sein d'un cluster Kubernetes.
   * [zalando/postgres-operator](https://github.com/zalando/postgres-operator#getting-started) qui se charge de gérer un cluster PostgreSQL dans Kubernetes.
 
-Surtout, dans le cadre de ce cours, nous remarquerons que l'API Kubernetes permet de **séparer les responsabilités entre les DEV et les OPS** (à comparer avec l'approche IaaS de la partie précédente)
+Dans le cadre de ce cours, nous remarquerons que l'API Kubernetes permet de **séparer les responsabilités entre les DEV et les OPS**.
 
     </textarea>
 

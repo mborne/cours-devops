@@ -143,7 +143,11 @@ docker pull ghcr.io/mborne/geoserver:v2.21.1
 
 ## Le déploiement de l'application avec docker compose
 
-Nous allons écrire ensemble un fichier `docker-compose.yml` permettant de démarrer l'application.
+Nous trouverons ici la démonstration correspondant à l'utilisation d'un fichier `docker-compose.yml` pour démarrer les deux applications à l'aide d'un simple `docker compose up -d` :
+
+![mborne/geostack-deploy - Déploiement de GeoStack avec docker compose](https://github.com/mborne/geostack-deploy/tree/master/docker#readme)
+
+> Nous soulignerons que sans "docker compose", nous serions amené à exécuter de nombreuses commandes docker.
 
 ---
 
