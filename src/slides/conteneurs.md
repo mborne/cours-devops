@@ -21,22 +21,22 @@ Par rapport aux VM, nous soulignerons que les conteneurs docker sont basés sur 
 
 <div class="center">
     <img src="img/docker-vs-vm.png" alt="Conteneur vs VM" style="height: 200px" />
+    <br />
+    (source : <a href="https://www.docker.com/resources/what-container/">www.docker.com - Comparing Containers and Virtual Machines</a>)
 </div>
 
-> Source : [www.docker.com - Comparing Containers and Virtual Machines](https://www.docker.com/resources/what-container/)
-
-Le **démarrage d'un conteneur sera donc plus rapide que le démarrage d'une VM** :
+Le **démarrage d'un conteneur sera plus rapide que le démarrage d'une VM car** :
 
 * Démarrer un conteneur = démarrer un processus isolé
-* Démarrer une VM = démarrer un OS
+* Démarrer une VM = démarrer un OS complet
 
 ---
 
 ## Principe de fonctionnement
 
-### Utilisation de système de fichier par couche
+### Utilisation d'un système de fichier par couche
 
-Avec docker, nous trouverons un **concept d'image fonctionnellement identique à celui auquel nous sommes habitué avec les VM** (ex : les `.box` téléchargé par `vagrant` dans la partie précédente).
+Avec docker, nous trouverons un **concept d'image fonctionnellement identique à celui auquel nous sommes habitué avec les VM** (ex : les `.box` téléchargés par `vagrant` dans la partie précédente).
 
 La deuxième optimisation notable de docker par rapport aux VM tiendra à l'**utilisation de système de fichier par couche ("overlay") pour matérialiser ces images**.
 
@@ -48,9 +48,9 @@ Nous verrons que ceci permet à docker d'**optimiser le téléchargement et la c
 
 ### La surcouche docker
 
-Les mécanismes d'isolation ne sont pas nouveaux dans le noyau Linux. [Les systèmes de fichiers par couches non plus](https://www.adaltas.com/fr/2021/06/03/linux-overlay-filesystem-docker/).
+Les mécanismes d'isolation ne sont pas nouveaux dans le noyau Linux (voir [LXC - LinuX Containers](https://fr.wikipedia.org/wiki/LXC) et [cgroups](https://fr.wikipedia.org/wiki/Cgroups)). [Les systèmes de fichiers par couches non plus](https://www.adaltas.com/fr/2021/06/03/linux-overlay-filesystem-docker/).
 
-Docker apporte par contre un ensemble cohérent **de concepts et d'outils donnant un cadre pour déployer efficacement des applications** en s'appuyant sur ces mécanismes.
+Docker apporte par contre un ensemble cohérent **de concepts et d'outils donnant un cadre pour construire et déployer efficacement des applications** en s'appuyant sur ces mécanismes.
 
 ---
 
@@ -145,7 +145,7 @@ docker pull ghcr.io/mborne/geoserver:v2.21.1
 
 Nous trouverons ici la démonstration correspondant à l'utilisation d'un fichier `docker-compose.yml` pour démarrer les deux applications à l'aide d'un simple `docker compose up -d` :
 
-![mborne/geostack-deploy - Déploiement de GeoStack avec docker compose](https://github.com/mborne/geostack-deploy/tree/master/docker#readme)
+[mborne/geostack-deploy - Déploiement de GeoStack avec docker compose](https://github.com/mborne/geostack-deploy/tree/master/docker#readme)
 
 > Nous soulignerons que sans "docker compose", nous serions amené à exécuter de nombreuses commandes docker.
 
