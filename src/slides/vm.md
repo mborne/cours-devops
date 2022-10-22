@@ -212,6 +212,8 @@ Nous trouverons plusieurs exécutable avec Ansible :
 * `ansible-galaxy` qui permettra de télécharger des rôles partagés pour construire vos playbooks (voir [galaxy.ansible.com](https://galaxy.ansible.com/)).
 * `ansible-vault` qui permettra de chiffrer des secrets.
 
+L'[installation pourra être réalisée dans un environnement virtuel python](https://gist.github.com/mborne/eeb3a0177fe27f5ed393a00eded0a86f#file-ansible-venv-md) pour éviter les conflits de version de bibliothèques Python. 
+
 ---
 
 ## Le déploiement de l'application
