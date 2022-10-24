@@ -26,16 +26,26 @@
 <body>
   <article class="markdown-body">
     <h1 id="vagrant">Vagrant</h1><h2 id="pré-requis">Pré-requis</h2><ul>
-<li><a href="proxy-sortant.html">Variables d&#39;environnement pour utilisation d&#39;un proxy sortant</a></li>
+<li><a href="https://www.virtualbox.org/wiki/Download_Old_Builds_6_1" target="_blank">VirtualBox 6.1</a> (7.x non testée) qui jouera le rôle de l&#39;infrastructure IaaS.</li>
+<li><a href="proxy-sortant.html">Configurer les variables d&#39;environnement pour utilisation d&#39;un proxy sortant</a></li>
 </ul>
-<h2 id="installation-de-vagrant">Installation de vagrant</h2><pre><code class="language-bash">curl -sS https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+<h2 id="points-clés">Points clés</h2><ul>
+<li><a href="https://www.vagrantup.com/" target="_blank">Vagrant</a> permet de <strong>créer des machines virtuelles de DEV as code</strong> à partir d&#39;un fichier <code>Vagrantfile</code>.</li>
+<li><a href="https://www.vagrantup.com/" target="_blank">Vagrant</a> supporte plusieurs systèmes de virtualisation (voir <a href="https://www.vagrantup.com/docs/providers" target="_blank">www.vagrantup.com - providers</a>)</li>
+<li><a href="https://www.vagrantup.com/" target="_blank">Vagrant</a> s&#39;appuie sur des images de VM au format <code>.box</code></li>
+<li>Un <a href="https://app.vagrantup.com/boxes/search" target="_blank">dépôt d&#39;image publique permet de rechercher une image de VM</a> compatible avec son système de virtualisation (<code>virtualbox</code>, <code>libvirt</code> (KVM),...)</li>
+</ul>
+<h2 id="installation">Installation</h2><p>Voir <a href="https://www.vagrantup.com/downloads" target="_blank">https://www.vagrantup.com/downloads</a> qui permet le <strong>téléchargement pour Windows et MacOS</strong> et donne les instructions pour l&#39;<strong>utilisation du dépôt APT pour l&#39;installation sur une machine Debian/Ubuntu</strong> :</p>
+<pre><code class="language-bash"># Ajout du dépôt APT d&#39;HashiCorp
+curl -sS https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 echo &quot;deb https://apt.releases.hashicorp.com $(lsb_release -cs) main&quot; | sudo tee /etc/apt/sources.list.d/hashicorp.list
+# Installation de vagrant
 sudo apt update
 sudo apt install vagrant -y
 </code></pre>
-<h2 id="installation-du-plugin-vagrant-pour-le-proxy">Installation du plugin vagrant pour le proxy</h2><pre><code class="language-bash">vagrant plugin install vagrant-proxyconf
+<h2 id="débuter-avec-vagrant">Débuter avec vagrant</h2><h3 id="installation-du-plugin-vagrant-pour-le-proxy">Installation du plugin vagrant pour le proxy</h3><pre><code class="language-bash">vagrant plugin install vagrant-proxyconf
 </code></pre>
-<h2 id="création-dun-projet">Création d&#39;un projet</h2><pre><code class="language-bash"># on créé un dossier pour le projet
+<h3 id="création-dun-projet">Création d&#39;un projet</h3><pre><code class="language-bash"># on créé un dossier pour le projet
 mkdir ~/vagrant-helloworld
 # on se place dans le projet
 cd ~/vagrant-helloworld
@@ -105,9 +115,12 @@ sudo apt-get install nginx
 <h2 id="vérifier-laccès-à-nginx">Vérifier l&#39;accès à nginx</h2><p>Depuis l&#39;hôte de la VM, nous aurons normalement accès <a href="http://192.168.50.101" target="_blank">http://192.168.50.101</a></p>
 <h2 id="supprimer-la-vm">Supprimer la VM</h2><pre><code class="language-bash">vagrant destroy
 </code></pre>
-<h2 id="ressources">Ressources</h2><ul>
-<li><a href="https://learn.hashicorp.com/collections/vagrant/getting-started" target="_blank">Vagrant - getting started</a></li>
-<li><a href="https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md" target="_blank">cheat sheet</a></li>
+<h2 id="quelques-exemples">Quelques exemples</h2><ul>
+<li><a href="https://github.com/mborne/vagrantbox#vagrantbox" target="_blank">github.com - mborne/vagrantbox</a> : Configurer des VM de DEV avec Ansible.</li>
+</ul>
+<h2 id="quelques-ressources">Quelques ressources</h2><ul>
+<li><a href="https://learn.hashicorp.com/collections/vagrant/getting-started" target="_blank">Vagrant - getting started</a> qui guide pour <strong>débuter en l&#39;absence d&#39;un proxy HTTP</strong> (par exemple sur une machine perso connectée à une box internet standard).</li>
+<li><a href="https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md" target="_blank">gist.github.com - wpscholar/vagrant-cheat-sheet.md</a> qui liste les principales commandes de vagrant.</li>
 </ul>
 
   </article>

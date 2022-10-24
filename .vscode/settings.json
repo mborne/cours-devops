@@ -1,3 +1,20 @@
 {
-    "cSpell.language": "en,fr"
+    "cSpell.language": "en,fr",
+    "cSpell.words": [
+        "ansible",
+        "geoserver",
+        "geostack",
+        "gitlab",
+        "helloworld",
+        "mborne",
+        "Netdata",
+        "nginx",
+        "openssl",
+        "openstack",
+        "proxyconf",
+        "RGPD",
+        "Scaleway",
+        "vagrantbox",
+        "vsphere"
+    ]
 }

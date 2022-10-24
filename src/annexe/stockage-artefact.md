@@ -1,4 +1,4 @@
-# Le stockage des artefacts
+# Le stockage des livrables et des artefacts
 
 Il existe plusieurs solutions pour stocker des livrables dont :
 

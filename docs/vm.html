@@ -24,12 +24,12 @@
 
 ## Contexte
 
-Nous allons voir en pratique comment se passe le déploiement d'une application **as code** sur des VM linux en déployant :
+Nous allons voir en pratique comment se passe le déploiement d'une application **as code** sur des VM Linux en déployant :
 
 * [PostgreSQL](https://www.postgresql.org/) avec l'extension [PostGIS](https://postgis.net/) pour stocker des données géographiques.
 * [GeoServer](https://geoserver.org/) pour diffuser ces données en WMS et WFS.
 
-Nous appelerons le système résultant **GeoStack** (afin d'avoir un nom de base pour le dépôt dédié au déploiement : `geostack-deploy`)
+Nous appellerons le système résultant **GeoStack** (afin d'avoir un nom de base pour le dépôt dédié au déploiement : `geostack-deploy`)
 
 ---
 
@@ -54,7 +54,7 @@ Nous en étudierons les limites par la suite.
 * La construction sur chaque instance.
 * ...
 
-NB : L'utilisation de fichier `package-lock.json`, `composer.lock`,... ne vous protégera que contre une montée en version innatendue des dépendances.
+NB : L'utilisation de fichier `package-lock.json`, `composer.lock`,... ne vous protégera que contre une montée en version inattendue des dépendances.
 
 ---
 
@@ -77,11 +77,11 @@ Pour le déploiement d'une application en PRODUCTION, il est important de :
 
 ## La création d'un livrable (3/4)
 
-### Choisir des services déjà packagés
+### Choisir des services déjà empaquetés
 
 Dans le cas présent, nous avons cette chance :
 
-* [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous avons même un dépôt [apt.postgresql.org](http://apt.postgresql.org/) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
+* [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous avons même un dépôt [APT](http://apt.postgresql.org/) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
 * [GeoServer](https://geoserver.org/release/stable/) met lui aussi à disposition des livrables prêts à l'emploi.
 
 ---
@@ -117,7 +117,7 @@ Il existe une grande variétés d'offres d'hébergement offrant une API permetta
 
 Nous trouverons des **concepts spécifiques à chaque solution dans ces API** (c.f. [API OVHCloud](https://api.us.ovhcloud.com/console/), [API Scaleway](https://developers.scaleway.com/en/), [DigitalOcean API (2.0)](https://docs.digitalocean.com/reference/api/api-reference/)...)
 
-> (1) Particulièrement pratique pour générer des certificats wildcard [LetsEncrypt](https://letsencrypt.org/fr/) avec [lego](https://go-acme.github.io/lego/dns/)
+> (1) Particulièrement pratique pour générer des certificats wildcard [LetsEncrypt](https://letsencrypt.org/fr/) avec [LEGO](https://go-acme.github.io/lego/dns/)
 
 ---
 
@@ -299,7 +299,7 @@ En terme de répartition des rôles, nous pourrions aboutir par exemple au proce
 
 Nous ne pourrions pas procéder ainsi avec des VM exposées sur internet :
 
-* Nous finirions sur [www.shodan.io](https://www.shodan.io/)
+* Nous finirions sur [https://www.shodan.io](https://www.shodan.io/)
 * Un des nombreux bots qui scannent le web testerait sans relâche nos VM
 
 Il faudrait par exemple :
@@ -346,7 +346,7 @@ Nous soulignerons que :
 * La mise en oeuvre HTTPS requière l'achat d'un certificat ou la génération de celui-ci avec [Let's Encrypt](https://letsencrypt.org/fr/)
 * Pour les services exposés sur INTERNET, il existe des outils pour tester et blinder la configuration de TLS (cyphers, entêtes de sécurité, chaîne de certification...) tels :
   * [https://www.ssllabs.com/ssltest/](https://www.ssllabs.com/ssltest/)
-  * [www.sslshopper.com](https://www.sslshopper.com/)
+  * [https://www.sslshopper.com](https://www.sslshopper.com/)
 * Pour les services non exposés (intranet, RIE), il faudra maîtriser `openssl` pour diagnostiquer et détecter ces problèmes.
 
 ---

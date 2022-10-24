@@ -25,31 +25,30 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</h1><h2 id="contexte">Contexte</h2><p>En cas de présence d&#39;un proxy sortant pour les accès à internet, les systèmes et navigateurs sont souvent configuré à l&#39;aide d&#39;un fichier <code>proxy.pac</code>.</p>
-<p>Ce fichier <code>proxy.pac</code> est un script JavaScript indiquant s&#39;il faut utiliser tel ou tel proxy pour accéder à une ressource.</p>
-<h2 id="problème">Problème</h2><p>Les outils bas niveau en ligne de commande (<code>curl</code>, <code>vagrant</code>, <code>terraform</code>, <code>ansible</code>,...) ne savent pas exploiter ce script. Il faut configurer des variables d&#39;environnement <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> et éventuellement <code>NO_PROXY</code>.</p>
-<h2 id="exemple-de-configuration-temporaire">Exemple de configuration temporaire</h2><pre><code class="language-bash">export HTTP_PROXY=http://10.0.4.2:3128/
+    <h1 id="le-proxy-sortant">Le proxy sortant</h1><h2 id="principe">Principe</h2><p>Un proxy sortant sert d&#39;intermédiaire pour le traffic sortant d&#39;une infrastructure. Son utilisation est fréquente en entreprise et dans les écoles car il permet de mettre en place un filtrage en fonction des URL cible.</p>
+<h2 id="proxy-pac">Les limites de la configuration automatique</h2><p>Les systèmes et navigateurs sont généralement configurés à l&#39;aide d&#39;un fichier <code>proxy.pac</code> qui est un script JavaScript indiquant s&#39;il faut utiliser tel ou tel proxy pour accéder à une ressource en fonction du nom de domaine ou de l&#39;IP.</p>
+<p>Toutefois, de nombreux outils utilisés en ligne de commande (<code>curl</code>, <code>vagrant</code>, <code>terraform</code>, <code>ansible</code>, <code>docker</code>...) et les bibliothèques de programmation réalisant des requêtes ne savent pas exploiter ce script <code>proxy.pac</code>.</p>
+<p>Il est alors nécessaire</p>
+<h2 id="proxy-env-vars">Configuration à l&#39;aide de variables d&#39;environnement</h2><h3 id="principe-1">Principe</h3><p>Il convient donc de configurer l&#39;utilisation du proxy à l&#39;aide des variables d&#39;environnement <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> et <code>NO_PROXY</code>.</p>
+<h3 id="configuration-dune-machine-ubuntu">Configuration d&#39;une machine Ubuntu</h3><pre><code class="language-bash">export HTTP_PROXY=http://10.0.4.2:3128/
 export HTTPS_PROXY=http://10.0.4.2:3128/
 export http_proxy=http://10.0.4.2:3128/
 export https_proxy=http://10.0.4.2:3128/
+# à adapter!
+export NO_PROXY=localhost,127.0.0.1,vagrantbox-1,vagrantbox-2,vagrantbox-3
 </code></pre>
-<h2 id="exemple-de-configuration-permanente">Exemple de configuration permanente</h2><ul>
-<li><ol>
-<li>Ajouter les lignes suivantes au fichier <code>~/.profile</code> :</li>
-</ol>
-</li>
-</ul>
-<pre><code class="language-bash">export HTTP_PROXY=http://10.0.4.2:3128/
-export HTTPS_PROXY=http://10.0.4.2:3128/
-export http_proxy=http://10.0.4.2:3128/
-export https_proxy=http://10.0.4.2:3128/
-</code></pre>
+<p>Pour une configuration permanente pour un utilisateur, nous pouvons :</p>
 <ul>
-<li><ol start="2">
-<li>Recharger ce fichier avec <code>source ~/.profile</code> OU fermer et rouvrir la session</li>
-</ol>
-</li>
+<li>Ajouter les lignes précédentes au fichier <code>~/.profile</code></li>
+<li>Se déconnecter et rouvrir une session (ou recharger ce fichier avec <code>source ~/.profile</code>)</li>
 </ul>
+<p>Pour une configuration permanente à l&#39;échelle du système :</p>
+<ul>
+<li>Ajouter les lignes précédentes au fichier <code>/etc/environment</code> (sans toucher à la ligne définissant la variable d&#39;environnement <code>PATH</code>!)</li>
+<li>Redémarrer la machine</li>
+</ul>
+<h3 id="configuration-dune-machine-windows">Configuration d&#39;une machine Windows</h3><p>Un dialogue &quot;Modifier les variables d&#39;environnement de votre compte&quot; permet d&#39;ajouter les variables <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> et <code>NO_PROXY</code>.</p>
+<p>Chercher &quot;environnement&quot; dans &quot;paramètres&quot; ou lancer la commande <code>rundll32 sysdm.cpl,EditEnvironmentVariables</code> dans un terminal <code>cmd.exe</code>.</p>
 
   </article>
 

@@ -2,24 +2,38 @@
 
 ## Pré-requis
 
-* [Variables d'environnement pour utilisation d'un proxy sortant](proxy-sortant.md)
+* [VirtualBox 6.1](https://www.virtualbox.org/wiki/Download_Old_Builds_6_1) (7.x non testée) qui jouera le rôle de l'infrastructure IaaS.
+* [Configurer les variables d'environnement pour utilisation d'un proxy sortant](proxy-sortant.md)
 
-## Installation de vagrant
+## Points clés
+
+* [Vagrant](https://www.vagrantup.com/) permet de **créer des machines virtuelles de DEV as code** à partir d'un fichier `Vagrantfile`.
+* [Vagrant](https://www.vagrantup.com/) supporte plusieurs systèmes de virtualisation (voir [www.vagrantup.com - providers](https://www.vagrantup.com/docs/providers))
+* [Vagrant](https://www.vagrantup.com/) s'appuie sur des images de VM au format `.box`
+* Un [dépôt d'image publique permet de rechercher une image de VM](https://app.vagrantup.com/boxes/search) compatible avec son système de virtualisation (`virtualbox`, `libvirt` (KVM),...)
+
+## Installation
+
+Voir [https://www.vagrantup.com/downloads](https://www.vagrantup.com/downloads) qui permet le **téléchargement pour Windows et MacOS** et donne les instructions pour l'**utilisation du dépôt APT pour l'installation sur une machine Debian/Ubuntu** :
 
 ```bash
+# Ajout du dépôt APT d'HashiCorp
 curl -sS https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 echo "deb https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+# Installation de vagrant
 sudo apt update
 sudo apt install vagrant -y
 ```
 
-## Installation du plugin vagrant pour le proxy
+## Débuter avec vagrant
+
+### Installation du plugin vagrant pour le proxy
 
 ```bash
 vagrant plugin install vagrant-proxyconf
 ```
 
-## Création d'un projet
+### Création d'un projet
 
 ```bash
 # on créé un dossier pour le projet
@@ -113,9 +127,13 @@ Depuis l'hôte de la VM, nous aurons normalement accès http://192.168.50.101
 vagrant destroy
 ```
 
+## Quelques exemples
 
-## Ressources
+* [github.com - mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) : Configurer des VM de DEV avec Ansible.
 
-* [Vagrant - getting started](https://learn.hashicorp.com/collections/vagrant/getting-started)
-* [cheat sheet](https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md)
+## Quelques ressources
+
+* [Vagrant - getting started](https://learn.hashicorp.com/collections/vagrant/getting-started) qui guide pour **débuter en l'absence d'un proxy HTTP** (par exemple sur une machine perso connectée à une box internet standard).
+* [gist.github.com - wpscholar/vagrant-cheat-sheet.md](https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md) qui liste les principales commandes de vagrant.
+
 

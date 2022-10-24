@@ -1,4 +1,4 @@
-# Reverse proxy et partage de charge
+# Partage de charge et reverse proxy
 
 ## Principe de fonctionnement
 
