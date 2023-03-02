@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>proxy-sortant/proxy-docker.md</title>
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css">
+  <style>
+    html,
+    body {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 50px;
+    }
+    @media print {
+      .pagebreak { page-break-before: always; }
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="travailler-derrière-un-proxy-avec-docker">Travailler derrière un proxy avec Docker</h1><h2 id="contexte">Contexte</h2><p>En présence d&#39;un proxy sortant pour l&#39;accès aux ressources internet, il convient de spécifier ce proxy au niveau de la configuration du démon et lors de la construction et de l&#39;utilisation des images.</p>
+<h2 id="principe">Principe</h2><ul>
+<li><a href="https://docs.docker.com/config/daemon/systemd/" target="_blank">Configurer le démon pour télécharger les images en utilisant le proxy</a></li>
+</ul>
+<blockquote>
+<p><code>/etc/systemd/system/docker.service.d/http-proxy.conf</code></p>
+</blockquote>
+<ul>
+<li>Construire les images en spécifiant le proxy avec des arguments de construction :</li>
+</ul>
+<blockquote>
+<p><code>docker build --build-arg http_proxy --build-arg https_proxy ...</code></p>
+</blockquote>
+<ul>
+<li>Exécuter les conteneurs en spécifiant le proxy avec des variables d&#39;environnement :</li>
+</ul>
+<blockquote>
+<p><code>docker run -e HTTP_PROXY=$HTTP_PROXY -e HTTPS_PROXY=$HTTPS_PROXY ...</code></p>
+</blockquote>
+<h2 id="remarques">Remarques</h2><ul>
+<li>La page <a href="https://docs.docker.com/network/proxy/#configure-the-docker-client" target="_blank">docs.docker.com - Configure the Docker client</a> indique qu&#39;il est possible de configurer le proxy au niveau de la configuration du client (<code>~/.docker/config.json</code>). Testé sans succès.</li>
+</ul>
+
+  </article>
+
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <!-- https://www.mathjax.org -->
+  <script>
+    MathJax = {
+      loader: {
+        load: ['input/tex', 'output/svg', 'ui/menu', '[tex]/require']
+      },
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/startup.js"
+    integrity="sha512-LZZ88buOWCaSouKg9UNiW3N/vhBCprp0tpG9uNp+r6maXLDeBddAaqTmDduadI+WghoGaNlZG4NgCX0Xsxlfxg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

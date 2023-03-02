@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>proxy-sortant/index.md</title>
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css">
+  <style>
+    html,
+    body {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 50px;
+    }
+    @media print {
+      .pagebreak { page-break-before: always; }
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="le-proxy-sortant">Le proxy sortant</h1><h2 id="principe">Principe</h2><p>Un proxy sortant sert d&#39;intermédiaire pour le traffic sortant d&#39;une infrastructure. Son utilisation est fréquente en entreprise et dans les écoles car il permet de mettre en place un filtrage des accès à internet.</p>
+<h2 id="problème">Problème</h2><p>Les systèmes et navigateurs sont généralement configurés à l&#39;aide d&#39;un fichier <code>proxy.pac</code> qui est un script JavaScript indiquant s&#39;il faut utiliser un proxy pour accéder à une ressource en fonction du nom de domaine ou de l&#39;IP.</p>
+<p>Toutefois, de nombreux outils utilisés en ligne de commande (<code>curl</code>, <code>vagrant</code>, <code>terraform</code>, <code>ansible</code>, <code>docker</code>...) et les bibliothèques de programmation réalisant des requêtes ne savent pas exploiter ce script <code>proxy.pac</code>.</p>
+<h2 id="solution">Solution</h2><p>Voir :</p>
+<ul>
+<li><a href="proxy-env-vars.html">Configurer l&#39;utilisation du proxy à l&#39;aide de variables d&#39;environnement</a> qui couvrira de nombreux cas (curl, ansible, vagrant,...)</li>
+<li><a href="proxy-docker.html">Travailler derrière un proxy avec Docker</a> qui traite le téléchargement, la construction et l&#39;utilisation d&#39;image en présence d&#39;un proxy.</li>
+</ul>
+
+  </article>
+
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <!-- https://www.mathjax.org -->
+  <script>
+    MathJax = {
+      loader: {
+        load: ['input/tex', 'output/svg', 'ui/menu', '[tex]/require']
+      },
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/startup.js"
+    integrity="sha512-LZZ88buOWCaSouKg9UNiW3N/vhBCprp0tpG9uNp+r6maXLDeBddAaqTmDduadI+WghoGaNlZG4NgCX0Xsxlfxg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

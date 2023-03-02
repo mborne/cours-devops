@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-  <title>proxy-sortant.md</title>
+  <title>proxy-sortant/proxy-env-vars.md</title>
 
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
@@ -25,19 +25,15 @@
 
 <body>
   <article class="markdown-body">
-    <h1 id="le-proxy-sortant">Le proxy sortant</h1><h2 id="principe">Principe</h2><p>Un proxy sortant sert d&#39;intermédiaire pour le traffic sortant d&#39;une infrastructure. Son utilisation est fréquente en entreprise et dans les écoles car il permet de mettre en place un filtrage en fonction des URL cible.</p>
-<h2 id="proxy-pac">Les limites de la configuration automatique</h2><p>Les systèmes et navigateurs sont généralement configurés à l&#39;aide d&#39;un fichier <code>proxy.pac</code> qui est un script JavaScript indiquant s&#39;il faut utiliser tel ou tel proxy pour accéder à une ressource en fonction du nom de domaine ou de l&#39;IP.</p>
-<p>Toutefois, de nombreux outils utilisés en ligne de commande (<code>curl</code>, <code>vagrant</code>, <code>terraform</code>, <code>ansible</code>, <code>docker</code>...) et les bibliothèques de programmation réalisant des requêtes ne savent pas exploiter ce script <code>proxy.pac</code>.</p>
-<p>Il est alors nécessaire</p>
-<h2 id="proxy-env-vars">Configuration à l&#39;aide de variables d&#39;environnement</h2><h3 id="principe-1">Principe</h3><p>Il convient donc de configurer l&#39;utilisation du proxy à l&#39;aide des variables d&#39;environnement <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> et <code>NO_PROXY</code>.</p>
-<h3 id="configuration-dune-machine-ubuntu">Configuration d&#39;une machine Ubuntu</h3><pre><code class="language-bash">export HTTP_PROXY=http://10.0.4.2:3128/
+    <h1 id="configurer-lutilisation-du-proxy-à-laide-de-variables-denvironnement">Configurer l&#39;utilisation du proxy à l&#39;aide de variables d&#39;environnement</h1><h2 id="principe">Principe</h2><p>De nombreux outils supportent la configuration du proxy à l&#39;aide des variables d&#39;environnement <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> et <code>NO_PROXY</code>. Par exemple :</p>
+<pre><code class="language-bash">export HTTP_PROXY=http://10.0.4.2:3128/
 export HTTPS_PROXY=http://10.0.4.2:3128/
 export http_proxy=http://10.0.4.2:3128/
 export https_proxy=http://10.0.4.2:3128/
 # à adapter!
 export NO_PROXY=localhost,127.0.0.1,vagrantbox-1,vagrantbox-2,vagrantbox-3
 </code></pre>
-<p>Pour une configuration permanente pour un utilisateur, nous pouvons :</p>
+<h2 id="configuration-dune-machine-ubuntu">Configuration d&#39;une machine Ubuntu</h2><p>Pour une configuration permanente pour un utilisateur, nous pouvons :</p>
 <ul>
 <li>Ajouter les lignes précédentes au fichier <code>~/.profile</code></li>
 <li>Se déconnecter et rouvrir une session (ou recharger ce fichier avec <code>source ~/.profile</code>)</li>
@@ -47,7 +43,7 @@ export NO_PROXY=localhost,127.0.0.1,vagrantbox-1,vagrantbox-2,vagrantbox-3
 <li>Ajouter les lignes précédentes au fichier <code>/etc/environment</code> (sans toucher à la ligne définissant la variable d&#39;environnement <code>PATH</code>!)</li>
 <li>Redémarrer la machine</li>
 </ul>
-<h3 id="configuration-dune-machine-windows">Configuration d&#39;une machine Windows</h3><p>Un dialogue &quot;Modifier les variables d&#39;environnement de votre compte&quot; permet d&#39;ajouter les variables <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> et <code>NO_PROXY</code>.</p>
+<h2 id="configuration-dune-machine-windows">Configuration d&#39;une machine Windows</h2><p>Un dialogue &quot;Modifier les variables d&#39;environnement de votre compte&quot; permet d&#39;ajouter les variables <code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code> et <code>NO_PROXY</code>.</p>
 <p>Chercher &quot;environnement&quot; dans &quot;paramètres&quot; ou lancer la commande <code>rundll32 sysdm.cpl,EditEnvironmentVariables</code> dans un terminal <code>cmd.exe</code>.</p>
 
   </article>
