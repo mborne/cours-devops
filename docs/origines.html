@@ -15,9 +15,11 @@
 * Les géants du web
 * L'agilité dans les développements
 * L'automatisation des tests sur le code
+* La gestion des sources
 * L'intégration continue
 * La virtualisation
 * La démocratisation du cloud
+* La diversification des offres cloud
 * Les limites de l'exploitation traditionnelle
 * La naissance du terme DevOps
 
@@ -88,6 +90,30 @@ En effet, l'agilité inclura entre autre de :
 
 ---
 
+## La gestion des sources (1/2)
+
+L'agilité des développements imposera d'**améliorer les outils et méthodes de gestion du code source des applications** pour faciliter la **collaboration** et mieux **gérer l'historique des évolutions et corrections**.
+
+Nous nous souviendrons des heures sombres où l'utilisation d'un gestionnaire de code source n'était pas une pratique répandue :
+
+![La gestion traditionnelle d'un historique](img/scm-avant-git.png)
+
+> La gestion de l'historique d'un projet d'étudiant avant que l'utilisation d'un gestionnaire de code source soit enseignée à l'ENSG.
+
+---
+
+## La gestion des sources (2/2)
+
+Nous soulignerons l'évolution des **gestionnaires de code source (*SCM*)** avec :
+
+* La gestion d'**historique client/serveur** : CVS (1990), SVN (2000)
+* La gestion d'**historique décentralisée** : **GIT** (2005)
+* L'introduction du **concept de *pull-request*** avec GitHub (2008)
+
+Nous tâcherons de mesurer l'apport du concept de **pull-request** en terme de **traçabilité** par rapport aux **processus de validation** traditionnels. Il motivera l'utilisation des SCM à d'autres cas d'utilisation (gestion des infrastructures, gestion de la documentation,...)
+
+---
+
 ## L'automatisation des tests sur le code
 
 Livrer rapidement et régulièrement sera **incompatible** avec le fait procéder à de longues **recettes manuelles** pour **éviter l'introduction de bug**.
@@ -98,7 +124,7 @@ On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org
 
 ---
 
-## L'intégration continue (1/2)
+## L'intégration continue
 
 Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_(software)) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagneront naturellement en popularité. Ils seront utilisés entre autre pour :
 
@@ -114,9 +140,9 @@ Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wi
 
 ---
 
-## L'intégration continue (2/2)
+## La gestion des sources (2/2)
 
-Il sera très rapidement tentant d'**exécuter ces tests avant d'accepter des demandes de modification du code (*pull request*)**. Des solutions d'intégration continue telles [GitHub actions](https://github.com/features/actions) et [GitLab-CI](https://docs.gitlab.com/ee/ci/) seront donc intégrées aux gestionnaires de code source quelques années plus tard.
+Il sera très rapidement tentant d'**exécuter les tests avant d'accepter des demandes de modification du code (*pull request*)**. Des solutions d'**intégration continue** telles [GitHub actions](https://github.com/features/actions) et [GitLab-CI](https://docs.gitlab.com/ee/ci/) seront donc **intégrées aux gestionnaires de code source** quelques années plus tard. 
 
 <div class="center">
     <img src="img/github-actions-nodejs.png" alt="Exemple de CI NodeJS" style="height: 300px" />
@@ -209,6 +235,19 @@ Plus largement, le principe de mise à disposition d'une **API permettant de con
 </div>
 
 > On notera que la VM est généralement initialisé par l'hébergeur sur la base d'un catalogue offrant plusieurs OS mais les mises à jour et installations sont ensuite à la charge du client.
+
+---
+
+## La diversification des offres cloud
+
+Les offres cloud se diversifieront assez rapidement avec une **prise en charge variables des différentes couches du système par les fournisseurs de service** :
+
+<div class="center">
+    <img src="img/iaas-paas-saas-redhat.png" alt="IaaS vs PaaS vs SaaS" style="height: 400px" />
+    <p class="text-center">
+    (Source : <a href="https://www.redhat.com/fr/topics/cloud-computing/iaas-vs-paas-vs-saas">www.redhat.com - IaaS, PaaS, SaaS : quelles sont les différences ?</a>)
+    </p>
+</div>
 
 ---
 
