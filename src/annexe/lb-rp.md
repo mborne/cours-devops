@@ -1,5 +1,7 @@
 # Partage de charge et reverse proxy
 
+[[toc]]
+
 ## Principe de fonctionnement
 
 Un **reverse proxy** joue un rôle d'intermédiaire entre la requête d'un client et son traitement sur un serveur particulier. En présence de plusieurs serveurs à même de traiter la requête, il jouera un rôle de **répartiteur de charge** (*LoadBalancer*) permettant la **scalabilité horizontale** :
@@ -35,15 +37,6 @@ Nous configurerons la correspondance entre des URL externes et des URL internes.
 | `https://app.exemple.net` | `http://app01:3000`<br />`http://app02:3000`<br />`http://app03:3000` |
 
 
-## Exemples d'implémentations
-
-Il existe de nombreuses solutions mais nous pourrons par exemple utiliser :
-
-* [nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/) à l'échelle d'une application.
-* [haproxy](https://www.haproxy.com/fr/blog/haproxy-configuration-basics-load-balance-your-servers/) à l'échelle d'une zone d'hébergement.
-* [traefik](https://doc.traefik.io/traefik/) avec docker pour avoir un reverse proxy configuré automatiquement.
-* Le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) avec Kubernetes où plusieurs implémentations sont disponibles (nginx, traefik,...)
-
 ## Impact au niveau des applications
 
 ### Les services doivent supporter le partage de charge
@@ -52,9 +45,7 @@ Dans le cas idéal, un service web ne doit pas stocker localement des états. Sa
 
 ### Les services ne voient pas les IP des clients
 
-Par défaut, les services en backend du LoadBalancer verront l'IP du LoadBalancer au niveau de la connexion.
-
-En cas de besoin d'accéder à l'IP du client (ex : pour protéger une authentification par mot de passe contre des attaques par force brute), on s'appuiera généralement sur l'ajout d'un entête HTTP au niveau du LoadBalancer (`X-Forwarded-For` ou `X-Real-IP`)
+Par défaut, les services derrière le LoadBalancer verront l'IP du LoadBalancer au niveau de la connexion. En cas de besoin d'accéder à l'IP du client (ex : pour protéger une authentification par mot de passe contre des attaques par force brute), on s'appuiera généralement sur l'ajout d'un entête HTTP au niveau du LoadBalancer (`X-Forwarded-For` ou `X-Real-IP`)
 
 ### Les services ne voient pas les URL externes
 
@@ -71,10 +62,19 @@ Nous trouverons deux types de LoadBalancer :
 
 Nous nous sommes concentré ici sur le deuxième cas particulièrement fréquent avec les services web.
 
+## Quelques exemple d'implémentations
+
+Il existe de nombreuses solutions mais nous pourrons par exemple utiliser :
+
+* [nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/) à l'échelle d'une application.
+* [haproxy](https://www.haproxy.com/fr/blog/haproxy-configuration-basics-load-balance-your-servers/) à l'échelle d'une zone d'hébergement.
+* [traefik](https://doc.traefik.io/traefik/) avec docker pour avoir un reverse proxy configuré automatiquement.
+* Le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) avec Kubernetes où plusieurs implémentations sont disponibles (nginx, traefik,...)
+
 ## Quelques références
 
 * [blog.octo.com - BD - Le Load Balancer](https://blog.octo.com/bd-le-load-balancer/)
-* [medium.com - medium.com - Difference Between Layer 4 vs. Layer 7 Load Balancing](https://medium.com/@harishramkumar/difference-between-layer-4-vs-layer-7-load-balancing-57464e29ed9f)
+* [medium.com - Difference Between Layer 4 vs. Layer 7 Load Balancing](https://medium.com/@harishramkumar/difference-between-layer-4-vs-layer-7-load-balancing-57464e29ed9f)
 * [www.ssi.gouv.fr - RECOMMANDATIONS POUR LA MISE EN ŒUVRE D'UN SITE WEB : MAÎTRISER LES STANDARDS DE SÉCURITÉ CÔTÉ NAVIGATEUR](https://www.ssi.gouv.fr/uploads/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf) qui aborde entre autres les entêtes de sécurité.
 
 
