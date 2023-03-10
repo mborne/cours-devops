@@ -16,12 +16,6 @@ En image :
 * [www.commitstrip.com - Comment savoir si votre entreprise est DevOps](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?)
 * [www.commitstrip.com - Tout automatisé… ou presque](https://www.commitstrip.com/fr/2015/06/22/can-we-automate-everything/?setLocale=1)
 
-## Les briques d'infrastructure
-
-* [Partage de charge et reverse proxy](lb-rp.md)
-* [Le proxy sortant](proxy-sortant.md)
-* [blog.octo.com - Le bastion SSH](https://blog.octo.com/le-bastion-ssh/)
-
 ## Les outils DevOps
 
 * [roadmap.sh - devops](https://roadmap.sh/devops) propre un chemin d'apprentissage permettant de découvrir les principaux concepts et outils associés qu'un DevOps est amenés à rencontrer.
@@ -34,6 +28,12 @@ En contexte IaaS (VM) :
 * [Ansible](ansible.md) pour gérer la configuration et déployer des applications sur des VM.
 
 ## Compléments
+
+## Les services supports
+
+* [Partage de charge et reverse proxy](lb-rp.md)
+* [Le proxy sortant](proxy-sortant/index.md)
+* [blog.octo.com - Le bastion SSH](https://blog.octo.com/le-bastion-ssh/)
 
 ### Automatisation des tests
 
