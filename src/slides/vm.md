@@ -144,7 +144,7 @@ Pour la suite, nous allons plutôt utiliser [**Vagrant**](https://www.vagrantup.
 Nous utilisons le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) pour **créer des VM décrites dans un fichier** [Vagrantfile](https://github.com/mborne/vagrantbox/blob/master/Vagrantfile) avec une commande (`vagrant up`) :
 
 <div class="center">
-    <img src="img/vagrantbox-up.png" style="height: 300px" />
+    <img src="img/vagrantbox-up.drawio.png" style="height: 300px" />
 </div>
 
 > Nous créons ici des VM [VirtualBox](https://www.virtualbox.org/) mais [Vagrant supporte d'autres fournisseurs (ex : KVM)](https://www.vagrantup.com/docs/providers).
@@ -170,7 +170,7 @@ Nous soulignerons que :
 Nous avons avec Vagrant et Terraform des outils capables de **créer nos VM as code**. Il nous reste à trouver une solution pour procéder de même pour déployer nos applications comme suit :
 
 <div class="center">
-    <img src="img/vagrantbox-ansible.png" style="height: 300px" />
+    <img src="img/vagrantbox-ansible.drawio.png" style="height: 300px" />
 </div>
 
 
@@ -279,7 +279,7 @@ Nous insisterons sur l'apport de Ansible pour :
 En terme de répartition des rôles, nous pourrions aboutir par exemple au processus suivant après adoption des outils par les DEV et les OPS :
 
 <div class="center">
-    <img src="img/processus-exploit-tradi-2.png" alt="Adaptation processus d'exploitation traditionnelle avec terraform et ansible" style="height: 400px" />
+    <img src="img/processus-exploit-tradi-2.drawio.png" alt="Adaptation processus d'exploitation traditionnelle avec terraform et ansible" style="height: 400px" />
 </div>
 
 
