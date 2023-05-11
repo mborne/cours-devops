@@ -64,12 +64,16 @@ Nous nous sommes concentré ici sur le deuxième cas particulièrement fréquent
 
 ## Quelques exemple d'implémentations
 
-Il existe de nombreuses solutions mais nous pourrons par exemple utiliser :
+Il existe de nombreuses solutions mais nous citerons par exemple :
 
-* [nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/) à l'échelle d'une application.
+* [nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/)
 * [haproxy](https://www.haproxy.com/fr/blog/haproxy-configuration-basics-load-balance-your-servers/) à l'échelle d'une zone d'hébergement.
-* [traefik](https://doc.traefik.io/traefik/) avec docker pour avoir un reverse proxy configuré automatiquement.
-* Le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) avec Kubernetes où plusieurs implémentations sont disponibles (nginx, traefik,...)
+* [traefik](https://doc.traefik.io/traefik/) qui dispose de mécanisme de **découverte de configuration**.
+
+Avec Kubernetes, nous trouverons deux concepts :
+
+* Un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) assurant le rôle de reverse proxy devant des [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) à l'intérieur du cluster.
+* Un [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) pour l'exposition externe en HTTP/HTTPS avec plusieurs implémentations disponibles ([nginx-ingress-controller](https://docs.nginx.com/nginx-ingress-controller/), [traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/),...)
 
 ## Quelques références
 

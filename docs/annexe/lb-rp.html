@@ -84,12 +84,16 @@
 <li><strong>LoadBalancer L7</strong> agissant au niveau <strong>HTTP/HTTPS</strong> (couche &quot;7 - transport&quot; du <a href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI" target="_blank">modèle OSI</a>), utile pour des services web.</li>
 </ul>
 <p>Nous nous sommes concentré ici sur le deuxième cas particulièrement fréquent avec les services web.</p>
-<h2 id="quelques-exemple-dimplémentations">Quelques exemple d&#39;implémentations</h2><p>Il existe de nombreuses solutions mais nous pourrons par exemple utiliser :</p>
+<h2 id="quelques-exemple-dimplémentations">Quelques exemple d&#39;implémentations</h2><p>Il existe de nombreuses solutions mais nous citerons par exemple :</p>
 <ul>
-<li><a href="https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/" target="_blank">nginx</a> à l&#39;échelle d&#39;une application.</li>
+<li><a href="https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/" target="_blank">nginx</a></li>
 <li><a href="https://www.haproxy.com/fr/blog/haproxy-configuration-basics-load-balance-your-servers/" target="_blank">haproxy</a> à l&#39;échelle d&#39;une zone d&#39;hébergement.</li>
-<li><a href="https://doc.traefik.io/traefik/" target="_blank">traefik</a> avec docker pour avoir un reverse proxy configuré automatiquement.</li>
-<li>Le concept <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank">Ingress</a> avec Kubernetes où plusieurs implémentations sont disponibles (nginx, traefik,...)</li>
+<li><a href="https://doc.traefik.io/traefik/" target="_blank">traefik</a> qui dispose de mécanisme de <strong>découverte de configuration</strong>.</li>
+</ul>
+<p>Avec Kubernetes, nous trouverons deux concepts :</p>
+<ul>
+<li>Un <a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank">Service</a> assurant le rôle de reverse proxy devant des <a href="https://kubernetes.io/docs/concepts/workloads/pods/" target="_blank">Pods</a> à l&#39;intérieur du cluster.</li>
+<li>Un <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank">Ingress</a> pour l&#39;exposition externe en HTTP/HTTPS avec plusieurs implémentations disponibles (<a href="https://docs.nginx.com/nginx-ingress-controller/" target="_blank">nginx-ingress-controller</a>, <a href="https://doc.traefik.io/traefik/providers/kubernetes-ingress/" target="_blank">traefik</a>,...)</li>
 </ul>
 <h2 id="quelques-références">Quelques références</h2><ul>
 <li><a href="https://blog.octo.com/bd-le-load-balancer/" target="_blank">blog.octo.com - BD - Le Load Balancer</a></li>

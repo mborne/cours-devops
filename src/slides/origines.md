@@ -99,7 +99,7 @@ Nous soulignerons l'évolution des **gestionnaires de code source (*SCM*)** avec
 * La gestion d'**historique décentralisée** : **GIT** (2005)
 * L'introduction du **concept de *pull-request*** avec GitHub (2008)
 
-Nous tâcherons de mesurer l'apport du concept de **pull-request** en terme de **traçabilité** par rapport aux **processus de validation** traditionnels. Il motivera l'utilisation des SCM à d'autres cas d'utilisation (gestion des infrastructures, gestion de la documentation,...)
+Nous tâcherons de mesurer l'apport du concept de **pull-request** en terme de **traçabilité** par rapport aux **processus de validation** traditionnels. Il motivera l'utilisation des SCM pour d'autres cas d'usage (gestion des infrastructures, gestion de la documentation,...)
 
 ---
 
@@ -109,7 +109,7 @@ Livrer rapidement et régulièrement sera **incompatible** avec le fait procéde
 
 L'agilité se déclinera donc en plusieurs méthodes de développement qui inciteront à **réduire le risque de régression** à l'aide de **tests unitaires et fonctionnels**.
 
-On citera par exemple **[Test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)** formalisée **en 2003** par Kent Beck où l'idée est de **commencer par écrire les tests unitaires**.
+Nous citerons par exemple la méthode **[Test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)** formalisée **en 2003** par Kent Beck où l'idée est de **commencer par écrire les tests unitaires**.
 
 ---
 
@@ -185,7 +185,7 @@ A l'usage, nous mémoriserons que l'**utilisation de VM permet de faire abstract
 
 ### Un coût d'entrée faible pour la scalabilité
 
-En 2006, Amazon lancera deux services qui vont contribuer à populariser le concept d'informatique en nuage :
+En 2006, Amazon lancera deux services qui contribueront à populariser le concept d'informatique en nuage :
 
 * [Amazon S3](https://en.wikipedia.org/wiki/Amazon_S3) pour le stockage de données.
 * [Amazon Elastic Compute Cloud (EC2)](https://en.wikipedia.org/wiki/Amazon_Elastic_Compute_Cloud) pour l'exécution d'application.
