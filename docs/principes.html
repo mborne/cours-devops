@@ -332,16 +332,14 @@ En outre, pour raisonner sur des éléments comparables et identifier des axes d
 
 ### La supervision du système
 
-Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin-monitoring.org/), [netdata](https://www.netdata.cloud/),...) permettent de :
+Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin-monitoring.org/), [netdata](https://www.netdata.cloud/),...) permettront de :
 
 * Surveiller la consommation de ressources (RAM, CPU, stockage, bande passante,...)
 * Mettre en oeuvre des alertes pour :
   * Éviter l'apparition de problèmes (si >=90% de stockage est utilisé)
   * Détecter des problèmes (atteinte de limite de bande passante, de la limite de nombre de connexion simultanées, >=80% de CPU utilisé pendant 10 minutes)
 
-**Les outils de supervision offrent au passage un terrain de discussion intéressant entre les DEV et les OPS.**
-
-> (Nous verrons quelques exemples réels dont [munin.openstreetmap.org](https://munin.openstreetmap.org/) et [https://app.netdata.cloud](https://app.netdata.cloud) utilisé dans mon cas pour des machines perso.)
+**Les outils de supervision offriront au passage un terrain de discussion intéressant entre les DEV et les OPS.**
 
 ---
 
@@ -355,11 +353,9 @@ Une sonde web interroge périodiquement une URL en vérifiant la réponse (code 
 * Mesurer un **temps de réponse moyen** (indicateur de performance)
 * Mettre en oeuvre une **alerte pour traiter au plus vite une indisponibilité**
 
-La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/) pour les services exposés en ligne.
+La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/), [Uptrends](https://www.uptrends.fr/),... pour les services exposés en ligne (ex : [uptimerobot.com - sondes du GéoPortail](https://stats.uptimerobot.com/28xBxu6Q9))
 
-Pour les services non exposés, nous remarquerons que les outils de supervision pourront généralement être étendus pour ajouter ce type de sonde (ex : [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter#blackbox-exporter-)).
-
-> Nous irons jeter à [la configuration de quelques sondes avec UptimeRobot](https://stats.uptimerobot.com/xlXQNiAKq).
+Pour les services non exposés, nous remarquerons que les outils de supervision pourront être étendus pour ajouter ce type de sonde (ex : [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter#blackbox-exporter-)).
 
 ---
 
@@ -367,9 +363,12 @@ Pour les services non exposés, nous remarquerons que les outils de supervision 
 
 ### Les sondes web unitaires
 
-Interpréter un échec sur une sonde impliquant plusieurs services en backend n'est pas trivial.
+Constat :
 
-Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des outils tels [stackstorm](https://stackstorm.com/) encore moins. Il sera donc intéressant de prévoir des URL dédiées à la surveillance (ex : `/health/db`, `/health/wfs-geoportail`,...).
+* Interpréter un échec sur une sonde impliquant plusieurs services en coulisse n'est pas trivial.
+* Déclencher des procédures ou des automatismes en cas de problème (ex : redémarrage d'un service) avec des outils tels [stackstorm](https://stackstorm.com/) encore moins.
+
+Il sera donc intéressant de **prévoir des URL dédiées à la surveillance au niveau de l'application** (ex : `/health/db`, `/health/wfs-geoportail`,...).
 
 > Voir [learn.microsoft.com - Modèle Surveillance de point de terminaison](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring).
 

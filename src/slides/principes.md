@@ -342,11 +342,9 @@ Une sonde web interroge périodiquement une URL en vérifiant la réponse (code 
 * Mesurer un **temps de réponse moyen** (indicateur de performance)
 * Mettre en oeuvre une **alerte pour traiter au plus vite une indisponibilité**
 
-La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/) pour les services exposés en ligne.
+La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/), [Uptrends](https://www.uptrends.fr/),... pour les services exposés en ligne (ex : [uptimerobot.com - sondes du GéoPortail](https://stats.uptimerobot.com/28xBxu6Q9))
 
-Pour les services non exposés, nous remarquerons que les outils de supervision pourront généralement être étendus pour ajouter ce type de sonde (ex : [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter#blackbox-exporter-)).
-
-> Nous irons jeter à [la configuration de quelques sondes avec UptimeRobot](https://stats.uptimerobot.com/xlXQNiAKq).
+Pour les services non exposés, nous remarquerons que les outils de supervision pourront être étendus pour ajouter ce type de sonde (ex : [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter#blackbox-exporter-)).
 
 ---
 
@@ -354,9 +352,12 @@ Pour les services non exposés, nous remarquerons que les outils de supervision 
 
 ### Les sondes web unitaires
 
-Interpréter un échec sur une sonde impliquant plusieurs services en backend n'est pas trivial.
+Constats :
 
-Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des outils tels [stackstorm](https://stackstorm.com/) encore moins. Il sera donc intéressant de prévoir des URL dédiées à la surveillance (ex : `/health/db`, `/health/wfs-geoportail`,...).
+* Interpréter un échec sur une sonde impliquant plusieurs services en coulisse n'est pas trivial.
+* Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des procédure ou des outils tels [stackstorm](https://stackstorm.com/) encore moins.
+
+Il sera donc intéressant de **prévoir des URL dédiées à la surveillance au niveau de l'application** (ex : `/health/db`, `/health/wfs-geoportail`,...).
 
 > Voir [learn.microsoft.com - Modèle Surveillance de point de terminaison](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring).
 
