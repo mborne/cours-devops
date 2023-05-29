@@ -136,14 +136,57 @@ DevOps mettra un fort accent sur **l'automatisation**. Elle prendra plusieurs fo
 
 ## Le modèle CALMS
 
-### *Lean*
+### *Lean* (1/3)
 
-Avec DevOps, on se concentrera sur la production de valeur en faisant la **chasse aux activités à faibles valeurs ajoutées** entre :
+Le concept **Lean** trouve ses origines chez Toyota avec deux fondamentaux :
 
-* Le début d'un développement
-* La mise à disposition du résultat
+* Le **respect des personnes**
+* L'**amélioration continue**
 
-Jouer le cycle dev/test/prod régulièrement réduit le gaspillage. Il y a moins de code développé, donc moins à tester, et moins à tracer.
+La lecture de [LEAN PRIMER par Craig Larman et Bas Vodde](https://www.leanprimer.com/downloads/lean_primer_fr.pdf) en donnera une idée plus précise mais nous soulignerons que l'accent est mis sur :
+
+* Une multitude d'amélioration au quotidien par l'**automatisation** et **remise en cause permanente des processus** ("mon travail est de faire mon travail, et d'améliorer mon travail" )
+* La **diffusion horizontale des connaissances**.
+* L'**observation sur le terrain**
+* La distinction entre ce qui la **production de valeur** et le **gaspillage** classé en trois catégories : [Muda (action NVA), Mura (variabilité) et Muri (surcharge)](https://www.kostango.com/definition/3m-muda-mura-muri)
+
+---
+
+## Le modèle CALMS
+
+### *Lean* (2/3)
+
+Au niveau du développement logiciel, Le **Lean** se retrouvera à travers les principes suivants :
+
+* **Éliminer les gaspillages** (fonctionnalités inutiles/non livrées/non fonctionnelles, attentes, double reporting,...)
+* **Favoriser l’apprentissage** (groupe d'expertise, pair-programming, formation, auto-formation, partage de standard...)
+* **Décider le plus tard possible** (ne pas chercher à tout planifier, reporter les décisions,...)
+* **Livrer vite**
+* **Responsabiliser l’équipe** (objectifs clairs, auto-organisation, feedback client, "context, not control" chez Netflix,...)
+* **Construire la qualité intrinsèque**
+* **Optimiser le système dans son ensemble**
+
+> c.f. [www.journaldunet.com - Lean Software Development et gestion de projet : décryptage]((https://www.journaldunet.com/web-tech/developpeur/1031853-lean-software-development-et-gestion-de-projet-decryptage/))
+
+---
+
+## Le modèle CALMS
+
+### *Lean* (3/3)
+
+Nous noterons que les principes du *Lean* entrent en résonance avec :
+
+* Les méthodes et outils agiles (Scrum, Kanban,...).
+* La volonté de rapprocher les DEV et les OPS (partage de connaissances, réduction des temps d'attente,...)
+* L'automatisation d'un maximum de tâches.
+
+Nous mémoriserons que **le Lean ne doit pas être perverti en se contentant de chiffres assurant que les ressources sont occupées à 100%** (1), mais d'abord à **observer le processus de création dans son ensemble et permettre les optimisations** pour gagner réellement en efficacité. Par ex :
+
+* Fournir directement un script de déploiement exploitable vs une procédure au format texte.
+* Faire une pull-request vs une demande dans un ticket.
+* Utiliser un outil de gestion de projet vs saisir l'avancement des tâches dans un tableur.
+
+> (1) [www.usinenouvelle.com - Dérives du lean : pourquoi la méthode s’est écartée des principes originaux](https://www.usinenouvelle.com/article/derives-du-lean-pourquoi-la-methode-s-est-ecartee-des-principes-originaux.N293559)
 
 ---
 
@@ -151,12 +194,12 @@ Jouer le cycle dev/test/prod régulièrement réduit le gaspillage. Il y a moins
 
 ### Mesure
 
-L'adage dit que "ce qui ne se mesure pas n'existe pas"... Du moins, ce qui n'est pas affiché en rouge sur un graphique ne percutera pas au niveau de la direction.
+L'adage dit que "ce qui ne se mesure pas n'existe pas"... Du moins, ce qui n'est pas affiché en rouge sur un graphique ne sera pas visible au niveau de la direction.
+
+A titre d'exemple, la [problématique des temps d'attente avec l'approche traditionnelle](annexe/gantt-efficacite-flux.html) devient plus visible avec un schéma :
 
 <div class="center">
     <img src="img/gantt-retex-livraison.png" style="height: 200px" />
-    <br />
-    <a href="annexe/gantt-efficacite-flux.html">(GANTT illustrant la problématique des temps d'attente avec l'approche traditionnelle)</a>
 </div>
 
 A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métriques associées**.
