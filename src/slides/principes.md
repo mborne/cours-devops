@@ -31,7 +31,7 @@ Il en résulte le mur de la confusion :
 
 ## Un objectif commun (2/2)
 
-Pour remédier à cette situation, il sera impératif de **replacer le produit et la création de valeur au centre** en fixant un objectif commun aux DEV et OPS :
+Pour remédier à cette situation, il sera impératif de replacer le produit et la création de valeur au centre en fixant un **objectif commun aux DEV et OPS** :
 
 **Livrer rapidement des évolutions tout en assurant la disponibilité**
 
