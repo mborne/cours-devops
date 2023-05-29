@@ -363,10 +363,10 @@ Pour les services non exposés, nous remarquerons que les outils de supervision 
 
 ### Les sondes web unitaires
 
-Constat :
+Constats :
 
 * Interpréter un échec sur une sonde impliquant plusieurs services en coulisse n'est pas trivial.
-* Déclencher des procédures ou des automatismes en cas de problème (ex : redémarrage d'un service) avec des outils tels [stackstorm](https://stackstorm.com/) encore moins.
+* Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des procédure ou des outils tels [stackstorm](https://stackstorm.com/) encore moins.
 
 Il sera donc intéressant de **prévoir des URL dédiées à la surveillance au niveau de l'application** (ex : `/health/db`, `/health/wfs-geoportail`,...).
 
@@ -421,10 +421,10 @@ L'approche **Infrastructure as Code (IaC)** sera fondamentale en matière d'**au
 
 L'automatisation d'un déploiement concernera plusieurs couches du système :
 
-* La création des ressources systèmes (machines virtuelles, réseaux privés,...)
-* La configuration du système (installer et configurer les cadriciels tels PHP, NodeJS, Java,...)
-* Le déploiement de l'applicatif
-* La configuration des services d'infrastructure (reverse proxy/load balancer, DNS,...)
+* La **création des ressources systèmes** (machines virtuelles, réseaux privés,...)
+* La **configuration du système** (installer et configurer les cadriciels tels PHP, NodeJS, Java,...)
+* Le **déploiement de l'applicatif**
+* La **configuration des services d'infrastructure** (reverse proxy/load balancer, DNS,...)
 
 ---
 
@@ -432,15 +432,15 @@ L'automatisation d'un déploiement concernera plusieurs couches du système :
 
 ### Quelles bonnes pratiques?
 
-On veillera à s'assurer que les scripts de configuration puissent :
+Nous veillerons à nous assurer que les scripts de configuration puissent :
 
 * Être exécuter plusieurs fois (**[idempotence](annexe/iac-idempotence.html)**)
 * Être interrompu et relancé (**atomicité**)
-* [Cohabiter avec d'autres](annexe/iac-cohabitation.html)
+* [Cohabiter avec d'autres](annexe/iac-cohabitation.html) (~orthogonalité)
 * Être testés par exemple avec des environnements de qualification et de pré-production.
 * Permettre à la fois la mise à jour du système et sa reconstruction.
 
-On privilégiera **une approche déclarative** à une approche impérative pour faciliter la mise en oeuvre de ces principes.
+Nous privilégierons **une approche déclarative** à une approche impérative pour faciliter la mise en oeuvre de ces principes.
 
 ---
 
@@ -478,7 +478,14 @@ A titre d'exemple, si l'exposition des services (configuration du reverse proxy/
 
 ### Quels outils pour l'automatisation des déploiements?
 
-Les outils disponibles varieront en fonction de la cible. Nous verrons par la suite ces outils en abordant le cas des VM et des conteneurs.
+Nous trouverons différents outils pour la mise en oeuvre d'IaC (ex : Terraform, Ansible, Docker, Kubernetes, Helm,...)
+
+Nous noterons à ce stade que :
+
+* Le choix du l'outillage dépendra de la cible (IaaS, CaaS, cloud public,...)
+* Ces outils entreront en concurrence sur certains domaines (ce qui n'en facilitera pas le choix)
+
+Nous les verrons par la suite sur des exemples concrets.
 
 ---
 
@@ -499,17 +506,19 @@ Cette approche permettra de :
   * Qui a lancé quelle version du script de déploiement?
   * Qui a proposé/validé la configuration?
 
+GitOps est ainsi une illustration de l'utilisation du concept de **pull request** en lieu et place d'un processus de validation plus traditionnel.
+
 ---
 
 ## Docs as Code (1/3)
 
 ### Principe
 
-Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code**](https://www.writethedocs.org/guide/docs-as-code/) qui consiste à **gérer la documentation avec les mêmes outils que ceux qui servent à construire des applications** :
+Pour la documentation, nous soulignerons l'importance de l'approche [**Docs as Code**](https://www.writethedocs.org/guide/docs-as-code/) qui consiste à **gérer la documentation avec les mêmes outils que ceux qui servent à construire des applications** :
 
-* Le **système de gestion de ticket** permet de **gérer les évolutions et les anomalies**.
 * Le gestionnaire de code source (GIT) permet de **versionner le code source de la documentation** et de **prévisualiser le contenu**.
 * Le **source du document** est dans un **format texte** permettant le **calcul de différentiel** (Markdown, reStructuredText, Asciidoc).
+* Le **système de gestion de ticket** permet de **gérer les évolutions et les anomalies**.
 * Le mécanisme de **merge request** est exploité pour valider des modifications.
 * La chaîne CI/CD permet de **générer et de publier la documentation au format HTML**.
 
@@ -519,7 +528,7 @@ Pour la documentation, on soulignera l'importance de l'approche [**Docs as Code*
 
 ### Intérêt
 
-La production d'une documentation au format HTML a de nombreux avantages notamment en terme de capacité à structurer la documentation. Par exemple :
+Cette approche induit la **production d'une documentation au format HTML** qui a de nombreux avantages notamment en terme de capacité à structurer la documentation. Par exemple :
 
 * Offrir plusieurs niveaux de lecture ([c4model](https://c4model.com/)).
 * Référencer efficacement des annexes.
@@ -546,7 +555,7 @@ Dans le cas de DevOps, elle est importante pour :
 
 Au final, il sera très vite tentant de gérer un maximum d'élément à l'aide du gestionnaire de code source car il offre **un cadre pour la gestion des évolutions**.
 
-Il est intéressant de voir par exemple :
+Nous remarquerons par exemple :
 
 * Des **schemas as code** avec des outils tels [Diagrams](https://diagrams.mingrammer.com/docs/getting-started/examples)
 * Des **standards as code** (ex : [cnigfr - PCRS](https://github.com/cnigfr/PCRS#pcrs))
@@ -555,7 +564,7 @@ Il est intéressant de voir par exemple :
   * [gregoiredavid/france-geojson](https://github.com/gregoiredavid/france-geojson#france-geojson)
 * ...
 
-<span style="color: red; font-weight: bold;">La seule exception concerne les secrets qui ne doivent jamais être stocké dans un dépôt!</span> (pas même dans un dépôt privé qui sera peut-être ouvert un jour!)
+<span style="color: red; font-weight: bold;">La seule exception concernera les secrets qui ne devront jamais être stocké dans un dépôt!</span> (pas même dans un dépôt privé qui sera peut-être ouvert un jour!)
 
 
 
