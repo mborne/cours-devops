@@ -301,9 +301,19 @@ Les indicateurs suivants donneront une vision plus globale de la qualité d'une 
 
 Le calcul de telles métriques sera délicat sans :
 
-* L'utilisation d'un système de ticket (Jira, redmine, issues du gestionnaire de code source,...)
-* Une gestion rigoureuse des tickets (demande vs incident, gravité des incidents,...)
-* L'ajout des métadonnées nécessaires au calcul des métriques.
+* L'**utilisation d'un système de ticket** (Jira, redmine, issues du gestionnaire de code source,...)
+* Une **gestion rigoureuse des tickets** :
+  * Demande vs incident
+  * Gravité des incidents
+* L'ajout des **métadonnées nécessaires au calcul des métriques** :
+  * Date de création du ticket
+  * Date de prise en charge du ticket
+  * Date de résolution (à distinguer de la date de confirmation de la résolution)
+
+En outre, pour raisonner sur des éléments comparables et identifier des axes d'amélioration, il sera intéressant de :
+
+* **Catégoriser les demandes** (changement de paramétrage, livraison mineure/majeure, )
+* **Catégoriser les incidents** (applicatif, infrastructure, exploitation)
 
 ---
 
@@ -311,16 +321,14 @@ Le calcul de telles métriques sera délicat sans :
 
 ### La supervision du système
 
-Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin-monitoring.org/), [netdata](https://www.netdata.cloud/),...) permettent de :
+Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin-monitoring.org/), [netdata](https://www.netdata.cloud/),...) permettront de :
 
 * Surveiller la consommation de ressources (RAM, CPU, stockage, bande passante,...)
 * Mettre en oeuvre des alertes pour :
   * Éviter l'apparition de problèmes (si >=90% de stockage est utilisé)
   * Détecter des problèmes (atteinte de limite de bande passante, de la limite de nombre de connexion simultanées, >=80% de CPU utilisé pendant 10 minutes)
 
-**Les outils de supervision offrent au passage un terrain de discussion intéressant entre les DEV et les OPS.**
-
-> (Nous verrons quelques exemples réels dont [munin.openstreetmap.org](https://munin.openstreetmap.org/) et [https://app.netdata.cloud](https://app.netdata.cloud) utilisé dans mon cas pour des machines perso.)
+**Les outils de supervision offriront au passage un terrain de discussion intéressant entre les DEV et les OPS.**
 
 ---
 
