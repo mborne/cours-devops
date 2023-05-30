@@ -90,9 +90,9 @@ Dans le cas présent, nous avons cette chance :
 
 ### Packager sa propre application
 
-Dans le cas où il convient de créer un livrable pour sa propre application, on remarquera que :
+Dans le cas où il convient de créer un livrable pour sa propre application, nous remarquerons que :
 
-* Il existe une **grande variété de formats de livrables possibles** fonction des technologies et OS cible (c.f. [format supportés par Nexus qui permet de créer différents types de dépôt](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats) )
+* Il existe une **grande variété de formats de livrables possibles** en fonction des technologies et OS cible (c.f. [format supportés par Nexus qui permet de créer différents types de dépôt](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats) )
 * Packager des applications telles PostgreSQL est un métier (construire et maintenir des .deb ou .rpm dans les règles de l'art n'est pas trivial).
 * Dans le cas des **langages interprétés** (NodeJS, PHP...) :
   * Nous pourrons nous contenter en guise de livrable d'une simple archive (**.zip avec le code de la version + les dépendances**)
@@ -125,18 +125,14 @@ Nous trouverons des **concepts spécifiques à chaque solution dans ces API** (c
 
 ### Terraform
 
-Pour **gérer une infrastructure "as code" en production** sans programmer les appels à ces API, nous pourrions nous appuyer sur **[Terraform](https://www.terraform.io/intro#how-does-terraform-work)** qui apporte :
+Pour **gérer une infrastructure "as code" en production** sans programmer les appels à ces API, nous pourrons nous appuyer sur **[Terraform](https://www.terraform.io/intro#how-does-terraform-work)** qui apporte :
 
 * Un **langage déclaratif** pour la création des ressources (machine virtuelle, réseau,...)
 * Le support d'un [grand nombre de fournisseurs](https://registry.terraform.io/browse/providers) dont :
   * Les clouds publics : [AWS](https://registry.terraform.io/providers/hashicorp/aws/latest/docs), [Azure](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs), [Google Cloud Platform](https://registry.terraform.io/providers/hashicorp/google/latest),...
   * Les clouds privés : [vsphere](https://registry.terraform.io/providers/hashicorp/vsphere/latest/docs), [openstack](https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs),...
 
-
-Nous nous contenterons de survoler quelques exemples et de souligner que **Terraform n'est pas stateless** ce qui induit qu'il faut :
-
-* [Configurer un backend pour le stockage de l'état du système](https://www.terraform.io/language/settings/backends/configuration))
-* Se méfier des conflits possibles entre l'utilisation de terraform et des interfaces graphiques des fournisseurs (ex : console OVHCloud)
+Nous nous contenterons dans un premier temps d'inspecter un exemple de création de VM Google Cloud avec Terraform : [google_compute_instance](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance).
 
 ---
 
@@ -144,7 +140,7 @@ Nous nous contenterons de survoler quelques exemples et de souligner que **Terra
 
 ### Vagrant (1/3)
 
-Pour la suite, nous allons plutôt utiliser [**Vagrant**](https://www.vagrantup.com/) qui est lui aussi développé par [HashiCorp](https://www.hashicorp.com/) et qui est l'équivalent de [Terraform](https://www.terraform.io/) pour les environnements de développement.
+Pour ce cours, nous allons plutôt utiliser [**Vagrant**](https://www.vagrantup.com/) qui est lui aussi développé par [HashiCorp](https://www.hashicorp.com/) et qui est l'équivalent de [Terraform](https://www.terraform.io/) pour les environnements de développement.
 
 ---
 
@@ -176,7 +172,7 @@ Nous soulignerons que :
 
 ## Le déploiement de l'application
 
-### Le déploiement des applications
+### Principe
 
 Nous avons avec Vagrant et Terraform des outils capables de **créer nos VM as code**. Il nous reste à trouver une solution pour procéder de même pour déployer nos applications comme suit :
 
@@ -193,9 +189,9 @@ Nous avons avec Vagrant et Terraform des outils capables de **créer nos VM as c
 
 Les outils de **gestion de configuration** sont les plus adaptés pour **installer et configurer nos applications**. Les plus connus sont :
 
+* [Ansible](https://docs.ansible.com/ansible/latest/index.html)
 * [Chef](https://docs.chef.io/platform_overview/)
 * [Puppet](https://puppet.com/docs/puppet/6/puppet_overview.html)
-* [Ansible](https://docs.ansible.com/ansible/latest/index.html)
 
 ---
 
@@ -226,25 +222,15 @@ Nous [trouverons plusieurs exécutable avec Ansible](https://docs.ansible.com/an
 * [ansible-galaxy](https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html) qui permettra de télécharger des rôles partagés pour construire vos playbooks (voir [galaxy.ansible.com](https://galaxy.ansible.com/)).
 * [ansible-vault](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html) qui permettra de chiffrer des secrets.
 
-L'[installation pourra être réalisée dans un environnement virtuel python](https://gist.github.com/mborne/eeb3a0177fe27f5ed393a00eded0a86f#file-ansible-venv-md) pour éviter les conflits de version de bibliothèques Python. 
+Nous noterons que l'[installation pourra être réalisée dans un environnement virtuel python](https://gist.github.com/mborne/eeb3a0177fe27f5ed393a00eded0a86f#file-ansible-venv-md) pour éviter les conflits de version de bibliothèques Python (et le recours aux droits root via `sudo`)
 
 ---
 
 ## Le déploiement de l'application
 
-### Le déploiement de GeoStack avec Ansible!
+### Le principe de fonctionnement d'Ansible
 
-Présenter l'ensemble des [concepts ansible](https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html#basic-concepts) demanderait plusieurs séances.
-
-Nous allons ici nous contenter d'une démonstration et de l'analyse d'un exemple [mborne/geostack-deploy - Déploiement de GeoStack avec ansible](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible).
-
----
-
-## Le déploiement de l'application
-
-### Conclusion sur Ansible (1/2)
-
-S'il faut réfléchir dans certains cas, nous soulignerons que bien souvent, la traduction des commandes en YAML est triviale :
+S'il faudra réfléchir dans certains cas, nous soulignerons que bien souvent, la traduction des commandes en YAML pour appeler le module Ansible correspondant sera triviale :
 
 ```bash
 sudo apt-get update
@@ -265,7 +251,17 @@ sudo apt-get install nginx
 
 ## Le déploiement de l'application
 
-### Conclusion sur Ansible (2/2)
+### Le déploiement de GeoStack avec Ansible!
+
+Présenter l'ensemble des [concepts ansible](https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html#basic-concepts) demanderait plusieurs séances.
+
+Nous allons ici nous contenter d'une démonstration et de l'analyse d'un exemple [mborne/geostack-deploy - Déploiement de GeoStack avec ansible](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible).
+
+---
+
+## Le déploiement de l'application
+
+### Conclusion sur Ansible
 
 Nous mémoriserons que Ansible permet de **décrire as code le déploiement d'une application avec un fichier YAML** qui sera exploitable comme suit :
 
@@ -369,7 +365,7 @@ Pour pouvoir exploiter ces deux composants, il faudrait :
 
 ## Que manque-t'il?
 
-### Les sauvegardes (1/2)
+### Les sauvegardes
 
 En l'état, **si l'une de nos machines vient à s'embraser : Les données sont perdues**. Il serait donc important d'adopter une stratégie de sauvegarde et plusieurs options sont possibles :
 
@@ -384,21 +380,6 @@ En l'état, **si l'une de nos machines vient à s'embraser : Les données sont p
 
 ## Que manque-t'il?
 
-### Les sauvegardes (2/2)
-
-Les deux options sont à mon sens complémentaires :
-
-* L'approche par snapshot permet de redémarrer rapidement en cas de problème simple.
-* L'approche par export des données impose un travail de **cartographie des données** (données métiers, données de configuration, secrets, données temporaires,...) mais offre des avantages non négligeables :
-  * Il est relativement simple de **tester ces sauvegardes avec des restaurations régulière des données de la PRODUCTION en RECETTE** (en anonymisant au besoin les données)
-  * Ces restaurations régulières sont utiles pour les **tests d'intégration** (ex : valider des scripts de mise à jour de la base de données) et les **tests de performance** (avec des données réalistes)
-
-Quand la volumétrie et la sensibilité des données le permet, il est dommage de ce priver de tels mécanismes et d'attendre un sinistre ou une migration pour cartographier les données.
-
----
-
-## Que manque-t'il?
-
 ### La résilience
 
 Pour les systèmes critiques, il ne sera pas acceptable de devoir attendre la fin d'une restauration de sauvegarde pour que le système redémarre. De même, pour les volumétries importantes, il ne sera pas réaliste de procéder à des sauvegardes complètes.
@@ -408,7 +389,7 @@ A ce titre, nous soulignerons que nous pourrions mettre en oeuvre de **mécanism
 * [PostgreSQL - High Availability, Load Balancing, and Replication](https://www.postgresql.org/docs/current/high-availability.html)
 * [GeoServer - Clustering GeoServer](https://docs.geoserver.geo-solutions.it/edu/en/clustering/index.html#clustering-geoserver)
 
-Nous verrons plus tard que la mise en oeuvre est plus simple avec des applications conçues pour répondre à cette problématique (ElasticSearch, etcd, MongoDB,...)
+Nous soulignerons que l'exercice est loin d'être trivial et comprendrons mieux pourquoi **certaines applications sont conçues pour répondre nativement à cette problématique (ElasticSearch, etcd, MongoDB,...)**
 
 ---
 
@@ -416,7 +397,7 @@ Nous verrons plus tard que la mise en oeuvre est plus simple avec des applicatio
 
 ### La nécessité de traiter globalement ces problèmes
 
-Il est illusoire d'espérer traiter de manière homogène ces problématiques au niveau de chaque application. Traiter ces problématiques de manière efficace demandera la **mise en place d'une infrastructure** pour l'accueil des applications dont le nom variera entre :
+Il est illusoire d'espérer **traiter de manière homogène ces problématiques au niveau de chaque application**. Traiter ces problématiques de manière efficace demandera la **mise en place d'une infrastructure** pour l'accueil des applications dont le nom variera entre :
 
 * Zone d'hébergement
 * Zone applicative
@@ -430,7 +411,7 @@ Il est illusoire d'espérer traiter de manière homogène ces problématiques au
 
 ### Les principaux composants
 
-Dans la zone d'hébergement, nous trouverons par exemple :
+Dans cette zone d'hébergement, nous trouverons par exemple :
 
 * Un **Bastion SSH** pour l'accès aux VM par les administrateurs
 * Un **Reverse Proxy / Load Balancer** communs aux applications

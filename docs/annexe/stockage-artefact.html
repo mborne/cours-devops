@@ -30,19 +30,34 @@
 <li><a href="#les-gestionnaires-dartefact">Les gestionnaires d&#39;artefact</a></li>
 <li><a href="#le-système-de-release-du-gestionnaire-de-code-source">Le système de release du gestionnaire de code source</a></li>
 <li><a href="#les-dépôts-publics-des-gestionnaires-de-dépendance">Les dépôts publics des gestionnaires de dépendance</a></li>
+<li><a href="#mise-en-garde-sur-la-sécurité">Mise en garde sur la sécurité</a></li>
 </ul>
 <h2 id="les-gestionnaires-dartefact">Les gestionnaires d&#39;artefact</h2><p>Dans cette catégorie, nous trouverons par exemple <a href="https://fr.sonatype.com/products/nexus-repository" target="_blank">Nexus Repository Manager</a> qui a ajouté en version 3 le support d&#39;un grand nombre de format.</p>
-<h2 id="le-système-de-release-du-gestionnaire-de-code-source">Le système de release du gestionnaire de code source</h2><p>On soulignera la possibilité de stocker des livrables avec :</p>
+<h2 id="le-système-de-release-du-gestionnaire-de-code-source">Le système de release du gestionnaire de code source</h2><p>Nous soulignerons la <strong>possibilité de stocker des livrables en annexe des dépôts GIT</strong> au niveau d&#39;un nombre croissant de gestionnaire de code source :</p>
 <ul>
 <li><a href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository" target="_blank">Le système de releases sur GitHub</a></li>
 <li><a href="https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html" target="_blank">Le système de stockage sur GitLab</a></li>
+<li><a href="https://docs.gitea.io/en-us/usage/packages/overview/" target="_blank">Le système de package de Gitea</a></li>
 </ul>
-<h2 id="les-dépôts-publics-des-gestionnaires-de-dépendance">Les dépôts publics des gestionnaires de dépendance</h2><ul>
+<p>En contrepartie d&#39;un rôle toujours plus central pour le gestionnaire de code source, nous soulignerons le <strong>gain en matière de cohérence des droits entre le gestionnaire de code source et le dépôt d&#39;artefact</strong>.</p>
+<h2 id="les-dépôts-publics-des-gestionnaires-de-dépendance">Les dépôts publics des gestionnaires de dépendance</h2><p>A l&#39;échelle des langages, nous trouverons des dépôts publics dédiés :</p>
+<ul>
 <li><a href="https://www.npmjs.com/" target="_blank">npmjs.com</a> pour NodeJS</li>
 <li><a href="https://packagist.org/" target="_blank">packagist.org</a> pour PHP</li>
 <li><a href="https://pypi.org/" target="_blank">pypi.org</a> pour Python</li>
 <li><a href="https://search.maven.org/" target="_blank">Maven Central Repository</a> pour Java</li>
 <li>...</li>
+</ul>
+<p>Nous noterons qu&#39;il est possible de les utiliser pour publier des versions des bibliothèques</p>
+<h2 id="mise-en-garde-sur-la-sécurité">Mise en garde sur la sécurité</h2><p>L&#39;utilisation d&#39;un gestionnaire de dépendance expose aux risques suivants :</p>
+<ul>
+<li>Une dépendance disponible publiquement peut être corrompue</li>
+<li>Une dépendance disponible publiquement peut venir remplacer une dépendance hébergée sur un dépôt privé (confusion de dépendance)</li>
+</ul>
+<p>Il convient en conséquence de :</p>
+<ul>
+<li>Faire preuve de prudence dans le choix de ses dépendances</li>
+<li>Se prémunir contre le risque de confusion de dépendance avec une stratégie adaptée au gestionnaire de dépendance (pip, composer, npm, docker,...)</li>
 </ul>
 
   </article>
