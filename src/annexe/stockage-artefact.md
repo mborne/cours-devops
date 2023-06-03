@@ -34,7 +34,7 @@ Nous noterons qu'il est possible de les utiliser pour publier des versions des b
 
 ## Mise en garde sur la sécurité
 
-L'utilisation d'un gestionnaire de dépendance expose aux risques suivants :
+L'utilisation d'un gestionnaire de dépendances expose aux risques suivants :
 
 * Une dépendance disponible publiquement peut être corrompue
 * Une dépendance disponible publiquement peut venir remplacer une dépendance hébergée sur un dépôt privé (confusion de dépendance)

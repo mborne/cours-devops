@@ -205,7 +205,7 @@ Nous allons nous appuyer sur Ansible qui est une solution :
 * Basée sur l'utilisation du format YAML
 * Implémentée en Python
 * N'imposant pas un serveur de contrôle
-* Permettant l'utilisation d'un serveur de contrôle ([AWX](https://github.com/ansible/awx#readme) par exemple).
+* Permettant l'utilisation d'un orchestrateur de déploiement (ex : [AWX](https://github.com/ansible/awx#readme), [Jenkins](https://plugins.jenkins.io/ansible/),...).
 
 > (1) [Socle interministériel de logiciels libres](https://sill.etalab.gouv.fr/software) où chef et puppet ne semblent plus être référencés (changement de licence?).
 
@@ -222,7 +222,10 @@ Nous [trouverons plusieurs exécutable avec Ansible](https://docs.ansible.com/an
 * [ansible-galaxy](https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html) qui permettra de télécharger des rôles partagés pour construire vos playbooks (voir [galaxy.ansible.com](https://galaxy.ansible.com/)).
 * [ansible-vault](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html) qui permettra de chiffrer des secrets.
 
-Nous noterons que l'[installation pourra être réalisée dans un environnement virtuel python](https://gist.github.com/mborne/eeb3a0177fe27f5ed393a00eded0a86f#file-ansible-venv-md) pour éviter les conflits de version de bibliothèques Python (et le recours aux droits root via `sudo`)
+Nous noterons que :
+
+* L'[installation en local pourra être réalisée dans un environnement virtuel python](https://gist.github.com/mborne/eeb3a0177fe27f5ed393a00eded0a86f#file-ansible-venv-md) pour éviter les conflits de version de bibliothèques Python (et le recours aux droits root via `sudo`)
+* [Il n'est pas possible d'utiliser les exécutables Ansible directement sur windows](https://docs.ansible.com/ansible/latest/os_guide/windows_faq.html#can-ansible-run-on-windows)
 
 ---
 
@@ -230,7 +233,7 @@ Nous noterons que l'[installation pourra être réalisée dans un environnement 
 
 ### Le principe de fonctionnement d'Ansible
 
-S'il faudra réfléchir dans certains cas, nous soulignerons que bien souvent, la traduction des commandes en YAML pour appeler le module Ansible correspondant sera triviale :
+S'il faudra réfléchir dans certains cas, nous remarquerons que bien souvent, la traduction des commandes en YAML pour appeler le module Ansible correspondant sera triviale :
 
 ```bash
 sudo apt-get update
@@ -253,9 +256,14 @@ sudo apt-get install nginx
 
 ### Le déploiement de GeoStack avec Ansible!
 
-Présenter l'ensemble des [concepts ansible](https://docs.ansible.com/ansible/latest/network/getting_started/basic_concepts.html#basic-concepts) demanderait plusieurs séances.
+Présenter proprement les [concepts d'Ansible](https://docs.ansible.com/ansible/latest/getting_started/basic_concepts.html) demanderait plusieurs séances.
 
-Nous allons ici nous contenter d'une démonstration et de l'analyse d'un exemple [mborne/geostack-deploy - Déploiement de GeoStack avec ansible](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible).
+L'idée de ce cours n'étant pas de former à la rédaction de script Ansible, nous allons plutôt les découvrir à l'aide des exemples suivant :
+
+* [mborne/vagrantbox - Ansible - QuickStart](https://github.com/mborne/vagrantbox#ansible) qui applique un post-traitement après création des VM (configuration `/etc/hosts`, ajout de votre clé SSH, nettoyage `~/.ssh/known_host`...)
+* [mborne/geostack-deploy](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible) qui assure le déploiement de GeoStack avec Ansible.
+
+> Vagrant est en mesure de réaliser un [provisionnement avec Ansible](https://developer.hashicorp.com/vagrant/docs/provisioning/ansible). 
 
 ---
 
@@ -301,14 +309,14 @@ Nous ne pourrions pas procéder ainsi avec des VM exposées sur internet :
 * Nous finirions sur [https://www.shodan.io](https://www.shodan.io/)
 * Un des nombreux bots qui scannent le web testerait sans relâche nos VM
 
-Il faudrait par exemple :
+Il faudrait à minima :
 
 * Configurer un pare-feu local (par exemple avec [ufw](https://doc.ubuntu-fr.org/ufw))
 * Configurer [fail2ban](https://doc.ubuntu-fr.org/fail2ban) pour bloquer les attaques par force brute sur SSH.
 * Blinder la configuration des VM ( c.f. [dev-sec.io - DevSec Hardening Framework](https://dev-sec.io/baselines/linux/) )
 * ...
 
-> On notera l'existence d'une alternative à [fail2ban](https://doc.ubuntu-fr.org/fail2ban) : [CrowdSec](https://github.com/crowdsecurity/crowdsec#readme) où les IP suspectes sont partagées. On s'assurera de respecter le [RGPD](https://www.cnil.fr/fr/rgpd-de-quoi-parle-t-on) avec ce type d'outil.
+> Nous noterons l'existence d'une alternative à [fail2ban](https://doc.ubuntu-fr.org/fail2ban) : [CrowdSec](https://github.com/crowdsecurity/crowdsec#readme) où les IP suspectes sont partagées. On s'assurera de respecter le [RGPD](https://www.cnil.fr/fr/rgpd-de-quoi-parle-t-on) avec ce type d'outil.
 
 ---
 
@@ -397,13 +405,11 @@ Nous soulignerons que l'exercice est loin d'être trivial et comprendrons mieux 
 
 ### La nécessité de traiter globalement ces problèmes
 
-Il est illusoire d'espérer **traiter de manière homogène ces problématiques au niveau de chaque application**. Traiter ces problématiques de manière efficace demandera la **mise en place d'une infrastructure** pour l'accueil des applications dont le nom variera entre :
+Il est illusoire d'espérer **traiter de manière homogène ces problématiques au niveau de chaque application**. Traiter ces problématiques de manière efficace demandera la **mise en place d'un cadre** pour l'accueil des applications.
 
-* Zone d'hébergement
-* Zone applicative
-* *Landing zone* (AWS)
-* Socle technique d'exploitation
-* ...
+Les déploiements seront donc généralement réalisés dans une **zone d'hébergement** prévue pour l'accueil des applications.
+
+> Le nom variera en fonction des organisations et solutions d'hébergement : *Landing zone* (AWS), socle technique d'exploitation,...
 
 ---
 
@@ -411,40 +417,53 @@ Il est illusoire d'espérer **traiter de manière homogène ces problématiques 
 
 ### Les principaux composants
 
-Dans cette zone d'hébergement, nous trouverons par exemple :
+Dans cette zone d'hébergement, nous trouverons par exemple l'architecture suivante avec une **mutualisation des composants** exploités par plusieurs applications :
 
-* Un **Bastion SSH** pour l'accès aux VM par les administrateurs
-* Un **Reverse Proxy / Load Balancer** communs aux applications
-* Des **services supports** (SMTP, DNS, proxy sortant...) communs aux applications
-* Des **services de stockages** (PostgreSQL, Redis, MongoDB,...) sur étagères
-* Un puits de logs
-* Un système de supervision
-* Un orchestrateur de déploiement (ex : AWX, Jenkins,...)
-* ...
+![Exemple d'architecture IaaS](img/archi-hebergement-iaas.drawio.png)
+
+Nous noterons au passage que prévoir un traitement particulier pour les **services de stockage** simplifiera la mise en oeuvre d'un **plan de sauvegarde** et d'un **plan de reprise d'activité (PRA)**.
 
 ---
 
 ## L'incontournable zone d'hébergement
 
-### Le délicat recours à un prestataire... (1/2)
+### Le délicat recours à une équipe dédiée... (1/3)
 
-En cas de **recours à une équipe dédiée** pour construire cette zone d'hébergement, il conviendra de **s'assurer que la méthode permet l'automatisation des déploiements** :
+Pour faire face à la complexité et à la diversité des sujets, nous conviendrons qu'il sera difficile d'éviter de recourir à une équipe dédiée pour la construction de la zone d'hébergement.
 
-* **La nécessité de recourir à un ticket pour configurer un seul élément suffira à plomber les capacités d'automatisation**
-* **La moindre imprécision dans les demandes sera source de problèmes de cohabitation**
+Nous soulignerons qu'il sera difficile possible de distinguer :
+
+* Des **PlatDev** et **PlatOps** en charge des composants de la zone d'hébergement
+* Des **AppDev** et **AppOps** en charge d'applications précises
 
 ---
 
 ## L'incontournable zone d'hébergement
 
-### Le délicat recours à un prestataire... (2/2)
+### Le délicat recours à une équipe dédiée... (2/3)
 
-**Poser un cadre "as code"** et **être précis sur les demandes** sera incontournable :
+Toutefois, nous noterons que le **recours à une équipe dédiée** ramène au problème d'origine adressé par DevOps : **La séparation entre les équipes en charge des applications et les équipes en charge de la zone d'hébergement**.
 
-* Avec "je veux des mises à jour régulière", le prestataire ajoutera potentiellement en bonus un `rm -rf /etc/apt/sources.list.d/*` pour reconfigurer ses seuls dépôts.
-* Avec "je veux une exécution régulière de `apt-get update && apt-get upgrade -y`, il y aura moins de place pour la fantaisie.
+Il conviendra de **s'assurer que la méthode de travail permet l'automatisation des déploiements** dans de bonnes conditions :
 
-Du moins, ce type de problématiques nous aidera à comprendre l'intérêt des conteneurs et de l'orchestration de conteneur que nous allons aborder...
+* La nécessité de recourir à un **ticket** pour configurer un seul élément (ex : LoadBalancer) suffira à **plomber les efforts d'automatisation**
+* Le moindre **comportement inattendu** sera source de **problèmes de cohabitation** entre les équipes applicatives et celle en charge de la zone d'hébergement.
+
+---
+
+## L'incontournable zone d'hébergement
+
+### Le délicat recours à une équipe dédiée... (3/3)
+
+A ce titre, **poser un cadre "as code"** et **être précis sur les demandes** sera incontournable :
+
+* Avec "je veux des mises à jour régulière", l'équipe en charge de la zone d'hébergement ajoutera potentiellement en bonus un `rm -rf /etc/apt/sources.list.d/*` pour reconfigurer ses seuls dépôts.
+* Avec "je veux une exécution régulière de `apt-get update && apt-get upgrade -y`", il y aura moins de place pour la fantaisie.
+
+Nous verrons par la suite comment :
+
+* Les conteneurs solutionnent ce problème via l'utilisation d'image embarquant les dépendances des applications.
+* Kubernetes va un cran plus loin en permettant aux équipes produit de définir par exemple la configuration du LoadBalancer avec le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress) plutôt que via un ticket ou un document.
 
 
     </textarea>
