@@ -143,8 +143,6 @@ Nous utilisons le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantb
     <img src="img/vagrantbox-up.drawio.png" style="height: 300px" />
 </div>
 
-> Nous créons ici des VM [VirtualBox](https://www.virtualbox.org/) mais [Vagrant supporte d'autres fournisseurs (ex : KVM)](https://www.vagrantup.com/docs/providers).
-
 ---
 
 ## La création des VM (5/5)
@@ -154,8 +152,10 @@ Nous utilisons le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantb
 Nous soulignerons que :
 
 * La principale difficulté traitée dans le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) est l'utilisation optionnelle d'un proxy sortant avec le plugin [vagrant-proxyconf](https://rubygems.org/gems/vagrant-proxyconf/versions/1.5.2).
-* Vous trouverez une [annexe/vagrant-helloworld](annexe/vagrant-helloworld.html) pour appendre à créer vos propres `Vagrantfile`.
-* Vagrant sera aussi pratique pour créer une VM de DEV Linux avec un environnement graphique (`apt-get install ubuntu-desktop`)
+* Une [annexe/vagrant-helloworld](annexe/vagrant-helloworld.html) explique comment créer ses propres `Vagrantfile`.
+* Vagrant est aussi pratique pour créer une VM de DEV Linux avec un environnement graphique (`apt-get install ubuntu-desktop`)
+* Nous créons ici des VM [VirtualBox](https://www.virtualbox.org/) mais [Vagrant supporte d'autres hyperviseurs (ex : KVM)](https://www.vagrantup.com/docs/providers)
+* Il existe [un dépôt public d'image de VM pour vagrant](https://app.vagrantup.com/boxes/search).
 
 ---
 

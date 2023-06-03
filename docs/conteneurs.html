@@ -14,13 +14,13 @@
 
 * Principe de fonctionnement
 * Les principaux concepts
+* Les principaux exécutables
 * L'intérêt des conteneurs
 * L'utilisation d'images publiques
 * La construction d'une image
 * Le déploiement de l'application avec docker compose
 * La mise en oeuvre d'un reverse proxy
 * Que manque-t'il à ce stade?
-* L'orchestration de conteneur
 
 ---
 
@@ -36,7 +36,7 @@ Par rapport aux VM, nous soulignerons que les conteneurs docker sont basés sur 
     (source : <a href="https://www.docker.com/resources/what-container/">www.docker.com - Comparing Containers and Virtual Machines</a>)
 </div>
 
-Le **démarrage d'un conteneur sera plus rapide que le démarrage d'une VM car** :
+Le **démarrage d'un conteneur sera plus rapide que le démarrage d'une VM** :
 
 * Démarrer un conteneur = démarrer un processus isolé
 * Démarrer une VM = démarrer un OS complet
@@ -51,7 +51,7 @@ Avec docker, nous trouverons un **concept d'image fonctionnellement identique à
 
 La deuxième optimisation notable de docker par rapport aux VM tiendra à l'**utilisation de système de fichier par couche ("overlay") pour matérialiser ces images**.
 
-Nous verrons que ceci permet à docker d'**optimiser le téléchargement et la construction des images avec des mécanismes de cache**.
+Cette approche permet à docker d'**optimiser le téléchargement et la construction des images avec des mécanismes de cache**.
 
 ---
 
@@ -65,7 +65,7 @@ Docker apporte par contre un ensemble cohérent **de concepts et d'outils donnan
 
 ---
 
-## Les principaux concepts (1/3)
+## Les principaux concepts
 
 ### Vue d'ensemble des concepts
 
@@ -78,44 +78,171 @@ L'utilisation de docker amènera en effet à manipuler plusieurs concepts :
 * Les **volumes** qui permettent d'externaliser les données des **conteneurs** ("montage de disque")
 * Les **réseaux** qui permettent la communication entre les conteneurs.
 * Le **démon docker** qui met à disposition [une API pour gérer les conteneurs, images, volumes, réseaux,...](https://docs.docker.com/engine/api/v1.41/).
-* L'[exécutable docker](https://docs.docker.com/engine/reference/commandline/cli/) qui est un client de l'API permettant de manipuler les images, les conteneurs, les volumes, les réseaux,...
+
 
 ---
-## Les principaux concepts (2/3)
 
-### Découvrir ces concepts par la pratique
+## Les principaux exécutables
 
-Il nous faudrait plusieurs séances pour un cours visant à vous apprendre à utiliser docker.
+Nous utiliserons principalement les deux exécutables suivant pour qui sont des **clients en ligne de commande pour l'API docker** :
 
-Nous allons nous contenter ici de découvrir ces concepts en reprenant le cas pratique du déploiement de GeoStack.
+* L'[exécutable **docker**](https://docs.docker.com/engine/reference/commandline/cli/) qui permettra de **manipuler individuellement les images, les conteneurs, les volumes, les réseaux,...**
+* Son plugin [**docker compose**](https://docs.docker.com/compose/) qui permettra de **gérer des stacks au format YAML** (des services exécutant des conteneurs, des réseaux et des volumes,...)
+
+---
+
+## Les dépôts d'images
+
+### Les dépôts d'images publics
+
+Le plus connu est [DockerHub](https://hub.docker.com/search?q=) mettant à disposition :
+
+* Des images d'OS : [ubuntu](https://hub.docker.com/_/ubuntu), [debian](https://hub.docker.com/_/debian), [alpine](https://hub.docker.com/_/alpine),...
+* Des images pour des services : [postgres](https://hub.docker.com/_/postgres), [mongodb](https://hub.docker.com/_/mongodb), [redis](https://hub.docker.com/_/redis),...
+* Des images pour des applications : [wordpress](https://hub.docker.com/_/wordpress), [jenkins](https://hub.docker.com/r/jenkins/jenkins),...
+
+Pour déployer GeoStack, nous trouverons :
+
+* Une image [postgis/postgis](https://hub.docker.com/r/postgis/postgis) pour le déploiement PostgreSQL
+* De [nombreuses images GeoServer](https://hub.docker.com/search?q=geoserver)
+
+Nous noterons toutefois qu'il existe d'autres dépôts d'images publiquement accessibles [quay.io](https://quay.io/) et [docker.elastic.co](https://www.docker.elastic.co/).
+
+---
+
+## Les dépôts d'images
+
+### Les dépôts d'image privés
+
+Nous noterons qu'il est possible de stocker des images avec des outils tels [Harbor](https://goharbor.io/) ou [Nexus3](https://hub.docker.com/r/sonatype/nexus3) déployés en propre.
+
+### Le dépôt d'image du gestionnaire de code source
+
+Nous soulignerons le fait que la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,...) intègrent désormais un système de stockage d'image docker (ghcr.io, registry.gitlab.com,...) ce qui :
+
+* Évite de gérer en parallèle des droits au niveau d'un gestionnaire d'artefact
+* Simplifie la publication la publication au niveau des orchestrateurs d'intégration continue (eux aussi intégrés aux gestionnaires de code source...)
+
+### Le dépôt d'image des hébergeurs
+
+Nous trouverons aussi des dépôts d'image au niveau des solutions d'hébergement (ex : Google Container Registry).
+
+---
+
+## Découvrir docker par la pratique
+
+### Principe
+
+A l'instar d'Ansible, il faudrait de nombreuses séances pour vous former réellement à l'utilisation de docker. Nous allons nous contenter d'une découverte des principaux concepts à l'aide d'exemples.
 
 Pour approfondir sur cette technologie, vous pourrez vous appuyer sur les ressources suivantes :
 
 * [docs.docker.com - Docker overview](https://docs.docker.com/get-started/overview/)
-* [container.training](https://container.training/)
-* [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est un de mes terrains de jeu pour progresser sur différentes technologies dont docker et Kubernetes
+* [container.training - Introduction to Containers](https://container.training/intro-selfpaced.yml.html#1)
+* [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est mon terrain de jeu pour docker et Kubernetes
 
 ---
-## Les principaux concepts (3/3)
 
-### Utilisez un bac à sable!
+## Découvrir ces concepts par la pratique
 
-Le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) vous permettra de faire vos premiers tests en ligne :
+### Installation de docker
+
+Nous allons nous assurer d'avoir une installation fonctionnelle de docker permettant d'exécuter `docker run hello-world` :
+
+* Vous pourrez assez facilement **installer docker sur une VM Linux**
+* Le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) vous permettra de faire vos premiers tests en ligne :
 
 <div class="center">
     <img src="img/play-with-docker.png" alt="Screenshot play-with-docker" style="height: 200px" />
 </div>
 
-En alternative, vous pourrez aussi assez facilement installer docker sur une VM Linux.
+> Pour l'installation, il faudra principalement traiter la problématique du [proxy sortant](annexe/proxy-docker.html) et éventuellement la résolution DNS.
 
-> **Évitez d'installer directement le démon docker directement sur un poste branché sur le réseau de votre école/entreprise** (il n'est pas trivial d'éviter les conflits d'IP entre docker et le réseau local, de faire cohabiter docker avec un VPN et de [définir les bonnes options de sécurité](https://github.com/docker/docker-bench-security#docker-bench-for-security))
+---
 
+## Découvrir ces concepts par la pratique
+
+### Mise en garde
+
+**Éviter d'installer directement le démon docker directement sur un poste de travail branché sur le réseau de votre école/entreprise**. Il faut :
+
+* Éviter les conflits d'IP entre docker et le réseau local.
+* [Définir les bonnes options de sécurité](https://github.com/docker/docker-bench-security#docker-bench-for-security)
+* Éventuellement faire cohabiter docker avec un VPN
+* ...
+
+> Les commandes `docker network ls` et `ip link` vous permettrons de constater que docker créé des réseaux virtuels.
+
+---
+
+## Découvrir ces concepts par la pratique
+
+### Quelques exemples pour débuter...
+
+Pour la prise en main de l'exécutable `docker` et la découverte des concepts, nous allons voir ensemble les exemples stockés dans un dépôt dédié annexé à ce cours :
+
+[mborne/docker-exemples](https://github.com/mborne/docker-exemples#docker---quelques-exemples)
+
+---
+
+## Le déploiement de GeoStack
+
+### Principe
+
+Après cette brève introduction, nous allons pouvoir reprendre le déploiement de GeoStack réalisé précédemment avec Ansible.
+
+---
+
+## Le déploiement de GeoStack
+
+### La construction d'une image
+
+Pour illustrer la construction d'une image docker à partir d'un `Dockerfile`, nous allons faire l'exercice de :
+
+* Créer nous même l'image pour GeoServer
+* Stocker cette image à l'aide de GitHub Container Registry (ghcr.io)
+
+Nous inspecterons ensemble le dépôt [mborne/docker-geoserver](https://github.com/mborne/docker-geoserver#readme) correspondant et soulignerons que nous pourrons récupérer l'image comme suit pour la suite :
+
+```bash
+docker pull ghcr.io/mborne/geoserver:v2.21.1
+```
+
+---
+
+## Le déploiement de GeoStack
+
+### La construction d'une image
+
+Nous trouverons ici la démonstration correspondant à l'utilisation d'un fichier `docker-compose.yml` pour démarrer les deux applications à l'aide d'un simple `docker compose up -d` :
+
+[mborne/geostack-deploy - Déploiement de GeoStack avec docker compose](https://github.com/mborne/geostack-deploy/tree/master/docker#readme)
+
+Nous soulignerons que sans "docker compose", nous serions amené à exécuter de nombreuses commandes docker.
+
+---
+
+## Le déploiement de GeoStack
+
+### La mise en oeuvre d'un reverse proxy (1/2)
+
+Avec Ansible, la mise en oeuvre d'un reverse proxy aurait induit par exemple l'installation et la configuration de nginx.
+
+Avec docker, nous soulignerons l'existence de [traefik](https://doc.traefik.io/traefik/) doté d'un mécanisme de [configuration automatique permis par la présence d'une API au niveau de docker](https://doc.traefik.io/traefik/providers/docker/).
+
+---
+
+## Le déploiement de GeoStack
+
+### La mise en oeuvre d'un reverse proxy (2/2)
+
+En complément, nous constaterons que [traefik](https://doc.traefik.io/traefik/) faciliterait au passage la [mise en oeuvre de TLS](https://doc.traefik.io/traefik/https/overview/) et de bien d'autres points tels la [mise en oeuvre de limites de nombres d'appel par IP](https://doc.traefik.io/traefik/middlewares/http/ratelimit/)
 
 ---
 
 ## L'intérêt des conteneurs
 
-Nous verrons que le succès de docker doit beaucoup aux points suivants :
+En synthèse, nous soulignerons le succès de docker doit beaucoup aux points suivants :
 
 * **L'image est un livrable universel** (plus besoin de choisir entre un .deb, .rpm, .war, .zip,...)
 * **L'image est définie as code** via le `Dockerfile` (donc **reconstructible**)
@@ -129,54 +256,6 @@ Nous verrons que le succès de docker doit beaucoup aux points suivants :
 
 ---
 
-## L'utilisation d'images publiques
-
-Un autre élément joue beaucoup dans le succès de docker : [Le dépôt d'image public gratuit DockerHub](https://hub.docker.com/search?q=) où nous trouverons :
-
-* Des OS : [ubuntu](https://hub.docker.com/_/ubuntu), [debian](https://hub.docker.com/_/debian), [alpine](https://hub.docker.com/_/alpine),...
-* Des applications : [postgres](https://hub.docker.com/_/postgres), [mongodb](https://hub.docker.com/_/mongodb), [redis](https://hub.docker.com/_/redis),...
-
-Pour déployer GeoStack, nous trouverons :
-
-* Une image [postgis/postgis](https://hub.docker.com/r/postgis/postgis) pour le déploiement PostgreSQL
-* De [nombreuses images GeoServer](https://hub.docker.com/search?q=geoserver)
-
----
-
-## La construction d'une image
-
-Pour illustrer la construction d'une image docker à partir d'un Dockerfile, nous allons faire l'exercice de créer nous même l'image pour GeoServer dans le dépôt [github.com - mborne/docker-geoserver](https://github.com/mborne/docker-geoserver#readme).
-
-Nous l'inspecterons ensemble et soulignerons que nous pourrons récupérer l'image comme suit pour la suite :
-
-```bash
-docker pull ghcr.io/mborne/geoserver:v2.21.1
-```
-
----
-
-## Le déploiement de l'application avec docker compose
-
-Nous trouverons ici la démonstration correspondant à l'utilisation d'un fichier `docker-compose.yml` pour démarrer les deux applications à l'aide d'un simple `docker compose up -d` :
-
-[mborne/geostack-deploy - Déploiement de GeoStack avec docker compose](https://github.com/mborne/geostack-deploy/tree/master/docker#readme)
-
-> Nous soulignerons que sans "docker compose", nous serions amené à exécuter de nombreuses commandes docker.
-
----
-
-## La mise en oeuvre d'un reverse proxy
-
-Nous soulignerons l'existence de [traefik](https://doc.traefik.io/traefik/) doté d'un mécanisme de [configuration automatique permis par la présence d'une API au niveau de docker](https://doc.traefik.io/traefik/providers/docker/).
-
-En complément, nous constaterons :
-
-* La [capacité à traiter facilement la mise en oeuvre de TLS](https://doc.traefik.io/traefik/https/overview/)
-* Et [bien d'autres points tel la mise en eouvre de limite de nombres d'appel avec les middlewares](https://doc.traefik.io/traefik/middlewares/http/ratelimit/)
-
-
----
-
 ## Que manque-t'il à ce stade?
 
 En l'état, si cherchions à héberger GeoStack sur plusieurs machines, nous remarquerions que :
@@ -185,49 +264,6 @@ En l'état, si cherchions à héberger GeoStack sur plusieurs machines, nous rem
 * Les démons docker sur les machines ne se connaissent pas (un outil tel [traefik](https://doc.traefik.io/traefik/) devrait moissonner deux API distinctes)
 * Il nous serait délicat de mettre en oeuvre un volume partagé par les conteneurs sur les deux machines.
 
----
-
-## L'orchestration de conteneur
-
-### Introduction
-
-Pour répondre à cette problématique, nous trouverons des solutions d'orchestrateur de conteneurs permettant de **gérer des conteneurs sur plusieurs hôtes**. Il en existe plusieurs, dont [swarm](https://docs.docker.com/engine/swarm/) qui est intégrée à docker et qui permettrait par exemple de :
-
-* [Créer un cluster entre les machines vagrantbox-1; vagrantbox-2 et vagrantbox-3](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
-* [Déployer GeoStack sous forme d'un service sur ce cluster](https://docs.docker.com/engine/swarm/swarm-tutorial/deploy-service/) (1)
-
-Nous avons une première solution pour exécuter nos conteneurs sur plusieurs machines mais il existe une solution plus riche : Kubernetes.
-
-> Le développement de swarm à amené à l'ajout d'un driver réseau "overlay" permettant la communication des conteneurs entre plusieurs machines (`docker network create --driver overlay geostack`)
-
----
-
-## L'orchestration de conteneur
-
-### Kubernetes
-
-Nous ne pourrons pas rentrer dans les détails, mais nous soulignerons que Kubernetes amène une [API de contrôle de l'exécution des conteneurs à l'échelle d'un cluster](https://container.training/kube-selfpaced.yml.html#85).
-
-* Une **API avec une approche déclarative** (on spécifie en YAML le nombre de conteneurs attendus, Kubernetes se charge de les démarrer)
-* Une architecture réseau permettant par défaut la communication entre les conteneurs :
-  * Un réseau de type overlay est présent à l'échelle du cluster
-  * Il n'est plus nécessaire de partager explicitement des réseaux
-
----
-
-## L'orchestration de conteneur
-
-### Kubernetes
-
-Nous soulignerons que Kubernetes amène :
-
-* Une [API riche en concepts](https://kubernetes.io/docs/concepts/)
-* Une API extensible permettant l'introspection (utilisée par [traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) cette fois à l'échelle d'un cluster)
-* Une API permettant la réflexion qui peut être illustrée par :
-  * [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) qui se charge de déployer les autres applications au sein d'un cluster Kubernetes.
-  * [zalando/postgres-operator](https://github.com/zalando/postgres-operator#getting-started) qui se charge de gérer un cluster PostgreSQL dans Kubernetes.
-
-Dans le cadre de ce cours, nous remarquerons que l'API Kubernetes permet de **séparer les responsabilités entre les DEV et les OPS**.
 
     </textarea>
 
