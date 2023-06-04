@@ -143,9 +143,15 @@ Nous allons nous assurer d'avoir une installation fonctionnelle de docker permet
     <img src="img/play-with-docker.png" alt="Screenshot play-with-docker" style="height: 200px" />
 </div>
 
-Pour l'installation dans une VM, il vous faudra principalement traiter la problématique du [proxy sortant](annexe/proxy-sortant/proxy-docker.html) et éventuellement la résolution DNS (option `dns` dans `/etc/docker/daemon.json`).
+---
 
-L'[annexe docker](annexe/docker/) s'efforce de fournir une aide sur ces points.
+## Découvrir docker par la pratique
+
+### Les problèmes classiques à l'installation
+
+Pour l'installation dans une VM, il vous faudra potentiellement traiter la problématique du [proxy sortant](annexe/proxy-sortant/proxy-docker.html) et éventuellement la résolution DNS (option `dns` dans `/etc/docker/daemon.json`).
+
+Voir [annexe docker](annexe/docker/) qui s'efforce de fournir une aide sur les problèmes classiques.
 
 ---
 
