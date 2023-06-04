@@ -16,5 +16,6 @@
         "Scaleway",
         "vagrantbox",
         "vsphere"
-    ]
+    ],
+    "ansible.python.interpreterPath": "/bin/python"
 }

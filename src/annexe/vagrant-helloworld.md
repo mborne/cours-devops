@@ -1,4 +1,4 @@
-# Vagrant
+# Vagrant - quelques notes pour débuter
 
 ## Pré-requis
 

@@ -15,11 +15,10 @@
 * Principe de fonctionnement
 * Les principaux concepts
 * Les principaux exécutables
+* Les dépôts d'images
+* Découvrir docker par la pratique
+* Le déploiement de GeoStack
 * L'intérêt des conteneurs
-* L'utilisation d'images publiques
-* La construction d'une image
-* Le déploiement de l'application avec docker compose
-* La mise en oeuvre d'un reverse proxy
 * Que manque-t'il à ce stade?
 
 ---
@@ -51,7 +50,7 @@ Avec docker, nous trouverons un **concept d'image fonctionnellement identique à
 
 La deuxième optimisation notable de docker par rapport aux VM tiendra à l'**utilisation de système de fichier par couche ("overlay") pour matérialiser ces images**.
 
-Cette approche permet à docker d'**optimiser le téléchargement et la construction des images avec des mécanismes de cache**.
+Cette approche permettra à docker d'**optimiser le téléchargement et la construction des images avec des mécanismes de cache**.
 
 ---
 
@@ -84,9 +83,9 @@ L'utilisation de docker amènera en effet à manipuler plusieurs concepts :
 
 ## Les principaux exécutables
 
-Nous utiliserons principalement les deux exécutables suivant pour qui sont des **clients en ligne de commande pour l'API docker** :
+Nous utiliserons principalement les **clients en ligne de commande pour l'API docker** suivants :
 
-* L'[exécutable **docker**](https://docs.docker.com/engine/reference/commandline/cli/) qui permettra de **manipuler individuellement les images, les conteneurs, les volumes, les réseaux,...**
+* L'exécutable [**docker**](https://docs.docker.com/engine/reference/commandline/cli/) qui permettra de **manipuler individuellement les images, les conteneurs, les volumes, les réseaux,...**
 * Son plugin [**docker compose**](https://docs.docker.com/compose/) qui permettra de **gérer des stacks au format YAML** (des services exécutant des conteneurs, des réseaux et des volumes,...)
 
 ---
@@ -114,7 +113,7 @@ Nous noterons toutefois qu'il existe d'autres dépôts d'images publiquement acc
 
 ### Les dépôts d'image privés
 
-Nous noterons qu'il est possible de stocker des images avec des outils tels [Harbor](https://goharbor.io/) ou [Nexus3](https://hub.docker.com/r/sonatype/nexus3) déployés en propre.
+Nous noterons qu'il est possible de stocker des images avec des outils tels [Harbor](https://goharbor.io/) ou [Nexus](https://hub.docker.com/r/sonatype/nexus3) déployés en propre.
 
 ### Le dépôt d'image du gestionnaire de code source
 
@@ -125,7 +124,7 @@ Nous soulignerons le fait que la plupart des gestionnaires de code source (GitHu
 
 ### Le dépôt d'image des hébergeurs
 
-Nous trouverons aussi des dépôts d'image au niveau des solutions d'hébergement (ex : Google Container Registry).
+Nous trouverons aussi l'existence de dépôt d'images au niveau des solutions d'hébergement (ex : Google Container Registry, Azure Container Registry,...).
 
 ---
 
@@ -133,55 +132,61 @@ Nous trouverons aussi des dépôts d'image au niveau des solutions d'hébergemen
 
 ### Principe
 
-A l'instar d'Ansible, il faudrait de nombreuses séances pour vous former réellement à l'utilisation de docker. Nous allons nous contenter d'une découverte des principaux concepts à l'aide d'exemples.
+A l'instar de Ansible, il faudrait de nombreuses séances pour vous former réellement à l'utilisation de docker. Nous allons nous contenter d'une découverte des principaux concepts à l'aide d'exemples.
 
-Pour approfondir sur cette technologie, vous pourrez vous appuyer sur les ressources suivantes :
+Pour approfondir sur cette technologie, vous pourrez suivre un cours dédié ou vous appuyer sur les ressources suivantes :
 
 * [docs.docker.com - Docker overview](https://docs.docker.com/get-started/overview/)
 * [container.training - Introduction to Containers](https://container.training/intro-selfpaced.yml.html#1)
-* [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est mon terrain de jeu pour docker et Kubernetes
 
 ---
 
-## Découvrir ces concepts par la pratique
+## Découvrir docker par la pratique
 
 ### Installation de docker
 
 Nous allons nous assurer d'avoir une installation fonctionnelle de docker permettant d'exécuter `docker run hello-world` :
 
-* Vous pourrez assez facilement **installer docker sur une VM Linux**
+* Vous pourrez **installer docker sur une VM Linux**
 * Le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) vous permettra de faire vos premiers tests en ligne :
 
 <div class="center">
     <img src="img/play-with-docker.png" alt="Screenshot play-with-docker" style="height: 200px" />
 </div>
 
-> Pour l'installation, il faudra principalement traiter la problématique du [proxy sortant](annexe/proxy-docker.html) et éventuellement la résolution DNS.
+Pour l'installation dans une VM, il vous faudra principalement traiter la problématique du [proxy sortant](annexe/proxy-sortant/proxy-docker.html) et éventuellement la résolution DNS (option `dns` dans `/etc/docker/daemon.json`).
+
+L'[annexe docker](annexe/docker/) s'efforce de fournir une aide sur ces points.
 
 ---
 
-## Découvrir ces concepts par la pratique
+## Découvrir docker par la pratique
 
 ### Mise en garde
 
-**Éviter d'installer directement le démon docker directement sur un poste de travail branché sur le réseau de votre école/entreprise**. Il faut :
+**Éviter d'installer directement le démon docker directement sur un poste de travail branché sur le réseau de votre école/entreprise**.
 
-* Éviter les conflits d'IP entre docker et le réseau local.
-* [Définir les bonnes options de sécurité](https://github.com/docker/docker-bench-security#docker-bench-for-security)
-* Éventuellement faire cohabiter docker avec un VPN
+La configuration par défaut du démon (`/etc/docker/daemon.json`) devra être adaptée pour :
+
+* Éviter les conflits d'IP entre les réseaux virtuels de docker et le réseau local (`bip` et `default-address-pools`)
+* Définir les bonnes options de sécurité (voir [docker-bench-for-security](https://github.com/docker/docker-bench-security#docker-bench-for-security))
 * ...
 
-> Les commandes `docker network ls` et `ip link` vous permettrons de constater que docker créé des réseaux virtuels.
 
 ---
 
-## Découvrir ces concepts par la pratique
+## Découvrir docker par la pratique
 
 ### Quelques exemples pour débuter...
 
-Pour la prise en main de l'exécutable `docker` et la découverte des concepts, nous allons voir ensemble les exemples stockés dans un dépôt dédié annexé à ce cours :
+Pour la prise en main de l'exécutable [docker](https://docs.docker.com/engine/reference/commandline/cli/) et la découverte des concepts, nous allons voir ensemble les exemples stockés dans un dépôt dédié annexé à ce cours :
 
-[mborne/docker-exemples](https://github.com/mborne/docker-exemples#docker---quelques-exemples)
+* [mborne/docker-exemples](https://github.com/mborne/docker-exemples#docker---quelques-exemples)
+
+Pour la prise en main de `docker compose`, nous utiliserons [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est mon terrain de jeu pour docker et Kubernetes en démarrant :
+
+* [mborne/docker-devbox - redis](https://github.com/mborne/docker-devbox/tree/master/redis)
+* [mborne/docker-devbox - postgis](https://github.com/mborne/docker-devbox/tree/master/postgis)
 
 ---
 
