@@ -1,4 +1,3 @@
-
 # DevOps avec des conteneurs
 
 * Principe de fonctionnement
@@ -102,18 +101,18 @@ Nous noterons toutefois qu'il existe d'autres dépôts d'images publiquement acc
 
 ### Les dépôts d'image privés
 
-Nous noterons qu'il est possible de stocker des images avec des outils tels [Harbor](https://goharbor.io/) ou [Nexus](https://hub.docker.com/r/sonatype/nexus3) déployés en propre.
+Il est possible de stocker des images avec des outils tels [Harbor](https://goharbor.io/) ou [Nexus](https://hub.docker.com/r/sonatype/nexus3) déployés en propre.
 
 ### Le dépôt d'image du gestionnaire de code source
 
-Nous soulignerons le fait que la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,...) intègrent désormais un système de stockage d'image docker (ghcr.io, registry.gitlab.com,...) ce qui :
+Toutefois, la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,...) intègrent désormais un système de stockage d'image docker (ghcr.io, registry.gitlab.com,...) ce qui :
 
 * Évite de gérer en parallèle des droits au niveau d'un gestionnaire d'artefact
 * Simplifie la publication la publication au niveau des orchestrateurs d'intégration continue (eux aussi intégrés aux gestionnaires de code source...)
 
 ### Le dépôt d'image des hébergeurs
 
-Nous trouverons aussi l'existence de dépôt d'images au niveau des solutions d'hébergement (ex : Google Container Registry, Azure Container Registry,...).
+Enfin, nous noterons l'existence de dépôts d'images au niveau des solutions d'hébergement (ex : Google Container Registry, Azure Container Registry,...).
 
 ---
 
@@ -147,11 +146,11 @@ Nous allons nous assurer d'avoir une installation fonctionnelle de docker permet
 
 ## Découvrir docker par la pratique
 
-### Les problèmes classiques à l'installation
+### Les problèmes classiques
 
-Pour l'installation dans une VM, il vous faudra potentiellement traiter la problématique du [proxy sortant](annexe/proxy-sortant/proxy-docker.html) et éventuellement la résolution DNS (option `dns` dans `/etc/docker/daemon.json`).
+Une [annexe docker](annexe/docker/index.html) référence la procédure d'installation officielle et s'efforce de guider sur la [résolution des problèmes classiques](annexe/docker/problemes-frequents.html).
 
-Voir [annexe docker](annexe/docker/) qui s'efforce de fournir une aide sur les problèmes classiques.
+Pour l'installation dans une VM, il vous faudra potentiellement traiter ceux liés à l'[utilisation d'un proxy sortant avec docker](annexe/proxy-sortant/proxy-docker.html).
 
 ---
 
@@ -159,7 +158,7 @@ Voir [annexe docker](annexe/docker/) qui s'efforce de fournir une aide sur les p
 
 ### Mise en garde
 
-**Éviter d'installer directement le démon docker directement sur un poste de travail branché sur le réseau de votre école/entreprise**.
+**Éviter d'installer le démon docker directement sur un poste de travail branché sur le réseau de votre école/entreprise**.
 
 La configuration par défaut du démon (`/etc/docker/daemon.json`) devra être adaptée pour :
 
@@ -174,7 +173,7 @@ La configuration par défaut du démon (`/etc/docker/daemon.json`) devra être a
 
 ### Quelques exemples pour débuter...
 
-Pour la prise en main de l'exécutable [docker](https://docs.docker.com/engine/reference/commandline/cli/) et la découverte des concepts, nous allons voir ensemble les exemples stockés dans un dépôt dédié annexé à ce cours :
+Pour la prise en main du client [docker](https://docs.docker.com/engine/reference/commandline/cli/) et la découverte des concepts, nous allons voir ensemble les exemples stockés dans un dépôt dédié annexé à ce cours :
 
 * [mborne/docker-exemples](https://github.com/mborne/docker-exemples#docker---quelques-exemples)
 
@@ -212,11 +211,13 @@ docker pull ghcr.io/mborne/geoserver:v2.21.1
 
 ## Le déploiement de GeoStack
 
-### La construction d'une image
+### Le déploiement avec docker compose
 
-Nous trouverons ici la démonstration correspondant à l'utilisation d'un fichier `docker-compose.yml` pour démarrer les deux applications à l'aide d'un simple `docker compose up -d` :
+Nous trouverons la démonstration correspondante dans le dépôt ci-après :
 
 [mborne/geostack-deploy - Déploiement de GeoStack avec docker compose](https://github.com/mborne/geostack-deploy/tree/master/docker#readme)
+
+Nous mémoriserons que **l'utilisation d'un fichier [docker-compose.yml](https://github.com/mborne/geostack-deploy/blob/master/docker/docker-compose.yml) permet de démarrer une pile applicative complète à l'aide de la commande `docker compose up -d`**.
 
 Nous soulignerons que sans "docker compose", nous serions amené à exécuter de nombreuses commandes docker.
 
@@ -228,7 +229,8 @@ Nous soulignerons que sans "docker compose", nous serions amené à exécuter de
 
 Avec Ansible, la mise en oeuvre d'un reverse proxy aurait induit par exemple l'installation et la configuration de nginx.
 
-Avec docker, nous soulignerons l'existence de [traefik](https://doc.traefik.io/traefik/) doté d'un mécanisme de [configuration automatique permis par la présence d'une API au niveau de docker](https://doc.traefik.io/traefik/providers/docker/).
+Avec docker, nous soulignerons [que la présence d'une API au niveau de docker](https://doc.traefik.io/traefik/providers/docker/) permet des mécanismes de **découverte de configuration** exploité par exemple par [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#traefik).
+
 
 ---
 

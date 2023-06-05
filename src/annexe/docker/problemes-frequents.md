@@ -15,7 +15,7 @@ Si vous devez utiliser un proxy pour accéder à internet, vous rencontrerez sû
 
 Voir [Travailler derrière un proxy avec Docker](../proxy-sortant/proxy-docker.md).
 
-## Serveur DNS utilisé par le démon docker
+## Configuration de l'utilisation d'un serveur DNS particulier
 
 Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable que ce soit un problème de configuration DNS :
 
@@ -29,7 +29,7 @@ Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable
 
 * Redémarrer le démon docker (`sudo service docker restart`)
 
-## Registry docker non HTTPS
+## Utilisation d'un dépôt d'image en HTTP
 
 Si vous avez un dépôt d'images privé qui n'utilise pas https (ex : http://localhost:5000 démarré avec [registry:2](https://hub.docker.com/_/registry) pour tester la publication d'image), docker refusera de puller les images :
 

@@ -9,7 +9,7 @@
 * [Les problèmes fréquents avec docker](problemes-frequents.md)
 * [Travailler derrière un proxy avec Docker](../proxy-sortant/proxy-docker.md)
 
-## Les lignes de commande
+## La documentation
 
 Pour les commandes `docker ...` :
 
@@ -20,5 +20,8 @@ Pour les commandes `docker compose...` :
 
 * [docs.docker.com - Overview of docker compose CLI](https://docs.docker.com/compose/reference/)
 
+Pour la rédaction de dockerfile :
+
+* [docs.docker.com - Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 
 

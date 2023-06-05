@@ -28,8 +28,8 @@
     <h1 id="les-problèmes-fréquents-avec-docker">Les problèmes fréquents avec docker</h1><p>Quelques notes pour aider à résoudre les problèmes classiques rencontrés par les débutants :</p>
 <ul>
 <li><a href="#utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</a></li>
-<li><a href="#serveur-dns-utilisé-par-le-démon-docker">Serveur DNS utilisé par le démon docker</a></li>
-<li><a href="#registry-docker-non-https">Registry docker non HTTPS</a></li>
+<li><a href="#configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</a></li>
+<li><a href="#utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</a></li>
 </ul>
 <h2 id="utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</h2><p>Si vous devez utiliser un proxy pour accéder à internet, vous rencontrerez sûrement des problèmes avec :</p>
 <ul>
@@ -38,7 +38,7 @@
 <li>L&#39;accès aux ressources internet depuis vos conteneurs.</li>
 </ul>
 <p>Voir <a href="../proxy-sortant/proxy-docker.html">Travailler derrière un proxy avec Docker</a>.</p>
-<h2 id="serveur-dns-utilisé-par-le-démon-docker">Serveur DNS utilisé par le démon docker</h2><p>Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable que ce soit un problème de configuration DNS :</p>
+<h2 id="configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</h2><p>Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable que ce soit un problème de configuration DNS :</p>
 <ul>
 <li>Adaptez ce qui suit dans <code>/etc/docker/daemon.json</code> :</li>
 </ul>
@@ -49,7 +49,7 @@
 <ul>
 <li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
 </ul>
-<h2 id="registry-docker-non-https">Registry docker non HTTPS</h2><p>Si vous avez un dépôt d&#39;images privé qui n&#39;utilise pas https (ex : <a href="http://localhost:5000" target="_blank">http://localhost:5000</a> démarré avec <a href="https://hub.docker.com/_/registry" target="_blank">registry:2</a> pour tester la publication d&#39;image), docker refusera de puller les images :</p>
+<h2 id="utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</h2><p>Si vous avez un dépôt d&#39;images privé qui n&#39;utilise pas https (ex : <a href="http://localhost:5000" target="_blank">http://localhost:5000</a> démarré avec <a href="https://hub.docker.com/_/registry" target="_blank">registry:2</a> pour tester la publication d&#39;image), docker refusera de puller les images :</p>
 <ul>
 <li>Déclarer ce dépôt dans <code>/etc/docker/daemon.json</code> :</li>
 </ul>

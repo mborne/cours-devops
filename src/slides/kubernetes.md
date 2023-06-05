@@ -1,41 +1,237 @@
-# L'orchestration de conteneur avec Kubernetes
+# DevOps avec Kubernetes
+
+* Introduction
+* Principe de fonctionnement
+* Découvrir Kubernetes par la pratique
+* Survol des premiers concepts
+* Les principaux concepts
+
+
+---
+
+## L'orchestration de conteneurs
 
 ### Introduction
 
-Pour répondre **permettre l'exécution de conteneur sur plusieurs hôtes**, nous trouverons des **orchestrateurs de conteneurs**. Il en existe plusieurs, dont [swarm](https://docs.docker.com/engine/swarm/) qui est intégrée à docker et qui permettrait par exemple de :
+Il existe plusieurs solutions d'**orchestration de conteneur** permettant :
+
+* L'automatisation des déploiements sans interruption
+* L'automatisation de la gestion (ex : redémarrage en cas de problème)
+* La mise en réseau des conteneurs pour l'exécution sur plusieurs hôtes
+* L'automatisation de la mise à l'échelle des conteneurs
+
+---
+
+## Introduction
+
+### Swarm
+
+Nous soulignerons l'existence de la solution d'orchestration [swarm](https://docs.docker.com/engine/swarm/) qui est intégrée à docker et qui permettrait par exemple de :
 
 * [Créer un cluster entre les machines vagrantbox-1; vagrantbox-2 et vagrantbox-3](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
-* [Déployer GeoStack sous forme d'un service sur ce cluster](https://docs.docker.com/engine/swarm/swarm-tutorial/deploy-service/) (1)
+* [Déployer GeoStack sous forme d'un service sur ce cluster](https://docs.docker.com/engine/swarm/swarm-tutorial/deploy-service/)
 
-Nous allons nous concentrer sur une solution plus riche : **Kubernetes**.
-
-> Le développement de swarm à amené à l'ajout d'un driver réseau "overlay" permettant la communication des conteneurs entre plusieurs machines (`docker network create --driver overlay geostack`)
+Nous noterons que le développement de swarm à amené à l'ajout d'un réseau de type "overlay" permettant la communication des conteneurs entre plusieurs machines (`docker network create --driver overlay geostack`)
 
 ---
 
-## L'orchestration de conteneur
+## Introduction
 
 ### Kubernetes
 
-Nous ne pourrons pas rentrer dans les détails, mais nous soulignerons que Kubernetes amène une [API de contrôle de l'exécution des conteneurs à l'échelle d'un cluster](https://container.training/kube-selfpaced.yml.html#85).
+Pour ce cours, nous allons plutôt faire un survol de **Kubernetes** qui est une référence en la matière et qui bénéficie d'un riche écosystème, dont des **solutions de plus haut niveau d'abstraction** qui ne seront pas présentée en détail dans ce cours :
 
-* Une **API avec une approche déclarative** (on spécifie en YAML le nombre de conteneurs attendus, Kubernetes se charge de les démarrer)
-* Une architecture réseau permettant par défaut la communication entre les conteneurs :
-  * Un réseau de type overlay est présent à l'échelle du cluster
-  * Il n'est plus nécessaire de partager explicitement des réseaux
+* [KNative - Serverless and Event Driven Applications](https://knative.dev/docs/)
+* [OpenFaaS - Serverless Functions, Made Simple](https://www.openfaas.com/)
+
 
 ---
 
-## L'orchestration de conteneur
+## Principe de fonctionnement
 
-### Kubernetes
+### L'API de Kubernetes (1/2)
 
-Nous soulignerons que Kubernetes amène :
+Kubernetes met à disposition une [API de contrôle de l'exécution des conteneurs à l'échelle d'un cluster](https://kubernetes.io/docs/concepts/overview/components/) avec :
 
-* Une [API riche en concepts](https://kubernetes.io/docs/concepts/)
-* Une API extensible permettant l'introspection (utilisée par [traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) cette fois à l'échelle d'un cluster)
-* Une API permettant la réflexion qui peut être illustrée par :
-  * [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) qui se charge de déployer les autres applications au sein d'un cluster Kubernetes.
-  * [zalando/postgres-operator](https://github.com/zalando/postgres-operator#getting-started) qui se charge de gérer un cluster PostgreSQL dans Kubernetes.
+* Une **approche déclarative** où l'utilisateur spécifie les **objets** à créer en YAML (ou JSON)
+* Des **concepts plus riches et plus nombreux** que l'API docker
 
-Dans le cadre de ce cours, nous remarquerons que l'API Kubernetes permet de **séparer les responsabilités entre les DEV et les OPS**.
+Nous verrons que cette API est centrale dans l'écosystème Kubernetes :
+
+* Elle donne un cadre pour **l'authentification** et **la gestion des droits**.
+* Elle permet l'**introspection** et la **réflexion** (découverte de configuration, opérateur en charge de déployer des applications,...)
+* Elle est **extensible** (les applications peuvent définir leurs propres types d'objet)
+
+---
+
+## Principe de fonctionnement
+
+### L'API de Kubernetes (2/2)
+
+Pour se faire une idée des capacités offertes par cette API, nous pourrons 
+
+* [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) qui se charge de déployer les autres applications au sein d'un cluster Kubernetes.
+* [zalando/postgres-operator](https://github.com/zalando/postgres-operator#getting-started) qui se charge de gérer un cluster PostgreSQL dans Kubernetes.
+
+---
+
+## Principe de fonctionnement
+
+### Le plan de contrôle et les noeuds
+
+Le **plan de contrôle** (*control-plane*) hébergera les composants relatifs à la gestion du cluster dont :
+
+* L'API Kubernetes (`kube-apiserver`)
+* La base de données clé/valeur de l'API (`etcd`)
+
+Nous soulignerons que hors environnement de test et de développement, les conteneurs applicatifs s'exécuteront sur des **noeuds**.
+
+---
+
+## Principe de fonctionnement
+
+### Un modèle réseau ouvert par défaut
+
+Avec docker, pour que deux conteneurs puissent communiquer, il faut s'assurer qu'ils partagent le même réseau.
+
+Avec Kubernetes, nous aurons un **modèle réseau permettant par défaut la communication au sein du cluster**.
+
+> Nous pourrons toutefois définir des restrictions de communication réseau avec un concept dédié que nous n'aborderons dans cette introduction : [NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
+
+---
+
+## Principe de fonctionnement
+
+### Une administration du cluster via l'API
+
+> TODO : schéma avant (SSH) / après (kubectl)
+
+---
+
+## Découvrir Kubernetes par la pratique
+
+### Installation du client
+
+Pour communiquer avec un cluster, nous installerons le client [kubectl](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/) qui nous permettra de communiquer avec l'API Kubernetes en ligne de commande. 
+
+---
+
+## Découvrir Kubernetes par la pratique
+
+### Création d'un cluster de développement
+
+Nous noterons qu'il existe différents outils permettant d'installer un environnement de développement Kubernetes pour découvrir les concepts par la pratique :
+
+* [K3S](https://k3s.io/) de Rancher.
+* [Kubernetes in docker (Kind)](https://kind.sigs.k8s.io/)
+* [MicroK8S](https://microk8s.io/) de Canonical (Ubuntu).
+* [Minikube](https://kubernetes.io/fr/docs/setup/learning-environment/minikube/)
+
+Nous tenterons l'installation de K3S avec Ansible sur les VM vagrantbox à l'aide du dépôt [mborne/k3s-deploy](https://github.com/mborne/k3s-deploy#k3s-deploy).
+
+> Vous trouverez aussi [un utilitaire pour installer Kind dans mborne/docker-devbox](https://github.com/mborne/docker-devbox/tree/master/kind#kind-kubernetes-in-docker). L'installation demande moins de travail pour des tests simples, mais les choses se compliquent pour tester certaines fonctionnalités (LoadBalancer et Ingress en particulier).
+
+---
+
+## Survol des premiers concepts
+
+Pour débuter avec kubectl et nous familiariser, nous traiterons les exemples suivants :
+
+* La création manuelle d'un [Pod](https://kubernetes.io/docs/concepts/workloads/pods/) avec l'image [traefik/whoami](https://hub.docker.com/r/traefik/whoami)
+* La création automatique de 3 [Pod](https://kubernetes.io/docs/concepts/workloads/pods/) équivalent à l'aide d'un [Deployment](https://kubernetes.io/docs/concepts/workloads/deployment/)
+* La création d'un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) devant ces [Pod](https://kubernetes.io/docs/concepts/workloads/pods/)
+* La création d'un [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) pour exposer le service sur une URL.
+
+---
+
+## Les charges de travail
+
+Nous noterons que nous disposerons de plusieurs concepts pour gérer l'exécution.
+
+En effet, les [Pods]((https://kubernetes.io/docs/concepts/workloads/pods/)) ne seront pas créés manuellement gérés par :
+
+* Un [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) pour un service sans état (ex : nginx)
+* Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) dans le cas contraire (ex : PostgreSQL)
+* Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) dans le cas où ils doivent s'exécuter sur tous les noeuds (ex : fluent-bit pour la collecte des logs)
+
+Nous noterons aussi la possibilité de définir :
+
+* Des [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) pour des tâches ponctuelles.
+* Des [CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cronjob/) pour des tâches périodiques.
+
+---
+
+## Les principaux concepts
+
+### Le concept de Service
+
+Nous noterons qu'un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) peut être vu comme un reverse proxy au cluster devant les Pods.
+
+Nous soulignerons qu'il existe plusieurs types de service dont :
+
+* `ClusterIP` (type par défaut) rendant le service accessible dans le cluster
+* `NodePort` permettant l'exposition via un port sur un noeud (**à éviter**)
+* `LoadBalancer` permettant de demander l'exposition sur une IP publique.
+
+---
+
+## Les principaux concepts
+
+### Le concept Ingress
+
+Le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) permet d'exposer un service en HTTP/HTTPS.
+
+Nous noterons que :
+
+* L'exposition des ressources [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) sera prise en charge par un contrôleur Ingress (ex : [nginx-ingress-controller](https://github.com/mborne/docker-devbox/blob/master/nginx-ingress-controller/README.md), [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes),...)
+* Le choix du contrôleur ingress passera par la définition de la propriété `ingressClass` (ex : `nginx`, `traefik`,... avec la possibilité de distinguer `nginx-private` et `nginx-public`)
+
+
+---
+
+## Les principaux concepts
+
+### Les concepts pour le stockage (1/3)
+
+Nous noterons que Kubernetes dispose d'un mécanisme de plugin permettant de supporter différentes solutions de stockage (c.f. [kubernetes-csi.github.io - CSI Drivers](https://kubernetes-csi.github.io/docs/drivers.html))
+
+Aussi, en complément du concept de [Volume](https://kubernetes.io/docs/concepts/storage/volumes/) repris à Docker, nous trouverons par exemple une distinction entre :
+
+* [Les volumes persistants (PersistentVolume)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+* [Les volumes éphémères](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) (ex : [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir))
+
+
+---
+
+## Les principaux concepts
+
+### Les concepts pour le stockage (2/3)
+
+Pour le [provisionnement des volumes persistant](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/), nous trouverons deux concepts intéressants :
+
+* Le concept de **PersistentVolumeClaim** correspondant à la **commande d'un volume persistant** réalisée par exemple au niveau d'un déploiement.
+* Le concept de [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/) permettant de répondre avec deux cas de figure :
+  * La création du *PersistentVolume* correspondant par un administrateur du cluster (**provisionnement statique**)
+  * La création automatique du *PersistentVolume* via l'utilisation d'une classe de stockage prévue à cet effet (**provisionnement dynamique**)
+
+> Il sera intéressant d'exécuter `kubectl get storageclass` pour lister les possibilités dans un cluster.
+
+
+---
+
+## Les principaux concepts
+
+### Les concepts pour le stockage (3/3)
+
+Nous soulignerons que tous les types de stockage n'offrent pas les mêmes possibilités.
+
+A ce titre, Kubernetes distinguera plusieurs **modes d'accès**, par exemple :
+
+* **ReadWriteOnce** indiquant que le volume est utilisé en lecture/écriture sur des Pods s'exécutant sur un même noeud.
+* **ReadWriteMany** dans le cas de plusieurs noeuds.
+
+Nous noterons que ce deuxième mode de stockage ne sera pas toujours disponibles en standard (il faudra par exemple intégrer un stockage en réseau tel NFS ou activer des options telles Google CSI FileStore avec GKE).
+
+En règle générale, il sera préférable de ne pas y avoir recours à un stockage **ReadWriteMany** pour des raisons de performance et de coût (mais se libérer de cette contrainte peu demander des efforts de refonte importants des traitements).
+
+
