@@ -122,8 +122,9 @@ vagrant up
 ## Installer manuellement le serveur web nginx
 
 ```bash
+# Se connecter à la VM
 vagrant ssh
-# puis dans la VM
+# Puis dans la VM
 sudo apt-get update
 sudo apt-get install nginx
 ```
@@ -138,13 +139,9 @@ Depuis l'hôte de la VM, nous aurons normalement accès http://192.168.50.101
 vagrant destroy
 ```
 
-## Quelques exemples
-
-* [github.com - mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) : Configurer des VM de DEV avec Ansible.
-
 ## Quelques ressources
 
 * [Vagrant - getting started](https://learn.hashicorp.com/collections/vagrant/getting-started) qui guide pour **débuter en l'absence d'un proxy HTTP** (par exemple sur une machine perso connectée à une box internet standard).
-* [gist.github.com - wpscholar/vagrant-cheat-sheet.md](https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md) qui liste les principales commandes de vagrant.
-
+* [gist.github.com - wpscholar/vagrant-cheat-sheet.md](https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md) qui liste les **principales commandes de vagrant**.
+* [github.com - mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) : Créer plusieurs VM de DEV avec Ansible.
 
