@@ -108,6 +108,17 @@ end
 vagrant up
 ```
 
+## Problème possible
+
+* Sous ubuntu, la plage IP correspondante devra être autorisée via le fichier `/etc/vbox/networks.conf`. S'il est absent, ajouter le contenu suivant :
+
+```
+* 192.168.50.0/24
+```
+
+* Sous windows, la création du réseau privé virtual (`192.168.50.0/24`) avant affectation de l'IP `192.168.50.101` demandera des droits administrateurs.
+
+
 ## Installer manuellement le serveur web nginx
 
 ```bash
