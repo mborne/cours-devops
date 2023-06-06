@@ -96,7 +96,7 @@ Environment="NO_PROXY=localhost,127.0.0.1,::1"
 # Ajout de vagrant au groupe docker
 # (docker sans sudo)
 #---------------------------------------------------------------------------------------------------
-adduser vagrant docker
+# adduser vagrant docker
 
 #---------------------------------------------------------------------------------------------------
 # On redémarre docker
