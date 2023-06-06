@@ -37,10 +37,7 @@ deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) sta
 
 apt-get update
 apt-get install -y docker-ce docker-compose-plugin
-HTTP_PROXY=http://10.0.4.2:3128"
-Environment="HTTPS_PROXY=http://10.0.4.2:3128"
-Environment="NO_PROXY=localhost,127.0.0.1,::1"
-' > /etc/systemd/system/docker.service.d/proxy.conf
+
 #---------------------------------------------------------------------------------------------------
 # Configuration du démon docker
 #---------------------------------------------------------------------------------------------------
