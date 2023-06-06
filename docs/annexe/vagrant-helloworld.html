@@ -107,20 +107,27 @@ end
 </code></pre>
 <h2 id="démarrer-la-vm">Démarrer la VM</h2><pre><code class="language-bash">vagrant up
 </code></pre>
-<h2 id="installer-manuellement-le-serveur-web-nginx">Installer manuellement le serveur web nginx</h2><pre><code class="language-bash">vagrant ssh
-# puis dans la VM
+<h2 id="problème-possible">Problème possible</h2><ul>
+<li>Sous ubuntu, la plage IP correspondante devra être autorisée via le fichier <code>/etc/vbox/networks.conf</code>. S&#39;il est absent, ajouter le contenu suivant :</li>
+</ul>
+<pre><code>* 192.168.50.0/24
+</code></pre>
+<ul>
+<li>Sous windows, la création du réseau privé virtual (<code>192.168.50.0/24</code>) avant affectation de l&#39;IP <code>192.168.50.101</code> demandera des droits administrateurs.</li>
+</ul>
+<h2 id="installer-manuellement-le-serveur-web-nginx">Installer manuellement le serveur web nginx</h2><pre><code class="language-bash"># Se connecter à la VM
+vagrant ssh
+# Puis dans la VM
 sudo apt-get update
 sudo apt-get install nginx
 </code></pre>
 <h2 id="vérifier-laccès-à-nginx">Vérifier l&#39;accès à nginx</h2><p>Depuis l&#39;hôte de la VM, nous aurons normalement accès <a href="http://192.168.50.101" target="_blank">http://192.168.50.101</a></p>
 <h2 id="supprimer-la-vm">Supprimer la VM</h2><pre><code class="language-bash">vagrant destroy
 </code></pre>
-<h2 id="quelques-exemples">Quelques exemples</h2><ul>
-<li><a href="https://github.com/mborne/vagrantbox#vagrantbox" target="_blank">github.com - mborne/vagrantbox</a> : Configurer des VM de DEV avec Ansible.</li>
-</ul>
 <h2 id="quelques-ressources">Quelques ressources</h2><ul>
 <li><a href="https://learn.hashicorp.com/collections/vagrant/getting-started" target="_blank">Vagrant - getting started</a> qui guide pour <strong>débuter en l&#39;absence d&#39;un proxy HTTP</strong> (par exemple sur une machine perso connectée à une box internet standard).</li>
-<li><a href="https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md" target="_blank">gist.github.com - wpscholar/vagrant-cheat-sheet.md</a> qui liste les principales commandes de vagrant.</li>
+<li><a href="https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4#file-vagrant-cheat-sheet-md" target="_blank">gist.github.com - wpscholar/vagrant-cheat-sheet.md</a> qui liste les <strong>principales commandes de vagrant</strong>.</li>
+<li><a href="https://github.com/mborne/vagrantbox#vagrantbox" target="_blank">github.com - mborne/vagrantbox</a> : Créer plusieurs VM de DEV avec Ansible.</li>
 </ul>
 
   </article>

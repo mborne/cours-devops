@@ -58,7 +58,7 @@ Kubernetes met à disposition une [API de contrôle de l'exécution des conteneu
 
 Nous verrons que cette API est centrale dans l'écosystème Kubernetes :
 
-* Elle donne un cadre pour **l'authentification** et **la gestion des droits**.
+* Elle donne un cadre pour **l'authentification** et **la gestion des droits** (RBAC).
 * Elle permet l'**introspection** et la **réflexion** (découverte de configuration, opérateur en charge de déployer des applications,...)
 * Elle est **extensible** (les applications peuvent définir leurs propres types d'objet)
 
@@ -68,10 +68,11 @@ Nous verrons que cette API est centrale dans l'écosystème Kubernetes :
 
 ### L'API de Kubernetes (2/2)
 
-Pour se faire une idée des capacités offertes par cette API, nous pourrons 
+Cette API sera centrale pour l'administration d'un cluster Kubernetes :
 
-* [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) qui se charge de déployer les autres applications au sein d'un cluster Kubernetes.
-* [zalando/postgres-operator](https://github.com/zalando/postgres-operator#getting-started) qui se charge de gérer un cluster PostgreSQL dans Kubernetes.
+![Administration IaaS vs CaaS](img/admin-vm-vs-k8s.drawio.png)
+
+Nous souglignerons qu'il sera possible de distinguer les objets gérés par les **administreurs du système** de ceux gérés du ressors des **administrateurs des applications**.
 
 ---
 
@@ -84,7 +85,7 @@ Le **plan de contrôle** (*control-plane*) hébergera les composants relatifs à
 * L'API Kubernetes (`kube-apiserver`)
 * La base de données clé/valeur de l'API (`etcd`)
 
-Nous soulignerons que hors environnement de test et de développement, les conteneurs applicatifs s'exécuteront sur des **noeuds**.
+Nous soulignerons que les conteneurs applicatifs s'exécuteront sur des **noeuds** distinct de ceux hébergant le plan de contrôle.
 
 ---
 
@@ -97,14 +98,6 @@ Avec docker, pour que deux conteneurs puissent communiquer, il faut s'assurer qu
 Avec Kubernetes, nous aurons un **modèle réseau permettant par défaut la communication au sein du cluster**.
 
 > Nous pourrons toutefois définir des restrictions de communication réseau avec un concept dédié que nous n'aborderons dans cette introduction : [NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
-
----
-
-## Principe de fonctionnement
-
-### Une administration du cluster via l'API
-
-> TODO : schéma avant (SSH) / après (kubectl)
 
 ---
 
@@ -133,6 +126,22 @@ Nous tenterons l'installation de K3S avec Ansible sur les VM vagrantbox à l'aid
 
 ---
 
+## Découvrir Kubernetes par la pratique
+
+### Premier contact...
+
+En premier contact, nous allons nous assurer que `kubectl` est correctement configurée (`export KUBECONFIG=chemin/vers/kubeconfig`) à l'aide des commandes suivantes :
+
+```bash
+# Information sur le cluster
+kubectl cluster-info
+# Lister les noeuds
+kubectl get nodes
+```
+
+
+---
+
 ## Survol des premiers concepts
 
 Pour débuter avec kubectl et nous familiariser, nous traiterons les exemples suivants :
@@ -152,9 +161,9 @@ En effet, les [Pods]((https://kubernetes.io/docs/concepts/workloads/pods/)) ne s
 
 * Un [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) pour un service sans état (ex : nginx)
 * Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) dans le cas contraire (ex : PostgreSQL)
-* Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) dans le cas où ils doivent s'exécuter sur tous les noeuds (ex : fluent-bit pour la collecte des logs)
+* Un [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) dans le cas où ils doivent s'exécuter sur tous les noeuds (ex : fluent-bit pour la collecte des logs)
 
-Nous noterons aussi la possibilité de définir :
+Nous soulignerons aussi la possibilité de définir :
 
 * Des [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) pour des tâches ponctuelles.
 * Des [CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cronjob/) pour des tâches périodiques.
