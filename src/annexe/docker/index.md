@@ -2,6 +2,8 @@
 
 ## Installation
 
+> Pour ENSG, un script [install-docker-ensg.sh](install-docker-ensg.sh) est disponible (`sudo bash install-docker-ensg.sh`)
+
 * [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
 ## Quelques notes
