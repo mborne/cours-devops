@@ -69,13 +69,13 @@ Nous verrons que cette API est centrale dans l'écosystème Kubernetes :
 
 ### L'API de Kubernetes (2/2)
 
-Cette API sera centrale pour l'administration d'un cluster Kubernetes. Nous trouverons un client en ligne de commande (`kubectl`) pour communiquer avec celle-ci :
+Cette API sera centrale pour l'administration d'un cluster Kubernetes. Le client `kubectl` permettra de communiquer avec elle :
 
 <div class="center">
     <img src="img/admin-vm-vs-k8s.drawio.png" alt="Administration VM vs K8S" style="height: 300px" />
 </div>
 
-Nous remarquerons qu'il sera possible de distinguer les objets gérés par les **administrateurs du cluster** de ceux gérés du ressors des **administrateurs des applications**.
+Nous remarquerons qu'il sera possible de distinguer les objets gérés par les **administrateurs du cluster** et ceux gérés par les **administrateurs des applications**.
 
 ---
 
@@ -90,7 +90,7 @@ Le **plan de contrôle** (*control-plane*) hébergera les composants relatifs à
 
 En production, les conteneurs applicatifs s'exécuteront sur des **noeuds** (`nodes`) distinct de ceux hébergeant le plan de contrôle.
 
-> Voir [kubernetes.io - Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/) pour des explications plus détaillée.
+> Voir [kubernetes.io - Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/) pour un schéma d'architecture et des explications plus détaillées.
 
 ---
 
@@ -103,7 +103,7 @@ Avec docker, pour que deux conteneurs puissent communiquer, il faut s'assurer qu
 Avec Kubernetes, nous aurons :
 
 * Un **modèle réseau permettant par défaut la communication au sein du cluster**
-* La **possibilité de restreindre les communications réseaux** avec un concept dédié que nous n'aborderons dans cette introduction : [NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
+* La **possibilité de restreindre les communications réseaux** avec un concept dédié que nous n'aborderons pas dans cette introduction : [NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
 
 > Voir [kubernetes.io - The Kubernetes network model](https://kubernetes.io/docs/concepts/services-networking/#the-kubernetes-network-model) et [youtube.com - Understanding Kubernetes Networking. Part 2: POD Network, CNI, and Flannel CNI Plug-in](https://www.youtube.com/watch?v=U35C0EPSwoY) pour des explications plus détaillées.
 
@@ -124,13 +124,13 @@ Pour communiquer avec un cluster, nous installerons le client [kubectl](https://
 Nous noterons qu'il existe différents outils permettant d'installer un environnement de développement Kubernetes pour découvrir les concepts par la pratique :
 
 * [K3S](https://k3s.io/) de Rancher.
-* [Kubernetes in docker (Kind)](https://kind.sigs.k8s.io/)
+* [Kind (Kubernetes in docker)](https://kind.sigs.k8s.io/)
 * [MicroK8S](https://microk8s.io/) de Canonical (Ubuntu).
 * [Minikube](https://kubernetes.io/fr/docs/setup/learning-environment/minikube/)
 
 Nous tenterons l'installation de K3S avec Ansible sur les VM vagrantbox à l'aide du dépôt [mborne/k3s-deploy](https://github.com/mborne/k3s-deploy#k3s-deploy).
 
-> Vous trouverez aussi [un utilitaire pour installer Kind dans mborne/docker-devbox](https://github.com/mborne/docker-devbox/tree/master/kind#kind-kubernetes-in-docker). L'installation demandera moins de travail pour des tests simples, mais les choses se compliquent pour tester certaines fonctionnalités (LoadBalancer et Ingress en particulier).
+> Vous trouverez aussi [un utilitaire pour installer Kind dans mborne/docker-devbox](https://github.com/mborne/docker-devbox/tree/master/kind#kind-kubernetes-in-docker). L'installation demandera moins de travail pour des tests simples, mais les choses se compliqueront pour tester certaines fonctionnalités (LoadBalancer et Ingress en particulier).
 
 ---
 
@@ -153,14 +153,14 @@ kubectl get nodes
 
 ### Les Pods
 
-Les [Pods]((https://kubernetes.io/docs/concepts/workloads/pods/)) sont la plus petite unité d'exécution gérée par Kubernetes.
+Les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) sont la plus petite unité d'exécution gérée par Kubernetes.
 
-Ils sont porteurs des spécifications pour l'exécution d'un ou plusieurs conteneurs. Dans ce dernier cas, nous soulignerons que les conteneurs partagerons :
+Ils sont porteurs des spécifications pour l'exécution d'un ou plusieurs conteneurs. Dans ce dernier cas, nous soulignerons que les conteneurs partageront :
 
 * Le même réseau (communication en localhost)
 * Le même stockage (partage de l'accès aux volumes)
 
-Pour découvrir, nous traiterons [mborne/k8s-exemples - Création d'un Pod avec un conteneur nginx pour découverte kubectl](https://github.com/mborne/k8s-exemples#k8s-exemples).
+Pour découvrir ce concept, nous traiterons [mborne/k8s-exemples - Création d'un Pod avec un conteneur nginx pour découverte kubectl](https://github.com/mborne/k8s-exemples#k8s-exemples).
 
 ---
 
@@ -168,7 +168,7 @@ Pour découvrir, nous traiterons [mborne/k8s-exemples - Création d'un Pod avec 
 
 ### Les charges de travail
 
-En pratique, les [Pods]((https://kubernetes.io/docs/concepts/workloads/pods/)) ne seront pas créés manuellement. Nous utiliserons des [charge de travail (*workloads*)](https://kubernetes.io/docs/concepts/workloads/) adaptées à la nature de l'application pour créer les Pods :
+En pratique, les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) ne seront pas créés manuellement. Nous utiliserons des [charge de travail (*workloads*)](https://kubernetes.io/docs/concepts/workloads/) adaptées à la nature de l'application pour créer les Pods :
 
 * Un [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) pour un service sans état (ex : nginx)
 * Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) dans le cas contraire (ex : PostgreSQL)
@@ -187,7 +187,7 @@ Nous soulignerons aussi la possibilité de définir :
 
 ### Le concept de Service
 
-Un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) peut être vu comme un reverse proxy au cluster devant les Pods.
+En première approche, un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) pourra être vu comme un reverse proxy devant les Pods.
 
 Nous soulignerons qu'il existe plusieurs types de service dont :
 
@@ -203,7 +203,7 @@ Nous soulignerons qu'il existe plusieurs types de service dont :
 
 ### Le concept de Namespace
 
-Nous trouverons avec Kubernetes un concept de [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) permettant de regrouper les ressources des différentes applications hébergées dans le cluster.
+Nous trouverons avec Kubernetes un concept de [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) permettant d'isoler les ressources des différentes applications hébergées dans le cluster.
 
 Ce concept permettra l'accueil de plusieurs applications dans un même cluster.
 
