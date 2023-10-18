@@ -4,6 +4,7 @@
   "description": "Introduction à la méthode DevOps",
   "scripts": {
     "build": "node build.js",
+    "serve": "http-server docs",
     "serve-slides": "markdown-to-html -m serve -l layout/slides src/slides/"
   },
   "repository": {
@@ -24,6 +25,7 @@
   "homepage": "https://mborne.github.io/cours-devops",
   "devDependencies": {
     "@mborne/markdown-to-html": "^0.8.1",
+    "http-server": "^14.1.1",
     "shelljs": "^0.8.5"
   }
 }

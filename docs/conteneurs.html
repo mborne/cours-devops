@@ -45,7 +45,7 @@ Le **démarrage d'un conteneur sera plus rapide que le démarrage d'une VM** :
 
 ### Utilisation d'un système de fichier par couche
 
-Avec docker, nous trouverons un **concept d'image fonctionnellement identique à celui auquel nous sommes habitué avec les VM** (ex : les `.box` téléchargés par `vagrant` dans la partie précédente).
+Avec docker, nous trouverons un **concept d'image fonctionnellement identique à celui auquel nous sommes habitué avec les VM** (ex : les `.box` téléchargées par `vagrant` dans la partie précédente).
 
 La deuxième optimisation notable de docker par rapport aux VM tiendra à l'**utilisation de système de fichier par couche ("overlay") pour matérialiser ces images**.
 
@@ -188,7 +188,7 @@ Pour la prise en main du client [docker](https://docs.docker.com/engine/referenc
 
 * [mborne/docker-exemples](https://github.com/mborne/docker-exemples#docker---quelques-exemples)
 
-Pour la prise en main de `docker compose`, nous utiliserons [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est mon terrain de jeu pour docker et Kubernetes en démarrant :
+Pour la prise en main de [docker compose](https://docs.docker.com/compose/reference/#command-options-overview-and-help), nous utiliserons [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est mon terrain de jeu pour docker et Kubernetes en démarrant :
 
 * [mborne/docker-devbox - redis](https://github.com/mborne/docker-devbox/tree/master/redis)
 * [mborne/docker-devbox - postgis](https://github.com/mborne/docker-devbox/tree/master/postgis)
@@ -277,6 +277,7 @@ En l'état, si cherchions à héberger GeoStack sur plusieurs machines, nous rem
 * Les démons docker sur les machines ne se connaissent pas (un outil tel [traefik](https://doc.traefik.io/traefik/) devrait moissonner deux API distinctes)
 * Il nous serait délicat de mettre en oeuvre un volume partagé par les conteneurs sur les deux machines.
 
+Nous comprendrons alors mieux l'intérêt d'outil tel Kubernetes que nous allons découvrir par la suite.
 
     </textarea>
 

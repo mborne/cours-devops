@@ -306,13 +306,13 @@ En terme de répartition des rôles, nous pourrions aboutir par exemple au proce
 
 Nous ne pourrions pas procéder ainsi avec des VM exposées sur internet :
 
+* Nos VM seraient rapidement la cible des nombreux bots qui scannent le web (voir [extrait de logs illustrant ces attaques sur SSH](annexe/securite/sshd-logs.txt))
 * Nous finirions sur [https://www.shodan.io](https://www.shodan.io/)
-* Un des nombreux bots qui scannent le web testerait sans relâche nos VM
 
 Il faudrait à minima :
 
 * Configurer un pare-feu local (par exemple avec [ufw](https://doc.ubuntu-fr.org/ufw))
-* Configurer [fail2ban](https://doc.ubuntu-fr.org/fail2ban) pour bloquer les attaques par force brute sur SSH.
+* Configurer [fail2ban](https://doc.ubuntu-fr.org/fail2ban) pour bloquer les attaques par force brute sur SSH
 * Blinder la configuration des VM ( c.f. [dev-sec.io - DevSec Hardening Framework](https://dev-sec.io/baselines/linux/) )
 * ...
 
@@ -337,7 +337,7 @@ Il conviendrait à minima de passer sur une architecture du type suivant en ajou
 Avec un reverse proxy, nous pourrions par exemple :
 
 * Exposer publiquement les seuls services WMS et WFS de GeoServer (`/wms`, `/wfs`)
-* Exposer l'interface d'interface d'administration avec un filtrage par IP (`/geoserver`)
+* Exposer l'interface d'administration de GeoServer (`/geoserver`) avec un filtrage par IP.
 
 ---
 
@@ -345,9 +345,7 @@ Avec un reverse proxy, nous pourrions par exemple :
 
 ### La mise en oeuvre de HTTPS
 
-**Tant que nous serons en HTTP, le mot de passe de l'administrateur GeoServer circulera en clair sur le réseau**. Il conviendrait donc de mettre en oeuvre HTTPS pour y remédier.
-
-Nous soulignerons que :
+**Tant que nous serons en HTTP, le mot de passe de l'administrateur GeoServer circulera en clair sur le réseau**. Il conviendrait donc de mettre en oeuvre HTTPS pour y remédier. Nous soulignerons que :
 
 * HTTPS pourrait être mis en oeuvre au niveau du reverse proxy
 * La mise en oeuvre HTTPS requière l'achat d'un certificat ou la génération de celui-ci avec [Let's Encrypt](https://letsencrypt.org/fr/)
@@ -421,7 +419,7 @@ Dans cette zone d'hébergement, nous trouverons par exemple l'architecture suiva
 
 ![Exemple d'architecture IaaS](img/archi-hebergement-iaas.drawio.png)
 
-Nous noterons au passage que prévoir un traitement particulier pour les **services de stockage** simplifiera la mise en oeuvre d'un **plan de sauvegarde** et d'un **plan de reprise d'activité (PRA)**.
+> NB : Prévoir un traitement particulier pour les **services de stockage** simplifiera la mise en oeuvre d'un **plan de sauvegarde** et d'un **plan de reprise d'activité (PRA)**.
 
 ---
 
@@ -431,7 +429,7 @@ Nous noterons au passage que prévoir un traitement particulier pour les **servi
 
 Pour faire face à la complexité et à la diversité des sujets, nous conviendrons qu'il sera difficile d'éviter de recourir à une équipe dédiée pour la construction de la zone d'hébergement.
 
-Nous soulignerons qu'il sera difficile possible de distinguer :
+Nous soulignerons qu'il sera alors possible de préciser les rôles des DEV et des OPS avec par exemple :
 
 * Des **PlatDev** et **PlatOps** en charge des composants de la zone d'hébergement
 * Des **AppDev** et **AppOps** en charge d'applications précises
@@ -463,7 +461,7 @@ A ce titre, **poser un cadre "as code"** et **être précis sur les demandes** s
 Nous verrons par la suite comment :
 
 * Les conteneurs solutionnent ce problème via l'utilisation d'image embarquant les dépendances des applications.
-* Kubernetes va un cran plus loin en permettant aux équipes produit de définir par exemple la configuration du LoadBalancer avec le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress) plutôt que via un ticket ou un document.
+* Kubernetes va un cran plus loin en permettant par exemple aux équipes applicatives de spécifier la configuration du LoadBalancer avec le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/#what-is-ingress) plutôt que via un ticket ou un document.
 
 
     </textarea>
