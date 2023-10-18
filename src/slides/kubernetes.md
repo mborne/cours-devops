@@ -69,7 +69,7 @@ Nous verrons que cette API est centrale dans l'écosystème Kubernetes :
 
 ### L'API de Kubernetes (2/2)
 
-Cette API sera centrale pour l'administration d'un cluster Kubernetes. Le client `kubectl` permettra de communiquer avec elle :
+Cette API sera centrale pour l'administration d'un cluster Kubernetes. Le client [kubectl](https://kubernetes.io/docs/reference/kubectl/) permettra de communiquer avec elle :
 
 <div class="center">
     <img src="img/admin-vm-vs-k8s.drawio.png" alt="Administration VM vs K8S" style="height: 300px" />
@@ -130,7 +130,7 @@ Nous noterons qu'il existe différents outils permettant d'installer un environn
 
 Nous tenterons l'installation de K3S avec Ansible sur les VM vagrantbox à l'aide du dépôt [mborne/k3s-deploy](https://github.com/mborne/k3s-deploy#k3s-deploy).
 
-> Vous trouverez aussi [un utilitaire pour installer Kind dans mborne/docker-devbox](https://github.com/mborne/docker-devbox/tree/master/kind#kind-kubernetes-in-docker). L'installation demandera moins de travail pour des tests simples, mais les choses se compliqueront pour tester certaines fonctionnalités (LoadBalancer et Ingress en particulier).
+> Vous trouverez aussi [un utilitaire pour installer Kind dans mborne/docker-devbox](https://github.com/mborne/docker-devbox/tree/master/kind#kind-kubernetes-in-docker). L'installation demandera moins de travail pour des tests simples, mais il sera plus difficile de comprendre le fonctionnement de Kubernetes et les choses se compliqueront pour tester certaines fonctionnalités (LoadBalancer et Ingress en particulier).
 
 ---
 
@@ -138,7 +138,7 @@ Nous tenterons l'installation de K3S avec Ansible sur les VM vagrantbox à l'aid
 
 ### Lister les noeuds
 
-En premier contact, nous allons nous assurer que `kubectl` est correctement configurée (`export KUBECONFIG=chemin/vers/kubeconfig`) et **lister les noeuds** à l'aide des commandes suivantes :
+En premier contact, nous allons nous assurer que `kubectl` est correctement configuré (`export KUBECONFIG=chemin/vers/kubeconfig`) et **lister les noeuds** à l'aide des commandes suivantes :
 
 ```bash
 # Information sur le cluster
@@ -246,11 +246,10 @@ Nous trouverons plusieurs concepts relatif à la [gestion de la configuration](h
 
 Nous noterons que Kubernetes dispose d'un mécanisme de plugin permettant de supporter différentes solutions de stockage (c.f. [kubernetes-csi.github.io - CSI Drivers](https://kubernetes-csi.github.io/docs/drivers.html))
 
-Aussi, en complément du concept de [Volume](https://kubernetes.io/docs/concepts/storage/volumes/) repris à Docker, nous trouverons par exemple une distinction entre :
+Nous retrouverons le concept de [Volume](https://kubernetes.io/docs/concepts/storage/volumes/) repris à Docker avec une distinction entre :
 
 * [Les volumes persistants (PersistentVolume)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 * [Les volumes éphémères](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) (ex : [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir))
-
 
 ---
 
@@ -258,9 +257,9 @@ Aussi, en complément du concept de [Volume](https://kubernetes.io/docs/concepts
 
 ### Les concepts pour le stockage (2/3)
 
-Pour le [provisionnement des volumes persistant](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/), nous trouverons deux concepts intéressants :
+Pour le [provisionnement des volumes persistant (PersistentVolume)](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/), nous trouverons deux concepts intéressants :
 
-* Le concept de **PersistentVolumeClaim** correspondant à la **commande d'un volume persistant** réalisée par exemple au niveau d'un déploiement.
+* Le concept de **PersistentVolumeClaim** correspondant à la **commande d'un volume persistant** pour une application.
 * Le concept de [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/) permettant de répondre avec deux cas de figure :
   * La création du *PersistentVolume* correspondant par un administrateur du cluster (**provisionnement statique**)
   * La création automatique du *PersistentVolume* via l'utilisation d'une classe de stockage prévue à cet effet (**provisionnement dynamique**)
@@ -278,10 +277,10 @@ Nous soulignerons que tous les types de stockage n'offrent pas les mêmes possib
 
 A ce titre, Kubernetes distinguera plusieurs **modes d'accès**, par exemple :
 
-* **ReadWriteOnce** indiquant que le volume est utilisé en lecture/écriture sur des Pods s'exécutant sur un même noeud.
-* **ReadWriteMany** dans le cas de plusieurs noeuds.
+* **ReadWriteOnce** indiquant que le volume peut être utilisé en lecture/écriture par des Pods s'exécutant sur un même noeud.
+* **ReadWriteMany** dans le cas où les Pods s'exécutent sur plusieurs noeuds.
 
-Nous noterons que ce deuxième mode de stockage ne sera pas toujours disponibles en standard (il faudra par exemple intégrer un stockage en réseau tel NFS ou activer des options telles Google CSI FileStore avec GKE).
+Nous noterons que ce deuxième mode de stockage ne sera pas toujours disponibles en standard (il faudra par exemple s'appuyer un stockage de fichier en réseau avec le protocole NFS).
 
 En règle générale, il sera préférable de ne pas y avoir recours à un stockage **ReadWriteMany** pour des raisons de performance et de coût (mais se libérer de cette contrainte peu demander des efforts de refonte importants des traitements).
 
@@ -291,7 +290,7 @@ En règle générale, il sera préférable de ne pas y avoir recours à un stock
 
 A l'aide de [mborne/docker-devbox - kubernetes-dashboard](https://github.com/mborne/docker-devbox/blob/master/kubernetes-dashboard/README.md#kubernetes-dashboard), nous installerons une interface graphique pour la manipulation du cluster.
 
-Nous lirons ensemble les fichiers correspondant à ce déploiement pour survoler des concepts non abordés jusqu'ici (ServiceAccount, RBAC,...)
+Nous lirons ensemble les fichiers YAML correspondant à ce déploiement pour survoler des concepts non abordés jusqu'ici (ServiceAccount, RBAC,...)
 
 ---
 
