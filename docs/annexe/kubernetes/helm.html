@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>kubernetes/helm.md</title>
+
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css">
+  <style>
+    html,
+    body {
+      width: 95%;
+      margin: auto;
+      padding-bottom: 50px;
+    }
+    @media print {
+      .pagebreak { page-break-before: always; }
+    }
+  </style>
+</head>
+
+<body>
+  <article class="markdown-body">
+    <h1 id="helm---the-package-manager-for-kubernetes">Helm - <em>The package manager for Kubernetes</em></h1><h2 id="principe-de-fonctionnement">Principe de fonctionnement</h2><ul>
+<li><a href="https://helm.sh/" target="_blank">Helm</a> génère et applique les manifests au format YAML</li>
+<li>Le langage de templating est <a href="https://pkg.go.dev/text/template" target="_blank">Go templating language</a></li>
+</ul>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://helm.sh/docs/intro/install/#from-script" target="_blank">helm.sh - Installing Helm - From Script</a></li>
+<li><a href="https://helm.sh/docs/intro/install/#from-apt-debianubuntu" target="_blank">helm.sh - Installing Helm - From Apt (Debian/Ubuntu)</a></li>
+</ul>
+<h2 id="quelques-dépôts">Quelques dépôts</h2><table>
+<thead>
+<tr>
+<th>NAME</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bitnami</td>
+<td><a href="https://charts.bitnami.com/bitnami" target="_blank">https://charts.bitnami.com/bitnami</a></td>
+</tr>
+<tr>
+<td>netdata</td>
+<td><a href="https://netdata.github.io/helmchart/" target="_blank">https://netdata.github.io/helmchart/</a></td>
+</tr>
+<tr>
+<td>hashicorp</td>
+<td><a href="https://helm.releases.hashicorp.com" target="_blank">https://helm.releases.hashicorp.com</a></td>
+</tr>
+<tr>
+<td>jenkinsci</td>
+<td><a href="https://charts.jenkins.io" target="_blank">https://charts.jenkins.io</a></td>
+</tr>
+<tr>
+<td>jenkins</td>
+<td><a href="https://charts.jenkins.io" target="_blank">https://charts.jenkins.io</a></td>
+</tr>
+<tr>
+<td>opensearch</td>
+<td><a href="https://opensearch-project.github.io/helm-charts/" target="_blank">https://opensearch-project.github.io/helm-charts/</a></td>
+</tr>
+<tr>
+<td>traefik</td>
+<td><a href="https://helm.traefik.io/traefik" target="_blank">https://helm.traefik.io/traefik</a></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Voir aussi <a href="https://artifacthub.io/" target="_blank">artifacthub.io</a></p>
+</blockquote>
+<h2 id="quelques-commandes">Quelques commandes</h2><ul>
+<li>Ajouter les charts bitnami : <code>helm repo add bitnami https://charts.bitnami.com/bitnami</code></li>
+<li>Mettre à jour les charts : <code>helm repo update</code></li>
+<li>Récupérer les valeurs possibles pour bitnami/postgresql : <code>helm show values bitnami/postgresql</code></li>
+<li>Installer un chart : <code>helm -n=jenkins-system install jenkins jenkins/jenkins</code></li>
+<li>Mettre à jour un chart : <code>helm -n=jenkins-system upgrade jenkins jenkins/jenkins</code></li>
+<li>Installer ou mettre à jour un chart : <code>helm -n=jenkins-system upgrade --install jenkins jenkins/jenkins</code></li>
+<li>Prévisualiser les fichiers YAML : <code>helm template jenkins jenkins/jenkins</code> (ou <code>--dry-run</code> sur install/upgrade)</li>
+</ul>
+<h2 id="création-dun-chart">Création d&#39;un chart</h2><p>La commande <code>helm create whoami</code> génère un modèle de chart pour le déploiement d&#39;une application (nginx) qu&#39;il sera possible d&#39;adapter pour sa propre application.</p>
+<h2 id="quelques-exemples">Quelques exemples</h2><h3 id="jenkins">Jenkins</h3><pre><code class="language-bash"># Ajout du dépôt jenkins
+helm repo add jenkins https://charts.jenkins.io
+# Mise à jour des dépôts
+helm repo update
+# Création d&#39;un namespace d&#39;accueil
+kubectl create namespace jenkins-system
+# Installation ou mise à jour
+helm --namespace=jenkins-system upgrade --install jenkins jenkins/jenkins
+</code></pre>
+<h3 id="postgresql-avec-bitnami">PostgreSQL avec bitnami</h3><pre><code class="language-bash"># Ajout du dépot bitnami
+helm repo add bitnami https://charts.bitnami.com/bitnami
+# Mise à jour des dépôts
+helm repo update
+# Création d&#39;un namespace d&#39;accueil pg
+kubectl create namespace pg
+# Installation ou mise à jour
+POSTGRESQL_PASSWORD=ChangeIt
+helm --namespace=pg upgrade --install postgresql bitnami/postgresql  --set global.postgresql.auth.postgresPassword=$POSTGRESQL_PASSWORD
+# Contrôler l&#39;état
+kubectl -n pg get sts,svc,pods
+# Suivre les instructions pour se connecter :
+kubectl port-forward --namespace pg svc/postgresql 15432:5432 &amp;
+psql --host 127.0.0.1 -U postgres -d postgres -p 15432 -W
+</code></pre>
+<p>Voir :</p>
+<ul>
+<li><a href="https://github.com/bitnami/charts/tree/main/bitnami/postgresql#readme" target="_blank">PostgreSQL packaged by Bitnami</a></li>
+<li><a href="https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml" target="_blank">bitnami/postgresql/values.yaml</a></li>
+</ul>
+<h2 id="notes">Notes</h2><ul>
+<li>Les variables <code>global</code> sont accessibles depuis tous les sous charts</li>
+<li>Les variables d&#39;environnement sont toujours des strings (<code>{{ .Values.database.port | quote }}</code>)</li>
+</ul>
+<h2 id="ressources">Ressources</h2><ul>
+<li><a href="https://helm.sh/docs/intro/install/" target="_blank">helm.sh - Installing Helm</a></li>
+<li><a href="https://helm.sh/docs/chart_best_practices/" target="_blank">helm.sh - The Chart Best Practices Guide</a></li>
+<li><a href="https://hub.docker.com/r/alpine/helm" target="_blank">hub.docker.com - alpine/helm</a></li>
+</ul>
+
+  </article>
+
+  <!-- hightlight.pack.js -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <!-- https://www.mathjax.org -->
+  <script>
+    MathJax = {
+      loader: {
+        load: ['input/tex', 'output/svg', 'ui/menu', '[tex]/require']
+      },
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/startup.js"
+    integrity="sha512-LZZ88buOWCaSouKg9UNiW3N/vhBCprp0tpG9uNp+r6maXLDeBddAaqTmDduadI+WghoGaNlZG4NgCX0Xsxlfxg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js"></script>
+  <script>mermaid.init({
+      startOnLoad: true,
+      flowchart: {
+        useMaxWidth: true
+      }
+    }, ".language-mermaid");</script>
+</body>
+
+</html>

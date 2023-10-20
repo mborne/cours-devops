@@ -164,14 +164,12 @@ kubectl get nodes
 
 ### Les Pods
 
-Les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) sont la plus petite unité d'exécution gérée par Kubernetes.
-
-Ils sont porteurs des spécifications pour l'exécution d'un ou plusieurs conteneurs. Dans ce dernier cas, nous soulignerons que les conteneurs partageront :
+Les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) sont la plus petite unité d'exécution gérée par Kubernetes. Ils sont porteurs des spécifications pour l'exécution d'un ou plusieurs conteneurs qui partageront :
 
 * Le même réseau (communication en localhost)
 * Le même stockage (partage de l'accès aux volumes)
 
-Pour découvrir ce concept, nous traiterons [mborne/k8s-exemples - Création d'un Pod avec un conteneur nginx pour découverte kubectl](https://github.com/mborne/k8s-exemples#k8s-exemples).
+Pour découvrir ce concept, nous traiterons [mborne/k8s-exemples - Création d'un Pod avec un conteneur nginx](https://github.com/mborne/k8s-exemples#k8s-exemples). Nous ne détaillerons pas les cas d'utilisations des Pod avec plusieurs conteneurs (sidecar, ambassador, )
 
 ---
 
@@ -234,7 +232,7 @@ Nous noterons que :
 * L'exposition des ressources [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) sera prise en charge par un contrôleur Ingress (ex : [nginx-ingress-controller](https://github.com/mborne/docker-devbox/blob/master/nginx-ingress-controller/README.md), [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes),...)
 * Le choix du contrôleur ingress passera par la définition de la propriété `ingressClass` (ex : `nginx`, `traefik`,... avec la possibilité de distinguer `nginx-private` et `nginx-public`)
 
-> Nous traiterons l'installation d'un contrôleur ingress à l'aide de [mborne/docker-devbox - traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes) et l'exposition du service whoami sous forme d'une URL. Nous serons amené à installer helm et expliquer brièvement son intérêt.
+> Nous traiterons l'installation d'un contrôleur ingress à l'aide de [mborne/docker-devbox - traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes) et l'exposition du service whoami sous forme d'une URL. Nous serons amené à [installer helm](annexe/kubernetes/helm.html) et expliquer brièvement son intérêt.
 
 ---
 
@@ -246,6 +244,8 @@ Nous trouverons plusieurs concepts relatif à la [gestion de la configuration](h
 
 * [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
 * [Secret](https://kubernetes.io/docs/concepts/configuration/secret/)
+
+Ces éléments pourront être convertis en **variables d'environnement** ou monté sous forme de **fichiers** au niveau des conteneurs.
 
 > Nous manipulerons ces deux concepts pour stocker des paramètres et injecter les variables d'environnement correspondantes dans les Pod d'un déploiement.
 
