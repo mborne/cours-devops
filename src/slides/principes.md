@@ -352,12 +352,12 @@ Pour les services non exposés, nous remarquerons que les outils de supervision 
 
 ### Les sondes web unitaires
 
-Constats :
+La mise en oeuvre de sondes web permettra d'améliorer facilement le *Mean Time To Detect (MTTD)*. Toutefois, en vue d'améliorer le *Mean Time To Recovery (MTTR)*, nous constaterons que :
 
 * Interpréter un échec sur une sonde impliquant plusieurs services en coulisse n'est pas trivial.
-* Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des procédure ou des outils tels [stackstorm](https://stackstorm.com/) encore moins.
+* Déclencher des automatismes en cas de problème (ex : redémarrage d'un service) avec des procédures ou des outils tels [stackstorm](https://stackstorm.com/) l'est encore moins.
 
-Il sera donc intéressant de **prévoir des URL dédiées à la surveillance au niveau de l'application** (ex : `/health/db`, `/health/wfs-geoportail`,...).
+Pour identifier rapidement l'origine des problèmes, il sera intéressant de **prévoir des URL dédiées à la surveillance au niveau de l'application** (ex : `/health/db`, `/health/wfs-geoportail`,...).
 
 > Voir [learn.microsoft.com - Modèle Surveillance de point de terminaison](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring).
 
@@ -371,15 +371,14 @@ En cas de problème, il sera nécessaire d'**avoir une vision sur les traitement
 
 En ce sens, il convient de **produire des journaux applicatifs exploitables** et de les centraliser dans un **puits de log** offrant une interface de recherche efficace. La référence historique en la matière est [la suite ELK](https://www.elastic.co/fr/what-is/elk-stack) où :
 
-* **ElasticSearch** est utilisée pour stocker les journaux applicatifs
+* **ElasticSearch** stocke et indexe les journaux applicatifs
 * **Logstash** parse et intègre les logs dans **ElasticSearch**
-* **Kibana** offre une interface d'exploration des logs.
+* **Kibana** offre une interface d'exploration des logs
 
 Il sera là aussi possible de choisir des alternatives :
 
-* [OpenSearch](https://opensearch.org/) plutôt que ElasticSearch et Kibana
+* [OpenSearch](https://opensearch.org/) ou [loki et grafana](https://grafana.com/oss/loki/) plutôt que ElasticSearch et Kibana
 * [fluent](https://github.com/fluent) plutôt que Logstash
-* [grafana - loki](https://grafana.com/oss/loki/)
 * La solution de l'hébergeur (ex : [OVHCloud - Logs Data Platform](https://docs.ovh.com/fr/logs-data-platform/))
 * ...
 
@@ -444,7 +443,7 @@ L'approche IaC laissera une grande liberté de choix dans les outils du cadre te
 * La configuration se fait par des **appels en ligne de commande (CLI)**? 
 * **Une API WEB est disponible** pour configurer l'outil?
 
-En substance, <span style="color: red; font-weight: bold">les outils pouvant être configurés <u>uniquement</u> via une IHM sont à bannir!</span>
+En substance, <span style="color: red; font-weight: bold">seuls les outils pouvant être configurés <u>uniquement</u> via une IHM sont à bannir!</span>
 
 > (1) L'ordre correspond à la facilité avec laquelle nous pourrons configurer l'outil en contexte IaC (si un tiers n'a pas encapsulé les appels à une API WEB ou API CLI)
 
@@ -456,10 +455,10 @@ En substance, <span style="color: red; font-weight: bold">les outils pouvant êt
 
 En fonction des possibilités offertes par l'infrastructure et de la politique de l'entreprise, l'**automatisation pourra être partielle** mais il faudra **être conscient des conséquences**.
 
-A titre d'exemple, si l'exposition des services (configuration du reverse proxy/load balancer) ne peut-être automatisée en contexte IaaS :
+A titre d'exemple, **si la configuration du reverse proxy/load balancer n'est pas automatisée** :
 
 * Comment pourrez vous **avoir un système qui s'adapte à la charge**?
-* Comment pourrez vous **éviter les indisponibilités pendant les déploiements**?
+* Comment pourrez vous **éviter les indisponibilités pendant les déploiements de nouvelles versions**?
 
 ---
 
