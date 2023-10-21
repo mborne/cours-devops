@@ -54,16 +54,19 @@ Les **[géants du web](https://fr.wikipedia.org/wiki/G%C3%A9ants_du_Web)** naît
 Ils répondront par de nouvelles approches au niveau des traitements (ex : [MapReduce (2004)](https://fr.wikipedia.org/wiki/MapReduce)) et du stockage (ex : [stockage NoSQL](https://fr.wikipedia.org/wiki/NoSQL)) permettant la **scalabilité horizontale** :
 
 <div class="center" >
-    <img src="img/scalabilite-horizontale-verticale.drawio.png" style="height: 300px" />
+    <img src="img/scalabilite-horizontale-verticale.drawio.png" style="height: 250px" />
 </div>
 
-Nous soulignerons qu'au niveau de développement de service web, cette approche conduira à utiliser des [reverse proxy assurant un rôle de répartiteur de charge](annexe/lb-rp.html).
+Nous soulignerons que cette approche induira :
+
+* L'utilisation de [reverse proxy assurant un rôle de répartiteur de charge](annexe/lb-rp.html) au niveau des services web.
+* La **multiplication des équipements et services à déployer, administrer et surveiller**.
 
 ---
 
 ## Les géants du web (3/3)
 
-Ces acteurs seront aussi des pionniers en matière de DevOps en répondant avec **une nouvelle approche dans la gestion des infrastructures**. 
+Ainsi, ces acteurs seront aussi des pionniers en matière de DevOps en répondant avec **une nouvelle approche dans la gestion des infrastructures**. 
 
 Le rôle de [Site Reliability Engineer (SRE)](https://sre.google/books/) posé par Google en 2003 pour assurer un haut niveau de disponibilité des services en **collaboration étroite avec les développeurs** sera précurseur en matière de DevOps.
 
@@ -124,9 +127,9 @@ Nous citerons par exemple la méthode **[Test-driven development (TDD)](https://
 
 ---
 
-## L'intégration continue
+## L'intégration continue (1/2)
 
-Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_(software)) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagneront naturellement en popularité. Ils seront utilisés entre autre pour :
+Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_%28software%29) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagneront naturellement en popularité. Ils seront utilisés entre autre pour :
 
 * **Centraliser l'exécution des tests** (et s'assurer qu'ils sont bien exécutés)
 * Présenter pour tous les **rapports d'exécution des tests**
@@ -140,7 +143,7 @@ Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wi
 
 ---
 
-## La gestion des sources (2/2)
+## L'intégration continue (2/2)
 
 Il sera très rapidement tentant d'**exécuter les tests avant d'accepter des demandes de modification du code (*pull request*)**. Des solutions d'**intégration continue** telles [GitHub actions](https://github.com/features/actions) et [GitLab-CI](https://docs.gitlab.com/ee/ci/) seront donc **intégrées aux gestionnaires de code source** quelques années plus tard. 
 
@@ -151,6 +154,7 @@ Il sera très rapidement tentant d'**exécuter les tests avant d'accepter des de
 </div>
 
 ---
+
 ## La virtualisation (1/3)
 
 ### La popularisation de la virtualisation
@@ -234,7 +238,7 @@ Plus largement, le principe de mise à disposition d'une **API permettant de con
     <img src="img/virtualisation-app-iaas.drawio.png" alt="Illustration principe IaaS" style="height: 300px" />
 </div>
 
-> On notera que la VM est généralement initialisé par l'hébergeur sur la base d'un catalogue offrant plusieurs OS mais les mises à jour et installations sont ensuite à la charge du client.
+> Les VM seront généralement initialisées par l'hébergeur sur la base d'un catalogue offrant plusieurs OS mais les mises à jour et l'installation des applications seront ensuite à la charge du client.
 
 ---
 
@@ -265,7 +269,7 @@ Il en résulte des situations où l'infrastructure est virtualisée et dotée d'
 
 ### Une communication centrée sur des documents
 
-On trouvera par exemple le processus suivant pour déployer une application :
+Nous trouverons par exemple le processus suivant pour déployer une application :
 
 <div class="center">
     <img src="img/processus-exploit-tradi.drawio.png" alt="Processus d'exploitation traditionnelle" style="height: 400px" />
@@ -306,7 +310,7 @@ Il en sera de même pour **chaque évolution induisant le moindre changement d'a
 
 ### Une approche qui génère des problèmes en production!
 
-Une **demande d'exploitation ou une procédure** est **mal comprise** ou **mal traduite en opérations** sans que l'expertise de chacun soit mise à contribution :
+Une **demande d'exploitation ou une procédure** pourra être **mal comprise** ou **mal traduite en opérations** sans que l'expertise de chacun soit mise à contribution :
 
 * **Les OPS** ne participant pas à la conception de l'application **ne peuvent avoir un regard critique et une compréhension des demandes** (une mise à jour devient une montée en version, une action demandée en QUALIFICATION est appliquée en PRODUCTION,...)
 * **Les DEV** ne participant pas à la conception de l'infrastructure **n'exploitent pas le système de manière optimale** (utilisation du mauvais système de stockage, absence de compression, saturation de la bande passante,...)

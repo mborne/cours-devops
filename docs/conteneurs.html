@@ -92,39 +92,63 @@ Nous utiliserons principalement les **clients en ligne de commande pour l'API do
 
 ## Les dépôts d'images
 
-### Les dépôts d'images publics
+### DockerHub
 
-Le plus connu est [DockerHub](https://hub.docker.com/search?q=) mettant à disposition :
+Nous trouverons plusieurs dépôts d'images mettant à disposition des images docker prêtes à l'emploi. Le plus connu est [DockerHub](https://hub.docker.com/search?q=) mettant à disposition :
 
 * Des images d'OS : [ubuntu](https://hub.docker.com/_/ubuntu), [debian](https://hub.docker.com/_/debian), [alpine](https://hub.docker.com/_/alpine),...
 * Des images pour des services : [postgres](https://hub.docker.com/_/postgres), [mongodb](https://hub.docker.com/_/mongodb), [redis](https://hub.docker.com/_/redis),...
 * Des images pour des applications : [wordpress](https://hub.docker.com/_/wordpress), [jenkins](https://hub.docker.com/r/jenkins/jenkins),...
 
-Pour déployer GeoStack, nous trouverons :
+Pour déployer GeoStack, nous y trouverons par exemple :
 
 * Une image [postgis/postgis](https://hub.docker.com/r/postgis/postgis) pour le déploiement PostgreSQL
 * De [nombreuses images GeoServer](https://hub.docker.com/search?q=geoserver)
 
-Nous noterons toutefois qu'il existe d'autres dépôts d'images publiquement accessibles [quay.io](https://quay.io/) et [docker.elastic.co](https://www.docker.elastic.co/).
+> Nous remarquerons que l'utilisation de DockerHub pour stocker des images ne sera pas forcément gratuite (c.f. [docker.com - Pricing & Subscriptions](https://www.docker.com/pricing/)) et qu'il existe une [limite de nombre de téléchargement par IP ou par utilisateur](https://docs.docker.com/docker-hub/download-rate-limit/).
 
 ---
 
 ## Les dépôts d'images
 
-### Les dépôts d'image privés
+### Les autres dépôts d'images publiques
 
-Il est possible de stocker des images avec des outils tels [Harbor](https://goharbor.io/) ou [Nexus](https://hub.docker.com/r/sonatype/nexus3) déployés en propre.
+Nous noterons toutefois qu'il existe d'autres dépôts d'images publiquement accessibles dont :
 
-### Le dépôt d'image du gestionnaire de code source
+* [quay.io](https://quay.io/) de RedHat mettant par exemple à disposition les [dernières versions de Keycloak](https://quay.io/repository/keycloak/keycloak)
+* [docker.elastic.co](https://www.docker.elastic.co/) mettant à disposition les images de la stack ELK
+
+Nous noterons que :
+
+* En l'absence de précision, nous utiliserons DockerHub (utiliser l'image `keycloak/keycloak` sera équivalent à utiliser l'image `docker.io/keycloak/keycloak`).
+* Nous préciserons le domaine en cas d'utilisation d'un autre dépôt (ex : `quay.io/keycloak/keycloak`)
+
+---
+
+## Les dépôts d'images
+
+### Les dépôts d'images privés
+
+Il est possible de stocker des images avec des outils tels [Harbor](https://goharbor.io/), [Nexus](https://hub.docker.com/r/sonatype/nexus3) ou [registry](https://hub.docker.com/_/registry) déployés en propre.
+
+### Le dépôt d'images du gestionnaire de code source
 
 Toutefois, la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,...) intègrent désormais un système de stockage d'image docker (ghcr.io, registry.gitlab.com,...) ce qui :
 
-* Évite de gérer en parallèle des droits au niveau d'un gestionnaire d'artefact
-* Simplifie la publication la publication au niveau des orchestrateurs d'intégration continue (eux aussi intégrés aux gestionnaires de code source...)
+* Évite de gérer en parallèle des authentifications et des droits au niveau du dépôt d'images.
+* Simplifie la publication des images au niveau des orchestrateurs d'intégration continue (qui sont eux aussi intégrés aux gestionnaires de code source)
+
+---
+
+## Les dépôts d'images
 
 ### Le dépôt d'image des hébergeurs
 
-Enfin, nous noterons l'existence de dépôts d'images au niveau des solutions d'hébergement (ex : Google Container Registry, Azure Container Registry,...).
+Enfin, nous noterons l'existence de dépôts d'images au niveau des solutions d'hébergement (ex : Google Container Registry, Azure Container Registry, Amazon Elastic Container Registry (ECR)...).
+
+Leur utilisation sera parfois imposée pour déployer sur les infrastructures mises à disposition par ces hébergeurs.
+
+> NB : Un hébergeur ne pourra pas garantir qu'il est capable de redéployer votre application en cas de problème s'il dépend une infrastructure tierce.
 
 ---
 
@@ -137,7 +161,7 @@ Nous soulignerons que la gestion des journaux applicatifs sera unifiée par :
 * La collecte des flux de sorties standards (stdout/stderr) des conteneurs par le démon docker
 * La présence d'une commande [docker logs](https://docs.docker.com/engine/reference/commandline/logs/) permettant de récupérer les journaux applicatifs d'un conteneur
 
-Il sera bien sûr toujours possible d'écrire des journaux dans des fichiers mais se conformer à la [11ième recommandation sur Logs des 12 facteurs](https://12factor.net/fr/logs) en écrivant les messages dans les flux standards simplifiera la collecte de ces derniers.
+> Il sera bien sûr toujours possible d'écrire des journaux dans des fichiers mais se conformer à la [11ième recommandation sur Logs des 12 facteurs](https://12factor.net/fr/logs) et écrire les messages dans les flux standards simplifiera la collecte de ces derniers.
 
 ---
 
@@ -169,9 +193,9 @@ Pour approfondir sur cette technologie, vous pourrez suivre un cours dédié ou 
 
 ### Installation de docker
 
-Nous allons nous assurer d'avoir une installation fonctionnelle de docker permettant d'exécuter `docker run hello-world` :
+Nous allons nous assurer d'avoir une installation fonctionnelle de docker permettant d'exécuter `docker run hello-world`. Si docker n'est pas installé sur votre poste, vous pourrez :
 
-* Vous pourrez **installer docker sur une VM Linux**
+* [Installer docker sur une VM Linux](/annexe/docker/#installation)
 * Le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) vous permettra de faire vos premiers tests en ligne :
 
 <div class="center">
@@ -186,7 +210,7 @@ Nous allons nous assurer d'avoir une installation fonctionnelle de docker permet
 
 Une [annexe docker](annexe/docker/index.html) référence la procédure d'installation officielle et s'efforce de guider sur la [résolution des problèmes classiques](annexe/docker/problemes-frequents.html).
 
-Pour l'installation dans une VM, il vous faudra potentiellement traiter ceux liés à l'[utilisation d'un proxy sortant avec docker](annexe/proxy-sortant/proxy-docker.html).
+En particulier, il vous faudra potentiellement traiter ceux liés à l'[utilisation d'un proxy sortant avec docker](annexe/proxy-sortant/proxy-docker.html).
 
 ---
 
@@ -198,9 +222,8 @@ Pour l'installation dans une VM, il vous faudra potentiellement traiter ceux li�
 
 La configuration par défaut du démon (`/etc/docker/daemon.json`) devra être adaptée pour :
 
-* Éviter les conflits d'IP entre les réseaux virtuels de docker et le réseau local (`bip` et `default-address-pools`)
+* Éviter les conflits d'IP entre les réseaux virtuels créés par docker et le réseau local (`bip` et `default-address-pools`)
 * Définir les bonnes options de sécurité (voir [docker-bench-for-security](https://github.com/docker/docker-bench-security#docker-bench-for-security))
-* ...
 
 
 ---

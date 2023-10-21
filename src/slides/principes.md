@@ -58,7 +58,7 @@ Nous reconnaîtrons dans ce processus la **roue de Deming** bien connue dans le 
     </p>
 </div>
 
-Il est principalement question avec DevOps de **ne pas avoir deux processus distincts pour le développement et le déploiement**.
+Nous constaterons avec qu'il est principalement question avec DevOps de **ne pas avoir deux processus distincts pour le développement et le déploiement**.
 
 ---
 
@@ -194,7 +194,7 @@ Nous mémoriserons que **le Lean ne doit pas être perverti en se contentant de 
 
 ### Mesure
 
-L'adage dit que "ce qui ne se mesure pas n'existe pas"... Du moins, ce qui n'est pas affiché en rouge sur un graphique ne sera pas visible au niveau de la direction.
+L'adage dit que "ce qui ne se mesure pas n'existe pas" (Niels Bohr). Du moins, ce qui n'est pas affiché en rouge sur un graphique ne sera pas visible au niveau de la direction.
 
 A titre d'exemple, la [problématique des temps d'attente avec l'approche traditionnelle](annexe/gantt-efficacite-flux.html) devient plus visible avec un schéma :
 
@@ -312,7 +312,7 @@ Le calcul de telles métriques sera délicat sans :
 
 En outre, pour raisonner sur des éléments comparables et identifier des axes d'amélioration, il sera intéressant de :
 
-* **Catégoriser les demandes** (changement de paramétrage, livraison mineure/majeure, )
+* **Catégoriser les demandes** (changement de paramétrage, livraison mineure/majeure,...)
 * **Catégoriser les incidents** (applicatif, infrastructure, exploitation)
 
 ---
@@ -323,10 +323,10 @@ En outre, pour raisonner sur des éléments comparables et identifier des axes d
 
 Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin-monitoring.org/), [netdata](https://www.netdata.cloud/),...) permettront de :
 
-* Surveiller la consommation de ressources (RAM, CPU, stockage, bande passante,...)
-* Mettre en oeuvre des alertes pour :
-  * Éviter l'apparition de problèmes (si >=90% de stockage est utilisé)
-  * Détecter des problèmes (atteinte de limite de bande passante, de la limite de nombre de connexion simultanées, >=80% de CPU utilisé pendant 10 minutes)
+* **Surveiller la consommation de ressources** (RAM, CPU, stockage, bande passante,...)
+* **Mettre en oeuvre des alertes** pour :
+  * Éviter l'apparition de problèmes (si >=90% du stockage est utilisé)
+  * Identifier les problèmes (atteinte de limite de bande passante, de la limite de nombre de connexion simultanées, >=80% de CPU utilisé pendant 10 minutes)
 
 **Les outils de supervision offriront au passage un terrain de discussion intéressant entre les DEV et les OPS.**
 
@@ -421,10 +421,10 @@ L'automatisation d'un déploiement concernera plusieurs couches du système :
 
 ### Quelles bonnes pratiques?
 
-Nous veillerons à nous assurer que les scripts de configuration puissent :
+Nous veillerons à nous assurer que les scripts de déploiement puissent :
 
-* Être exécuter plusieurs fois (**[idempotence](annexe/iac-idempotence.html)**)
-* Être interrompu et relancé (**atomicité**)
+* Être exécutés plusieurs fois (**[idempotence](annexe/iac-idempotence.html)**)
+* Être interrompus et relancés (**atomicité**)
 * [Cohabiter avec d'autres](annexe/iac-cohabitation.html) (~orthogonalité)
 * Être testés par exemple avec des environnements de qualification et de pré-production.
 * Permettre à la fois la mise à jour du système et sa reconstruction.
@@ -456,7 +456,7 @@ En substance, <span style="color: red; font-weight: bold">les outils pouvant êt
 
 En fonction des possibilités offertes par l'infrastructure et de la politique de l'entreprise, l'**automatisation pourra être partielle** mais il faudra **être conscient des conséquences**.
 
-A titre d'exemple, si l'exposition des services (configuration du reverse proxy/load balancer) ne peut-être automatisée :
+A titre d'exemple, si l'exposition des services (configuration du reverse proxy/load balancer) ne peut-être automatisée en contexte IaaS :
 
 * Comment pourrez vous **avoir un système qui s'adapte à la charge**?
 * Comment pourrez vous **éviter les indisponibilités pendant les déploiements**?
@@ -520,13 +520,13 @@ Pour la documentation, nous soulignerons l'importance de l'approche [**Docs as C
 Cette approche induit la **production d'une documentation au format HTML** qui a de nombreux avantages notamment en terme de capacité à structurer la documentation. Par exemple :
 
 * Offrir plusieurs niveaux de lecture ([c4model](https://c4model.com/)).
-* Référencer efficacement des annexes.
+* Référencer efficacement des annexes (ex : inventaires, configuration des scripts de déploiement,...)
 
 Dans le cas de DevOps, elle est importante pour :
 
 * Assurer la **cohérence entre la description du système et l'état du système** (le DAT et le DEX devenant avec IaC la documentation de script de déploiement et de fichiers de configuration)
 * Que la **production documentaire ne freine pas le rythme des déploiements** (pull-request permettant de fluidifier les processus de validation, gain de temps sur les mises en forme,...)
-* Ne pas **gaspiller de l'énergie en traitant manuellement des mises à jour de document** (par exemple en cas de mise à jour d'un dimensionnement ou d'une version dans une configuration)
+* Ne pas **gaspiller de l'énergie en traitant manuellement des mises à jour de document** (ex : renseigner pour chaque machine le nombre de CPU, la RAM, l'adresse IP. vs générer le tableau correspondant)
 
 ---
 
