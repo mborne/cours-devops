@@ -15,6 +15,7 @@
 * Les principaux concepts
 * Les principaux exécutables
 * Les dépôts d'images
+* L'observabilité
 * Découvrir docker par la pratique
 * Le déploiement de GeoStack
 * L'intérêt des conteneurs
@@ -124,6 +125,30 @@ Toutefois, la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,..
 ### Le dépôt d'image des hébergeurs
 
 Enfin, nous noterons l'existence de dépôts d'images au niveau des solutions d'hébergement (ex : Google Container Registry, Azure Container Registry,...).
+
+---
+
+## L'observabilité
+
+### Les journaux applicatifs
+
+Nous soulignerons que la gestion des journaux applicatifs sera unifiée par :
+
+* La collecte des flux de sorties standards (stdout/stderr) des conteneurs par le démon docker
+* La présence d'un commande [docker logs](https://docs.docker.com/engine/reference/commandline/logs/) permettant de récupérer les pour un conteneur
+
+Il sera bien sûr toujours possible d'écrire des journaux dans des fichiers mais se conformer à la [11ième recommandation sur Logs des 12 facteurs](https://12factor.net/fr/logs) en écrivant les messages dans les flux standards simplifiera la collecte de ces derniers.
+
+---
+
+## L'observabilité
+
+### Les métriques systèmes
+
+En outre, nous soulignerons que docker collectera des métriques systèmes (CPU, mémoire, entrées/sorties disque et réseau) sur les conteneurs.
+
+Ces métriques seront disponibles au niveau de l'API docker et via la commande [docker stats](https://docs.docker.com/engine/reference/commandline/stats/).
+
 
 ---
 
@@ -262,6 +287,7 @@ En synthèse, nous soulignerons le succès de docker doit beaucoup aux points su
 * **L'image testée en DEV est celle qui s'exécute en PROD**
 * Le **démarrage** des conteneurs est **rapide**.
 * Les **téléchargements et constructions d'images sont optimisés**.
+* Un cadre est posé pour l'**observabilité** avec **journaux applicatifs** et les **métriques systèmes**
 * L'API permet la construction d'un écosystème avec par exemple :
   * Le reverse proxy [traefik](https://doc.traefik.io/traefik/) qui se configure automatiquement en inspectant les conteneurs (**introspection**)
   * L'IHM [portainer](https://www.portainer.io/) qui permet de démarrer des conteneurs (**réflexion**)
