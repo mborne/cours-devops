@@ -74,14 +74,18 @@
 <li><a href="https://roadmap.sh/devops" target="_blank">roadmap.sh - devops</a> qui propose un chemin d&#39;apprentissage permettant de découvrir les principaux concepts et outils associés qu&#39;un DevOps est amenés à rencontrer.</li>
 <li><a href="https://landscape.cncf.io/" target="_blank">landscape.cncf.io - CNCF Cloud Native Interactive Landscape</a> qui donne un panorama des outils &quot;cloud native&quot;</li>
 </ul>
-<h2 id="principes-darchitecture-pour-le-cloud">Principes d&#39;architecture pour le cloud</h2><p>Pour concevoir des applications faciles à exploiter et capable de passer à l&#39;échelle voir :</p>
+<h2 id="principes-darchitecture-pour-le-cloud">Principes d&#39;architecture pour le cloud</h2><p>Pour concevoir des applications faciles à déployer, à exploiter et capables de passer à l&#39;échelle voir :</p>
 <ul>
-<li><a href="https://12factor.net" target="_blank">12factor.net - Les 12 facteurs</a></li>
+<li><a href="https://12factor.net" target="_blank">12factor.net - Les 12 facteurs</a> pour la version officielle<ul>
+<li><a href="12-facteurs.html">DevOps - Les 12 facteurs</a> pour la fiche de synthèse faisant le lien avec les éléments vu dans ce cours.</li>
+<li><a href="https://www.softfluent.fr/blog/the-12-factor-app-sont-ils-toujours-dactualite/" target="_blank">www.softfluent.fr - The 12-factor app : sont-ils toujours d’actualité ?</a> qui passe en revue et étends ces principes posés en 2012</li>
+</ul>
+</li>
 <li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/" target="_blank">learn.microsoft.com - Modèles de conception de cloud</a> dont :<ul>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring" target="_blank">learn.microsoft.com - Modèle Surveillance de point de terminaison</a></li>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/cqrs" target="_blank">learn.microsoft.com - CQRS</a> pour pouvoir s&#39;adapter à la charge plus facilement sur la seule diffusion (dans notre exemple : <code>/wms</code>, <code>/wfs</code>,... vs <code>/geoserver/</code>)</li>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/strangler-fig" target="_blank">learn.microsoft.com - Modèle Figuier étrangleur</a> pour gérer la migration d&#39;un ancien vers un nouveau service.</li>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/retry" target="_blank">learn.microsoft.com - Modèle Nouvelle tentative</a> et <a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/circuit-breaker" target="_blank">learn.microsoft.com - Modèle Disjoncteur</a> pour survivre aux instabilités d&#39;une plateforme d&#39;hébergement ou d&#39;un service tiers.</li>
+<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring" target="_blank">learn.microsoft.com - Modèle Surveillance de point de terminaison</a> qui décrit le principe d&#39;URL dédiée à la surveillance.</li>
+<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/cqrs" target="_blank">learn.microsoft.com - CQRS</a> qui incite à séparer les API d&#39;écriture et de lecture pour s&#39;adapter à la charge plus facilement sur la seule diffusion (ex : <code>/wms</code>, <code>/wfs</code> vs <code>/geoserver/</code>)</li>
+<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/strangler-fig" target="_blank">learn.microsoft.com - Modèle Figuier étrangleur</a> qui guide pour faciliter les migrations d&#39;un ancien vers un nouveau service.</li>
+<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/retry" target="_blank">learn.microsoft.com - Modèle Nouvelle tentative</a> et <a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/circuit-breaker" target="_blank">learn.microsoft.com - Modèle Disjoncteur</a> qui donne de l&#39;inspiration pour survivre aux instabilités d&#39;un service tiers.</li>
 </ul>
 </li>
 </ul>
