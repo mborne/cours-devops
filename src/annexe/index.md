@@ -36,9 +36,9 @@ Pour les outils abordés dans ce cours :
 
 * [Le stockage des livrables et des artefacts](stockage-artefact.md)
 * [Vagrant - quelques notes pour débuter](vagrant-helloworld.md)
-* [Terraform](https://www.terraform.io/) : voir [gce-playground](https://github.com/mborne/gce-playground) et [gke-playground](https://github.com/mborne/gke-playground) pour des exemples
 * [Ansible](ansible.md)
 * [Docker](docker/index.md)
+* [Terraform](https://www.terraform.io/) : voir [gce-playground](https://github.com/mborne/gce-playground) et [gke-playground](https://github.com/mborne/gke-playground) pour des exemples
 
 Pour aller plus loin, voir :
 
