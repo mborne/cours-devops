@@ -44,7 +44,7 @@ A titre d'exemple, pour les **services de stockage** tel PostgreSQL, il peut êt
 
 En déployant les services de stockage en amont du déploiement des applications :
 
-* Les services applicatifs deviennent sans état (car les états se retrouvent externalisé dans les services de stockage)
+* Les services applicatifs deviennent sans état (ils sont externalisés dans les services de stockage)
 * La charge de déploiement des applicatifs est allégée (les services de stockage deviennent des services managés du point de vue des développeurs)
 * Il est plus simple de mettre en oeuvre des plans de sauvegarde et plan de reprise d'activité
 
@@ -79,11 +79,11 @@ Nous conviendrons que ce foisonnement de solutions ne facilitera pas le choix d'
 
 ## Rendre ses applications cloud ready
 
-A l'échelle des applications, **respecter [les 12 facteurs](/annexe/12-facteurs.html)** mis en avant par [Heroku](https://www.heroku.com/) sera un bon point de départ pour **pouvoir déployer facilement une application** et **adapter l'infrastructure à la charge**.
+A l'échelle des applications, **respecter [les 12 facteurs](annexe/12-facteurs.html)** mis en avant par [Heroku](https://www.heroku.com/) sera un bon point de départ pour **pouvoir déployer facilement une application** et **adapter l'infrastructure à la charge**.
 
 Pour les nouvelles applications, il sera intéressant d'avoir connaissance de ces règles de conception dès la construction. Pour les autres, il sera intéressant de tendre progressivement vers cet idéal.
 
-Nous aurons alors une grande liberté de choix pour le mode d'hébergement de l'application et de ses composants. 
+Nous faciliterons ainsi l'exploitation et nous aurons une grande liberté de choix pour le mode d'hébergement de l'application et de ses composants.
 
     </textarea>
 

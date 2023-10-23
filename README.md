@@ -12,16 +12,15 @@ Si vous avez des remarques ou des références à proposer : N'hésitez pas [à 
 
 Nous commençons avec un peu de "théorie" avec :
 
-* [Les origines de DevOps](src/slides/origines.md) qui tâche d'expliquer la genèse de DevOps.
-* [Les principes de DevOps](src/slides/principes.md) qui s'efforce de présenter les principes clés de DevOps sans trop entrer dans les outils (où la mode évolue rapidement).
+* [Les origines de DevOps](https://mborne.github.io/cours-devops/origines.html#1) qui tâche d'expliquer la genèse de DevOps comme une prise de conscience (avec des développements agiles impliquant des livraisons fréquentes, il faut introduire de l'agilité dans la gestion des infrastructures).
+* [Les principes de DevOps](https://mborne.github.io/cours-devops/principes.html#1) qui s'efforce de présenter les principes clés de DevOps sans se focaliser sur l'automatisation des déploiements et sans trop entrer dans les outils (où la mode évolue rapidement).
 
 L'idée est ensuite d'entrer dans la pratique avec :
 
-* [DevOps avec des VM](src/slides/vm.md) pour faire un focus sur *Infrastructure as Code* en contexte IaaS.
-* [DevOps avec des conteneurs](src/slides/conteneurs.md) pour expliquer l'intérêt des conteneurs (livrable universel)
-* [DevOps avec Kubernetes](src/slides/kubernetes.md) en tâchant d'en présenter les principaux concepts.
-
-Sur ces dernières parties, l'idée est de prendre des exemples concrets de déploiement et de faire des démonstrations dont le volume variera selon le nombre de séances.
+* [DevOps avec des VM](https://mborne.github.io/cours-devops/vm.html#1) pour faire un focus sur *Infrastructure as Code* en contexte IaaS avec Terraform, Vagrant et Ansible. Nous soulignons que ce type d'environnement amène la construction non triviale d'une infrastructure d'accueil des applications où les capacités d'automatisation de gestion des configuration sont limitées et où les responsabilités entre les équipes DEV et OPS ne sont pas clairement définies.
+* [DevOps avec des conteneurs](https://mborne.github.io/cours-devops/conteneurs.html#1) pour expliquer le principe de fonctionnement et l'intérêt des conteneurs notamment par rapport aux problématiques rencontrées avec IaaS.
+* [DevOps avec Kubernetes](https://mborne.github.io/cours-devops/kubernetes.html#1) pour en présenter le principe de fonctionnement, donner un aperçu des principaux concepts et l'intérêt de ces derniers.
+* [DevOps dans le Cloud](https://mborne.github.io/cours-devops/cloud.html#1) pour tâcher de guider dans le choix entre IaaS, PaaS, SaaS, CaaS,... en fonction du type de service (service de stockage vs application stateless). Nous concluons en insistant sur la nécessité de respecter [les 12 facteurs](annexe/12-facteurs.html) pour **pouvoir déployer facilement une application** et **adapter l'infrastructure à la charge**.
 
 ## License
 
