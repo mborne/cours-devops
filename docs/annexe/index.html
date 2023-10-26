@@ -1,69 +1,64 @@
 <!doctype html>
-<html>
+<html lang="fr">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>index.md</title>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css">
-  <style>
-    html,
-    body {
-      width: 95%;
-      margin: auto;
-      padding-bottom: 50px;
-    }
-    @media print {
-      .pagebreak { page-break-before: always; }
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
-  <article class="markdown-body">
-    <h1 id="annexes-et-références">Annexes et références</h1><ul>
-<li><a href="#généralités-sur-devops">Généralités sur DevOps</a></li>
-<li><a href="#généralité-sur-le-cloud">Généralité sur le cloud</a></li>
-<li><a href="#les-outils-devops">Les outils DevOps</a></li>
-<li><a href="#principes-darchitecture-pour-le-cloud">Principes d&#39;architecture pour le cloud</a></li>
-<li><a href="#compléments">Compléments</a><ul>
-<li><a href="#devsecops">DevSecOps</a></li>
-<li><a href="#les-tests">Les tests</a></li>
-<li><a href="#les-services-supports-à-connaître">Les services supports à connaître</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="généralités-sur-devops">Généralités sur DevOps</h2><p>En correspondance avec les parties origines et principes DevOps :</p>
-<ul>
-<li><a href="https://devopssec.fr/article/histoire-du-devops" target="_blank">devopssec.fr - L&#39;histoire du DevOps</a></li>
-<li><a href="https://www.atlassian.com/fr/devops/frameworks/calms-framework" target="_blank">www.atlassian.com - Framework CALMS</a></li>
-<li><a href="https://www.atlassian.com/fr/devops/frameworks/devops-metrics" target="_blank">www.atlassian.com - Métriques DevOps</a></li>
-<li><a href="https://meritis.fr/devops-avez-dit-devops/" target="_blank">meritis.fr - Qu’est-ce que le DevOps ? Concepts fondamentaux et bonnes pratiques du DevOps</a></li>
-<li><a href="https://docs.microsoft.com/fr-fr/azure/architecture/checklist/dev-ops" target="_blank">docs.microsoft.com - Liste de contrôle DevOps</a></li>
-</ul>
-<p>Pour le concept <em>Lean</em> en particulier :</p>
-<ul>
-<li><a href="https://www.leanprimer.com/downloads/lean_primer_fr.pdf" target="_blank">www.leanprimer.com - LEAN PRIMER par Craig Larman et Bas Vodde</a></li>
-<li><a href="https://pablopernot.fr/pdf/LSD-08.pdf" target="_blank">pablopernot.fr - Lean Software Development (présentation)</a></li>
-</ul>
-<p>En image :</p>
-<ul>
-<li><a href="https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?" target="_blank">www.commitstrip.com - Comment savoir si votre entreprise est DevOps</a></li>
-<li><a href="https://www.commitstrip.com/fr/2015/06/22/can-we-automate-everything/?setLocale=1" target="_blank">www.commitstrip.com - Tout automatisé… ou presque</a></li>
-</ul>
-<h2 id="généralité-sur-le-cloud">Généralité sur le cloud</h2><p>Pour aller plus loin sur l&#39;informatique en nuage :</p>
-<ul>
-<li><a href="https://cedricici.github.io/cours-cloud/public/#/" target="_blank">ENSG - Technologies de Cloud Computing (Cédric Esnault)</a></li>
-<li><a href="https://www.redhat.com/fr/topics/cloud-computing/iaas-vs-paas-vs-saas" target="_blank">www.redhat.com - IaaS, PaaS, SaaS : quelles sont les différences ?</a></li>
-<li><a href="https://www.ovhcloud.com/fr/public-cloud/cloud-computing/iaas-paas-saas/" target="_blank">www.ovhcloud.com - IaaS, PaaS, SaaS : quelle solution cloud choisir ?</a></li>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a href="./"><img src="assets/img/logo-ign.png" alt="IGN" style="padding: 5px" /></a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./">Annexes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../#2">Cours</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./depots.html">Dépôts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./references.html">Références</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="annexes">Annexes</h1><h2 id="les-services-supports-classiques">Les services supports classiques</h2><ul>
+<li><a href="lb-rp.html">Le partage de charge et reverse proxy</a></li>
+<li><a href="proxy-sortant/index.html">Le proxy sortant</a></li>
+<li><a href="https://blog.octo.com/le-bastion-ssh/" target="_blank">blog.octo.com - Le bastion SSH</a></li>
 </ul>
 <h2 id="les-outils-devops">Les outils DevOps</h2><p>Pour les outils abordés dans ce cours :</p>
 <ul>
-<li><a href="stockage-artefact.html">Le stockage des livrables et des artefacts</a></li>
 <li><a href="vagrant-helloworld.html">Vagrant - quelques notes pour débuter</a></li>
 <li><a href="ansible.html">Ansible</a></li>
 <li><a href="docker/index.html">Docker</a></li>
@@ -72,9 +67,14 @@
 <p>Pour aller plus loin, voir :</p>
 <ul>
 <li><a href="https://roadmap.sh/devops" target="_blank">roadmap.sh - devops</a> qui propose un chemin d&#39;apprentissage permettant de découvrir les principaux concepts et outils associés qu&#39;un DevOps est amenés à rencontrer.</li>
+<li><a href="stockage-artefact.html">Le stockage des livrables et des artefacts</a></li>
 <li><a href="https://landscape.cncf.io/" target="_blank">landscape.cncf.io - CNCF Cloud Native Interactive Landscape</a> qui donne un panorama des outils &quot;cloud native&quot;</li>
 </ul>
-<h2 id="principes-darchitecture-pour-le-cloud">Principes d&#39;architecture pour le cloud</h2><p>Pour concevoir des applications faciles à déployer, à exploiter et capables de passer à l&#39;échelle voir :</p>
+<h2 id="compléments">Compléments</h2><h3 id="les-tests">Les tests</h3><ul>
+<li><a href="https://blog.octo.com/la-pyramide-des-tests-par-la-pratique-1-5/" target="_blank">blog.octo.com - La pyramide des tests par la pratique</a></li>
+<li><a href="https://fr.wikipedia.org/wiki/Chaos_Monkey" target="_blank">fr.wikipedia.org - Chaos_Monkey (Netflix)</a> pour les tests de résilience sur les infrastructures.</li>
+</ul>
+<h3 id="principes-darchitecture-pour-le-cloud">Principes d&#39;architecture pour le cloud</h3><p>Pour concevoir des applications faciles à déployer, à exploiter et capables de passer à l&#39;échelle voir :</p>
 <ul>
 <li><a href="https://12factor.net" target="_blank">12factor.net - Les 12 facteurs</a> pour la version officielle<ul>
 <li><a href="12-facteurs.html">DevOps - Les 12 facteurs</a> pour la fiche de synthèse faisant le lien avec les éléments vu dans ce cours.</li>
@@ -89,54 +89,37 @@
 </ul>
 </li>
 </ul>
-<h2 id="compléments">Compléments</h2><h3 id="devsecops">DevSecOps</h3><p>Nous abordons peu dans ce cours la sécurité, mais vous noterez que les équipes de sécurité peuvent elles aussi être intégrée au processus de développement :</p>
-<ul>
-<li><a href="https://geekflare.com/fr/devsecops-introduction/" target="_blank">geekflare.com - Une introduction à DevSecOps pour les débutants</a></li>
-<li><a href="https://dev-sec.io/" target="_blank">dev-sec.io - hardening à la sauce DevSecOps</a></li>
-<li><a href="https://www.commitstrip.com/fr/2017/06/19/security-too-expensive-try-a-hack/?" target="_blank">www.commitstrip.com - La sécurité coûte cher ? Essayez le piratage</a></li>
-<li><a href="https://www.ssi.gouv.fr/uploads/2018/11/guide-securite-numerique-agile-anssi-pa-v1.pdf" target="_blank">ANSSI - AGILITÉ &amp; SÉCURITÉ NUMÉRIQUES</a> qui évoque la notion d&#39;<em><strong>abuser story</strong></em> en complément de celle d&#39;<em><strong>user story</strong></em> pour <strong>intégrer le traitement des problématiques de sécurité au processus de développement</strong>.</li>
-</ul>
-<h3 id="les-tests">Les tests</h3><ul>
-<li><a href="https://blog.octo.com/la-pyramide-des-tests-par-la-pratique-1-5/" target="_blank">blog.octo.com - La pyramide des tests par la pratique</a></li>
-</ul>
-<h3 id="les-services-supports-à-connaître">Les services supports à connaître</h3><ul>
-<li><a href="lb-rp.html">Le partage de charge et reverse proxy</a></li>
-<li><a href="proxy-sortant/index.html">Le proxy sortant</a></li>
-<li><a href="https://blog.octo.com/le-bastion-ssh/" target="_blank">blog.octo.com - Le bastion SSH</a></li>
-</ul>
 
-  </article>
+    </div>
 
-  <!-- hightlight.pack.js -->
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  </main>
 
-  <!-- https://www.mathjax.org -->
-  <script>
-    MathJax = {
-      loader: {
-        load: ['input/tex', 'output/svg', 'ui/menu', '[tex]/require']
-      },
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      },
-      svg: {
-        fontCache: 'global'
-      }
-    };
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/startup.js"
-    integrity="sha512-LZZ88buOWCaSouKg9UNiW3N/vhBCprp0tpG9uNp+r6maXLDeBddAaqTmDduadI+WghoGaNlZG4NgCX0Xsxlfxg=="
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
 </body>
 
 </html>

@@ -17,5 +17,5 @@ console.log('src/annexe -> docs/annexe with default layout...');
 convert({
     outputDir: path.resolve(__dirname,'docs/annexe'),
     rootDir: path.resolve(__dirname,'src/annexe'),
-    layoutPath: path.resolve(__dirname,'node_modules/@mborne/markdown-to-html/layout/default')
+    layoutPath: path.resolve(__dirname,'layout/annexe')
 });
