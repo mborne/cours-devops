@@ -25,4 +25,4 @@ gantt
     Recette en QUALIF             :active,  dev9, after dev8, 2d
 ```
 
-En complément, vous pourrez lire l'article [fr.kaizen.com - L'importance du Time to Market](https://fr.kaizen.com/produits/importance-time-to-market-fr) qui aborde la notion d'**efficacité des flux** et des alternatives pour mettre en lumière l'effet des temps d'attente.
+En complément, vous pourrez lire l'article [fr.kaizen.com - L'importance du Time to Market](https://kaizen.com/fr/publications/importance-time-to-market-fr/) qui aborde la notion d'**efficacité des flux** et des alternatives pour mettre en lumière l'effet des temps d'attente.

@@ -67,7 +67,7 @@ Nous nous sommes concentré ici sur le deuxième cas particulièrement fréquent
 Il existe de nombreuses solutions mais nous citerons par exemple :
 
 * [nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/)
-* [haproxy](https://www.haproxy.com/fr/blog/haproxy-configuration-basics-load-balance-your-servers/) à l'échelle d'une zone d'hébergement.
+* [haproxy](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balance-your-servers) à l'échelle d'une zone d'hébergement.
 * [traefik](https://doc.traefik.io/traefik/) qui dispose de mécanisme de **découverte de configuration**.
 
 Avec Kubernetes, nous trouverons deux concepts :

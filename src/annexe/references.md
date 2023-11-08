@@ -17,8 +17,8 @@ Pour le concept *Lean* en particulier :
 
 En image :
 
-* [www.commitstrip.com - Comment savoir si votre entreprise est DevOps](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?)
-* [www.commitstrip.com - Tout automatisé… ou presque](https://www.commitstrip.com/fr/2015/06/22/can-we-automate-everything/?setLocale=1)
+* [www.commitstrip.com - Comment savoir si votre entreprise est DevOps](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/)
+* [www.commitstrip.com - Tout automatisé… ou presque](https://www.commitstrip.com/fr/2015/06/22/can-we-automate-everything/)
 
 ## Généralité sur le cloud
 
@@ -35,6 +35,6 @@ Nous abordons peu dans ce cours la sécurité, mais vous noterez que les équipe
 
 * [geekflare.com - Une introduction à DevSecOps pour les débutants](https://geekflare.com/fr/devsecops-introduction/)
 * [dev-sec.io - hardening à la sauce DevSecOps](https://dev-sec.io/)
-* [www.commitstrip.com - La sécurité coûte cher ? Essayez le piratage](https://www.commitstrip.com/fr/2017/06/19/security-too-expensive-try-a-hack/?)
+* [www.commitstrip.com - La sécurité coûte cher ? Essayez le piratage](https://www.commitstrip.com/fr/2017/06/19/security-too-expensive-try-a-hack/)
 * [ANSSI - AGILITÉ & SÉCURITÉ NUMÉRIQUES](https://www.ssi.gouv.fr/uploads/2018/11/guide-securite-numerique-agile-anssi-pa-v1.pdf) qui évoque la notion d'***abuser story*** en complément de celle d'***user story*** pour **intégrer le traitement des problématiques de sécurité au processus de développement**.
 

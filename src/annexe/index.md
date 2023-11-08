@@ -1,16 +1,10 @@
 # Annexes
 
-## Les services supports classiques
-
-* [Le partage de charge et reverse proxy](lb-rp.md)
-* [Le proxy sortant](proxy-sortant/index.md)
-* [blog.octo.com - Le bastion SSH](https://blog.octo.com/le-bastion-ssh/)
-
 ## Les outils DevOps
 
 Pour les outils abordés dans ce cours :
 
-* [Vagrant - quelques notes pour débuter](vagrant-helloworld.md)
+* [Vagrant](vagrant/index.md)
 * [Ansible](ansible.md)
 * [Docker](docker/index.md)
 * [Terraform](https://www.terraform.io/) : voir [gce-playground](https://github.com/mborne/gce-playground) et [gke-playground](https://github.com/mborne/gke-playground) pour des exemples
@@ -22,6 +16,12 @@ Pour aller plus loin, voir :
 * [landscape.cncf.io - CNCF Cloud Native Interactive Landscape](https://landscape.cncf.io/) qui donne un panorama des outils "cloud native"
 
 ## Compléments
+
+### Les services supports classiques
+
+* [Le partage de charge et reverse proxy](lb-rp.md)
+* [Le proxy sortant](proxy-sortant/index.md)
+* [blog.octo.com - Le bastion SSH](https://blog.octo.com/le-bastion-ssh/)
 
 ### Les tests
 
