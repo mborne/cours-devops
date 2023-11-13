@@ -22,29 +22,30 @@
 
   <header class="container">
 
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a href="./"><img src="{{asset 'img/logo-ign.png'}}" alt="IGN" style="padding: 5px" /></a>
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="./">Annexes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../#2">Cours</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./depots.html">Dépôts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./references.html">Références</a>
-          </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url '.'}}">
+          <img src="{{asset 'img/logo-ign.png'}}" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url '.'}}">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url '../'}}#2">Cours</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url './depots.html'}}">Dépôts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url './references.html'}}">Références</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>
