@@ -78,7 +78,7 @@ Nous nous sommes concentré ici sur le deuxième cas particulièrement fréquent
 ## Quelques références
 
 * [blog.octo.com - BD - Le Load Balancer](https://blog.octo.com/bd-le-load-balancer/)
-* [www.ssi.gouv.fr - RECOMMANDATIONS POUR LA MISE EN ŒUVRE D'UN SITE WEB : MAÎTRISER LES STANDARDS DE SÉCURITÉ CÔTÉ NAVIGATEUR](https://www.ssi.gouv.fr/uploads/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf) qui aborde entre autres les entêtes de sécurité.
+* [cyber.gouv.fr - Sécuriser un site web](https://cyber.gouv.fr/publications/securiser-un-site-web) qui aborde entre autres les entêtes de sécurité dans le document "Recommandations pour la mise en œuvre d'un site web : maîtriser les standards de sécurité côté navigateur"
 * [medium.com - Difference Between Layer 4 vs. Layer 7 Load Balancing](https://medium.com/@harishramkumar/difference-between-layer-4-vs-layer-7-load-balancing-57464e29ed9f)
 
 

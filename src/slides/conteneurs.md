@@ -184,7 +184,7 @@ Pour approfondir sur cette technologie, vous pourrez suivre un cours dédié ou 
 
 Nous allons nous assurer d'avoir une installation fonctionnelle de docker permettant d'exécuter `docker run hello-world`. Si docker n'est pas installé sur votre poste, vous pourrez :
 
-* [Installer docker sur une VM Linux](/annexe/docker/#installation)
+* [Installer docker sur une VM Linux](annexe/docker/#installation)
 * Le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) vous permettra de faire vos premiers tests en ligne :
 
 <div class="center">

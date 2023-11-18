@@ -54,7 +54,7 @@ Pour aller plus loin sur l'informatique en nuage :
 Nous abordons peu dans ce cours la sécurité, mais vous noterez que :
 
 * Le besoin de livrer rapidement les évolutions ne sera pas compatible avec l'attente de validation de sécurité
-* Les équipes de sécurité peuvent elles aussi être intégrées au processus de développement agile
+* Les équipes de sécurité peuvent elles aussi être intégrées au processus de développement pour un meilleur traitement de cet aspect
 
 Vous pourrez à ce titre consulter les ressources suivantes :
 
@@ -62,4 +62,4 @@ Vous pourrez à ce titre consulter les ressources suivantes :
 * [dev-sec.io - hardening à la sauce DevSecOps](https://dev-sec.io/)
 * [www.commitstrip.com - La sécurité coûte cher ? Essayez le piratage](https://www.commitstrip.com/fr/2017/06/19/security-too-expensive-try-a-hack/)
 * [cyber.gouv.fr - Agilité et sécurité numériques : méthode et outils à l’usage des équipes projet](https://cyber.gouv.fr/publications/agilite-et-securite-numeriques-methode-et-outils-lusage-des-equipes-projet) qui évoque la notion d'***abuser story*** en complément de celle d'***user story*** pour **intégrer le traitement des problématiques de sécurité au processus de développement**.
-
+* [cyber.gouv.fr - Sécuriser un site web](https://cyber.gouv.fr/publications/securiser-un-site-web)
