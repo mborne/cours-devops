@@ -1,33 +1,57 @@
 <!doctype html>
-<html>
+<html lang="fr">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-  <title>lb-rp.md</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <title>Partage de charge et reverse proxy</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github.min.css">
-  <style>
-    html,
-    body {
-      width: 95%;
-      margin: auto;
-      padding-bottom: 50px;
-    }
-    @media print {
-      .pagebreak { page-break-before: always; }
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
-  <article class="markdown-body">
-    <h1 id="partage-de-charge-et-reverse-proxy">Partage de charge et reverse proxy</h1><ul>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="partage-de-charge-et-reverse-proxy">Partage de charge et reverse proxy</h1><ul>
 <li><a href="#principe-de-fonctionnement">Principe de fonctionnement</a></li>
-<li><a href="#autres-cas-dutilisation-du-loadbalancer">Autres cas d&#39;utilisation du LoadBalancer</a></li>
 <li><a href="#principe-de-configuration">Principe de configuration</a></li>
 <li><a href="#impact-au-niveau-des-applications">Impact au niveau des applications</a><ul>
 <li><a href="#les-services-doivent-supporter-le-partage-de-charge">Les services doivent supporter le partage de charge</a></li>
@@ -35,8 +59,9 @@
 <li><a href="#les-services-ne-voient-pas-les-url-externes">Les services ne voient pas les URL externes</a></li>
 </ul>
 </li>
-<li><a href="#deux-types-de-loadbalancer">Deux types de LoadBalancer</a></li>
+<li><a href="#autres-cas-dutilisation-du-loadbalancer">Autres cas d&#39;utilisation du LoadBalancer</a></li>
 <li><a href="#quelques-exemple-dimplémentations">Quelques exemple d&#39;implémentations</a></li>
+<li><a href="#deux-types-de-loadbalancer">Deux types de LoadBalancer</a></li>
 <li><a href="#quelques-références">Quelques références</a></li>
 </ul>
 <h2 id="principe-de-fonctionnement">Principe de fonctionnement</h2><p>Un <strong>reverse proxy</strong> joue un rôle d&#39;intermédiaire entre la requête d&#39;un client et son traitement sur un serveur particulier. En présence de plusieurs serveurs à même de traiter la requête, il jouera un rôle de <strong>répartiteur de charge</strong> (<em>LoadBalancer</em>) permettant la <strong>scalabilité horizontale</strong> :</p>
@@ -44,7 +69,24 @@
     <img alt="Principe du partage" src="img/principe-lb.png" style="height: 400px" />
 </div>
 
-<p>Par abus de langage, on nommera souvent ce composant <strong>LoadBalancer</strong> (abrégé en &quot;lb&quot;) même en présence d&#39;un seul serveur en &quot;backend&quot;.</p>
+<p>Par abus de langage, ce composant sera souvent nommé <strong>LoadBalancer</strong> (abrégé en &quot;lb&quot;) même en présence d&#39;un seul serveur en &quot;backend&quot;.</p>
+<h2 id="principe-de-configuration">Principe de configuration</h2><p>Dans le principe, il reviendra de <strong>mettre en correspondance des URL externes et des URL internes</strong>. Par exemple, pour 3 instances d&#39;une &quot;app&quot; écoutant en HTTP sur le port 3000 :</p>
+<table>
+<thead>
+<tr>
+<th>URL externe</th>
+<th>URL interne</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>https://app.exemple.net</code></td>
+<td><code>http://app01:3000</code><br /><code>http://app02:3000</code><br /><code>http://app03:3000</code></td>
+</tr>
+</tbody></table>
+<h2 id="impact-au-niveau-des-applications">Impact au niveau des applications</h2><h3 id="les-services-doivent-supporter-le-partage-de-charge">Les services doivent supporter le partage de charge</h3><p>Dans le cas idéal, <strong>un service web ne doit pas stocker localement des états</strong>. Sans cela, un même serveur devra traiter les requêtes successives d&#39;un même client et il sera nécessaire de mettre en oeuvre un mécanisme d&#39;<strong>affinité de session</strong> au niveau du LoadBalancer.</p>
+<h3 id="les-services-ne-voient-pas-les-ip-des-clients">Les services ne voient pas les IP des clients</h3><p>Par défaut, <strong>les services derrière le LoadBalancer verront l&#39;IP du LoadBalancer</strong> au niveau de la connexion. En cas de besoin d&#39;accéder à l&#39;IP du client (ex : pour protéger une authentification par mot de passe contre des attaques par force brute), on s&#39;appuiera généralement sur l&#39;ajout d&#39;un entête HTTP au niveau du LoadBalancer (<code>X-Forwarded-For</code> ou <code>X-Real-IP</code>)</p>
+<h3 id="les-services-ne-voient-pas-les-url-externes">Les services ne voient pas les URL externes</h3><p>Un service en backend d&#39;un LoadBalancer n&#39;a pas une vue directe sur les URL externes. Il faudra au besoin calculer ces URL à partir des entêtes HTTP ajoutées aux requêtes par le reverse proxy (<code>X-Forwarded-Proto</code>, <code>X-Forwarded-Host</code>, <code>X-Forwarded-For</code>...)</p>
+<p>(voir par exemple <a href="https://docs.geoserver.org/stable/en/user/configuration/globalsettings.html#use-headers-for-proxy-url" target="_blank">docs.geoserver.org - Use headers for Proxy URL</a> où les entêtes supportées par <a href="https://geoserver.org/" target="_blank">GeoServer</a> sont documentées)</p>
 <h2 id="autres-cas-dutilisation-du-loadbalancer">Autres cas d&#39;utilisation du LoadBalancer</h2><p>Ce composant jouera régulièrement d&#39;autres rôles. Il pourra être utilisé pour :</p>
 <ul>
 <li>Mettre en oeuvre TLS (HTTPS pour les services web)</li>
@@ -61,78 +103,59 @@
 <li>Mettre en oeuvre des <strong>limites de débit de téléchargement</strong> (ex : max 500 ko/s/IP)</li>
 <li>...</li>
 </ul>
-<h2 id="principe-de-configuration">Principe de configuration</h2><p>Nous configurerons la correspondance entre des URL externes et des URL internes. Par exemple, pour 3 instances d&#39;une &quot;app&quot; écoutant en HTTP sur le port 3000 :</p>
-<table>
-<thead>
-<tr>
-<th>URL externe</th>
-<th>URL interne</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>https://app.exemple.net</code></td>
-<td><code>http://app01:3000</code><br /><code>http://app02:3000</code><br /><code>http://app03:3000</code></td>
-</tr>
-</tbody></table>
-<h2 id="impact-au-niveau-des-applications">Impact au niveau des applications</h2><h3 id="les-services-doivent-supporter-le-partage-de-charge">Les services doivent supporter le partage de charge</h3><p>Dans le cas idéal, un service web ne doit pas stocker localement des états. Sans cela, un même serveur devra traiter les requêtes successives d&#39;un même client et il sera nécessaire de mettre en oeuvre un mécanisme d&#39;<strong>affinité de session</strong> au niveau du LoadBalancer.</p>
-<h3 id="les-services-ne-voient-pas-les-ip-des-clients">Les services ne voient pas les IP des clients</h3><p>Par défaut, les services derrière le LoadBalancer verront l&#39;IP du LoadBalancer au niveau de la connexion. En cas de besoin d&#39;accéder à l&#39;IP du client (ex : pour protéger une authentification par mot de passe contre des attaques par force brute), on s&#39;appuiera généralement sur l&#39;ajout d&#39;un entête HTTP au niveau du LoadBalancer (<code>X-Forwarded-For</code> ou <code>X-Real-IP</code>)</p>
-<h3 id="les-services-ne-voient-pas-les-url-externes">Les services ne voient pas les URL externes</h3><p>Un service en backend d&#39;un LoadBalancer n&#39;a pas une vue directe sur les URL externes. Il faudra au besoin calculer ces URL à partir des entêtes HTTP ajoutées aux requêtes par le reverse proxy (<code>X-Forwarded-Proto</code>, <code>X-Forwarded-Host</code>, <code>X-Forwarded-For</code>...)</p>
-<p>(voir par exemple <a href="https://docs.geoserver.org/stable/en/user/configuration/globalsettings.html#use-headers-for-proxy-url" target="_blank">docs.geoserver.org - Use headers for Proxy URL</a> où les entêtes supportées par <a href="https://geoserver.org/" target="_blank">GeoServer</a> sont documentées)</p>
-<h2 id="deux-types-de-loadbalancer">Deux types de LoadBalancer</h2><p>Nous trouverons deux types de LoadBalancer :</p>
-<ul>
-<li><strong>LoadBalancer L4</strong> agissant au niveau <strong>TCP/IP</strong> (couche &quot;4 - transport&quot; du <a href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI" target="_blank">modèle OSI</a>)</li>
-<li><strong>LoadBalancer L7</strong> agissant au niveau <strong>HTTP/HTTPS</strong> (couche &quot;7 - transport&quot; du <a href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI" target="_blank">modèle OSI</a>), utile pour des services web.</li>
-</ul>
-<p>Nous nous sommes concentré ici sur le deuxième cas particulièrement fréquent avec les services web.</p>
 <h2 id="quelques-exemple-dimplémentations">Quelques exemple d&#39;implémentations</h2><p>Il existe de nombreuses solutions mais nous citerons par exemple :</p>
 <ul>
 <li><a href="https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/" target="_blank">nginx</a></li>
-<li><a href="https://www.haproxy.com/fr/blog/haproxy-configuration-basics-load-balance-your-servers/" target="_blank">haproxy</a> à l&#39;échelle d&#39;une zone d&#39;hébergement.</li>
-<li><a href="https://doc.traefik.io/traefik/" target="_blank">traefik</a> qui dispose de mécanisme de <strong>découverte de configuration</strong>.</li>
+<li><a href="https://www.haproxy.com/blog/haproxy-configuration-basics-load-balance-your-servers" target="_blank">haproxy</a> à l&#39;échelle d&#39;une zone d&#39;hébergement.</li>
+<li><a href="https://doc.traefik.io/traefik/" target="_blank">traefik</a> qui dispose de mécanismes de <strong>découverte de configuration</strong>.</li>
 </ul>
 <p>Avec Kubernetes, nous trouverons deux concepts :</p>
 <ul>
 <li>Un <a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank">Service</a> assurant le rôle de reverse proxy devant des <a href="https://kubernetes.io/docs/concepts/workloads/pods/" target="_blank">Pods</a> à l&#39;intérieur du cluster.</li>
 <li>Un <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank">Ingress</a> pour l&#39;exposition externe en HTTP/HTTPS avec plusieurs implémentations disponibles (<a href="https://docs.nginx.com/nginx-ingress-controller/" target="_blank">nginx-ingress-controller</a>, <a href="https://doc.traefik.io/traefik/providers/kubernetes-ingress/" target="_blank">traefik</a>,...)</li>
 </ul>
+<h2 id="deux-types-de-loadbalancer">Deux types de LoadBalancer</h2><p>Nous trouverons deux types de LoadBalancer :</p>
+<ul>
+<li><strong>LoadBalancer L4</strong> agissant au niveau <strong>TCP/IP</strong> (couche &quot;4 - transport&quot; du <a href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI" target="_blank">modèle OSI</a>)</li>
+<li><strong>LoadBalancer L7</strong> agissant au niveau <strong>HTTP/HTTPS</strong> (couche &quot;7 - transport&quot; du <a href="https://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI" target="_blank">modèle OSI</a>), utile pour des services web.</li>
+</ul>
+<p>Nous nous sommes concentré ici sur le deuxième cas particulièrement fréquent avec les services web.</p>
 <h2 id="quelques-références">Quelques références</h2><ul>
 <li><a href="https://blog.octo.com/bd-le-load-balancer/" target="_blank">blog.octo.com - BD - Le Load Balancer</a></li>
+<li><a href="https://cyber.gouv.fr/publications/securiser-un-site-web" target="_blank">cyber.gouv.fr - Sécuriser un site web</a> qui aborde entre autres les entêtes de sécurité dans le document &quot;Recommandations pour la mise en œuvre d&#39;un site web : maîtriser les standards de sécurité côté navigateur&quot;</li>
 <li><a href="https://medium.com/@harishramkumar/difference-between-layer-4-vs-layer-7-load-balancing-57464e29ed9f" target="_blank">medium.com - Difference Between Layer 4 vs. Layer 7 Load Balancing</a></li>
-<li><a href="https://www.ssi.gouv.fr/uploads/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf" target="_blank">www.ssi.gouv.fr - RECOMMANDATIONS POUR LA MISE EN ŒUVRE D&#39;UN SITE WEB : MAÎTRISER LES STANDARDS DE SÉCURITÉ CÔTÉ NAVIGATEUR</a> qui aborde entre autres les entêtes de sécurité.</li>
 </ul>
 
-  </article>
+    </div>
 
-  <!-- hightlight.pack.js -->
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  </main>
 
-  <!-- https://www.mathjax.org -->
-  <script>
-    MathJax = {
-      loader: {
-        load: ['input/tex', 'output/svg', 'ui/menu', '[tex]/require']
-      },
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      },
-      svg: {
-        fontCache: 'global'
-      }
-    };
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/startup.js"
-    integrity="sha512-LZZ88buOWCaSouKg9UNiW3N/vhBCprp0tpG9uNp+r6maXLDeBddAaqTmDduadI+WghoGaNlZG4NgCX0Xsxlfxg=="
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.11.5/mermaid.min.js"></script>
-  <script>mermaid.init({
-      startOnLoad: true,
-      flowchart: {
-        useMaxWidth: true
-      }
-    }, ".language-mermaid");</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
 </body>
 
 </html>

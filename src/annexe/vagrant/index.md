@@ -2,8 +2,8 @@
 
 ## Pré-requis
 
-* [VirtualBox 6.1](https://www.virtualbox.org/wiki/Download_Old_Builds_6_1) (7.x non testée) qui jouera le rôle de l'infrastructure IaaS.
-* [Configurer les variables d'environnement pour utilisation d'un proxy sortant](proxy-sortant.md)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [Configurer les variables d'environnement pour utilisation d'un proxy sortant](../proxy-sortant/index.md)
 
 ## Points clés
 

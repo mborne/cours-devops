@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Les problèmes fréquents avec docker</title>
+  <title>Dépôts</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
     integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
@@ -24,8 +24,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../index.html">
-          <img src="../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -33,13 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="../index.html">Annexes</a>
+              <a class="nav-link" href="index.html">Annexes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../references.html">Références</a>
+              <a class="nav-link" href="references.html">Références</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../depots.html">Dépôts</a>
+              <a class="nav-link" href="depots.html">Dépôts</a>
             </li>
           </ul>
         </div>
@@ -50,40 +50,26 @@
   <main id="main" class="container">
 
     <div class="markdown-body">
-      <h1 id="les-problèmes-fréquents-avec-docker">Les problèmes fréquents avec docker</h1><p>Quelques notes pour aider à résoudre les problèmes classiques rencontrés par les débutants :</p>
-<ul>
-<li><a href="#utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</a></li>
-<li><a href="#configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</a></li>
-<li><a href="#utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</a></li>
+      <h1 id="dépôts">Dépôts</h1><p>Cette page regroupe l&#39;ensemble des dépôts utilisés dans le cours.</p>
+<h2 id="la-présentation-et-ses-annexes">La présentation et ses annexes</h2><ul>
+<li><a href="https://github.com/mborne/cours-devops#readme" target="_blank">github.com - mborne/cours-devops</a> contient les sources de la présentation et des annexes.</li>
 </ul>
-<h2 id="utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</h2><p>Si vous devez utiliser un proxy pour accéder à internet, vous rencontrerez sûrement des problèmes avec :</p>
-<ul>
-<li>La commande <code>docker pull</code></li>
-<li>Les commandes <code>RUN apt-get update &amp;&amp; apt-get install</code> dans vos <code>Dockerfile</code></li>
-<li>L&#39;accès aux ressources internet depuis vos conteneurs.</li>
+<h2 id="prise-en-main-de-vagrant-et-ansible">Prise en main de Vagrant et Ansible</h2><ul>
+<li><a href="https://github.com/mborne/vagrantbox#readme" target="_blank">github.com - mborne/vagrantbox</a> : dépôt pour prise en main de Vagrant et Ansible.</li>
+<li><a href="https://github.com/mborne/geostack-deploy/tree/master/ansible#readme" target="_blank">github.com - mborne/geostack-deploy/ansible</a> : dépôt pour déploiement de l&#39;exemple GeoStack du cours avec Ansible.</li>
 </ul>
-<p>Voir <a href="../proxy-sortant/proxy-docker.html">Travailler derrière un proxy avec Docker</a>.</p>
-<h2 id="configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</h2><p>Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable que ce soit un problème de configuration DNS :</p>
-<ul>
-<li>Adaptez ce qui suit dans <code>/etc/docker/daemon.json</code> :</li>
+<h2 id="docker">Docker</h2><ul>
+<li><a href="https://github.com/mborne/docker-exemples#readme" target="_blank">github.com - mborne/docker-exemples</a> : dépôt avec des exemples pour prise en main de Docker.</li>
+<li><a href="https://github.com/mborne/docker-devbox#readme" target="_blank">github.com - mborne/docker-devbox</a> : dépôt contenant de nombreux exemples de déploiement avec docker compose.</li>
+<li><a href="https://github.com/mborne/geostack-deploy/tree/master/docker#readme" target="_blank">github.com - mborne/geostack-deploy/docker</a> : dépôt pour déploiement de l&#39;exemple GeoStack du cours avec docker compose.</li>
 </ul>
-<pre><code class="language-json">{
-   &quot;dns&quot;: [&quot;8.8.8.8&quot;,&quot;8.8.4.4&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
+<h2 id="kubernetes">Kubernetes</h2><ul>
+<li><a href="https://github.com/mborne/k3s-deploy#readme" target="_blank">github.com - mborne/k3s-deploy</a> : dépôt pour déploiement d&#39;un cluster Kubernetes avec <a href="https://k3s.io/" target="_blank">K3S</a> sur les VM vagrantbox avec Ansible.</li>
+<li><a href="https://github.com/mborne/k8s-exemples#readme" target="_blank">github.com - mborne/k8s-exemples</a> : dépôt avec des exemples pour prise en main de Kubernetes.</li>
+<li><a href="https://github.com/mborne/docker-devbox#readme" target="_blank">github.com - mborne/docker-devbox</a> : dépôt contenant de nombreux exemples de déploiement Kubernetes (voir fichiers &quot;k8s-install.sh&quot; encapsulant des appels helm).</li>
 </ul>
-<h2 id="utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</h2><p>Si vous avez un dépôt d&#39;images privé qui n&#39;utilise pas https (ex : <a href="http://localhost:5000" target="_blank">http://localhost:5000</a> démarré avec <a href="https://hub.docker.com/_/registry" target="_blank">registry:2</a> pour tester la publication d&#39;image), docker refusera de puller les images :</p>
-<ul>
-<li>Déclarer ce dépôt dans <code>/etc/docker/daemon.json</code> :</li>
-</ul>
-<pre><code class="language-json">{
-   &quot;insecure-registry&quot;:[&quot;localhost:5000&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
+<h2 id="terraform">Terraform</h2><ul>
+<li><a href="https://github.com/mborne/gke-playground#readme" target="_blank">github.com - mborne/gke-playground</a> : dépôt illustrant l&#39;utilisation de terraform pour créer un cluster Kubernetes (GKE) avec un serveur NFS en SaaS (FileStore) sur Google Cloud.</li>
 </ul>
 
     </div>

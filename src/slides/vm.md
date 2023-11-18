@@ -70,7 +70,7 @@ Pour le déploiement d'une application en PRODUCTION, il est important de :
 
 Dans le cas présent, nous avons cette chance :
 
-* [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous avons même un dépôt [APT](http://apt.postgresql.org/) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
+* [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous avons même un dépôt [APT](https://wiki.postgresql.org/wiki/Apt) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
 * [GeoServer](https://geoserver.org/release/stable/) met lui aussi à disposition des livrables prêts à l'emploi.
 
 ---
@@ -152,7 +152,7 @@ Nous utilisons le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantb
 Nous soulignerons que :
 
 * La principale difficulté traitée dans le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) est l'utilisation optionnelle d'un proxy sortant avec le plugin [vagrant-proxyconf](https://rubygems.org/gems/vagrant-proxyconf/versions/1.5.2).
-* Une [annexe/vagrant-helloworld](annexe/vagrant-helloworld.html) explique comment créer ses propres `Vagrantfile`.
+* Une [annexe Vagrant](annexe/vagrant/index.html) explique comment créer ses propres `Vagrantfile`.
 * Vagrant est aussi pratique pour créer une VM de DEV Linux avec un environnement graphique (`apt-get install ubuntu-desktop`)
 * Nous créons ici des VM [VirtualBox](https://www.virtualbox.org/) mais [Vagrant supporte d'autres hyperviseurs (ex : KVM)](https://www.vagrantup.com/docs/providers)
 * Il existe [un dépôt public d'image de VM pour vagrant](https://app.vagrantup.com/boxes/search).

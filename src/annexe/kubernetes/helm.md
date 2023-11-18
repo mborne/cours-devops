@@ -11,18 +11,16 @@
 * [helm.sh - Installing Helm - From Apt (Debian/Ubuntu)](https://helm.sh/docs/intro/install/#from-apt-debianubuntu)
 
 
-
 ## Quelques dépôts
 
-| NAME       | URL                                               |
-| ---------- | ------------------------------------------------- |
-| bitnami    | https://charts.bitnami.com/bitnami                |
-| netdata    | https://netdata.github.io/helmchart/              |
-| hashicorp  | https://helm.releases.hashicorp.com               |
-| jenkinsci  | https://charts.jenkins.io                         |
-| jenkins    | https://charts.jenkins.io                         |
-| opensearch | https://opensearch-project.github.io/helm-charts/ |
-| traefik    | https://helm.traefik.io/traefik                   |
+| NAME       | URL                                                                    |
+| ---------- | ---------------------------------------------------------------------- |
+| bitnami    | [https://charts.bitnami.com/bitnami/](https://bitnami.com/stacks/helm) |
+| netdata    | https://netdata.github.io/helmchart/                                   |
+| hashicorp  | https://helm.releases.hashicorp.com                                    |
+| jenkins    | https://charts.jenkins.io                                              |
+| opensearch | https://opensearch-project.github.io/helm-charts/                      |
+| traefik    | https://helm.traefik.io/traefik                                        |
 
 > Voir aussi [artifacthub.io](https://artifacthub.io/)
 
