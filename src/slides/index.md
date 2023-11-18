@@ -17,4 +17,4 @@
 * [DevOps avec des conteneurs](conteneurs.md)
 * [DevOps avec des Kubernetes](kubernetes.md)
 * [DevOps dans le cloud](cloud.md)
-* [Annexes et références](annexe/index.html)
+* [Annexes et références](annexe/)

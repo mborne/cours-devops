@@ -1,4 +1,4 @@
-# Les dépôts
+# Dépôts
 
 Cette page regroupe l'ensemble des dépôts utilisés dans le cours.
 
@@ -26,6 +26,6 @@ Cette page regroupe l'ensemble des dépôts utilisés dans le cours.
 
 ## Terraform
 
-* [github.com - mborne/docker-devbox](https://github.com/mborne/gke-playground#readme) : dépôt illustrant l'utilisation de terraform pour créer un cluster Kubernetes (GKE) avec un serveur NFS en SaaS (FileStore) sur Google Cloud.
+* [github.com - mborne/gke-playground](https://github.com/mborne/gke-playground#readme) : dépôt illustrant l'utilisation de terraform pour créer un cluster Kubernetes (GKE) avec un serveur NFS en SaaS (FileStore) sur Google Cloud.
 
 

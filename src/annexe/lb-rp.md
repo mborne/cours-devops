@@ -10,7 +10,31 @@ Un **reverse proxy** joue un rôle d'intermédiaire entre la requête d'un clien
     <img alt="Principe du partage" src="img/principe-lb.png" style="height: 400px" />
 </div>
 
-Par abus de langage, on nommera souvent ce composant **LoadBalancer** (abrégé en "lb") même en présence d'un seul serveur en "backend".
+Par abus de langage, ce composant sera souvent nommé **LoadBalancer** (abrégé en "lb") même en présence d'un seul serveur en "backend".
+
+## Principe de configuration
+
+Dans le principe, il reviendra de **mettre en correspondance des URL externes et des URL internes**. Par exemple, pour 3 instances d'une "app" écoutant en HTTP sur le port 3000 :
+
+| URL externe               | URL interne                                                           |
+| ------------------------- | --------------------------------------------------------------------- |
+| `https://app.exemple.net` | `http://app01:3000`<br />`http://app02:3000`<br />`http://app03:3000` |
+
+## Impact au niveau des applications
+
+### Les services doivent supporter le partage de charge
+
+Dans le cas idéal, **un service web ne doit pas stocker localement des états**. Sans cela, un même serveur devra traiter les requêtes successives d'un même client et il sera nécessaire de mettre en oeuvre un mécanisme d'**affinité de session** au niveau du LoadBalancer.
+
+### Les services ne voient pas les IP des clients
+
+Par défaut, **les services derrière le LoadBalancer verront l'IP du LoadBalancer** au niveau de la connexion. En cas de besoin d'accéder à l'IP du client (ex : pour protéger une authentification par mot de passe contre des attaques par force brute), on s'appuiera généralement sur l'ajout d'un entête HTTP au niveau du LoadBalancer (`X-Forwarded-For` ou `X-Real-IP`)
+
+### Les services ne voient pas les URL externes
+
+Un service en backend d'un LoadBalancer n'a pas une vue directe sur les URL externes. Il faudra au besoin calculer ces URL à partir des entêtes HTTP ajoutées aux requêtes par le reverse proxy (`X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-For`...)
+
+(voir par exemple [docs.geoserver.org - Use headers for Proxy URL](https://docs.geoserver.org/stable/en/user/configuration/globalsettings.html#use-headers-for-proxy-url) où les entêtes supportées par [GeoServer](https://geoserver.org/) sont documentées)
 
 ## Autres cas d'utilisation du LoadBalancer
 
@@ -28,30 +52,19 @@ Ce composant jouera régulièrement d'autres rôles. Il pourra être utilisé po
 * Mettre en oeuvre des **limites de débit de téléchargement** (ex : max 500 ko/s/IP)
 * ...
 
-## Principe de configuration
 
-Nous configurerons la correspondance entre des URL externes et des URL internes. Par exemple, pour 3 instances d'une "app" écoutant en HTTP sur le port 3000 :
+## Quelques exemple d'implémentations
 
-| URL externe               | URL interne                                                           |
-| ------------------------- | --------------------------------------------------------------------- |
-| `https://app.exemple.net` | `http://app01:3000`<br />`http://app02:3000`<br />`http://app03:3000` |
+Il existe de nombreuses solutions mais nous citerons par exemple :
 
+* [nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/)
+* [haproxy](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balance-your-servers) à l'échelle d'une zone d'hébergement.
+* [traefik](https://doc.traefik.io/traefik/) qui dispose de mécanismes de **découverte de configuration**.
 
-## Impact au niveau des applications
+Avec Kubernetes, nous trouverons deux concepts :
 
-### Les services doivent supporter le partage de charge
-
-Dans le cas idéal, un service web ne doit pas stocker localement des états. Sans cela, un même serveur devra traiter les requêtes successives d'un même client et il sera nécessaire de mettre en oeuvre un mécanisme d'**affinité de session** au niveau du LoadBalancer.
-
-### Les services ne voient pas les IP des clients
-
-Par défaut, les services derrière le LoadBalancer verront l'IP du LoadBalancer au niveau de la connexion. En cas de besoin d'accéder à l'IP du client (ex : pour protéger une authentification par mot de passe contre des attaques par force brute), on s'appuiera généralement sur l'ajout d'un entête HTTP au niveau du LoadBalancer (`X-Forwarded-For` ou `X-Real-IP`)
-
-### Les services ne voient pas les URL externes
-
-Un service en backend d'un LoadBalancer n'a pas une vue directe sur les URL externes. Il faudra au besoin calculer ces URL à partir des entêtes HTTP ajoutées aux requêtes par le reverse proxy (`X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-For`...)
-
-(voir par exemple [docs.geoserver.org - Use headers for Proxy URL](https://docs.geoserver.org/stable/en/user/configuration/globalsettings.html#use-headers-for-proxy-url) où les entêtes supportées par [GeoServer](https://geoserver.org/) sont documentées)
+* Un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) assurant le rôle de reverse proxy devant des [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) à l'intérieur du cluster.
+* Un [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) pour l'exposition externe en HTTP/HTTPS avec plusieurs implémentations disponibles ([nginx-ingress-controller](https://docs.nginx.com/nginx-ingress-controller/), [traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/),...)
 
 ## Deux types de LoadBalancer
 
@@ -62,23 +75,10 @@ Nous trouverons deux types de LoadBalancer :
 
 Nous nous sommes concentré ici sur le deuxième cas particulièrement fréquent avec les services web.
 
-## Quelques exemple d'implémentations
-
-Il existe de nombreuses solutions mais nous citerons par exemple :
-
-* [nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/)
-* [haproxy](https://www.haproxy.com/blog/haproxy-configuration-basics-load-balance-your-servers) à l'échelle d'une zone d'hébergement.
-* [traefik](https://doc.traefik.io/traefik/) qui dispose de mécanisme de **découverte de configuration**.
-
-Avec Kubernetes, nous trouverons deux concepts :
-
-* Un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) assurant le rôle de reverse proxy devant des [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) à l'intérieur du cluster.
-* Un [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) pour l'exposition externe en HTTP/HTTPS avec plusieurs implémentations disponibles ([nginx-ingress-controller](https://docs.nginx.com/nginx-ingress-controller/), [traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/),...)
-
 ## Quelques références
 
 * [blog.octo.com - BD - Le Load Balancer](https://blog.octo.com/bd-le-load-balancer/)
-* [medium.com - Difference Between Layer 4 vs. Layer 7 Load Balancing](https://medium.com/@harishramkumar/difference-between-layer-4-vs-layer-7-load-balancing-57464e29ed9f)
 * [www.ssi.gouv.fr - RECOMMANDATIONS POUR LA MISE EN ŒUVRE D'UN SITE WEB : MAÎTRISER LES STANDARDS DE SÉCURITÉ CÔTÉ NAVIGATEUR](https://www.ssi.gouv.fr/uploads/2013/05/anssi-guide-recommandations_mise_en_oeuvre_site_web_maitriser_standards_securite_cote_navigateur-v2.0.pdf) qui aborde entre autres les entêtes de sécurité.
+* [medium.com - Difference Between Layer 4 vs. Layer 7 Load Balancing](https://medium.com/@harishramkumar/difference-between-layer-4-vs-layer-7-load-balancing-57464e29ed9f)
 
 

@@ -22,9 +22,9 @@
 
   <header class="container">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
       <div class="container-fluid">
-        <a class="navbar-brand" href="">
+        <a class="navbar-brand" href="index.html">
           <img src="assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,16 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="">Annexes</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../#2">Cours</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="depots.html">Dépôts</a>
+              <a class="nav-link" href="index.html">Annexes</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="depots.html">Dépôts</a>
             </li>
           </ul>
         </div>
@@ -53,7 +50,15 @@
   <main id="main" class="container">
 
     <div class="markdown-body">
-      <h1 id="annexes">Annexes</h1><h2 id="les-outils-devops">Les outils DevOps</h2><p>Pour les outils abordés dans ce cours :</p>
+      <h1 id="annexes">Annexes</h1><p>Ces fiches sont les annexes venant compléter la présentation <a href="../#2">mborne.github.io/cours-devops - Introduction à la méthode DevOps</a>.</p>
+<h2 id="pré-requis">Pré-requis</h2><p>Les concepts détaillés au besoin pendant la présentation :</p>
+<ul>
+<li><a href="lb-rp.html">Le partage de charge et reverse proxy</a></li>
+<li><a href="https://blog.octo.com/le-bastion-ssh/" target="_blank">blog.octo.com - Le bastion SSH</a></li>
+<li><a href="proxy-sortant/index.html">Le proxy sortant</a></li>
+<li><a href="stockage-artefact.html">Le stockage des livrables et des artefacts</a></li>
+</ul>
+<h2 id="les-outils-devops">Les outils DevOps</h2><p>Les principaux outils abordés dans ce cours :</p>
 <ul>
 <li><a href="vagrant/index.html">Vagrant</a></li>
 <li><a href="ansible.html">Ansible</a></li>
@@ -62,33 +67,8 @@
 </ul>
 <p>Pour aller plus loin, voir :</p>
 <ul>
-<li><a href="https://roadmap.sh/devops" target="_blank">roadmap.sh - devops</a> qui propose un chemin d&#39;apprentissage permettant de découvrir les principaux concepts et outils associés qu&#39;un DevOps est amenés à rencontrer.</li>
-<li><a href="stockage-artefact.html">Le stockage des livrables et des artefacts</a></li>
+<li><a href="https://roadmap.sh/devops" target="_blank">roadmap.sh - devops</a> qui propose un chemin d&#39;apprentissage permettant de découvrir les principaux concepts et outils qu&#39;un DevOps est amené à rencontrer.</li>
 <li><a href="https://landscape.cncf.io/" target="_blank">landscape.cncf.io - CNCF Cloud Native Interactive Landscape</a> qui donne un panorama des outils &quot;cloud native&quot;</li>
-</ul>
-<h2 id="compléments">Compléments</h2><h3 id="les-services-supports-classiques">Les services supports classiques</h3><ul>
-<li><a href="lb-rp.html">Le partage de charge et reverse proxy</a></li>
-<li><a href="proxy-sortant/index.html">Le proxy sortant</a></li>
-<li><a href="https://blog.octo.com/le-bastion-ssh/" target="_blank">blog.octo.com - Le bastion SSH</a></li>
-</ul>
-<h3 id="les-tests">Les tests</h3><ul>
-<li><a href="https://blog.octo.com/la-pyramide-des-tests-par-la-pratique-1-5/" target="_blank">blog.octo.com - La pyramide des tests par la pratique</a></li>
-<li><a href="https://fr.wikipedia.org/wiki/Chaos_Monkey" target="_blank">fr.wikipedia.org - Chaos_Monkey (Netflix)</a> pour les tests de résilience sur les infrastructures.</li>
-</ul>
-<h3 id="principes-darchitecture-pour-le-cloud">Principes d&#39;architecture pour le cloud</h3><p>Pour concevoir des applications faciles à déployer, à exploiter et capables de passer à l&#39;échelle voir :</p>
-<ul>
-<li><a href="https://12factor.net" target="_blank">12factor.net - Les 12 facteurs</a> pour la version officielle<ul>
-<li><a href="12-facteurs.html">DevOps - Les 12 facteurs</a> pour la fiche de synthèse faisant le lien avec les éléments vu dans ce cours.</li>
-<li><a href="https://www.softfluent.fr/blog/the-12-factor-app-sont-ils-toujours-dactualite/" target="_blank">www.softfluent.fr - The 12-factor app : sont-ils toujours d’actualité ?</a> qui passe en revue et étends ces principes posés en 2012</li>
-</ul>
-</li>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/" target="_blank">learn.microsoft.com - Modèles de conception de cloud</a> dont :<ul>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring" target="_blank">learn.microsoft.com - Modèle Surveillance de point de terminaison</a> qui décrit le principe d&#39;URL dédiée à la surveillance.</li>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/cqrs" target="_blank">learn.microsoft.com - CQRS</a> qui incite à séparer les API d&#39;écriture et de lecture pour s&#39;adapter à la charge plus facilement sur la seule diffusion (ex : <code>/wms</code>, <code>/wfs</code> vs <code>/geoserver/</code>)</li>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/strangler-fig" target="_blank">learn.microsoft.com - Modèle Figuier étrangleur</a> qui guide pour faciliter les migrations d&#39;un ancien vers un nouveau service.</li>
-<li><a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/retry" target="_blank">learn.microsoft.com - Modèle Nouvelle tentative</a> et <a href="https://learn.microsoft.com/fr-fr/azure/architecture/patterns/circuit-breaker" target="_blank">learn.microsoft.com - Modèle Disjoncteur</a> qui donne de l&#39;inspiration pour survivre aux instabilités d&#39;un service tiers.</li>
-</ul>
-</li>
 </ul>
 
     </div>
@@ -98,7 +78,7 @@
   <footer class="container-fluid">
     <div class="row">
       <div class="col-md-12 text-center">
-        ©2023 <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a>
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
       </div>
     </div>
   </footer>
