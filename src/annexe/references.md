@@ -10,15 +10,23 @@ En correspondance avec les parties origines et principes DevOps :
 * [meritis.fr - Qu’est-ce que le DevOps ? Concepts fondamentaux et bonnes pratiques du DevOps](https://meritis.fr/devops-avez-dit-devops/)
 * [docs.microsoft.com - Liste de contrôle DevOps](https://docs.microsoft.com/fr-fr/azure/architecture/checklist/dev-ops)
 
-Pour le concept *Lean* en particulier :
-
-* [www.leanprimer.com - LEAN PRIMER par Craig Larman et Bas Vodde](https://www.leanprimer.com/downloads/lean_primer_fr.pdf)
-* [pablopernot.fr - Lean Software Development (présentation)](https://pablopernot.fr/pdf/LSD-08.pdf)
-
 En image :
 
 * [www.commitstrip.com - Comment savoir si votre entreprise est DevOps](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/)
 * [www.commitstrip.com - Tout automatisé… ou presque](https://www.commitstrip.com/fr/2015/06/22/can-we-automate-everything/)
+
+Pour le concept *Lean* en particulier :
+
+* [www.leanprimer.com - LEAN PRIMER par Craig Larman et Bas Vodde](https://www.leanprimer.com/downloads/lean_primer_fr.pdf)
+* [pablopernot.fr - Lean Software Development (présentation)](https://pablopernot.fr/pdf/LSD-08.pdf)
+* Lean Software Development: An Agile Toolkit (Mary Poppendieck, Tom Poppendieck)
+* Lean startup (Eric Ries)
+
+En complément :
+
+* [blog.stephane-robert.info - Formation DevOps](https://blog.stephane-robert.info/docs/)
+* [blog.stephane-robert.info - Glossaire DevOps](https://blog.stephane-robert.info/docs/glossaire/introduction/)
+
 
 ## Les tests
 

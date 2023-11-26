@@ -83,7 +83,7 @@ Nous utiliserons principalement les **clients en ligne de commande pour l'API do
 
 ### DockerHub
 
-Nous trouverons plusieurs dépôts d'images mettant à disposition des images docker prêtes à l'emploi. Le plus connu est [DockerHub](https://hub.docker.com/search?q=) mettant à disposition :
+Nous trouverons plusieurs dépôts d'images mettant à disposition des images docker prêtes à l'emploi. Le plus connu étant [DockerHub](https://hub.docker.com/search?q=) qui met à disposition :
 
 * Des images d'OS : [ubuntu](https://hub.docker.com/_/ubuntu), [debian](https://hub.docker.com/_/debian), [alpine](https://hub.docker.com/_/alpine),...
 * Des images pour des services : [postgres](https://hub.docker.com/_/postgres), [mongodb](https://hub.docker.com/_/mongodb), [redis](https://hub.docker.com/_/redis),...
@@ -91,7 +91,7 @@ Nous trouverons plusieurs dépôts d'images mettant à disposition des images do
 
 Pour déployer GeoStack, nous y trouverons par exemple :
 
-* Une image [postgis/postgis](https://hub.docker.com/r/postgis/postgis) pour le déploiement PostgreSQL
+* Une image [postgis/postgis](https://hub.docker.com/r/postgis/postgis) pour le déploiement PostgreSQL avec l'extension spatiale PostGIS.
 * De [nombreuses images GeoServer](https://hub.docker.com/search?q=geoserver)
 
 > Nous remarquerons que l'utilisation de DockerHub pour stocker des images ne sera pas forcément gratuite (c.f. [docker.com - Pricing & Subscriptions](https://www.docker.com/pricing/)) et qu'il existe une [limite de nombre de téléchargement par IP ou par utilisateur](https://docs.docker.com/docker-hub/download-rate-limit/).
@@ -107,10 +107,10 @@ Nous noterons toutefois qu'il existe d'autres dépôts d'images publiquement acc
 * [quay.io](https://quay.io/) de RedHat mettant par exemple à disposition les [dernières versions de Keycloak](https://quay.io/repository/keycloak/keycloak)
 * [docker.elastic.co](https://www.docker.elastic.co/) mettant à disposition les images de la stack ELK
 
-Nous noterons que :
+Ainsi :
 
-* En l'absence de précision, nous utiliserons DockerHub (utiliser l'image `keycloak/keycloak` sera équivalent à utiliser l'image `docker.io/keycloak/keycloak`).
-* Nous préciserons le domaine en cas d'utilisation d'un autre dépôt (ex : `quay.io/keycloak/keycloak`)
+* **En l'absence de précision, nous utiliserons DockerHub** (utiliser l'image `keycloak/keycloak` sera équivalent à utiliser l'image `docker.io/keycloak/keycloak`).
+* **Nous préciserons le domaine en cas d'utilisation d'un autre dépôt** (ex : `quay.io/keycloak/keycloak`)
 
 ---
 
@@ -122,10 +122,10 @@ Il est possible de stocker des images avec des outils tels [Harbor](https://goha
 
 ### Le dépôt d'images du gestionnaire de code source
 
-Toutefois, la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,...) intègrent désormais un système de stockage d'image docker (ghcr.io, registry.gitlab.com,...) ce qui :
+Toutefois, **la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,...) intègrent désormais un système de stockage d'image docker** (ghcr.io, registry.gitlab.com,...) ce qui :
 
-* Évite de gérer en parallèle des authentifications et des droits au niveau du dépôt d'images.
-* Simplifie la publication des images au niveau des orchestrateurs d'intégration continue (qui sont eux aussi intégrés aux gestionnaires de code source)
+* **Évite de gérer en parallèle des authentifications et des droits au niveau du dépôt d'images**.
+* **Simplifie la publication des images** au niveau des orchestrateurs d'intégration continue (qui sont eux aussi intégrés aux gestionnaires de code source)
 
 ---
 
@@ -133,9 +133,9 @@ Toutefois, la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,..
 
 ### Le dépôt d'image des hébergeurs
 
-Enfin, nous noterons l'existence de dépôts d'images au niveau des solutions d'hébergement (ex : Google Container Registry, Azure Container Registry, Amazon Elastic Container Registry (ECR)...).
+Enfin, nous mentionneront l'existence de **dépôts d'images au niveau des solutions d'hébergement** (ex : Google Container Registry, Azure Container Registry, Amazon Elastic Container Registry (ECR)...).
 
-Leur utilisation sera parfois imposée pour déployer sur les infrastructures mises à disposition par ces hébergeurs.
+Leur utilisation sera parfois imposée pour utiliser certaines fonctionnalités.
 
 > NB : Un hébergeur ne pourra pas garantir qu'il est capable de redéployer votre application en cas de problème s'il dépend une infrastructure tierce.
 
@@ -225,10 +225,12 @@ Pour la prise en main du client [docker](https://docs.docker.com/engine/referenc
 
 * [mborne/docker-exemples](https://github.com/mborne/docker-exemples#docker---quelques-exemples)
 
-Pour la prise en main de [docker compose](https://docs.docker.com/compose/reference/#command-options-overview-and-help), nous utiliserons [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est mon terrain de jeu pour docker et Kubernetes en démarrant :
+Pour la prise en main de [docker compose](https://docs.docker.com/compose/reference/#command-options-overview-and-help), nous utiliserons [mborne/docker-devbox](https://github.com/mborne/docker-devbox/#mbornedocker-devbox) qui est mon terrain de jeu pour docker et Kubernetes en démarrant (1) :
 
 * [mborne/docker-devbox - redis](https://github.com/mborne/docker-devbox/tree/master/redis)
 * [mborne/docker-devbox - postgis](https://github.com/mborne/docker-devbox/tree/master/postgis)
+
+> (1) Il faudra en pré-requis exécuter `docker network create devbox` (l'intérêt de la chose sera expliqué par la suite)
 
 ---
 
@@ -277,8 +279,11 @@ Nous soulignerons que sans "docker compose", nous serions amené à exécuter de
 
 Avec Ansible, la mise en oeuvre d'un reverse proxy aurait induit par exemple l'installation et la configuration de nginx.
 
-Avec docker, nous soulignerons [que la présence d'une API au niveau de docker](https://doc.traefik.io/traefik/providers/docker/) permet des mécanismes de **découverte de configuration** exploité par exemple par [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#traefik).
+Avec docker, la présence d'une [API au niveau de docker](https://doc.traefik.io/traefik/providers/docker/) permet des mécanismes de **découverte de configuration** exploités par exemple par [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#traefik).
 
+Nous traiterons le déploiement [geostack-deploy - docker - Mise en oeuvre d'un reverse proxy](https://github.com/mborne/geostack-deploy/blob/master/docker/README.md#mise-en-oeuvre-dun-reverse-proxy) pour en comprendre le fonctionnement.
+
+> En alternative à Traefik, il est possible d'utiliser [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy). La principale problématique à traiter sera la même : Le LoadBalancer devra avoir accès aux conteneurs exposés (d'où le réseau "devbox" au niveau de [mborne/docker-devbox](https://github.com/mborne/docker-devbox)).
 
 ---
 

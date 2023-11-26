@@ -58,15 +58,15 @@ Nous reconnaîtrons dans ce processus la **roue de Deming** bien connue dans le 
     </p>
 </div>
 
-Nous constaterons avec qu'il est principalement question avec DevOps de **ne pas avoir deux processus distincts pour le développement et le déploiement**.
+Nous constaterons avec DevOps qu'il est principalement question de **ne pas avoir deux processus distincts pour le développement et le déploiement**.
 
 ---
 
 ## Un processus sujet à l'amélioration continue
 
-Nous conviendrons que la mise en oeuvre d'un tel processus prendra du temps et qu'il sera toujours perfectible.
+Nous conviendrons que **la mise en oeuvre d'un tel processus prendra du temps** et qu'il sera **toujours perfectible**.
 
-A ce titre, il conviendra d'**améliorer en continu ce processus**.
+A ce titre, il conviendra de l'**améliorer en continu**.
 
 ---
 
@@ -80,7 +80,8 @@ Pour faire évoluer les pratiques et les processus, il faudra d'abord une compr�
 
 * De **ce qu'est l'agilité dans le développement** (et de ce que ça implique au niveau de l'exploitation, de la prévisibilité des coûts et des plannings de livraison des fonctionnalités...) 
 * Des **limites des méthodes d'exploitation traditionnelle** (d'où les nombreuses slides)
-* Des **problèmes et améliorations possibles** dans les processus en vigueur.
+* Des **goulots d'étranglement et améliorations possibles dans les processus de déploiement** en vigueurs
+* ...
 
 ---
 
@@ -90,9 +91,9 @@ Pour faire évoluer les pratiques et les processus, il faudra d'abord une compr�
 
 Avant de cibler une **infrastructure agile**, il faudra être nombreux à constater un problème quand :
 
-* La livraison d'une application avec une simple mise à jour des dépendances prend des jours (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
-* Les procédures de déploiement ne sont pas nécessairement à jour.
-* L'ajout d'une VM pour faire face à un pic de charge est impossible (5j pour obtenir la machine, 5j pour configurer le [load balancer](annexe/lb-rp.html),...).
+* **La livraison d'une application** avec une simple mise à jour des dépendances **prend des jours** (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
+* La **procédure de déploiement n'est pas à jour**
+* L'ajout d'une VM pour **faire face à un pic de charge est impossible** (5j pour obtenir la machine, 5j pour configurer le [load balancer](annexe/lb-rp.html),...)
 * ...
 
 ---
@@ -103,20 +104,26 @@ Avant de cibler une **infrastructure agile**, il faudra être nombreux à consta
 
 En pratique, s'orienter vers la méthode DevOps sera délicat sans une **politique globale permettant l'agilité au niveau de l'entreprise**. Sans entrer dans les détails :
 
-* Il sera difficile d'impliquer les DEV dans l'exploitation avec une logique de projet où le travail s'arrête à la mise en production.
-* Il sera difficile de calculer des métriques avec des projets gérés avec des méthodes hétérogènes (Excel, JIRA, Teams, Redmine, issues GitHub/GitLab, voire par mail...)
+* Il sera difficile d'impliquer les DEV dans l'exploitation avec une **logique de projet où le travail s'arrête à la mise en production**.
+* Il sera **difficile d'identifier les problèmes et améliorations avec des projets gérés avec des méthodes hétérogènes** (Excel, JIRA, Teams, Redmine, issues GitHub/GitLab, voire par mail...)
+* Il deviendra aussi **difficile de contacter efficacement des DEV et des OPS pour les traiter** après arrêt de l'ajout de fonctionnalités.
+
 ---
 
 ## Le modèle CALMS
 
 ### Culture (4/4)
 
-Concrètement, il sera souvent nécessaire de revoir [la gestion du cycle de vie des applications (ALM)](https://www.redhat.com/fr/topics/devops/what-is-application-lifecycle-management-alm) pour :
+Concrètement, il faudra aller [au-delà de Microsoft Office Excel pour la gestion de projets (support.microsoft.com)](https://support.microsoft.com/fr-fr/office/au-del%C3%A0-de-microsoft-office-excel-pour-la-gestion-de-projets-b68caffe-6552-4764-bc53-9107e12d3e22) et revoir [la gestion du cycle de vie des applications (ALM)](https://www.redhat.com/fr/topics/devops/what-is-application-lifecycle-management-alm) pour :
 
-* **Passer d'une logique de projet à une logique de produit**.
-* Pouvoir **mettre en évidence les problèmes et les améliorations** en systématisant par exemple l'utilisation d'un **gestionnaire de ticket**.
+* **Passer d'une logique de projet à une logique de produit** (avec la MCO et la MCS, il faut des DEV et des OPS jusqu'à l'arrêt d'un service!)
+* **Maintenir une liste de ces produits** avec une revue régulière pour **éteindre ceux devenus inutiles** (exemple : [gcemetery.co - THE GOOGLE CEMETERY](https://gcemetery.co/))
+* Pouvoir **mettre en évidence les problèmes et les améliorations** en systématisant l'utilisation d'un **gestionnaire de ticket** (qui permettra au passage de contacter efficacement les DEV et les OPS).
 
-Nous trouverons à ce titre des **framework d'agilité à l'échelle** tels [Scaled agile framework (SAFe)](https://www.scaledagileframework.com/) qui incluront DevOps dans une démarche plus globale.
+Nous trouverons à ce titre des **framework d'agilité à l'échelle** tels [Scaled agile framework (SAFe)](https://www.scaledagileframework.com/) qui incluront **DevOps dans une démarche plus globale**.
+
+
+> MCO = maintien en condition opérationnelle / MCS = Maintien en Condition de Sécurité.
 
 ---
 
@@ -145,9 +152,9 @@ Le concept **Lean** trouve ses origines chez Toyota avec deux fondamentaux :
 
 La lecture de [LEAN PRIMER par Craig Larman et Bas Vodde](https://www.leanprimer.com/downloads/lean_primer_fr.pdf) en donnera une idée plus précise mais nous soulignerons que l'accent est mis sur :
 
-* Une multitude d'amélioration au quotidien par l'**automatisation** et **remise en cause permanente des processus** ("mon travail est de faire mon travail, et d'améliorer mon travail" )
-* La **diffusion horizontale des connaissances**.
-* L'**observation sur le terrain**
+* Une multitude d'amélioration au quotidien par l'**automatisation** et **la remise en cause permanente des processus** ("mon travail est de faire mon travail, et d'améliorer mon travail" )
+* La **diffusion horizontale des connaissances**
+* L'**observation sur le terrain** ("Ne regardez pas avec vos yeux, regardez avec vos jambes… les gens qui regardent uniquement les chiffres sont les pires.")
 * La distinction entre ce qui la **production de valeur** et le **gaspillage** classé en trois catégories : [Muda (action NVA), Mura (variabilité) et Muri (surcharge)](https://www.kostango.com/definition/3m-muda-mura-muri)
 
 ---

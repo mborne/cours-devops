@@ -102,8 +102,7 @@
 <li>Installer ou mettre à jour un chart : <code>helm -n=jenkins-system upgrade --install jenkins jenkins/jenkins</code></li>
 <li>Prévisualiser les fichiers YAML : <code>helm template jenkins jenkins/jenkins</code> (ou <code>--dry-run</code> sur install/upgrade)</li>
 </ul>
-<h2 id="création-dun-chart">Création d&#39;un chart</h2><p>La commande <code>helm create whoami</code> génère un modèle de chart pour le déploiement d&#39;une application (nginx) qu&#39;il sera possible d&#39;adapter pour sa propre application.</p>
-<h2 id="quelques-exemples">Quelques exemples</h2><h3 id="jenkins">Jenkins</h3><pre><code class="language-bash"># Ajout du dépôt jenkins
+<h2 id="quelques-exemples-dutilisation">Quelques exemples d&#39;utilisation</h2><h3 id="déploiement-de-jenkins">Déploiement de Jenkins</h3><pre><code class="language-bash"># Ajout du dépôt jenkins
 helm repo add jenkins https://charts.jenkins.io
 # Mise à jour des dépôts
 helm repo update
@@ -112,7 +111,7 @@ kubectl create namespace jenkins-system
 # Installation ou mise à jour
 helm --namespace=jenkins-system upgrade --install jenkins jenkins/jenkins
 </code></pre>
-<h3 id="postgresql-avec-bitnami">PostgreSQL avec bitnami</h3><pre><code class="language-bash"># Ajout du dépot bitnami
+<h3 id="déploiement-de-postgresql">Déploiement de PostgreSQL</h3><pre><code class="language-bash"># Ajout du dépot bitnami
 helm repo add bitnami https://charts.bitnami.com/bitnami
 # Mise à jour des dépôts
 helm repo update
@@ -132,14 +131,18 @@ psql --host 127.0.0.1 -U postgres -d postgres -p 15432 -W
 <li><a href="https://github.com/bitnami/charts/tree/main/bitnami/postgresql#readme" target="_blank">PostgreSQL packaged by Bitnami</a></li>
 <li><a href="https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml" target="_blank">bitnami/postgresql/values.yaml</a></li>
 </ul>
-<h2 id="notes">Notes</h2><ul>
+<h2 id="création-dun-chart">Création d&#39;un chart</h2><p>La commande <code>helm create whoami</code> génère un modèle de chart pour le déploiement d&#39;une application (nginx) qu&#39;il sera possible d&#39;adapter pour sa propre application.</p>
+<p>Pour vos premiers pas, noter que :</p>
+<ul>
+<li>Les variables d&#39;environnement sont toujours des strings (il faudra les échapper comme suit <code>{{ .Values.database.port | quote }}</code>)</li>
 <li>Les variables <code>global</code> sont accessibles depuis tous les sous charts</li>
-<li>Les variables d&#39;environnement sont toujours des strings (<code>{{ .Values.database.port | quote }}</code>)</li>
 </ul>
 <h2 id="ressources">Ressources</h2><ul>
 <li><a href="https://helm.sh/docs/intro/install/" target="_blank">helm.sh - Installing Helm</a></li>
 <li><a href="https://helm.sh/docs/chart_best_practices/" target="_blank">helm.sh - The Chart Best Practices Guide</a></li>
 <li><a href="https://hub.docker.com/r/alpine/helm" target="_blank">hub.docker.com - alpine/helm</a></li>
+<li><a href="https://github.com/mborne/docker-devbox#readme" target="_blank">github.com - mborne/docker-devbox</a> où de nombreux scripts <code>k8s-install.sh</code> s&#39;appuient sur des déploiements Helm.</li>
+<li><a href="https://github.com/mborne/helm-charts#helm-charts" target="_blank">github.com - mborne/helm-charts</a> quelques charts helm développer pour comprendre les mécanismes de publication sous forme d&#39;image docker avec GitHub Container Registry (ex : <code>oci://ghcr.io/mborne/helm-charts/postgres-dev</code>)</li>
 </ul>
 
     </div>

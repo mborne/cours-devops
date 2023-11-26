@@ -10,7 +10,6 @@
 * [helm.sh - Installing Helm - From Script](https://helm.sh/docs/intro/install/#from-script)
 * [helm.sh - Installing Helm - From Apt (Debian/Ubuntu)](https://helm.sh/docs/intro/install/#from-apt-debianubuntu)
 
-
 ## Quelques dépôts
 
 | NAME       | URL                                                                    |
@@ -34,15 +33,9 @@
 * Installer ou mettre à jour un chart : `helm -n=jenkins-system upgrade --install jenkins jenkins/jenkins`
 * Prévisualiser les fichiers YAML : `helm template jenkins jenkins/jenkins` (ou `--dry-run` sur install/upgrade)
 
+## Quelques exemples d'utilisation
 
-## Création d'un chart
-
-La commande `helm create whoami` génère un modèle de chart pour le déploiement d'une application (nginx) qu'il sera possible d'adapter pour sa propre application.
-
-
-## Quelques exemples
-
-### Jenkins
+### Déploiement de Jenkins
 
 ```bash
 # Ajout du dépôt jenkins
@@ -55,7 +48,7 @@ kubectl create namespace jenkins-system
 helm --namespace=jenkins-system upgrade --install jenkins jenkins/jenkins
 ```
 
-### PostgreSQL avec bitnami
+### Déploiement de PostgreSQL
 
 
 ```bash
@@ -80,14 +73,20 @@ Voir :
 * [PostgreSQL packaged by Bitnami](https://github.com/bitnami/charts/tree/main/bitnami/postgresql#readme)
 * [bitnami/postgresql/values.yaml](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml)
 
+## Création d'un chart
 
-## Notes
+La commande `helm create whoami` génère un modèle de chart pour le déploiement d'une application (nginx) qu'il sera possible d'adapter pour sa propre application.
 
+Pour vos premiers pas, noter que :
+
+* Les variables d'environnement sont toujours des strings (il faudra les échapper comme suit `{{ .Values.database.port | quote }}`)
 * Les variables `global` sont accessibles depuis tous les sous charts
-* Les variables d'environnement sont toujours des strings (`{{ .Values.database.port | quote }}`)
 
 ## Ressources
 
 * [helm.sh - Installing Helm](https://helm.sh/docs/intro/install/)
 * [helm.sh - The Chart Best Practices Guide](https://helm.sh/docs/chart_best_practices/)
 * [hub.docker.com - alpine/helm](https://hub.docker.com/r/alpine/helm)
+* [github.com - mborne/docker-devbox](https://github.com/mborne/docker-devbox#readme) où de nombreux scripts `k8s-install.sh` s'appuient sur des déploiements Helm.
+* [github.com - mborne/helm-charts](https://github.com/mborne/helm-charts#helm-charts) quelques charts helm développer pour comprendre les mécanismes de publication sous forme d'image docker avec GitHub Container Registry (ex : `oci://ghcr.io/mborne/helm-charts/postgres-dev`)
+

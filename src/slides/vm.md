@@ -39,8 +39,9 @@ Nous en étudierons les limites par la suite.
 <span style="color: red; font-weight">Construire une application sur la PRODUCTION amène de nombreux problèmes :</span>
 
 * Le risque de **ne pas pouvoir redéployer l'application en cas de problème** (ex : disparition d'une dépendance, indisponibilité d'un service,...)
-* Une augmentation de la durée du déploiement
-* La construction sur chaque instance.
+* Une **augmentation de la durée du déploiement** (construction sur chaque instance)
+* Le besoin d'**accéder à des ressources non exposées** (donc des demandes d'exception sur les pare-feux)
+* Le besoin d'**accéder à des ressources privées** (donc des authentifications supplémentaires avec git, npm,...)
 * ...
 
 NB : L'utilisation de fichier `package-lock.json`, `composer.lock`,... ne vous protégera que contre une montée en version inattendue des dépendances.
@@ -66,17 +67,6 @@ Pour le déploiement d'une application en PRODUCTION, il est important de :
 
 ## La création d'un livrable (3/4)
 
-### Choisir des services déjà empaquetés
-
-Dans le cas présent, nous avons cette chance :
-
-* [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous avons même un dépôt [APT](https://wiki.postgresql.org/wiki/Apt) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
-* [GeoServer](https://geoserver.org/release/stable/) met lui aussi à disposition des livrables prêts à l'emploi.
-
----
-
-## La création d'un livrable (4/4)
-
 ### Packager sa propre application
 
 Dans le cas où il convient de créer un livrable pour sa propre application, nous remarquerons que :
@@ -91,6 +81,17 @@ Nous n'entrerons pas trop dans le détail (*spoiler* : nous verrons comment l'ut
 
 ---
 
+## La création d'un livrable (4/4)
+
+### Choisir des services déjà empaquetés
+
+Dans le cas présent, nous avons cette chance :
+
+* [PostgreSQL](https://www.postgresql.org/download/) met à disposition des binaires pour différents systèmes. Nous avons même un dépôt [APT](https://wiki.postgresql.org/wiki/Apt) qui permettra d'utiliser `apt-get install` et `apt-get upgrade`
+* [GeoServer](https://geoserver.org/release/stable/) met lui aussi à disposition des livrables prêts à l'emploi.
+
+---
+
 ## La création des VM (1/5)
 
 ### La variété des API
@@ -101,12 +102,11 @@ Il existe une grande variétés d'offres d'hébergement offrant une API permetta
 * Les réseaux privés (*network*)
 * Le stockage (*storage*)
 * L'exposition de service (*Load Balancer*)
-* Un nom de domaine / DNS (1)
+* Un nom de domaine / DNS
 * ...
 
 Nous trouverons des **concepts spécifiques à chaque solution dans ces API** (c.f. [API OVHCloud](https://api.us.ovhcloud.com/console/), [API Scaleway](https://developers.scaleway.com/en/), [DigitalOcean API (2.0)](https://docs.digitalocean.com/reference/api/api-reference/)...)
 
-> (1) Particulièrement pratique pour générer des certificats wildcard [LetsEncrypt](https://letsencrypt.org/fr/) avec [LEGO](https://go-acme.github.io/lego/dns/)
 
 ---
 
@@ -193,8 +193,7 @@ Nous allons nous appuyer sur Ansible qui est une solution :
 * [Libre, OpenSource et référencée dans le SILL (1)](https://sill.etalab.gouv.fr/software?name=Ansible)
 * Basée sur l'utilisation du format YAML
 * Implémentée en Python
-* N'imposant pas un serveur de contrôle
-* Permettant l'utilisation d'un orchestrateur de déploiement (ex : [AWX](https://github.com/ansible/awx#readme), [Jenkins](https://plugins.jenkins.io/ansible/),...).
+* **Permettant l'utilisation d'un orchestrateur de déploiement** (ex : [AWX](https://github.com/ansible/awx#readme), [Jenkins](https://plugins.jenkins.io/ansible/), [GitLab-CI](https://about.gitlab.com/blog/2019/07/01/using-ansible-and-gitlab-as-infrastructure-for-code/),...) sans l'imposer.
 
 > (1) [Socle interministériel de logiciels libres](https://sill.etalab.gouv.fr/software) où chef et puppet ne semblent plus être référencés (changement de licence?).
 
@@ -247,12 +246,10 @@ sudo apt-get install nginx
 
 Présenter proprement les [concepts d'Ansible](https://docs.ansible.com/ansible/latest/getting_started/basic_concepts.html) demanderait plusieurs séances.
 
-L'idée de ce cours n'étant pas de former à la rédaction de script Ansible, nous allons plutôt les découvrir à l'aide des exemples suivant :
+L'idée de ce cours n'étant pas de former à la rédaction de script Ansible, nous allons plutôt **découvrir Ansible** à l'aide des exemples suivants :
 
 * [mborne/vagrantbox - Ansible - QuickStart](https://github.com/mborne/vagrantbox#ansible) qui applique un post-traitement après création des VM (configuration `/etc/hosts`, ajout de votre clé SSH, nettoyage `~/.ssh/known_host`...)
 * [mborne/geostack-deploy](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible) qui assure le déploiement de GeoStack avec Ansible.
-
-> Vagrant est en mesure de réaliser un [provisionnement avec Ansible](https://developer.hashicorp.com/vagrant/docs/provisioning/ansible). 
 
 ---
 
@@ -313,7 +310,7 @@ Il faudrait à minima :
 
 ### L'incontournable reverse proxy (1/2)
 
-Il conviendrait à minima de passer sur une architecture du type suivant en ajoutant un reverse proxy ("lb") :
+Il conviendrait aussi à minima de passer sur une architecture du type suivant en ajoutant un reverse proxy ("lb") :
 
 ![GeoStack v0.2](schema/geostack-0.2.png)
 
@@ -394,9 +391,9 @@ Nous soulignerons que l'exercice est loin d'être trivial et comprendrons mieux 
 
 Il est illusoire d'espérer **traiter de manière homogène ces problématiques au niveau de chaque application**. Traiter ces problématiques de manière efficace demandera la **mise en place d'un cadre** pour l'accueil des applications.
 
-Les déploiements seront donc généralement réalisés dans une **zone d'hébergement** prévue pour l'accueil des applications.
+Les déploiements seront donc généralement réalisés dans une **zone d'hébergement** (1) prévue pour l'accueil des applications.
 
-> Le nom variera en fonction des organisations et solutions d'hébergement : *Landing zone* (AWS), socle technique d'exploitation,...
+> (1) Le nom variera en fonction des organisations et solutions d'hébergement : *Landing zone* (AWS), socle technique d'exploitation,...
 
 ---
 
@@ -421,7 +418,7 @@ Pour faire face à la complexité et à la diversité des sujets, nous conviendr
 Nous soulignerons qu'il sera alors possible de préciser les rôles des DEV et des OPS avec par exemple :
 
 * Des **PlatDev** et **PlatOps** en charge des composants de la zone d'hébergement
-* Des **AppDev** et **AppOps** en charge d'applications précises
+* Des **AppDev** et **AppOps** en charge des applications métiers
 
 ---
 
@@ -431,9 +428,9 @@ Nous soulignerons qu'il sera alors possible de préciser les rôles des DEV et d
 
 Toutefois, nous noterons que le **recours à une équipe dédiée** ramène au problème d'origine adressé par DevOps : **La séparation entre les équipes en charge des applications et les équipes en charge de la zone d'hébergement**.
 
-Il conviendra de **s'assurer que la méthode de travail permet l'automatisation des déploiements** dans de bonnes conditions :
+Il conviendra de **s'assurer que le cadre technique et la méthode de travail permettent l'automatisation des déploiements** dans de bonnes conditions :
 
-* La nécessité de recourir à un **ticket** pour configurer un seul élément (ex : LoadBalancer) suffira à **plomber les efforts d'automatisation**
+* La nécessité de recourir à un **ticket** pour configurer un seul élément (ex : ajouter une VM derrière le LoadBalancer) suffira à **plomber les efforts d'automatisation**.
 * Le moindre **comportement inattendu** sera source de **problèmes de cohabitation** entre les équipes applicatives et celle en charge de la zone d'hébergement.
 
 ---
@@ -442,7 +439,7 @@ Il conviendra de **s'assurer que la méthode de travail permet l'automatisation 
 
 ### Le délicat recours à une équipe dédiée... (3/3)
 
-A ce titre, **poser un cadre "as code"** et **être précis sur les demandes** sera incontournable :
+A ce titre, **poser un cadre "as code"** et **être précis sur les responsabilités et les demandes** sera incontournable :
 
 * Avec "je veux des mises à jour régulière", l'équipe en charge de la zone d'hébergement ajoutera potentiellement en bonus un `rm -rf /etc/apt/sources.list.d/*` pour reconfigurer ses seuls dépôts.
 * Avec "je veux une exécution régulière de `apt-get update && apt-get upgrade -y`", il y aura moins de place pour la fantaisie.

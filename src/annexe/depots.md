@@ -14,14 +14,14 @@ Cette page regroupe l'ensemble des dépôts utilisés dans le cours.
 ## Docker
 
 * [github.com - mborne/docker-exemples](https://github.com/mborne/docker-exemples#readme) : dépôt avec des exemples pour prise en main de Docker.
-* [github.com - mborne/docker-devbox](https://github.com/mborne/docker-devbox#readme) : dépôt contenant de nombreux exemples de déploiement avec docker compose.
+* [github.com - mborne/docker-devbox](https://github.com/mborne/docker-devbox#readme) : dépôt contenant des exemples de déploiement avec docker compose.
 * [github.com - mborne/geostack-deploy/docker](https://github.com/mborne/geostack-deploy/tree/master/docker#readme) : dépôt pour déploiement de l'exemple GeoStack du cours avec docker compose.
 
 ## Kubernetes
 
 * [github.com - mborne/k3s-deploy](https://github.com/mborne/k3s-deploy#readme) : dépôt pour déploiement d'un cluster Kubernetes avec [K3S](https://k3s.io/) sur les VM vagrantbox avec Ansible.
 * [github.com - mborne/k8s-exemples](https://github.com/mborne/k8s-exemples#readme) : dépôt avec des exemples pour prise en main de Kubernetes.
-* [github.com - mborne/docker-devbox](https://github.com/mborne/docker-devbox#readme) : dépôt contenant de nombreux exemples de déploiement Kubernetes (voir fichiers "k8s-install.sh" encapsulant des appels helm).
+* [github.com - mborne/docker-devbox](https://github.com/mborne/docker-devbox#readme) : dépôt contenant des exemples de déploiement Kubernetes (voir fichiers "k8s-install.sh" encapsulant des appels helm).
 
 
 ## Terraform
