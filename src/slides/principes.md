@@ -372,22 +372,47 @@ Pour identifier rapidement l'origine des problèmes, il sera intéressant de **p
 
 ## L'observabilité
 
-### Les journaux applicatifs
+### Les journaux applicatifs (logs)
 
-En cas de problème, il sera nécessaire d'**avoir une vision sur les traitements réalisés dans une application**.
+En cas de problème, il sera nécessaire d'**avoir une vision sur les traitements réalisés dans une application**. En ce sens, il convient de :
 
-En ce sens, il convient de **produire des journaux applicatifs exploitables** et de les centraliser dans un **puits de log** offrant une interface de recherche efficace. La référence historique en la matière est [la suite ELK](https://www.elastic.co/fr/what-is/elk-stack) où :
+* **Produire des journaux applicatifs exploitables**
+* Centraliser ces journaux dans un **puits de logs** offrant une interface de recherche efficace.
 
-* **ElasticSearch** stocke et indexe les journaux applicatifs
-* **Logstash** parse et intègre les logs dans **ElasticSearch**
-* **Kibana** offre une interface d'exploration des logs
+---
 
-Il sera là aussi possible de choisir des alternatives :
+## L'observabilité
 
-* [OpenSearch](https://opensearch.org/) ou [loki et grafana](https://grafana.com/oss/loki/) plutôt que ElasticSearch et Kibana
-* [fluent](https://github.com/fluent) plutôt que Logstash
-* La solution de l'hébergeur (ex : [OVHCloud - Logs Data Platform](https://docs.ovh.com/fr/logs-data-platform/))
+### Puits de logs (1/2)
+
+La référence historique en matière de **puits de logs** est [la suite ELK (ElasticSearch, Logstash et Kibana)](https://www.elastic.co/fr/what-is/elk-stack) illustrée ci-dessous :
+
+<div class="center">
+    <img src="img/elk.drawio.png" style="height: 350px" />
+</div>
+
+---
+
+## L'observabilité
+
+### Puits de logs (2/2)
+
+Il sera là aussi possible de choisir des **variantes et alternatives** :
+
+* [fluent-bit](https://github.com/fluent/fluent-bit#about) ou [promtail](https://grafana.com/docs/loki/latest/send-data/promtail/) plutôt que Logstash
+* [OpenSearch](https://opensearch.org/) (1) ou [Grafana / Loki](https://grafana.com/oss/loki/) plutôt que ElasticSearch et Kibana
+
+<div class="center">
+    <img src="img/loki.drawio.png" style="height: 180px" />
+</div>
+
+Nous trouverons aussi des **offres SaaS spécifiques aux hébergeurs** telles :
+
+* [OVHCloud - Logs Data Platform](https://docs.ovh.com/fr/logs-data-platform/) (~[Graylog](https://graylog.org/products/operations/) en SaaS)
+* [Google Cloud Logging](https://cloud.google.com/logging?hl=fr)
 * ...
+
+> (1) [Fork de ElasticSearch et Kibana pour des raisons de license](https://opensearch.org/faq/#q1.1).
 
 ---
 
