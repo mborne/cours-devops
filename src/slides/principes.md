@@ -328,20 +328,22 @@ En outre, pour raisonner sur des éléments comparables et identifier des axes d
 
 ### La supervision du système
 
-Les outils de supervision système ([grafana/prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin-monitoring.org/), [netdata](https://www.netdata.cloud/),...) permettront de :
+Les outils de supervision système ([Grafana/Prometheus](https://grafana.com/grafana/dashboards/1860-node-exporter-full/), [centreon](https://www.centreon.com/), [munin](https://munin-monitoring.org/), [netdata](https://www.netdata.cloud/),...) permettront de **surveiller la consommation de ressources** (RAM, CPU, stockage, bande passante,...) et **mettre en oeuvre des alertes** pour :
 
-* **Surveiller la consommation de ressources** (RAM, CPU, stockage, bande passante,...)
-* **Mettre en oeuvre des alertes** pour :
-  * Éviter l'apparition de problèmes (si >=90% du stockage est utilisé)
-  * Identifier les problèmes (atteinte de limite de bande passante, de la limite de nombre de connexion simultanées, >=80% de CPU utilisé pendant 10 minutes)
+* **Éviter les problèmes** (si >=90% du stockage est utilisé)
+* **Identifier les problèmes** (atteinte de limite de bande passante, de nombre de connexion simultanées, cryptominage,...)
 
-**Les outils de supervision offriront au passage un terrain de discussion intéressant entre les DEV et les OPS.**
+<div class="center">
+    <img src="img/prometheus-node-exporter.png" style="height: 200px" alt="Prometheus Node Exporter"/>
+</div>
+
+Les outils de supervision offriront au passage un **terrain de discussion intéressant entre les DEV et les OPS.**
 
 ---
 
 ## L'observabilité
 
-### Les sondes web
+### Les sondes web (1/2)
 
 Une sonde web interroge périodiquement une URL en vérifiant la réponse (code de retour 200) et en mesurant le temps de réponse. Elle permet ainsi de :
 
@@ -349,9 +351,30 @@ Une sonde web interroge périodiquement une URL en vérifiant la réponse (code 
 * Mesurer un **temps de réponse moyen** (indicateur de performance)
 * Mettre en oeuvre une **alerte pour traiter au plus vite une indisponibilité**
 
-La mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/), [Uptrends](https://www.uptrends.fr/),... pour les services exposés en ligne (ex : [uptimerobot.com - sondes du GéoPortail](https://stats.uptimerobot.com/28xBxu6Q9))
+Pour les services exposés en ligne, la mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/), [Uptrends](https://www.uptrends.fr/),...
 
-Pour les services non exposés, nous remarquerons que les outils de supervision pourront être étendus pour ajouter ce type de sonde (ex : [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter#blackbox-exporter-)).
+<div class="center">
+    <img src="img/uptimerobot-gpp.png" style="height: 170px" />
+    <p style="font-size: 15px">
+      Source <a target="_blank" href="https://stats.uptimerobot.com/28xBxu6Q9">uptimerobot.com - sondes du GéoPortail</a>
+    </p>
+</div>
+
+---
+
+## L'observabilité
+
+### Les sondes web (2/2)
+
+Nous pourrons aussi **étendre les outils de supervision pour ajouter ce type de sonde** ce qui sera particulièrement intéressant pour les **services non exposés** :
+
+<div class="center">
+    <img src="img/prometheus-blackbox-exporter.png" style="height: 350px" />
+    <p style="font-size: 15px">
+      Illustration de la surveillance d'une URL à l'aide de <a target="_blank" href="https://github.com/prometheus/blackbox_exporter#blackbox-exporter-">prometheus/blackbox_exporter</a>
+    </p>
+</div>
+
 
 ---
 
