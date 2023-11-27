@@ -4,7 +4,7 @@
 
 **La présentation est ici : [https://mborne.github.io/cours-devops/](https://mborne.github.io/cours-devops/)**. Cette page est plutôt destinée aux autres professeurs pour faciliter l'articulation entre les autres cours.
 
-**Cette présentation est en construction et elle risque de connaître encore quelques itérations.** Aussi, elle est l'oeuvre d'un DEV qui a découvert DevOps sur le tas après avoir rêver de déléguer le déploiement et l'exploitation de ses applications à un "infogérant". Un OPS de ces infogérants aurait une expérience différente et probablement une approche différente pour présenter DevOps.
+**Cette présentation risque de connaître encore quelques itérations.** Aussi, elle est l'oeuvre d'un DEV qui a découvert DevOps sur le tas après avoir rêver de déléguer le déploiement et l'exploitation de ses applications à un "infogérant". Un OPS de ces infogérants aurait une expérience différente et probablement une approche différente pour présenter DevOps.
 
 Si vous avez des remarques ou des références à proposer : N'hésitez pas [à faire une issue](https://github.com/mborne/cours-devops/issues)!
 
