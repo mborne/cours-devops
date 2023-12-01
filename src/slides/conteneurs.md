@@ -317,7 +317,8 @@ En synthèse, nous soulignerons le succès de docker doit beaucoup aux points su
 En l'état, si cherchions à héberger GeoStack sur plusieurs machines, nous remarquerions que :
 
 * Les conteneurs sur **la machine A ne peuvent communiquer avec ceux de la machine B**
-* Les démons docker sur les machines ne se connaissent pas (un outil tel [traefik](https://doc.traefik.io/traefik/) devrait moissonner deux API distinctes)
-* Il nous serait délicat de mettre en oeuvre un volume partagé par les conteneurs sur les deux machines.
+* Les démons docker sur les machines ne se connaissent pas (un outil tel [Traefik](https://doc.traefik.io/traefik/) devrait moissonner deux API distinctes)
 
-Nous comprendrons alors mieux l'intérêt d'outil tel Kubernetes que nous allons découvrir par la suite.
+Les **conteneurs** étant une **technologie d'isolation**, nous avons actuellement uniquement l'option de **scalabilité verticale**.
+
+Nous allons voir comment y remédier dans la partie [DevOps avec Kubernetes](kubernetes.md).

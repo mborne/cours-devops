@@ -14,6 +14,7 @@
 
 * La variété des offres
 * La variété des services supports
+* L'automatisation avec Terraform
 * Rendre ses applications "cloud ready"
 
 ---
@@ -22,15 +23,15 @@
 
 ### Plusieurs options possibles...
 
-Vous remarquerez que nous ne sommes concentré jusque là sur DevOps en contexte IaaS ou CaaS mais d'autres options dont l'hybridation seront possibles.
+Vous remarquerez que **nous nous sommes concentrés jusque là sur DevOps soit en contexte VM, soit en contexte Docker, soit en contexte Kubernetes**.
 
-Pour déployer une application, nous aurons à faire un choix entre :
+Pour déployer une application, nous pourrons aussi **hybrider les offres** avec plusieurs choix possibles :
 
-* IaaS où nous disposerons de VM avec un contrôle complet.
-* CaaS où nous déploierons des conteneurs
-* PaaS où nous fournirons le code de l'application.
-* FaaS où nous fournirons de simples fonctions.
-* SaaS où nous disposerons de services prêt à l'emploi.
+* **IaaS** où nous disposerons de VM avec un contrôle complet.
+* **CaaS** où nous déploierons des conteneurs
+* **PaaS** où nous fournirons le code de l'application.
+* **FaaS** où nous fournirons de simples fonctions.
+* **SaaS** où nous disposerons de services prêt à l'emploi.
 
 ---
 
@@ -77,13 +78,30 @@ Nous conviendrons que ce foisonnement de solutions ne facilitera pas le choix d'
 
 ---
 
+## L'automatisation avec Terraform
+
+Nous nous appuierons sur le dépôt [mborne/gke-playground](https://github.com/mborne/gke-playground#gke-playground) pour illustrer la **capacité de Terraform à automatiser la gestion de plusieurs types de ressources avec éventuellement plusieurs fournisseurs**.
+
+Nous inspecterons au passage Google Kubernetes Engine (GKE) où nous trouverons plusieurs éléments pré-configurés :
+
+* L'authentification basée sur l'IAM
+* La récupération des logs
+* La récupération des métriques systèmes
+
+Nous soulignerons que la richesse fonctionnelle et le niveau d'intégration entre les services variera en fonction des hébergeurs.
+
+---
+
 ## Rendre ses applications cloud ready
 
-A l'échelle des applications, **respecter [les 12 facteurs](annexe/12-facteurs.html)** mis en avant par [Heroku](https://www.heroku.com/) sera un bon point de départ pour **pouvoir déployer facilement une application** et **adapter l'infrastructure à la charge**.
+A l'échelle des applications, **respecter [les 12 facteurs](annexe/12-facteurs.html)** mis en avant par [Heroku](https://www.heroku.com/) sera un bon point de départ pour :
 
-Pour les nouvelles applications, il sera intéressant d'avoir connaissance de ces règles de conception dès la construction. Pour les autres, il sera intéressant de tendre progressivement vers cet idéal.
+* **Pouvoir déployer facilement une application**
+* **Adapter l'infrastructure à la charge**
+* **Faciliter l'exploitation**
+* **Pouvoir choisir librement le mode d'hébergement**
 
-Nous faciliterons ainsi l'exploitation et nous aurons une grande liberté de choix pour le mode d'hébergement de l'application et de ses composants.
+Pour les nouvelles applications, il sera intéressant d'**avoir connaissance de ces règles de conception dès la construction**. Pour les autres, il sera intéressant de tendre progressivement vers cet idéal.
 
     </textarea>
 

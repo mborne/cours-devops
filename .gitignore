@@ -1,3 +1,7 @@
 /node_modules/
 *.bkp
 *.dtmp
+
+# outsourcing fiches perso
+# ln -s ~/qtw-memo/docs/devops qtw-devops
+/qtw-devops

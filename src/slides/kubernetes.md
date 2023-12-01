@@ -6,7 +6,6 @@
 * Les principaux concepts
 * Le dashboard Kubernetes
 * L'orchestration du déploiement
-* Utilisation d'un cluster managé
 * Intérêt de Kubernetes
 
 ---
@@ -324,13 +323,23 @@ Nous reprendrons le déploiement de whoami à l'aide de ArgoCD.
 
 ---
 
-## Utilisation d'un cluster managé
+## Que manque-t'il à ce stade?
 
-Nous nous appuierons sur le dépôt [mborne/gke-playground](https://github.com/mborne/gke-playground#gke-playground) pour inspecter la solution Google Kubernetes Engine (GKE) où nous trouverons plusieurs éléments pré-configurés :
+### Kubernetes n'est pas une solution clé en main
 
-* L'authentification basée sur l'IAM
-* La récupération des logs
-* La récupération des métriques systèmes
+A ce stade, nous soulignerons que **Kubernetes n'est pas une solution offrant une zone d'hébergement clé en main**.
 
-Un survol de la richesse de l'offre nous donnera une bonne transition pour la partie [DevOps dans le cloud](cloud.md).
+Il faut **déployer et configurer des services techniques** (ex : Ingress Controller, Prometheus, Grafana...). Nous pourrions **limiter les efforts avec des distributions plus riches** (ex : Rancher, VMWare Tanzu,...) ou en ayant recours à **Kubernetes en mode SaaS** (Managed Kubernetes Service chez OVH, Google Kubernetes Engine,...)
 
+---
+
+## Que manque-t'il à ce stade?
+
+### Kubernetes n'est pas la solution à tous les problèmes
+
+Toutefois, il convient aussi de noter que :
+
+* **Déployer et maintenir des applications "Stateful"** telles des bases de données **en environnement Kubernetes n'est pas trivial**.
+* **Kubernetes est une solution bas niveau** qui sera **moins efficace qu'une offre PaaS ou SaaS pour déployer certaines applications** (ex : CMS).
+
+Nous allons à ce titre prendre un peu de recul dans la partie [DevOps dans le cloud](cloud.md) et aborder la possibilité d'hybrider les solutions.
