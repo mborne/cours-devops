@@ -158,7 +158,7 @@ Les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) sont la plus pet
 * Le même réseau (communication en localhost)
 * Le même stockage (partage de l'accès aux volumes)
 
-Nous traiterons [mborne/k8s-exemples - Création d'un Pod avec un conteneur nginx](https://github.com/mborne/k8s-exemples#k8s-exemples).
+Nous traiterons les exemples [mborne/k8s-exemples - Pods](https://github.com/mborne/k8s-exemples#pod) en faisant le lien avec [les exemples de prise en main de docker](https://github.com/mborne/docker-exemples#readme).
 
 > Nous ne détaillerons pas les cas d'utilisations des Pod avec plusieurs conteneurs (sidecar, ambassador, adapter) et des conteneurs d'initialisation (disposer d'outils supplémentaires, télécharger des données, retarder le démarrage d'un service,...)
 
@@ -174,7 +174,7 @@ En pratique, les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) ne 
 * Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) dans le cas contraire (ex : PostgreSQL)
 * Un [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) dans le cas où ils doivent s'exécuter sur tous les noeuds (ex : [fluent-bit](https://fluentbit.io/) pour la collecte des logs)
 
-Nous traiterons [mborne/k8s-exemples - Création de plusieurs Pod whoami à l'aide d'un Deployment](https://github.com/mborne/k8s-exemples#k8s-exemples).
+Nous traiterons [mborne/k8s-exemples - Création de plusieurs Pod whoami à l'aide d'un Deployment](https://github.com/mborne/k8s-exemples#deployment).
 
 ---
 
@@ -203,7 +203,7 @@ Nous soulignerons qu'il existe plusieurs types de service dont :
 * `LoadBalancer` permettant de demander l'**exposition sur une IP publique**.
 * `NodePort` permettant l'**exposition via un port sur un noeud (<u>à éviter</u>**)
 
-Nous traiterons le cas ClusterIP avec [mborne/k8s-exemples - Création d'un service whoami devant ces Pods](https://github.com/mborne/k8s-exemples#k8s-exemples).
+Nous traiterons le cas ClusterIP avec [mborne/k8s-exemples - Création d'un service whoami devant ces Pods](https://github.com/mborne/k8s-exemples#service).
 
 ---
 
@@ -215,7 +215,7 @@ Les [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-object
 
 Ce concept permettra l'accueil de plusieurs applications dans un même cluster (**Namespace as a service**).
 
-Nous traiterons [mborne/k8s-exemples - Namespace](https://github.com/mborne/k8s-exemples#namespaces) pour inspecter les différents namespaces (dont "default" dans lequel nous travaillons sans le préciser) et verrons comment créer et utiliser un namespace "whoami" dédié.
+Nous traiterons [mborne/k8s-exemples - Namespace](https://github.com/mborne/k8s-exemples#namespace) pour **inspecter les namespaces** existants (dont "default" dans lequel nous travaillons sans le préciser) et verrons **comment créer et utiliser un namespace dédié à une application**.
 
 
 ---
@@ -231,7 +231,7 @@ Nous noterons que :
 * L'exposition des ressources [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) sera prise en charge par un contrôleur Ingress (ex : [nginx-ingress-controller](https://github.com/mborne/docker-devbox/blob/master/nginx-ingress-controller/README.md), [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes),...)
 * Le choix du contrôleur ingress passera par la définition de la propriété `ingressClass` (ex : `nginx`, `traefik`,... avec la possibilité de distinguer `nginx-private` et `nginx-public`)
 
-Nous traiterons l'**installation d'un contrôleur ingress** à l'aide de [mborne/docker-devbox - traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes) et l'**exposition du service whoami sous forme d'une URL**. En pré-requis, nous serons amené à [installer helm](annexe/kubernetes/helm.html) et expliquer brièvement son intérêt.
+Nous traiterons [mborne/k8s-exemples - Ingress](https://github.com/mborne/k8s-exemples#ingress) où nous verrons comment **installer Traefik en tant que Ingress Controller** et l'**exposer le service whoami sous forme d'une URL**. En pré-requis, nous serons amené à [installer helm](annexe/kubernetes/helm.html) et expliquer brièvement son intérêt.
 
 ---
 
@@ -245,8 +245,6 @@ Nous trouverons plusieurs concepts relatif à la [gestion de la configuration](h
 * [Secret](https://kubernetes.io/docs/concepts/configuration/secret/)
 
 Ces éléments pourront être convertis en **variables d'environnement** ou monté sous forme de **fichiers** au niveau des conteneurs.
-
-> Nous manipulerons ces deux concepts pour stocker des paramètres et injecter les variables d'environnement correspondantes dans les Pod d'un déploiement.
 
 ---
 
@@ -304,7 +302,7 @@ Nous pourrons l'installer à l'aide de [mborne/docker-devbox - kubernetes-dashbo
 
 ## L'observabilité
 
-Pour découvrir l'observabilité avec Kubernetes, nous pourrons installer :
+Pour découvrir l'observabilité avec Kubernetes, nous pourrons nous appuyer sur [github.com - mborne/docker-devbox](https://github.com/mborne/docker-devbox) pour installer :
 
 * [Prometheus](https://github.com/mborne/docker-devbox/tree/master/prometheus#usage-with-kubernetes) pour collecter des métriques système
 * [Loki](https://github.com/mborne/docker-devbox/tree/master/loki#usage-with-kubernetes) pour collecter les journaux applicatifs
