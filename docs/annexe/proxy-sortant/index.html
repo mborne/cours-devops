@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Le proxy sortant</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="le-proxy-sortant">Le proxy sortant</h1><h2 id="principe">Principe</h2><p>Un <strong>proxy sortant sert d&#39;intermédiaire pour le traffic sortant d&#39;une infrastructure</strong>. Son utilisation sera fréquente pour <strong>mettre en place un filtrage des accès à internet</strong> depuis le réseau d&#39;une entreprise, d&#39;une école ou d&#39;un hébergement sécurisé.</p>
+<h2 id="problème">Problème</h2><p>Les systèmes et navigateurs sont généralement configurés à l&#39;aide d&#39;un fichier <code>proxy.pac</code> qui est un script JavaScript indiquant s&#39;il faut utiliser un proxy pour accéder à une ressource en fonction du nom de domaine ou de l&#39;IP (voir <a href="https://findproxyforurl.com/example-pac-file/" target="_blank">findproxyforurl.com - Example PAC File</a>)</p>
+<p>Toutefois, de nombreux outils utilisés en ligne de commande (<code>curl</code>, <code>vagrant</code>, <code>terraform</code>, <code>ansible</code>, <code>docker</code>...) et les bibliothèques de programmation réalisant des requêtes ne savent pas exploiter ce script <code>proxy.pac</code>.</p>
+<h2 id="solution">Solution</h2><p>En fonction des cas, les fiches suivantes pourront vous aider à travailler derrière un proxy :</p>
+<ul>
+<li><a href="proxy-env-vars.html">Configurer l&#39;utilisation du proxy à l&#39;aide de variables d&#39;environnement</a> qui couvrira de nombreux cas (curl, ansible, vagrant,...)</li>
+<li><a href="proxy-docker.html">Travailler derrière un proxy avec Docker</a> qui traite le téléchargement, la construction et l&#39;utilisation d&#39;image en présence d&#39;un proxy.</li>
+</ul>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>

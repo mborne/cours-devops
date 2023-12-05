@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Diagramme de Gantt illustrant l&#x27;efficacité de l&#x27;exploitation traditionnelle</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="diagramme-de-gantt-illustrant-lefficacité-de-lexploitation-traditionnelle">Diagramme de Gantt illustrant l&#39;efficacité de l&#39;exploitation traditionnelle</h1><p>Illustration de l&#39;effet des temps d&#39;attente sur la durée d&#39;un déploiement avec :</p>
+<ul>
+<li>2 semaines d&#39;attente de l&#39;équipe OPS sur le premier déploiement (temps de découverte de l&#39;application, autres applications à traiter,...)</li>
+<li>1 semaine d&#39;attente pour un nouveau déploiement après reprise de la documentation (autres applications à traiter)</li>
+</ul>
+<pre><code class="language-mermaid">gantt
+    dateFormat  YYYY-MM-DD
+    title       RETEX de la livraison v0.1.0
+    excludes    weekends
+    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week (&quot;sunday&quot;) or &quot;weekends&quot;, but not the word &quot;weekdays&quot;.)
+
+    section Côté DEV
+    Tag v0.1.0                    :active,  dev1, 2022-05-02, 2h
+    Déploiement en DEV            :active,  dev23-dev, after dev1, 2d
+    Rédaction DAT                 :active,  dev2, after dev1, 1d
+    Rédaction DEX                 :active,  dev3, after dev2, 1d
+    Demande déploiement en QUALIF :active,  dev4, after dev3, 1d
+    Attente déploiement en QUALIF :crit,    dev5, after dev4, 10d
+    Recette en QUALIF             :active,  dev6, after dev5, 2d
+    Correction des docs           :active,  dev7, after dev6, 1d
+    Attente correction OPS        :crit,    dev8, after dev7, 6d
+    Recette en QUALIF             :active,  dev9, after dev8, 2d
+</code></pre>
+<p>En complément, vous pourrez lire l&#39;article <a href="https://kaizen.com/fr/publications/importance-time-to-market-fr/" target="_blank">fr.kaizen.com - L&#39;importance du Time to Market</a> qui aborde la notion d&#39;<strong>efficacité des flux</strong> et des alternatives pour mettre en lumière l&#39;effet des temps d&#39;attente.</p>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>

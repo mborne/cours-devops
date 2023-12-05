@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Dépôts</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="dépôts">Dépôts</h1><p>Cette page regroupe l&#39;ensemble des dépôts utilisés dans le cours.</p>
+<h2 id="la-présentation-et-ses-annexes">La présentation et ses annexes</h2><ul>
+<li><a href="https://github.com/mborne/cours-devops#readme" target="_blank">github.com - mborne/cours-devops</a> contient les sources de la présentation et des annexes.</li>
+</ul>
+<h2 id="prise-en-main-de-vagrant-et-ansible">Prise en main de Vagrant et Ansible</h2><ul>
+<li><a href="https://github.com/mborne/vagrantbox#readme" target="_blank">github.com - mborne/vagrantbox</a> : dépôt pour prise en main de Vagrant et Ansible.</li>
+<li><a href="https://github.com/mborne/geostack-deploy/tree/master/ansible#readme" target="_blank">github.com - mborne/geostack-deploy/ansible</a> : dépôt pour déploiement de l&#39;exemple GeoStack du cours avec Ansible.</li>
+</ul>
+<h2 id="docker">Docker</h2><ul>
+<li><a href="https://github.com/mborne/docker-exemples#readme" target="_blank">github.com - mborne/docker-exemples</a> : dépôt avec des exemples pour prise en main de Docker.</li>
+<li><a href="https://github.com/mborne/docker-devbox#readme" target="_blank">github.com - mborne/docker-devbox</a> : dépôt contenant des exemples de déploiement avec docker compose.</li>
+<li><a href="https://github.com/mborne/geostack-deploy/tree/master/docker#readme" target="_blank">github.com - mborne/geostack-deploy/docker</a> : dépôt pour déploiement de l&#39;exemple GeoStack du cours avec docker compose.</li>
+</ul>
+<h2 id="kubernetes">Kubernetes</h2><ul>
+<li><a href="https://github.com/mborne/k3s-deploy#readme" target="_blank">github.com - mborne/k3s-deploy</a> : dépôt pour déploiement d&#39;un cluster Kubernetes avec <a href="https://k3s.io/" target="_blank">K3S</a> sur les VM vagrantbox avec Ansible.</li>
+<li><a href="https://github.com/mborne/k8s-exemples#readme" target="_blank">github.com - mborne/k8s-exemples</a> : dépôt avec des exemples pour prise en main de Kubernetes.</li>
+<li><a href="https://github.com/mborne/docker-devbox#readme" target="_blank">github.com - mborne/docker-devbox</a> : dépôt contenant des exemples de déploiement Kubernetes (voir fichiers &quot;k8s-install.sh&quot; encapsulant des appels helm).</li>
+</ul>
+<h2 id="terraform">Terraform</h2><ul>
+<li><a href="https://github.com/mborne/gke-playground#readme" target="_blank">github.com - mborne/gke-playground</a> : dépôt illustrant l&#39;utilisation de terraform pour créer un cluster Kubernetes (GKE) avec un serveur NFS en SaaS (FileStore) sur Google Cloud.</li>
+</ul>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>
