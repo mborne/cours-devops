@@ -351,7 +351,7 @@ Une sonde web interroge périodiquement une URL en vérifiant la réponse (code 
 * Mesurer un **temps de réponse moyen** (indicateur de performance)
 * Mettre en oeuvre une **alerte pour traiter au plus vite une indisponibilité**
 
-Pour les services exposés en ligne, la mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/), [Uptrends](https://www.uptrends.fr/),...
+Pour les services exposés en ligne, la mise en oeuvre sera triviale avec des outils tels [UptimeRobot](https://uptimerobot.com/), [Uptrends](https://www.uptrends.fr/)...
 
 <div class="center">
     <img src="img/uptimerobot-gpp.png" style="height: 170px" />
@@ -481,7 +481,7 @@ Nous veillerons à nous assurer que les scripts de déploiement puissent :
 * Être interrompus et relancés (**atomicité**)
 * [Cohabiter avec d'autres](annexe/iac-cohabitation.html) (~orthogonalité)
 * Être testés par exemple avec des environnements de qualification et de pré-production.
-* Permettre à la fois la mise à jour du système et sa reconstruction.
+* Permettre à la fois la mise à jour du système et sa reconstruction
 
 Nous privilégierons **une approche déclarative** à une approche impérative pour faciliter la mise en oeuvre de ces principes.
 
@@ -491,7 +491,7 @@ Nous privilégierons **une approche déclarative** à une approche impérative p
 
 ### Quels pré-requis sur l'infrastructure?
 
-L'approche IaC laissera une grande liberté de choix dans les outils du cadre technique dès lors qu'ils sont **compatibles avec l'automatisation**. Il conviendra principalement d'**être attentif aux méthodes de configuration disponibles** (1) :
+L'approche IaC laissera une grande liberté de choix dans les **outils du cadre technique** dès lors qu'ils sont **compatibles avec l'automatisation**. Il conviendra principalement d'**être attentif aux méthodes de configuration disponibles** (1) :
 
 * La configuration est basée sur des **variables d'environnements**?
 * La configuration est basée sur des **fichiers de configuration**?
@@ -510,7 +510,7 @@ En substance, <span style="color: red; font-weight: bold">seuls les outils pouva
 
 En fonction des possibilités offertes par l'infrastructure et de la politique de l'entreprise, l'**automatisation pourra être partielle** mais il faudra **être conscient des conséquences**.
 
-A titre d'exemple, **si la configuration du reverse proxy/load balancer n'est pas automatisée** :
+En particulier, **si la configuration du reverse proxy/load balancer n'est pas automatisée** :
 
 * Comment pourrez vous **avoir un système qui s'adapte à la charge**?
 * Comment pourrez vous **éviter les indisponibilités pendant les déploiements de nouvelles versions**?
