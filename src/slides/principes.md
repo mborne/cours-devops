@@ -156,7 +156,7 @@ La lecture de [LEAN PRIMER par Craig Larman et Bas Vodde](https://www.leanprimer
 * Une multitude d'amélioration au quotidien par l'**automatisation** et **la remise en cause permanente des processus** ("mon travail est de faire mon travail, et d'améliorer mon travail" )
 * La **diffusion horizontale des connaissances**
 * L'**observation sur le terrain** ("Ne regardez pas avec vos yeux, regardez avec vos jambes… les gens qui regardent uniquement les chiffres sont les pires.")
-* La distinction entre ce qui la **production de valeur** et le **gaspillage** classé en trois catégories : [Muda (action NVA), Mura (variabilité) et Muri (surcharge)](https://www.kostango.com/definition/3m-muda-mura-muri)
+* La distinction entre ce qui la **production de valeur** et le **gaspillage** classé en trois catégories : [Muda (action sans valeur ajoutée), Mura (variabilité) et Muri (surcharge)](https://www.kostango.com/definition/3m-muda-mura-muri)
 
 ---
 
@@ -171,7 +171,7 @@ Au niveau du développement logiciel, Le **Lean** se retrouvera à travers les p
 * **Décider le plus tard possible** (ne pas chercher à tout planifier, reporter les décisions,...)
 * **Livrer vite**
 * **Responsabiliser l’équipe** (objectifs clairs, auto-organisation, feedback client, "context, not control" chez Netflix,...)
-* **Construire la qualité intrinsèque**
+* **Construire la qualité intrinsèque** (intégrer la qualité dans la construction plutôt que vérifier après coup)
 * **Optimiser le système dans son ensemble**
 
 > c.f. [www.journaldunet.com - Lean Software Development et gestion de projet : décryptage]((https://www.journaldunet.com/web-tech/developpeur/1031853-lean-software-development-et-gestion-de-projet-decryptage/))
@@ -191,7 +191,7 @@ Nous noterons que les principes du *Lean* entrent en résonance avec :
 Nous mémoriserons que **le Lean ne doit pas être perverti en se contentant de chiffres assurant que les ressources sont occupées à 100%** (1), mais d'abord à **observer le processus de création dans son ensemble et permettre les optimisations** pour gagner réellement en efficacité. Par ex :
 
 * Fournir directement un script de déploiement exploitable vs une procédure au format texte.
-* Faire une pull-request vs une demande dans un ticket.
+* Faire une pull-request vs une demande de validation dans un mail.
 * Utiliser un outil de gestion de projet vs saisir l'avancement des tâches dans un tableur.
 
 > (1) [www.usinenouvelle.com - Dérives du lean : pourquoi la méthode s’est écartée des principes originaux](https://www.usinenouvelle.com/article/derives-du-lean-pourquoi-la-methode-s-est-ecartee-des-principes-originaux.N293559)
