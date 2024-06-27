@@ -231,9 +231,9 @@ A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métri
 
 Le **partage** et la **transparence** seront importants à plusieurs niveaux. Ils favoriseront :
 
-* La confiance entre les différents acteurs
-* La compréhension partagées des objectifs et des enjeux
-* Les transferts de compétences entre équipes
+* La **confiance** entre les différents acteurs
+* La **compréhension partagée** des objectifs et des enjeux
+* Les **transferts de compétences** entre équipes
 * ...
 
 ---
@@ -244,7 +244,7 @@ Le **partage** et la **transparence** seront importants à plusieurs niveaux. Il
 
 **Définir des métriques pertinentes** et **faire en sorte pouvoir les calculer** sera loin d'être trivial. Se contenter d'avoir des métriques et [avoir des métriques non pertinentes sera contre-productif](annexe/metrique-contre-productive.html).
 
-Nous allons ici nous limiter à quelques métriques parlantes et pas très complexe à calculer. Vous en rencontrerez bien d'autres.
+Nous allons ici nous limiter à **quelques métriques parlantes** en nous interrogeant en séance sur les **méthodes permettant de les calculer**. Vous en rencontrerez bien d'autres.
 
 ---
 
@@ -258,7 +258,6 @@ Les métriques suivantes seront caractéristiques de l'**automatisation du dépl
 * La **durée de déploiement** où il sera intéressant de distinguer :
   * La **durée de déploiement d'une évolution ou d'un correctif mineur** (automatisation de la gestion du déploiement)
   * La **durée de déploiement d'une évolution majeure** (automatisation de la gestion de l'infrastructure)
-
 
 ---
 
@@ -289,9 +288,9 @@ Pour mesurer la qualité du code, il sera possible de s'appuyer sur :
 
 * Le **taux de couverture du code par les tests** ("coverage")
 * Les **indicateurs produits par les outils d'analyse statique du code** tels [SonarQube](https://www.sonarqube.org/)
-* Les **indicateurs produits par les outils d'analyse des dépendances** (nombre de dépendances obsolètes, vulnérables,...)
+* Les **indicateurs produits par les outils d'analyse des dépendances**(nombre de dépendances obsolètes, vulnérables,...) tels [Trivy](https://github.com/aquasecurity/trivy#readme).
 
-> [SonarQube](https://www.sonarqube.org/) a le mérite d'offrir une interface unifiée pour différents langages (ce qui plait aux décideurs) mais les outils d'analyse de code dédiés aux langages (jshint, jslint, phpmd, phpstan,...) offriront parfois des alertes plus pertinentes ainsi qu'une démarche "as code" dans la gestion des exceptions.
+> [SonarQube](https://www.sonarqube.org/) a le mérite d'offrir une interface unifiée pour différents langages (ce qui plait aux décideurs) mais les outils d'analyse de code dédiés aux langages (jshint, jslint, phpmd, phpstan, cppcheck...) offriront souvent des alertes plus pertinentes ainsi qu'une démarche "as code" dans la gestion des exceptions.
 
 
 ---
@@ -322,7 +321,7 @@ Le calcul de telles métriques sera délicat sans :
 
 * L'**utilisation d'un système de ticket** (Jira, redmine, issues du gestionnaire de code source,...)
 * Une **gestion rigoureuse des tickets** :
-  * Demande vs incident
+  * Demandes vs incidents
   * Gravité des incidents
 * L'ajout des **métadonnées nécessaires au calcul des métriques** :
   * Date de création du ticket
