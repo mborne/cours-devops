@@ -220,9 +220,9 @@ A ce titre, on s'efforcera avec DevOps de **définir des objectifs et les métri
 
 Le **partage** et la **transparence** seront importants à plusieurs niveaux. Ils favoriseront :
 
-* La confiance entre les différents acteurs
-* La compréhension partagées des objectifs et des enjeux
-* Les transferts de compétences entre équipes
+* La **confiance** entre les différents acteurs
+* La **compréhension partagée** des objectifs et des enjeux
+* Les **transferts de compétences** entre équipes
 * ...
 
 ---
