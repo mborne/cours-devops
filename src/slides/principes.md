@@ -547,7 +547,7 @@ Cette approche permettra de :
   * Les rôles habilités à valider les *pull request*
 * Résoudre des problématiques de **traçabilité des déploiements** :
   * Qui a lancé quelle version du script de déploiement?
-  * Qui a proposé/validé la configuration?
+  * Qui a proposé/validé la modification?
 
 GitOps est ainsi une illustration de l'utilisation du concept de **pull request** en lieu et place d'un processus de validation plus traditionnel.
 
@@ -601,7 +601,10 @@ Au final, il sera très vite tentant de gérer un maximum d'élément à l'aide 
 Nous remarquerons par exemple :
 
 * Des **schemas as code** avec des outils tels [Diagrams](https://diagrams.mingrammer.com/docs/getting-started/examples)
-* Des **standards as code** (ex : [cnigfr - PCRS](https://github.com/cnigfr/PCRS#pcrs))
+* Des **standards as code** :
+  * [cnigfr - PCRS](https://github.com/cnigfr/PCRS#pcrs)
+  * [opengeospatial/ogcapi-features](https://github.com/opengeospatial/ogcapi-features?tab=readme-ov-file#ogc-api---features)
+  * ...
 * Des **référentiels as code** quand la volumétrie le permet :
   * [BaseAdresseNationale/codes-postaux](https://github.com/BaseAdresseNationale/codes-postaux#codes-postaux)
   * [gregoiredavid/france-geojson](https://github.com/gregoiredavid/france-geojson#france-geojson)

@@ -29,7 +29,7 @@ Nous allons voir en pratique comment se passe le déploiement d'une application 
 * [PostgreSQL](https://www.postgresql.org/) avec l'extension [PostGIS](https://postgis.net/) pour stocker des données géographiques.
 * [GeoServer](https://geoserver.org/) pour diffuser ces données en WMS et WFS.
 
-Nous appellerons le système résultant **GeoStack** (afin d'avoir un nom de base pour le dépôt dédié au déploiement : `geostack-deploy`)
+Nous appellerons le système résultant **GeoStack** (afin d'avoir un nompour le dépôt dédié au déploiement : `geostack-deploy`).
 
 ---
 
@@ -82,13 +82,15 @@ Pour le déploiement d'une application en PRODUCTION, il est important de :
 
 Dans le cas où il convient de créer un livrable pour sa propre application, nous remarquerons que :
 
-* Il existe une **grande variété de formats de livrables possibles** en fonction des technologies et OS cible (c.f. [format supportés par Nexus qui permet de créer différents types de dépôt](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats) )
+* Il existe une **grande variété de formats de livrables possibles** en fonction des technologies et de l'OS cible (c.f. [format supportés par Nexus qui permet de créer différents types de dépôt](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats) )
 * Packager des applications telles PostgreSQL est un métier (construire et maintenir des .deb ou .rpm dans les règles de l'art n'est pas trivial).
 * Dans le cas des **langages interprétés** (NodeJS, PHP...) :
   * Nous pourrons nous contenter en guise de livrable d'une simple archive (**.zip avec le code de la version + les dépendances**)
-  * Nous pourrons aussi facilement produire des .deb ou .rpm avec des outils tels [FPM](https://fpm.readthedocs.io)
+  * Nous pourrons aussi facilement produire des .deb avec des outils tels [FPM](https://fpm.readthedocs.io) (1)
 
 Nous n'entrerons pas trop dans le détail (*spoiler* : nous verrons comment l'utilisation de conteneurs solutionne ce problème)
+
+> (1) Voir [github.com - IGNF/validator - build-deb.sh](https://github.com/IGNF/validator/blob/master/build-deb.sh) pour un exemple trivial (sans script pré/post-installation).
 
 ---
 
