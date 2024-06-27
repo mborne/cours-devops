@@ -218,7 +218,7 @@ Nous allons nous appuyer sur Ansible qui est une solution :
 
 Nous [trouverons plusieurs exécutable avec Ansible](https://docs.ansible.com/ansible/latest/command_guide/index.html) :
 
-* [ansible](https://docs.ansible.com/ansible/latest/cli/ansible.html) qui permettra par exemple de lancer une commande sur les machines d'un inventaire
+* [ansible](https://docs.ansible.com/ansible/latest/cli/ansible.html) qui permettra par exemple de lancer une commande sur les machines d'un inventaire.
 * [ansible-playbook](https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html) qui sera utilisée pour traiter un ensemble de tâches décrites au format YAML.
 * [ansible-galaxy](https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html) qui permettra de télécharger des rôles partagés pour construire vos playbooks (voir [galaxy.ansible.com](https://galaxy.ansible.com/)).
 * [ansible-vault](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html) qui permettra de chiffrer des secrets.
@@ -227,6 +227,8 @@ Nous noterons que :
 
 * L'[installation en local pourra être réalisée dans un environnement virtuel python](https://gist.github.com/mborne/eeb3a0177fe27f5ed393a00eded0a86f#file-ansible-venv-md) pour éviter les conflits de version de bibliothèques Python (et le recours aux droits root via `sudo`)
 * [Il n'est pas possible d'utiliser les exécutables Ansible directement sur windows](https://docs.ansible.com/ansible/latest/os_guide/windows_faq.html#can-ansible-run-on-windows)
+* Il est **possible de gérer des machines windows avec Ansible** à l'aide de [modules dédiés](https://docs.ansible.com/ansible/latest/collections/ansible/windows/index.html#modules).
+
 
 ---
 
