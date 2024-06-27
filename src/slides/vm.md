@@ -192,12 +192,12 @@ Les outils de **gestion de configuration** sont les plus adaptés pour **install
 
 Nous allons nous appuyer sur Ansible qui est une solution :
 
-* [Libre, OpenSource et référencée dans le SILL (1)](https://sill.etalab.gouv.fr/software?name=Ansible)
+* [Libre, OpenSource et référencée dans le SILL (1)](https://code.gouv.fr/sill/detail?name=Ansible)
 * Basée sur l'utilisation du format YAML
 * Implémentée en Python
 * **Permettant l'utilisation d'un orchestrateur de déploiement** (ex : [AWX](https://github.com/ansible/awx#readme), [Jenkins](https://plugins.jenkins.io/ansible/), [GitLab-CI](https://about.gitlab.com/blog/2019/07/01/using-ansible-and-gitlab-as-infrastructure-for-code/),...) sans l'imposer.
 
-> (1) [Socle interministériel de logiciels libres](https://sill.etalab.gouv.fr/software) où chef et puppet ne semblent plus être référencés (changement de licence?).
+> (1) [https://code.gouv.fr/sill - Socle interministériel de logiciels libres](https://code.gouv.fr/sill/) qui est une excellente source de veille.
 
 ---
 
