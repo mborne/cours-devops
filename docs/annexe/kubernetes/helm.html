@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Helm - *The package manager for Kubernetes*</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="helm---the-package-manager-for-kubernetes">Helm - <em>The package manager for Kubernetes</em></h1><h2 id="principe-de-fonctionnement">Principe de fonctionnement</h2><ul>
+<li><a href="https://helm.sh/" target="_blank">Helm</a> génère et applique les manifests au format YAML</li>
+<li>Le langage de templating est <a href="https://pkg.go.dev/text/template" target="_blank">Go templating language</a></li>
+</ul>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://helm.sh/docs/intro/install/#from-script" target="_blank">helm.sh - Installing Helm - From Script</a></li>
+<li><a href="https://helm.sh/docs/intro/install/#from-apt-debianubuntu" target="_blank">helm.sh - Installing Helm - From Apt (Debian/Ubuntu)</a></li>
+</ul>
+<h2 id="quelques-dépôts">Quelques dépôts</h2><table>
+<thead>
+<tr>
+<th>NAME</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bitnami</td>
+<td><a href="https://bitnami.com/stacks/helm" target="_blank">https://charts.bitnami.com/bitnami/</a></td>
+</tr>
+<tr>
+<td>netdata</td>
+<td><a href="https://netdata.github.io/helmchart/" target="_blank">https://netdata.github.io/helmchart/</a></td>
+</tr>
+<tr>
+<td>hashicorp</td>
+<td><a href="https://helm.releases.hashicorp.com" target="_blank">https://helm.releases.hashicorp.com</a></td>
+</tr>
+<tr>
+<td>jenkins</td>
+<td><a href="https://charts.jenkins.io" target="_blank">https://charts.jenkins.io</a></td>
+</tr>
+<tr>
+<td>opensearch</td>
+<td><a href="https://opensearch-project.github.io/helm-charts/" target="_blank">https://opensearch-project.github.io/helm-charts/</a></td>
+</tr>
+<tr>
+<td>traefik</td>
+<td><a href="https://helm.traefik.io/traefik" target="_blank">https://helm.traefik.io/traefik</a></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Voir aussi <a href="https://artifacthub.io/" target="_blank">artifacthub.io</a></p>
+</blockquote>
+<h2 id="quelques-commandes">Quelques commandes</h2><ul>
+<li>Ajouter les charts bitnami : <code>helm repo add bitnami https://charts.bitnami.com/bitnami</code></li>
+<li>Mettre à jour les charts : <code>helm repo update</code></li>
+<li>Récupérer les valeurs possibles pour bitnami/postgresql : <code>helm show values bitnami/postgresql</code></li>
+<li>Installer un chart : <code>helm -n=jenkins-system install jenkins jenkins/jenkins</code></li>
+<li>Mettre à jour un chart : <code>helm -n=jenkins-system upgrade jenkins jenkins/jenkins</code></li>
+<li>Installer ou mettre à jour un chart : <code>helm -n=jenkins-system upgrade --install jenkins jenkins/jenkins</code></li>
+<li>Prévisualiser les fichiers YAML : <code>helm template jenkins jenkins/jenkins</code> (ou <code>--dry-run</code> sur install/upgrade)</li>
+</ul>
+<h2 id="quelques-exemples-dutilisation">Quelques exemples d&#39;utilisation</h2><h3 id="déploiement-de-jenkins">Déploiement de Jenkins</h3><pre><code class="language-bash"># Ajout du dépôt jenkins
+helm repo add jenkins https://charts.jenkins.io
+# Mise à jour des dépôts
+helm repo update
+# Création d&#39;un namespace d&#39;accueil
+kubectl create namespace jenkins-system
+# Installation ou mise à jour
+helm --namespace=jenkins-system upgrade --install jenkins jenkins/jenkins
+</code></pre>
+<h3 id="déploiement-de-postgresql">Déploiement de PostgreSQL</h3><pre><code class="language-bash"># Ajout du dépot bitnami
+helm repo add bitnami https://charts.bitnami.com/bitnami
+# Mise à jour des dépôts
+helm repo update
+# Création d&#39;un namespace d&#39;accueil pg
+kubectl create namespace pg
+# Installation ou mise à jour
+POSTGRESQL_PASSWORD=ChangeIt
+helm --namespace=pg upgrade --install postgresql bitnami/postgresql  --set global.postgresql.auth.postgresPassword=$POSTGRESQL_PASSWORD
+# Contrôler l&#39;état
+kubectl -n pg get sts,svc,pods
+# Suivre les instructions pour se connecter :
+kubectl port-forward --namespace pg svc/postgresql 15432:5432 &amp;
+psql --host 127.0.0.1 -U postgres -d postgres -p 15432 -W
+</code></pre>
+<p>Voir :</p>
+<ul>
+<li><a href="https://github.com/bitnami/charts/tree/main/bitnami/postgresql#readme" target="_blank">PostgreSQL packaged by Bitnami</a></li>
+<li><a href="https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml" target="_blank">bitnami/postgresql/values.yaml</a></li>
+</ul>
+<h2 id="création-dun-chart">Création d&#39;un chart</h2><p>La commande <code>helm create whoami</code> génère un modèle de chart pour le déploiement d&#39;une application (nginx) qu&#39;il sera possible d&#39;adapter pour sa propre application.</p>
+<p>Pour vos premiers pas, noter que :</p>
+<ul>
+<li>Les variables d&#39;environnement sont toujours des strings (il faudra les échapper comme suit <code>{{ .Values.database.port | quote }}</code>)</li>
+<li>Les variables <code>global</code> sont accessibles depuis tous les sous charts</li>
+</ul>
+<h2 id="ressources">Ressources</h2><ul>
+<li><a href="https://helm.sh/docs/intro/install/" target="_blank">helm.sh - Installing Helm</a></li>
+<li><a href="https://helm.sh/docs/chart_best_practices/" target="_blank">helm.sh - The Chart Best Practices Guide</a></li>
+<li><a href="https://hub.docker.com/r/alpine/helm" target="_blank">hub.docker.com - alpine/helm</a></li>
+<li><a href="https://github.com/mborne/docker-devbox#readme" target="_blank">github.com - mborne/docker-devbox</a> où de nombreux scripts <code>k8s-install.sh</code> s&#39;appuient sur des déploiements Helm.</li>
+<li><a href="https://github.com/mborne/helm-charts#helm-charts" target="_blank">github.com - mborne/helm-charts</a> quelques charts helm développer pour comprendre les mécanismes de publication sous forme d&#39;image docker avec GitHub Container Registry (ex : <code>oci://ghcr.io/mborne/helm-charts/postgres-dev</code>)</li>
+</ul>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>

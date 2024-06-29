@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Docker</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="docker">Docker</h1><h2 id="principe">Principe</h2><p>Docker s&#39;appuie sur les <a href="https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences" target="_blank">technologies d&#39;isolation linux (LXC) pour apporter des mécanismes de virtualisation</a>.</p>
+<h2 id="points-clés">Points clés</h2><ul>
+<li>Docker amène des concepts et des outils qui facilitent le déploiement des applications en offrant un <strong>cadre générique pour l&#39;empaquetage des applications</strong></li>
+<li>Docker s&#39;appuie sur une <strong>API mise à disposition par le démon docker</strong> et exploitée par plusieurs clients.</li>
+<li>Les conteneurs partagent les ressources de l&#39;hôte :<ul>
+<li>Il n&#39;est pas nécessaire de démarrer un OS complet pour chaque application</li>
+<li>Il n&#39;est pas nécessaire d&#39;allouer de la RAM ou des CPU pour chacun</li>
+</ul>
+</li>
+<li>Les conteneurs démarrent plus rapidement que les VM car démarrer un conteneur = démarrer un processus</li>
+<li>La construction et le téléchargement des images sont optimisés par la mise en cache au niveau des couches de l&#39;image</li>
+<li>Docker amène un cadre pour la gestion des journaux applicatifs et la collecte de métriques systèmes</li>
+<li>Docker s&#39;appuyant sur des mécanismes d&#39;isolation, il faut s&#39;intéresser par exemple à <a href="../kubernetes/index.html">Kubernetes</a> pour travailler avec plusieurs machines</li>
+</ul>
+<h2 id="installation">Installation</h2><ul>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/" target="_blank">Install Docker Engine on Ubuntu</a></li>
+<li>Pour ENSG, un script <a href="install-docker-ensg.sh">install-docker-ensg.sh</a> est disponible (<strong>ne pas utiliser à l&#39;IGN</strong> où il convient entre autre d&#39;utiliser des plages d&#39;IP spécifiques et de configurer l&#39;utilisation du proxy)</li>
+</ul>
+<h2 id="les-principaux-concepts">Les principaux concepts</h2><ul>
+<li><a href="concepts/image.html">Les images</a></li>
+<li><a href="concepts/conteneur.html">Les conteneurs</a></li>
+<li><a href="concepts/volume.html">Les volumes</a></li>
+<li><a href="concepts/network.html">Les réseaux</a></li>
+</ul>
+<h2 id="les-principaux-exécutables">Les principaux exécutables</h2><table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Fonction</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank">docker</a></td>
+<td>Programme en ligne de commande pour la gestion des objets docker</td>
+</tr>
+<tr>
+<td><a href="docker-compose.html">docker-compose</a></td>
+<td>Programme en ligne de commande pour l&#39;orchestration de conteneurs pour simplifier la gestion des stacks applicatives sur <strong>un</strong> hôte docker</td>
+</tr>
+<tr>
+<td><a href="https://docs.docker.com/machine/overview/" target="_blank">docker-machine</a></td>
+<td>Programme en ligne de commande pour la création et gestion de machine docker dans VirtualBox, AWS,...</td>
+</tr>
+</tbody></table>
+<h2 id="utiliser-docker">Utiliser docker</h2><ul>
+<li><a href="https://github.com/mborne/docker-exemples#readme" target="_blank">github.com - mborne/docker-exemples</a> pour une découverte progressive des principales commandes</li>
+<li><a href="https://container.training/intro-selfpaced.yml.html#1" target="_blank">container.training - Introduction to Containers</a> pour la version longue (857 slides)</li>
+<li><a href="https://docs.docker.com/reference/cli/docker/" target="_blank">ddocs.docker.com - CLI reference</a> pour la documentation officielle de l&#39;ensemble des commandes.</li>
+<li><a href="https://docs.docker.com/get-started/docker_cheatsheet.pdf" target="_blank">docs.docker.com - CLI Cheat Sheet</a> pour un résumé</li>
+<li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank">docs.docker.com - Dockerfile reference</a> pour la rédaction de Dockerfile</li>
+<li><a href="bonnes-pratiques.html">Docker - Les bonnes pratiques</a></li>
+<li><a href="problemes-frequents.html">Résoudre les problèmes fréquents avec docker</a></li>
+<li><a href="../proxy-sortant/proxy-docker.html">Travailler derrière un proxy avec Docker</a></li>
+</ul>
+<h2 id="utiliser-docker-compose">Utiliser docker compose</h2><ul>
+<li><a href="https://docs.docker.com/compose/reference/" target="_blank">docs.docker.com - Overview of docker compose CLI</a></li>
+</ul>
+<h2 id="pour-comprendre-et-aller-plus-loin">Pour comprendre et aller plus loin</h2><p>L&#39;implémentation des conteneurs :</p>
+<ul>
+<li><a href="https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences" target="_blank">www.lemagit.fr - Conteneurs Linux et Conteneurs Docker : quelle(s) différence(s) ?</a></li>
+<li><a href="https://phoenixnap.com/kb/docker-vs-containerd-vs-cri-o" target="_blank">phoenixnap.com - Docker vs containerd vs CRI-O: An In-Depth Comparison</a> présente des <strong>alternatives à docker pour l&#39;exécution de conteneurs</strong> et la relation entre docker et containerd utilisée au niveau de Kubernetes.</li>
+<li><a href="https://podman.io/" target="_blank">podman</a> est une de ces <strong>alternatives à docker</strong> (mise en avant par exemple dans la certification CKAD pour Kubernetes)</li>
+</ul>
+<p>L&#39;implémentation du stockage :</p>
+<ul>
+<li><a href="https://docs.docker.com/storage/storagedriver/" target="_blank">docs.docker.com - About storage drivers</a> présente le <strong>système de fichier par couche</strong> des conteneurs et les différentes implémentations (ex : <a href="https://docs.docker.com/storage/storagedriver/overlayfs-driver/" target="_blank">overlay2</a>)</li>
+</ul>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>
