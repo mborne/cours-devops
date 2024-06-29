@@ -1,5 +1,4 @@
-
-# Les problèmes fréquents avec docker
+# Résoudre les problèmes fréquents avec docker
 
 Quelques notes pour aider à résoudre les problèmes classiques rencontrés par les débutants :
 
