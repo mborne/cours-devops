@@ -32,7 +32,7 @@ Nous soulignerons l'existence de la solution d'orchestration [swarm](https://doc
 * [Créer un cluster avec les machines vagrantbox](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
 * [Déployer GeoStack sous forme d'un service sur ce cluster](https://docs.docker.com/engine/swarm/swarm-tutorial/deploy-service/)
 
-> (1) Le développement de swarm a d'ailleurs amené à l'ajout d'un réseau de type "overlay" permettant la communication des conteneurs entre plusieurs machines (`docker network create --driver overlay geostack`)
+> (1) Le développement de swarm a amené l'ajout d'un réseau de type "overlay" permettant la communication des conteneurs entre plusieurs machines (`docker network create --driver overlay geostack`)
 
 ---
 
@@ -40,7 +40,7 @@ Nous soulignerons l'existence de la solution d'orchestration [swarm](https://doc
 
 ### Kubernetes
 
-Pour ce cours, nous allons plutôt nous concentrer sur **Kubernetes** qui est une référence en matière d'orchestration de conteneurs et qui bénéficie d'un riche écosystème incluant des **solutions de plus haut niveau d'abstraction** qui ne seront pas présentées en détail dans ce cours :
+Pour ce cours, nous allons plutôt nous concentrer sur **Kubernetes** qui est une référence en matière d'orchestration de conteneurs et qui bénéficie d'un riche écosystème incluant des **solutions de plus haut niveau d'abstraction** ("serverless") qui ne seront pas présentées dans ce cours :
 
 * [KNative - Serverless and Event Driven Applications](https://knative.dev/docs/)
 * [OpenFaaS - Serverless Functions, Made Simple](https://www.openfaas.com/)
@@ -69,10 +69,10 @@ Nous verrons que **cette API est centrale dans l'écosystème Kubernetes** :
 
 ### L'API de Kubernetes (2/2)
 
-Cette API sera centrale pour l'administration d'un cluster Kubernetes. Le client [kubectl](https://kubernetes.io/docs/reference/kubectl/) permettra de communiquer avec elle :
+Cette API est centrale pour l'administration d'un cluster Kubernetes. Le client [kubectl](https://kubernetes.io/docs/reference/kubectl/) permettra de communiquer avec elle :
 
 <div class="center">
-    <img src="img/admin-vm-vs-k8s.drawio.png" alt="Administration VM vs K8S" style="height: 280px" />
+    <img src="img/admin-vm-vs-k8s.drawio.png" alt="Administration VM vs K8S" style="height: 240px" />
 </div>
 
 A l'aide des mécanismes de gestion de droit, il sera possible de distinguer les objets gérés par les **administrateurs du cluster** de ceux gérés par les **administrateurs des applications métiers**.
@@ -83,7 +83,7 @@ A l'aide des mécanismes de gestion de droit, il sera possible de distinguer les
 
 ### Le plan de contrôle et les noeuds
 
-Le **plan de contrôle** (*control-plane*) hébergera les composants relatifs à la gestion du cluster dont :
+Le **plan de contrôle** (*control-plane*) héberge les composants relatifs à la gestion du cluster dont :
 
 * L'API Kubernetes (`kube-apiserver`)
 * La base de données clé/valeur de l'API (`etcd`)
@@ -103,7 +103,9 @@ Avec docker, pour que deux conteneurs puissent communiquer, il faut s'assurer qu
 Avec Kubernetes, nous aurons :
 
 * Un **modèle réseau permettant par défaut la communication au sein du cluster**
-* La **possibilité de restreindre les communications réseaux** avec un concept dédié que nous n'aborderons pas dans cette introduction : [NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
+* La **possibilité de restreindre les communications réseaux** avec un concept dédié que nous ne détaillerons pas dans cette introduction : [NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
+
+Nous insisterons toutefois sur son importance dans la mesure où **l'utilisation d'un pare-feu classique ne permettra pas de maîtriser finement les flux réseaux** (le pare-feu ne verra que les IP des noeuds, il ne sera pas possible d'établir des règles en fonction des services).
 
 > Voir [kubernetes.io - The Kubernetes network model](https://kubernetes.io/docs/concepts/services-networking/#the-kubernetes-network-model) et [youtube.com - Understanding Kubernetes Networking. Part 2: POD Network, CNI, and Flannel CNI Plug-in](https://www.youtube.com/watch?v=U35C0EPSwoY) pour des explications plus détaillées.
 
@@ -121,7 +123,7 @@ Pour communiquer avec un cluster, nous installerons le client [kubectl](https://
 
 ### Création d'un cluster de développement
 
-Nous noterons qu'il existe différents outils permettant d'installer un environnement de développement Kubernetes pour découvrir les concepts par la pratique :
+Il existe différents outils permettant d'installer un environnement de développement Kubernetes pour découvrir les concepts par la pratique :
 
 * [K3S](https://k3s.io/) de Rancher.
 * [Kind (Kubernetes in docker)](https://kind.sigs.k8s.io/) (1)
@@ -153,10 +155,10 @@ kubectl get nodes
 
 ### Les Pods
 
-Les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) sont la plus petite unité d'exécution gérée par Kubernetes. Ils sont porteurs des spécifications pour l'exécution d'un ou plusieurs conteneurs qui partageront :
+Les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) sont la plus petite unité d'exécution gérée par Kubernetes. Ils sont porteurs des spécifications pour l'exécution d'un ou plusieurs conteneurs qui partagent sur un même Pod :
 
 * Le même réseau (communication en localhost)
-* Le même stockage (partage de l'accès aux volumes)
+* Le même stockage (accès aux volumes)
 
 Nous traiterons les exemples [mborne/k8s-exemples - Pods](https://github.com/mborne/k8s-exemples#pod) en faisant le lien avec [les exemples de prise en main de docker](https://github.com/mborne/docker-exemples#readme).
 
@@ -168,7 +170,7 @@ Nous traiterons les exemples [mborne/k8s-exemples - Pods](https://github.com/mbo
 
 ### Les charges de travail (1/2)
 
-En pratique, les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) ne seront pas créés manuellement. Nous utiliserons des [charge de travail (*workloads*)](https://kubernetes.io/docs/concepts/workloads/) adaptées à la nature de l'application pour créer les Pods :
+En pratique, les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) ne sont pas créés manuellement. Nous définissons plutôt des [charges de travail (*workloads*)](https://kubernetes.io/docs/concepts/workloads/) adaptées à la nature de l'application pour créer les Pods :
 
 * Un [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) pour un service sans état (ex : nginx)
 * Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) dans le cas contraire (ex : PostgreSQL)
@@ -304,10 +306,11 @@ Nous pourrons l'installer à l'aide de [mborne/docker-devbox - kubernetes-dashbo
 
 Pour découvrir l'observabilité avec Kubernetes, nous pourrons nous appuyer sur [github.com - mborne/docker-devbox](https://github.com/mborne/docker-devbox) pour installer :
 
-* [Prometheus](https://github.com/mborne/docker-devbox/tree/master/prometheus#usage-with-kubernetes) pour collecter des métriques système
-* [Loki](https://github.com/mborne/docker-devbox/tree/master/loki#usage-with-kubernetes) pour collecter les journaux applicatifs
-* [Grafana](https://github.com/mborne/docker-devbox/tree/master/grafana#usage-with-kubernetes) pour disposer d'une interface graphique et [créer quelques Dashboard](https://github.com/mborne/docker-devbox/tree/master/grafana#some-dashboards)
+* [Prometheus](https://github.com/mborne/docker-devbox/tree/master/prometheus#usage-with-kubernetes) pour collecter des métriques système.
+* [Loki](https://github.com/mborne/docker-devbox/tree/master/loki#usage-with-kubernetes) pour collecter les journaux applicatifs.
+* [Grafana](https://github.com/mborne/docker-devbox/tree/master/grafana#usage-with-kubernetes) pour disposer d'une interface graphique de consultations des journaux et des métriques.
 
+Nous remarquerons au passage que Grafana permet de gérer les dashboards as code ( [docker-devbox - grafana/helm/values.yaml](https://github.com/mborne/docker-devbox/blob/master/grafana/helm/values.yaml) ).
 
 ---
 
@@ -333,11 +336,57 @@ Il faut **déployer et configurer des services techniques** (ex : Ingress Contro
 
 ## Que manque-t'il à ce stade?
 
+### Sécuriser l'exécution des conteneurs n'est pas trivial
+
+Pour sécuriser l'exécution des conteneurs, il nous resterait par exemple à configurer des options de sécurité suivantes sur les conteneurs :
+
+```yaml
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  runAsUser: 1000
+  runAsNonRoot: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+```
+
+Or, l'activation de ces options n'est pas indolore :
+
+* Il convient de **gérer proprement les droits sur les fichiers dans le conteneur**.
+* Il convient de **ne pas utiliser des ports privilégiés tels le port 80**.
+
+
+---
+
+## Que manque-t'il à ce stade?
+
+### Éviter les problèmes de cohabitation n'est pas trivial
+
+Il est nécessaire de [spécifier les réservations et limites RAM et CPU des conteneurs](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#example-1) pour :
+
+* Permettre la mise en oeuvre de quotas ou de l'autoscalling sur les noeuds.
+* Éviter qu'un service rencontre un OEMKill ou consomme toutes les ressources CPU et RAM d'un noeud.
+
+Il est aussi nécessaire de s'assurer qu'un Pod ne provoque pas un full sur un noeud par exemple en :
+
+* Mettant en oeuvre des quotas sur le stockage local.
+* Imposant la déclaration de volumes pour le stockage (`readOnlyRootFilesystem: true`) pour pouvoir mettre en oeuvre ces quotas.
+
+Ceci induira qu'**il faudra une bonne maîtrise de la consommation RAM et de la rigueur sur la gestion des données** pour atteindre un haut niveau de stabilité.
+
+---
+
+## Que manque-t'il à ce stade?
+
 ### Kubernetes n'est pas la solution à tous les problèmes
 
-Toutefois, il convient aussi de noter que :
+Il convient aussi de noter que :
 
-* **Déployer et maintenir des applications "Stateful"** telles des bases de données **en environnement Kubernetes n'est pas trivial**.
+* **Déployer et maintenir des applications "Stateful"** telles des bases de données **en environnement Kubernetes n'est pas trivial** et demande une **maîtrise du stockage**.
 * **Kubernetes est une solution bas niveau** qui sera **moins efficace qu'une offre PaaS ou SaaS pour déployer certaines applications** (ex : CMS).
 
-Nous allons à ce titre prendre un peu de recul dans la partie [DevOps dans le cloud](cloud.md) et aborder la possibilité d'hybrider les solutions.
+Nous prendrons à ce titre prendre un peu de recul dans la partie [DevOps dans le cloud](cloud.md) et aborder la possibilité d'hybrider les solutions.
+

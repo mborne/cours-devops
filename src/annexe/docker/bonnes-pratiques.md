@@ -4,23 +4,51 @@ Cette annexe s'efforce de résumer un ensemble de bonnes pratiques classiques (c
 
 [[toc]]
 
-## Empaqueter une seule application par conteneur
+## Les bonnes pratiques classiques
 
-* Appliquer tant que possible la règle un conteneur = un service.
+### Empaqueter une seule application par conteneur
+
+* Appliquer tant que possible la règle **un conteneur = un service** (1).
 * Éviter par exemple de produire une image incluant une application et une instance PostgreSQL.
-* Utiliser plutôt un fichier docker-compose.yaml pour faciliter le démarrage de l'application.
+* Utiliser plutôt un fichier docker-compose.yaml pour faciliter le démarrage de l'application :
 
-> NB : Il reste possible (et recommandé) d'inclure dans une même image un service et les utilitaires de ce service.
+```yaml
+services:
+  app:
+    image: myapp:latest
+    ports:
+      - "5000:5000"
+  db:
+    image: postgres:15
+    volumes:
+      - pg-data:/var/lib/postgresql/data
 
-## Faire en sorte qu'un conteneur puisse être recréé sans perte de données
+volumes:
+  pg-data:
+```
+
+> (1) Il reste possible (et recommandé) d'inclure dans une même image un service et les utilitaires de ce service.
+
+### Faire en sorte qu'un conteneur puisse être recréé sans perte de données
 
 * Préférer si possible l'utilisation de services dédiés au stockage (base de données, stockage objet,...) pour les données applicatives plutôt que l'utilisation de fichiers.
 * Identifier clairement les dossiers contenant des données persistantes dans le cas contraire (ex : `/var/lib/postgresql/data` pour PostgreSQL).
-* Externaliser le stockage de ces fichiers à l'aide de volumes (ex : `-v pg-data:/var/lib/postgresql/data`).
+* Utiliser des volumes pour la persistence des données :
 
-## Ne pas inclure des secrets dans les images
+```yaml
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  db-data:
+```
 
-* **Ne pas inclure les paramètres pour l'exécution dans l'image** (c.f. [12 facteurs - III. Configuration - Stockez la configuration dans l’environnement](../12-facteurs.md#factor-03)).
+### Ne pas inclure des secrets dans les images
+
+* **Ne pas inclure les paramètres pour l'exécution dans l'image**
+  * Utiliser plutôt des variables d'environnement (ex : `DATABASE_URL` ou `DB_PASSWORD`, c.f. [12 facteurs - III. Configuration - Stockez la configuration dans l’environnement](../12-facteurs.md#factor-03))
 * **Ne pas inclure le dossier `.git` dans les images** :
   * Inclure `.git` dans `.dockerignore`.
   * Éviter `COPY . .`.
@@ -32,19 +60,64 @@ Cette annexe s'efforce de résumer un ensemble de bonnes pratiques classiques (c
   * Option 1) Si le framework propose de gérer de tels fichiers à la racine du projet (ex : PHP Symfony), être très attentif à leurs présences dans `.dockerignore` et `.gitignore`.
   * Option 2) Pour limiter réellement le risque d'inclure de tels fichiers dans une image, stocker et chiffrer ces secrets loin du Dockerfile et des dépôts GIT.
 
-## Minimiser la taille des images
+
+### Utiliser le fichier `.dockerignore` pour exclure les fichiers inutiles ou dangereux
+
+* Ajouter un fichier `.dockerignore` pour exclure les fichiers inutiles ou dangereux (`.git`) :
+
+```
+node_modules
+.git
+*.log
+*.md
+.dockerignore
+```
+
+### Minimiser la taille des images
 
 * **Installer uniquement ce qui est nécessaire**.
-* **Comprendre et exploiter les mécanismes de couches** dans les images (`docker image history mon-image`) :
-  * **Grouper les instructions** (`RUN ... && ... && `).
-  * **Ordonner les instructions** (ex : ne pas installer des packages systèmes après l'application).
-* Utiliser des **multi-stage build** pour éviter de conserver les éléments relatifs à la construction. Par exemple :
-  * Construire un site statique dans une image NodeJS (`npm run build`).
-  * Copier le dossier public créé dans une image nginx pour l'exécution.
+* **Comprendre et exploiter les mécanismes de couches** dans les images (`docker image history mon-image`)
+* **Grouper les instructions** pour supprimer les fichiers temporaires après installation des dépendances :
 
-## Minimiser le temps de construction des images
+```dockerfile
+# Supprimer les fichiers temporaires après installation des dépendances
+RUN apt-get update 
+ && apt-get install -y wget gdal-bin \
+ && rm -rf /var/lib/apt/lists/*
+```
 
-* Utiliser `.dockerignore` pour limiter la taille du contexte.
+* **Ordonner les instructions** pour profiter de la mise en cache :
+
+```dockerfile
+# CONTRE-EXEMPLE
+
+# en ajoutant le code avant l'installation de curl...
+COPY . .
+
+# ... curl est installé à chaque mise à jour du code
+RUN apt-get update 
+ && apt-get install -y curl \
+ && rm -rf /var/lib/apt/lists/*
+```
+
+* **Utiliser des constructions multi-étapes** (*multi-stage builds*) pour éviter de conserver les éléments relatifs à la construction :
+
+```dockerfile
+# Etape 1 : Construire le site statique
+FROM node:20 AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Etape 2 : Copier le résultat de la construction dans une image nginx pour l'exécution
+FROM nginx:alpine
+COPY --from=builder /app/build /usr/share/nginx/html
+```
+
+### Minimiser le temps de construction des images
+
 * **Comprendre et exploiter les mécanismes de cache dans la construction** :
 
 ```dockerfile
@@ -56,13 +129,125 @@ RUN npm install
 COPY src/ src
 ```
 
-## Ne pas gérer un proxy sortant dans le Dockerfile
+## Les bonnes pratiques pour l'observabilité
 
-* Ne pas inclure des éléments relatifs à l'utilisation d'un proxy sortant dans le fichier `Dockerfile` (ex : `ENV HTTP_PROXY ...`).
-* Faire suivre au besoin la définition pour la construction (`--build-arg HTTP_PROXY --build-arg HTTP_PROXYS ...`).
-* Faire suivre au besoin la définition pour l'exécution (`-e HTTP_PROXY -e HTTPS_PROXY ...`).
+### Respecter le cadre pour les journaux applicatif
 
-## Utiliser un miroir pour l'accès aux images publiques
+* Écrire les journaux dans les flux standard (stdout et stderr) en utilisant des formats standards (nginx, apache2, json,...).
+* Rediriger les écritures dans des fichiers dans ces flux standard s'il n'est pas possible d'adapter le code en ce sens :
+
+```dockerfile
+# Exemple avec nginx
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
+```
+
+### Permettre la surveillance de l'état du service
+
+* Prévoir un mécanisme pour la surveillance de l'état du conteneur (ex : URL `/health`)
+* Envisager (1) la déclaration du HEALTHCHECK correspondant dans le conteneur :
+
+```dockerfile
+# Ajouter un healthcheck
+HEALTHCHECK CMD curl --fail http://localhost:8080/health || exit 1
+```
+
+> (1) Cette pratique n'est pas forcément très répandue dans les images usuelles. Elle est à articuler avec l'utilisation des [Liveness, Readiness et Startup Probes](https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) côté Kubernetes.
+
+
+## Les bonnes pratiques pour la sécurité
+
+### Ne pas exécuter n'importe quoi ou n'importe quelle image
+
+> Cette précaution de base qui s'applique à d'autres outils susceptibles d'exécuter du code malveillant (npm, PHP composer,...) s'applique évidemment aussi pour docker.
+
+* Utiliser des images officielles ou des images d'éditeurs reconnus.
+* Installer des composants en provenance d'éditeurs reconnus dans vos images.
+
+### Ne pas exécuter les conteneurs en tant qu'utilisateur root
+
+* Utiliser un **utilisateur dédié à l'application** pour l'exécution :
+
+```dockerfile
+# Exemple avec NodeJS où l'image inclue un utilisateur "node" (uid=1000)
+FROM node:20
+WORKDIR /app
+COPY . .
+RUN npm install
+USER node
+CMD ["node", "app.js"]
+```
+
+* Prévoir des **volumes avec les permissions adaptées** dans l'image :
+
+```dockerfile
+# Exemple de dossier /app/data modifiable à l'exécution
+ENV DATA_DIR=/app/data
+RUN mkdir /app/data \
+ && chown -R node:node/app/data
+VOLUME /app/data
+```
+
+### Utiliser des ports non privilégiés pour les services
+
+> L'utilisation du port 80 dans de nombreuses images bloque l'activation de `runAsNonRoot: true` et `runAsUser: 1000` avec de nombreuses images en contexte Kubernetes.
+
+* **Utiliser des ports non privilégiés pour vos applications (>1024)** (ex : `APP_PORT=3000`)
+* Utiliser des images traitant cette problématique (ex : [nginx](https://hub.docker.com/_/nginx) -> [nginxinc/nginx-unprivileged](https://hub.docker.com/r/nginxinc/nginx-unprivileged))
+
+
+### Configurer les variables d'environnement avec des valeurs par défaut pour la configuration
+
+```dockerfile
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+ENV LOG_LEVEL=inf
+# ...
+```
+
+### Permettre l'exécution des conteneurs avec un système de fichiers en lecture seule
+
+Avec Kubernetes, une option `readOnlyRootFilesystem: true` permet d'avoir un conteneur avec un système de fichier en lecture seule présentant différents avantages :
+
+* Bloquer les modifications sur l'application en cas d'attaque.
+* Identifier les dossiers contenant des données dynamiques (et pouvoir **se protéger contre un risque de full sur les noeuds**).
+
+Pour permettre son utilisation sur une image que l'on met à disposition :
+
+* **Identifier les dossiers dynamiques** dans l'image pour lesquels il conviendra de monter des volumes.
+* **Ne pas inclure du contenu statique dans ces dossiers dynamique** (un montage `emptyDir` conservant le contenu de l'image sera impossible avec Kubernetes, permettre la génération au démarrage d'un fichier `/app/config/params.yaml` sans vider `/app/config` sera délicat).
+
+### Scanner régulièrement les images pour détecter des failles ou des secrets
+
+> A date (juin 2024), la difficulté de l'exploitation des alertes tient à la présence de failles jugées critiques par ces outils dans les images officielles massivement utilisées (ex : [trivy image --severity HIGH,CRITICAL debian:12-slim](img/trivy-debian-202406.png))
+
+* Utiliser les scanners de vulnérabilité au niveau des dépôts d'images (ex : DockerHub, GitHub Container Registry, Harbor,...).
+* Utiliser localement des outils tels [Trivy](https://aquasecurity.github.io/trivy/) (qui est utilisé par Harbor) ou [Clair](https://github.com/quay/clair) est aussi possible :
+
+```bash
+triyv image mon-image:latest
+```
+
+
+### Configurer les options de sécurité au niveau du démon
+
+> Plusieurs options de sécurité limitent les risques liés à l'utilisation de docker. Par exemple, l'option [userns-remap](https://docs.docker.com/engine/security/userns-remap/) permet d'associer l'utilisateur "root" au niveau des conteneurs à un utilisateur non root sur le hôte.
+
+* Configurer le démon docker en activant les options de sécurité.
+* Vérifier la configuration du démon docker à l'aide d'outils tel [docker-bench-security](https://hub.docker.com/r/docker/docker-bench-security).
+
+### Se méfier des expositions de port
+
+> Si vous utiliser docker **sur une machine exposée**, vous devrez **éviter les expositions sur des ports** (ex : `-p 5432:5432`). En effet, <span style="font-weight: bold; color: red">docker manipule iptables et les règles de pare-feu local que vous configurez par exemple avec UFW seront tout simplement ignorées.</span>.
+
+* Utiliser des réseaux pour la communication entre les conteneurs.
+* Accéder au besoin aux services non exposés depuis l'hôte :
+  * Via les IP des conteneurs (`docker inspect ...`).
+  * En mappant les ports uniquement sur l'hôte (ex : `-p 127.0.0.1:9200:9200`)
+* Utiliser un **reverse proxy** tel [Traefik](https://github.com/traefik/traefik#overview) **pour limiter le nombre de port à exposer** et pour avoir de jolies URL (ex : https://opensearch.dev.localhost).
+
+
+### Utiliser un miroir pour l'accès aux images publiques
 
 > Utiliser un miroir pour l'accès aux images DockerHub est important pour **éviter d'atteindre la limite de pull** (c.f. [Docker Hub rate limit](https://docs.docker.com/docker-hub/download-rate-limit/) ) :
 
@@ -76,93 +261,52 @@ FROM ${registry}/library/ubuntu:22.04
 ```
 
 
-## Observabilité - Respecter le cadre pour les journaux applicatif
+## Les bonnes pratiques pour la robustesse
 
-* Écrire les journaux dans les flux standard (stdout et stderr) en utilisant des formats standards (nginx, apache2, json,...).
-* Rediriger les écritures dans des fichiers dans ces flux standard s'il n'est pas possible d'adapter le code en ce sens :
+### Limiter l'utilisation des ressources
 
-```dockerfile
-#------------------------------------------------------------------------
-# Illustration avec le cas apache2
-# (adaptée à partir de https://github.com/docker-library/php)
-#------------------------------------------------------------------------
-RUN mkdir -p /var/log/apache2 \
- && ln -sfT /dev/stderr "/var/log/apache2/error.log" \
- && ln -sfT /dev/stdout "/var/log/apache2/access.log" \
- && ln -sfT /dev/stdout "/var/log/apache2/other_vhosts_access.log" \
- && chown www-data:www-data /var/log/apache2/*.log
+Pour **éviter de consommation toutes les ressources de l'hôte** et préparer des déploiements en environnement de production (ex : Kubernetes) où la consommation RAM / CPU doit être maîtrisée et déclarée pour assurer la stabilité :
+
+* Configurer les limites de consommation CPU et RAM :
+
+```yaml
+services:
+  app:
+    image: myapp:latest
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512M"
 ```
 
-## Observabilité - Permettre la surveillance de l'état du service
+### Traiter proprement les signaux SIGTERM pour assurer des arrêts gracieux
 
-* Prévoir des endpoints dédiés à la surveillance de l'état de l'application (`livenessProbe`, `readinessProbe`).
-* Prévoir des endpoints dédiés à la surveillance des services utilisés en backend (`/health/db`, `/health/s3`,...)
-
-## Sécurité - Ne pas exécuter n'importe quoi ou n'importe quelle image
-
-> Cette précaution qui s'applique à d'autres outils susceptibles d'exécuter du code malveillant (npm, PHP composer,...) s'applique évidemment aussi pour docker.
-
-* Utiliser des images officielles ou des images d'éditeurs reconnus.
-* Installer des composants en provenance d'éditeurs reconnus dans vos images.
-
-## Sécurité - Ne pas exécuter les conteneurs en tant qu'utilisateur root
-
-* Utiliser un utilisateur dédié à l'application pour l'exécution (ex : `USER node`, `USER www-data`,...).
-* Gérer proprement les droits sur les fichiers dans le conteneur.
-* **Utiliser des ports non privilégiés (>1024)** (l'utilisation du port 80 dans de nombreuses images bloque l'activation de `runAsNonRoot: true` et `runAsUser: 1000` avec de nombreuses images en contexte Kubernetes).
-
-## Sécurité - Permettre l'exécution des conteneurs avec un système de fichiers en lecture seule
-
-Avec Kubernetes, une option `readOnlyRootFilesystem: true` permet d'avoir un conteneur avec un système de fichier en lecture seule présentant différents avantages :
-
-* Bloquer les modifications sur l'application en cas d'attaque.
-* Identifier les dossiers contenant des données dynamiques (et pouvoir **se protéger contre un risque de full sur les noeuds**).
-
-Pour permettre son utilisation sur une image que l'on met à disposition :
-
-* **Identifier les dossiers dynamiques** dans l'image pour lesquels il conviendra de monter des volumes.
-* **Ne pas inclure du contenu statique dans ces dossiers dynamique** (un montage `emptyDir` conservant le contenu de l'image sera impossible avec Kubernetes, permettre la génération au démarrage d'un fichier `/app/config/params.yaml` sans vider `/app/config` sera délicat).
-
-## Sécurité - Scanner les images pour détecter des failles ou des secrets
-
-> A date (juin 2024), la difficulté de l'exploitation des alertes tient à la présence de failles jugées critiques par ces outils dans les images officielles massivement utilisées (ex : [trivy image --severity HIGH,CRITICAL debian:12-slim](img/trivy-debian-202406.png))
-
-* Utiliser les scanners de vulnérabilité au niveau des dépôts d'images (ex : DockerHub, GitHub Container Registry, Harbor,...).
-* Utiliser localement des outils tels [Trivy](https://aquasecurity.github.io/trivy/) (qui est utilisé par Harbor) est aussi possible :
-
-```bash
-triyv image mon-image:latest
-```
-
-
-## Sécurité - configurer les options de sécurité au niveau du démon
-
-> Plusieurs options de sécurité limitent les risques liés à l'utilisation de docker. Par exemple, l'option [userns-remap](https://docs.docker.com/engine/security/userns-remap/) permet d'associer l'utilisateur "root" au niveau des conteneurs à un utilisateur non root sur le hôte.
-
-* Configurer le démon docker en activant les options de sécurité.
-* Vérifier la configuration du démon docker à l'aide d'outils tel [docker-bench-security](https://hub.docker.com/r/docker/docker-bench-security).
-
-## Sécurité - se méfier des expositions de port
-
-> Si vous utiliser docker **sur une machine exposée**, vous devrez **éviter les expositions sur des ports** (ex : `-p 5432:5432`). En effet, <span style="font-weight: bold; color: red">docker manipule iptables et les règles de pare-feu local que vous configurez par exemple avec UFW seront tout simplement ignorées.</span>.
-
-* Utiliser des réseaux pour la communication entre les conteneurs.
-* Accéder au besoin aux services non exposés depuis l'hôte :
-  * Via les IP des conteneurs (`docker inspect ...`).
-  * En mappant les ports uniquement sur l'hôte (ex : `-p 127.0.0.1:9200:9200`)
-* Utiliser un **reverse proxy** tel [Traefik](https://github.com/traefik/traefik#overview) **pour limiter le nombre de port à exposer** et pour avoir de jolies URL (ex : https://opensearch.dev.localhost).
-
-## Traiter proprement les signaux SIGTERM pour assurer des arrêts gracieux
-
-### Cas des services
+#### Cas des services
 
 > En substance, la commande `docker stop mon-conteneur -t 600` ne doit pas mettre 10 minutes. Si c'est le cas, l'application ne s'arrête pas proprement lorsqu'elle reçoit un signal d'arrêt (SIGTERM) et docker finit par procéder à un arrêt brutal. Il en sera de même en environnement Kubernetes où devoir attendre 60 secondes pour que le conteneur s'arrête sera problématique.
 
 * Arrêter proprement le service en cas de réception d'un message SIGTERM :
-  * Voir exemple pour le cas particulier de NodeJS et Express : [expressjs.com - Health Checks and Graceful Shutdown](https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html)
-  * Adapter pour les autres cas à l'aide de votre moteur de recherche préféré.
 
-### Cas des traitements longs
+```js
+/*
+ * Exemple avec Node.js et Express
+ * @see https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
+ */
+const express = require('express');
+const app = express();
+const server = app.listen(3000);
+
+process.on('SIGTERM', () => {
+  debug('SIGTERM signal received: closing HTTP server');
+  server.close(() => {
+    debug('HTTP server closed');
+  });
+});
+```
+
+
+#### Cas des traitements longs
 
 > Pour **les traitements longs**, traiter SIGTERM sera synonyme de **se mettre en capacité de recommencer ou de poursuivre le traitement** s'il doit être interrompu pour une raison ou une autre (ex : redémarrage d'une machine, maintenance sur un noeud Kubernetes, libération d'une instance spot,...).
 
@@ -174,9 +318,78 @@ triyv image mon-image:latest
 
 > (1) Pour les scripts Bash, voir [www.baeldung.com - Handling Signals in Bash Script](https://www.baeldung.com/linux/bash-signal-handling) (commande `trap`) et [www.baeldung.com - The Uses of the Exec Command](https://www.baeldung.com/linux/exec-command-in-shell-script) (approche `exec`)
 
-### Cas particulier des images apache2
+#### Cas particulier des images apache2
 
-Dans le cas des images intégrant apache2 (ex : `php:8.3-apache2`), le signal SIGTERM est parfois remplacé par SIGWINCH (`STOPSIGNAL=SIGWINCH` dans le fichier Dockerfile...). Le savoir évite de passer des heures à se demander pourquoi les scripts bash et PHP intégrés dans une image ne reçoivent pas le message SIGTERM...
+> Pour vous éviter de passer des heures à vous demander pourquoi les scripts bash et PHP intégrés dans une image ne reçoivent pas le message SIGTERM...
+
+* Savoir que dans le cas d'images intégrant le server apache2 (ex : [php:8.3-apache](https://hub.docker.com/layers/library/php/8.3-apache/images/sha256-20a5a87a4752077ff5dc3621a1c107295d6c976e09e95aa5f8fa369471922599?context=explore)), le signal SIGTERM est parfois remplacé par SIGWINCH :
+
+```dockerfile
+STOPSIGNAL SIGWINCH
+```
+
+
+### Ne pas modifier le signal d'arrêt par défaut
+
+* Ne pas utiliser le signal par défaut pour empaqueter une application qui écoute l'événement SIGWINCH (changement de taille de fenêtre) plutôt que l'événement SIGTERM :
+
+```dockerfile
+# mauvaise pratique!
+STOPSIGNAL SIGWINCH
+```
+
+* Adapter plutôt le signal à l'aide d'un script bash :
+
+```bash
+# Version revisitée de https://github.com/docker-library/php/blob/master/8.3/bullseye/apache/apache2-foreground
+
+# Start apache forwarding SIGINT and SIGTERM to SIGWINCH
+APACHE2_PID=""
+function stop_apache()
+{
+	if [ ! -z "$APACHE2_PID" ];
+	then
+		kill -s WINCH $APACHE2_PID
+	fi
+}
+
+trap stop_apache SIGINT SIGTERM SIGWINCH
+
+apache2 -DFOREGROUND "$@" &
+APACHE2_PID=$!
+wait $APACHE2_PID
+```
+
+## Les bonnes pratiques spécifiques à la contrainte d'utilisation d'un proxy sortant
+
+### Ne pas gérer un proxy sortant dans le Dockerfile
+
+* Ne pas inclure des éléments relatifs à l'utilisation d'un proxy sortant dans le fichier `Dockerfile` :
+
+```dockerfile
+# MAUVAISE PRATIQUE :
+ENV HTTP_PROXY=http://proxy.devinez.fr:3128
+ENV HTTPS_PROXY=http://proxy.devinez.fr:3128
+```
+
+* Faire suivre au besoin la définition du proxy sortant pour la construction et l'exécution :
+
+```yaml
+# Meilleure approche (traitement dans docker-compose.yaml moins impactant)
+services:
+  app:
+    build:
+      context: .
+      # docker build --build-arg HTTP_PROXY --build-arg HTTP_PROXYS ...
+      args:
+        - HTTP_PROXY
+        - HTTPS_PROXY
+    environment:
+    # docker run -e HTTP_PROXY -e HTTPS_PROXY ...
+    - HTTP_PROXY=${HTTP_PROXY:-}
+    - HTTPS_PROXY=${HTTPS_PROXY:-}
+    - NO_PROXY="jaeger,${NO_PROXY:-}"
+```
 
 ## Références
 
