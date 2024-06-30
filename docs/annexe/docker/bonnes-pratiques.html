@@ -48,6 +48,9 @@
   </header>
 
   <main id="main" class="container">
+    <div>
+      <a href="https://github.com/mborne/cours-devops/blob/master/src/annexe/docker/bonnes-pratiques.md?plain=1" target="_blank">Éditer sur GitHub</a>
+    </div>
 
     <div class="markdown-body">
       <h1 id="docker---les-bonnes-pratiques">Docker - Les bonnes pratiques</h1><p>Cette annexe s&#39;efforce de résumer un ensemble de bonnes pratiques classiques (c.f. <a href="#références">références</a>) complétées de recommandations visant entre autres à guider dans la production d&#39;images pouvant être exécutées dans des environnements sécurisés où il n&#39;est par exemple pas possible d&#39;utiliser le port 80 (c.f. <a href="https://kubernetes.io/docs/concepts/security/pod-security-standards/" target="_blank">kubernetes.io - Pod Security Standards</a> et <a href="https://github.com/kyverno/policies/tree/main/pod-security" target="_blank">kyverno/policies - baseline et restricted</a>)</p>
@@ -406,23 +409,9 @@ ENV HTTP_PROXY=http://proxy.devinez.fr:3128
 ENV HTTPS_PROXY=http://proxy.devinez.fr:3128
 </code></pre>
 <ul>
-<li>Faire suivre au besoin la définition du proxy sortant pour la construction et l&#39;exécution :</li>
+<li><a href="../proxy-sortant/proxy-docker.html#proxy-build">Construire les images en spécifiant le proxy avec des arguments de construction</a></li>
+<li><a href="../proxy-sortant/proxy-docker.html#proxy-run">Démarrer les conteneurs en spécifiant le proxy avec des variables d&#39;environnement</a></li>
 </ul>
-<pre><code class="language-yaml"># Meilleure approche (traitement dans docker-compose.yaml moins impactant)
-services:
-  app:
-    build:
-      context: .
-      # docker build --build-arg HTTP_PROXY --build-arg HTTP_PROXYS ...
-      args:
-        - HTTP_PROXY
-        - HTTPS_PROXY
-    environment:
-    # docker run -e HTTP_PROXY -e HTTPS_PROXY ...
-    - HTTP_PROXY=${HTTP_PROXY:-}
-    - HTTPS_PROXY=${HTTPS_PROXY:-}
-    - NO_PROXY=&quot;jaeger,${NO_PROXY:-}&quot;
-</code></pre>
 <h2 id="références">Références</h2><ul>
 <li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr" target="_blank">cloud.google.com - Bonnes pratiques en matière de création de conteneurs</a><ul>
 <li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr#signal-handling" target="_blank">Traiter correctement le PID 1, le traitement de signal et les processus zombie</a></li>
@@ -457,7 +446,7 @@ services:
   <footer class="container-fluid">
     <div class="row">
       <div class="col-md-12 text-center">
-        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+        ©2024 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> <br /> <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
       </div>
     </div>
   </footer>

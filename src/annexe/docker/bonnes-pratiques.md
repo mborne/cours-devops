@@ -372,24 +372,8 @@ ENV HTTP_PROXY=http://proxy.devinez.fr:3128
 ENV HTTPS_PROXY=http://proxy.devinez.fr:3128
 ```
 
-* Faire suivre au besoin la définition du proxy sortant pour la construction et l'exécution :
-
-```yaml
-# Meilleure approche (traitement dans docker-compose.yaml moins impactant)
-services:
-  app:
-    build:
-      context: .
-      # docker build --build-arg HTTP_PROXY --build-arg HTTP_PROXYS ...
-      args:
-        - HTTP_PROXY
-        - HTTPS_PROXY
-    environment:
-    # docker run -e HTTP_PROXY -e HTTPS_PROXY ...
-    - HTTP_PROXY=${HTTP_PROXY:-}
-    - HTTPS_PROXY=${HTTPS_PROXY:-}
-    - NO_PROXY="jaeger,${NO_PROXY:-}"
-```
+* [Construire les images en spécifiant le proxy avec des arguments de construction](../proxy-sortant/proxy-docker.md#proxy-build)
+* [Démarrer les conteneurs en spécifiant le proxy avec des variables d'environnement](../proxy-sortant/proxy-docker.md#proxy-run)
 
 ## Références
 

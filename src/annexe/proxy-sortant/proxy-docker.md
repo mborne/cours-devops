@@ -4,7 +4,7 @@ En présence d'un proxy sortant pour l'accès aux ressources internet, il convie
 
 [[toc]]
 
-## Configurer le démon pour télécharger les images en utilisant le proxy
+## Configurer le démon pour télécharger les images en utilisant le proxy {#proxy-pull}
 
 > Symptôme : "`docker pull` ou `docker run` ne fonctionne pas sur ma machine!"
 
@@ -33,7 +33,7 @@ sudo systemctl restart docker
 * Tester avec par exemple `docker pull nginx`
 
 
-## Construire les images en spécifiant le proxy avec des arguments de construction
+## Construire les images en spécifiant le proxy avec des arguments de construction {#proxy-build}
 
 > Symptôme : "`RUN apt-get update`, `RUN curl`,... ne fonctionnent pas dans mon Dockerfile"
 
@@ -58,7 +58,7 @@ services:
 
 NB : Par rapport à l'approche consistant à utiliser `ENV HTTP_PROXY=...` dans les images, nous évitons ainsi de prédéfinir un proxy dans les images résultantes.
 
-## Démarrer les conteneurs en spécifiant le proxy avec des variables d'environnement
+## Démarrer les conteneurs en spécifiant le proxy avec des variables d'environnement {#proxy-run}
 
 > Symptôme : "Mon conteneur n'arrive pas à accéder à des ressources ou services sur internet"
 
