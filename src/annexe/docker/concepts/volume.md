@@ -3,13 +3,11 @@
 
 ## Principe
 
-Les volumes docker permettent de réaliser des montages dans les conteneurs. L'utilisation de ces derniers est fondamentale pour **externaliser les données des conteneurs afin que celles-ci survivent à la recréation des conteneurs**.
+Les volumes docker permettent de réaliser des montages dans les conteneurs. L'utilisation de ces derniers est fondamentale pour **externaliser le stockage des fichiers des conteneurs afin que ceux-ci survivent à la recréation des conteneurs**.
 
 ## Volume nommé et volume mappé
 
-Nous soulignerons l'existence de **volumes nommés** (`docker run -v <volume-name>:/data`) et de **volumes mappés** (`docker run -v /path/on/host:/data`).
-
-Nous préfèrerons l'utilisation de volumes nommés en notant **une différence de comportement au lancement d'un conteneur** :
+Nous soulignerons l'existence de **volumes nommés** (`docker run -v <volume-name>:/data`) et de **volumes mappés** (`docker run -v /path/on/host:/data`). Nous préfèrerons l'utilisation de volumes nommés en notant **une différence de comportement au lancement d'un conteneur** :
 
 * Le contenu d'**un volume nommé est initialisé à partir du contenu de l'image**
 * Le contenu d'**un volume mappé est initialisé à vide**

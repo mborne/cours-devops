@@ -2,7 +2,7 @@
 
 * Principe de fonctionnement
 * Les principaux concepts
-* Les principaux exécutables
+* Les principaux clients
 * Les dépôts d'images
 * L'observabilité
 * Découvrir docker par la pratique
@@ -60,22 +60,24 @@ Docker apporte par contre un ensemble cohérent **de concepts et d'outils donnan
 L'utilisation de docker amènera en effet à manipuler plusieurs concepts :
 
 * Les **images** qui sont fonctionnellement équivalentes aux images de VM
-* Les `Dockerfile` qui décrivent la construction d'une image à partir d'une image de base et d'instructions.
+* Les fichiers [Dockerfile](https://docs.docker.com/reference/dockerfile/) qui décrivent la construction d'une image.
 * Les **dépôts d'images (*registry*)** qui permettent de télécharger et stocker des images.
 * Les **conteneurs** qui sont des instances des images se comportant comme des VM grace à des mécanismes d'**isolation**.
 * Les **volumes** qui permettent d'externaliser les données des **conteneurs** ("montage de disque")
 * Les **réseaux** qui permettent la communication entre les conteneurs.
-* Le **démon docker** qui met à disposition [une API pour gérer les conteneurs, images, volumes, réseaux,...](https://docs.docker.com/engine/api/v1.41/).
+* Le **démon docker** qui met à disposition [une API pour gérer les conteneurs, images, volumes, réseaux,...](https://docs.docker.com/engine/api/v1.45/).
 
 
 ---
 
-## Les principaux exécutables
+## Les principaux clients
 
-Nous utiliserons principalement les **clients en ligne de commande pour l'API docker** suivants :
+Nous utiliserons principalement les **clients en ligne de commande** suivants **pour communiquer avec l'API docker**  :
 
 * L'exécutable [**docker**](https://docs.docker.com/engine/reference/commandline/cli/) qui permettra de **manipuler individuellement les images, les conteneurs, les volumes, les réseaux,...**
 * Son plugin [**docker compose**](https://docs.docker.com/compose/) qui permettra de **gérer des stacks au format YAML** (des services exécutant des conteneurs, des réseaux et des volumes,...)
+
+Il existe des interfaces graphiques (ex : [Portainer](https://www.portainer.io/)) qui sont clientes de l'API docker. Elles ne seront pas utilisées dans ce cours pour une meilleure compréhension du fonctionnement.
 
 ---
 
@@ -102,7 +104,7 @@ Pour déployer GeoStack, nous y trouverons par exemple :
 
 ### Les autres dépôts d'images publiques
 
-Nous noterons toutefois qu'il existe d'autres dépôts d'images publiquement accessibles dont :
+Il existe d'autres dépôts d'images publiquement accessibles dont :
 
 * [quay.io](https://quay.io/) de RedHat mettant par exemple à disposition les [dernières versions de Keycloak](https://quay.io/repository/keycloak/keycloak)
 * [docker.elastic.co](https://www.docker.elastic.co/) mettant à disposition les images de la stack ELK
@@ -147,10 +149,13 @@ Leur utilisation sera parfois imposée pour utiliser certaines fonctionnalités.
 
 Nous soulignerons que la gestion des journaux applicatifs sera unifiée par :
 
-* La collecte des flux de sorties standards (stdout/stderr) des conteneurs par le démon docker
-* La présence d'une commande [docker logs](https://docs.docker.com/engine/reference/commandline/logs/) permettant de récupérer les journaux applicatifs d'un conteneur
+* La collecte des flux de sorties standards (stdout/stderr) des conteneurs par le démon docker (1).
+* La présence d'une commande [docker logs](https://docs.docker.com/engine/reference/commandline/logs/) permettant de récupérer les journaux applicatifs d'un conteneur.
+* La [présence de plusieurs drivers pour l'écriture des logs](https://docs.docker.com/config/containers/logging/configure/#supported-logging-drivers) (2).
 
-> Il sera bien sûr toujours possible d'écrire des journaux dans des fichiers mais se conformer à la [11ième recommandation sur Logs des 12 facteurs](https://12factor.net/fr/logs) et écrire les messages dans les flux standards simplifiera la collecte de ces derniers.
+> (1) Il sera bien sûr toujours possible d'écrire des journaux dans des fichiers mais se conformer à la [11ième recommandation sur Logs des 12 facteurs](https://12factor.net/fr/logs) et écrire les messages dans les flux standards simplifiera la collecte de ces derniers.
+> 
+> (2) journald semble particulièrement intéressant pour unifier les journaux des conteneurs avec ceux des services systemd classiques afin d'en faciliter la centralisation.
 
 ---
 
@@ -185,7 +190,7 @@ Pour approfondir sur cette technologie, vous pourrez suivre un cours dédié ou 
 Nous allons nous assurer d'avoir une installation fonctionnelle de docker permettant d'exécuter `docker run hello-world`. Si docker n'est pas installé sur votre poste, vous pourrez :
 
 * [Installer docker sur une VM Linux](annexe/docker/#installation)
-* Le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) vous permettra de faire vos premiers tests en ligne :
+* Utiliser le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) pour faire vos premiers tests en ligne (la création d'un compte personnel sur DockerHub sera requise):
 
 <div class="center">
     <img src="img/play-with-docker.png" alt="Screenshot play-with-docker" style="height: 200px" />
@@ -246,7 +251,7 @@ Après cette brève introduction, nous allons pouvoir reprendre le déploiement 
 
 ### La construction d'une image
 
-Pour illustrer la construction d'une image docker à partir d'un `Dockerfile`, nous allons faire l'exercice de :
+Pour illustrer la construction d'une image docker à partir d'un [Dockerfile](https://docs.docker.com/reference/dockerfile/), nous allons faire l'exercice de :
 
 * Créer nous même l'image pour GeoServer
 * Stocker cette image à l'aide de GitHub Container Registry (ghcr.io)
@@ -269,7 +274,7 @@ Nous trouverons la démonstration correspondante dans le dépôt ci-après :
 
 Nous mémoriserons que **l'utilisation d'un fichier [docker-compose.yml](https://github.com/mborne/geostack-deploy/blob/master/docker/docker-compose.yml) permet de démarrer une pile applicative complète à l'aide de la commande `docker compose up -d`**.
 
-Nous soulignerons que sans "docker compose", nous serions amené à exécuter de nombreuses commandes docker.
+Nous soulignerons que sans [docker compose](https://docs.docker.com/compose/reference/), nous serions amené à exécuter de nombreuses commandes docker.
 
 ---
 
@@ -283,7 +288,7 @@ Avec docker, la présence d'une [API au niveau de docker](https://doc.traefik.io
 
 Nous traiterons le déploiement [geostack-deploy - docker - Mise en oeuvre d'un reverse proxy](https://github.com/mborne/geostack-deploy/blob/master/docker/README.md#mise-en-oeuvre-dun-reverse-proxy) pour en comprendre le fonctionnement.
 
-> En alternative à Traefik, il est possible d'utiliser [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy). La principale problématique à traiter sera la même : Le LoadBalancer devra avoir accès aux conteneurs exposés (d'où le réseau "devbox" au niveau de [mborne/docker-devbox](https://github.com/mborne/docker-devbox)).
+> En alternative à Traefik, il est possible d'utiliser [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy). La principale problématique à traiter serait la même : Le LoadBalancer devra avoir accès aux conteneurs exposés (d'où le réseau "devbox" au niveau de [mborne/docker-devbox](https://github.com/mborne/docker-devbox)).
 
 ---
 
@@ -305,7 +310,7 @@ En synthèse, nous soulignerons le succès de docker doit beaucoup aux points su
 * Le **démarrage** des conteneurs est **rapide**.
 * Les **téléchargements et constructions d'images sont optimisés**.
 * Un cadre est posé pour l'**observabilité** avec **journaux applicatifs** et les **métriques systèmes**
-* L'API permet la construction d'un écosystème avec par exemple :
+* **L'API permet la construction d'un écosystème** avec par exemple :
   * Le reverse proxy [traefik](https://doc.traefik.io/traefik/) qui se configure automatiquement en inspectant les conteneurs (**introspection**)
   * L'IHM [portainer](https://www.portainer.io/) qui permet de démarrer des conteneurs (**réflexion**)
 

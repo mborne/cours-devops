@@ -51,11 +51,17 @@
 
     <div class="markdown-body">
       <h1 id="docker---les-images">Docker - les images</h1><h2 id="principe">Principe</h2><p>Une image est fonctionnellement équivalente à l&#39;image d&#39;une VM.</p>
+<h2 id="points-clés">Points clés</h2><ul>
+<li>La commande <a href="https://docs.docker.com/engine/reference/commandline/build/" target="_blank">docker build</a> est utilisée pour construire une image à partir d&#39;un fichier <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">Dockerfile</a>.</li>
+<li>Il est possible (et recommandé) d&#39;exclure des fichiers à l&#39;aide de <code>.dockerignore</code>.</li>
+<li>Il est possible d&#39;utiliser des arguments de construction (<code>ARG</code>) par exemple pour construire plusieurs versions d&#39;une application avec un seul <code>Dockerfile</code>.</li>
+</ul>
 <h2 id="quelques-commandes">Quelques commandes</h2><ul>
-<li><a href="../docker-pull.html">docker pull</a> pour télécharger une image à partir de Docker Hub ou d&#39;un dépôt privé</li>
-<li><a href="../docker-build.html">docker build</a> pour construire une image à partir d&#39;un Dockerfile</li>
-<li><a href="../docker-tag.html">docker tag</a> pour créer une image à partir d&#39;une image existante</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/login/" target="_blank">docker login</a> pour s&#39;authentifier au besoin sur un dépôt</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/pull/" target="_blank">docker pull</a> pour télécharger une image à partir d&#39;un dépôt (DockerHub par défaut)</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/build/" target="_blank">docker build</a> pour construire une image à partir d&#39;un <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">Dockerfile</a>.</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/tag/" target="_blank">docker tag</a> pour créer une image à partir d&#39;une image existante.</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/login/" target="_blank">docker login</a> pour s&#39;authentifier au besoin sur un dépôt.</li>
+<li><a href="https://docs.docker.com/reference/cli/docker/push/" target="_blank">docker push</a> pour envoyer une image sur un dépôt.</li>
 </ul>
 
     </div>
