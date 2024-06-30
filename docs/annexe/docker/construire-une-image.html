@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Résoudre les problèmes fréquents avec docker</title>
+  <title>docker - construire une image à partir d&#x27;un Dockerfile</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -50,40 +50,30 @@
   <main id="main" class="container">
 
     <div class="markdown-body">
-      <h1 id="résoudre-les-problèmes-fréquents-avec-docker">Résoudre les problèmes fréquents avec docker</h1><p>Quelques notes pour aider à résoudre les problèmes classiques rencontrés par les débutants :</p>
-<ul>
-<li><a href="#utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</a></li>
-<li><a href="#configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</a></li>
-<li><a href="#utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</a></li>
-</ul>
-<h2 id="utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</h2><p>Si vous devez utiliser un proxy pour accéder à internet, vous rencontrerez sûrement des problèmes avec :</p>
-<ul>
-<li>La commande <code>docker pull</code></li>
-<li>Les commandes <code>RUN apt-get update &amp;&amp; apt-get install</code> dans vos <code>Dockerfile</code></li>
-<li>L&#39;accès aux ressources internet depuis vos conteneurs.</li>
-</ul>
-<p>Voir <a href="../proxy-sortant/proxy-docker.html">Travailler derrière un proxy avec Docker</a>.</p>
-<h2 id="configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</h2><p>Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable que ce soit un problème de configuration DNS :</p>
-<ul>
-<li>Adaptez ce qui suit dans <code>/etc/docker/daemon.json</code> :</li>
-</ul>
-<pre><code class="language-json">{
-   &quot;dns&quot;: [&quot;8.8.8.8&quot;,&quot;8.8.4.4&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
-</ul>
-<h2 id="utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</h2><p>Si vous avez un dépôt d&#39;images privé qui n&#39;utilise pas https (ex : <a href="http://localhost:5000" target="_blank">http://localhost:5000</a> démarré avec <a href="https://hub.docker.com/_/registry" target="_blank">registry:2</a> pour tester la publication d&#39;image), docker refusera de puller les images :</p>
-<ul>
-<li>Déclarer ce dépôt dans <code>/etc/docker/daemon.json</code> :</li>
-</ul>
-<pre><code class="language-json">{
-   &quot;insecure-registry&quot;:[&quot;localhost:5000&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
+      <h1 id="docker---construire-une-image-à-partir-dun-dockerfile">docker - construire une image à partir d&#39;un Dockerfile</h1><h2 id="principe">Principe</h2><p>La commande <a href="https://docs.docker.com/engine/reference/commandline/build/" target="_blank">docker build</a> est utilisée pour construire une image à partir d&#39;un fichier <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">Dockerfile</a>.</p>
+<h2 id="quelques-commandes-utiles">Quelques commandes utiles</h2><table>
+<thead>
+<tr>
+<th>Commande</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>docker build -t mon-application .</code></td>
+<td>Construction de l&#39;image <code>mon-application</code> avec le dossier courant en contexte et le fichier <code>Dockerfile</code></td>
+</tr>
+<tr>
+<td><code>docker build -t mon-application -f Dockerfile.centos</code></td>
+<td>Idem avec <code>Dockerfile.centos</code></td>
+</tr>
+<tr>
+<td><code>docker build --build-arg version=11 -t postgres:11 .</code></td>
+<td>Construction d&#39;une image <code>postgres:11</code> avec un argument de construction</td>
+</tr>
+</tbody></table>
+<h2 id="remarques">Remarques</h2><ul>
+<li>Il est possible (et recommandé) d&#39;exclure des fichiers à l&#39;aide de <code>.dockerignore</code></li>
+<li>Il est possible d&#39;utiliser des arguments de construction (<code>ARG</code>) par exemple pour construire plusieurs versions avec un seul <code>Dockerfile</code></li>
 </ul>
 
     </div>

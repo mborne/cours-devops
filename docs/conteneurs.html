@@ -27,7 +27,7 @@
 
 ### Partage de l'OS et isolation des processus
 
-Par rapport aux VM, nous soulignerons que les conteneurs docker sont basés sur des **fonctionnalités d'isolation du noyau Linux** :
+Par rapport aux VM, les conteneurs docker sont basés sur des **fonctionnalités d'isolation du noyau Linux** :
 
 <div class="center">
     <img src="img/docker-vs-vm.png" alt="Conteneur vs VM" style="height: 200px" />
@@ -44,11 +44,11 @@ Le **démarrage d'un conteneur sera plus rapide que le démarrage d'une VM** :
 
 ## Principe de fonctionnement
 
-### Utilisation d'un système de fichier par couche
+### Utilisation d'un système de fichiers par couche
 
 Avec docker, nous trouverons un **concept d'image fonctionnellement identique à celui auquel nous sommes habitué avec les VM** (ex : les `.box` téléchargées par `vagrant` dans la partie précédente).
 
-La deuxième optimisation notable de docker par rapport aux VM tiendra à l'**utilisation de système de fichier par couche ("overlay") pour matérialiser ces images**.
+La deuxième optimisation notable de docker par rapport aux VM tiendra à l'**utilisation de système de fichiers par couche ("overlay") pour matérialiser ces images**.
 
 Cette approche permettra à docker d'**optimiser le téléchargement et la construction des images avec des mécanismes de cache**.
 

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Docker - Les bonnes pratiques</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+
+    <div class="markdown-body">
+      <h1 id="docker---les-bonnes-pratiques">Docker - Les bonnes pratiques</h1><p>Cette annexe s&#39;efforce de recencer un ensemble de bonnes pratiques classiques (voir <a href="#références">références</a>) complétées de recommandations visant à guider dans la production d&#39;image pouvant être exécutées dans des environnements sécurisés où il n&#39;est par exemple pas possible d&#39;utiliser le port 80 (c.f. <a href="https://kubernetes.io/docs/concepts/security/pod-security-standards/" target="_blank">kubernetes.io - Pod Security Standards</a>)</p>
+<ul>
+<li><a href="#empaqueter-une-seule-application-par-conteneur">Empaqueter une seule application par conteneur</a></li>
+<li><a href="#faire-en-sorte-quun-conteneur-puisse-être-recréé-sans-perte-de-données">Faire en sorte qu&#39;un conteneur puisse être recréé sans perte de données</a></li>
+<li><a href="#ne-pas-inclure-des-secrets-dans-les-images">Ne pas inclure des secrets dans les images</a></li>
+<li><a href="#minimiser-la-taille-des-images">Minimiser la taille des images</a></li>
+<li><a href="#minimiser-le-temps-de-construction-des-images">Minimiser le temps de construction des images</a></li>
+<li><a href="#ne-pas-gérer-un-proxy-sortant-dans-le-dockerfile">Ne pas gérer un proxy sortant dans le Dockerfile</a></li>
+<li><a href="#utiliser-un-miroir-pour-laccès-aux-images-publiques">Utiliser un miroir pour l&#39;accès aux images publiques</a></li>
+<li><a href="#observabilité---respecter-le-cadre-pour-les-journaux-applicatif">Observabilité - Respecter le cadre pour les journaux applicatif</a></li>
+<li><a href="#observabilité---permettre-la-surveillance-de-létat-du-service">Observabilité - Permettre la surveillance de l&#39;état du service</a></li>
+<li><a href="#résilience---traiter-proprement-les-signaux-sigterm-pour-accélérer-les-arrêtsredémarrages-des-conteneurs">Résilience - Traiter proprement les signaux SIGTERM pour accélérer les arrêts/redémarrages des conteneurs</a><ul>
+<li><a href="#cas-des-services">Cas des services</a></li>
+<li><a href="#cas-des-traitements-longs">Cas des traitements longs</a></li>
+<li><a href="#cas-particulier-des-images-apache2">Cas particulier des images apache2</a></li>
+</ul>
+</li>
+<li><a href="#sécurité---ne-pas-exécuter-les-conteneurs-en-tant-quutilisateur-root">Sécurité - Ne pas exécuter les conteneurs en tant qu&#39;utilisateur root</a></li>
+<li><a href="#sécurité---permettre-lexécution-des-conteneurs-avec-un-système-de-fichier-en-lecture-seule">Sécurité - Permettre l&#39;exécution des conteneurs avec un système de fichier en lecture seule</a></li>
+<li><a href="#sécurité---ne-pas-exécuter-nimporte-quoi-ou-nimporte-quelle-image">Sécurité - Ne pas exécuter n&#39;importe quoi ou n&#39;importe quelle image</a></li>
+<li><a href="#sécurité---scanner-les-images-pour-détecter-des-failles-ou-des-secrets">Sécurité - Scanner les images pour détecter des failles ou des secrets</a></li>
+<li><a href="#sécurité---configurer-les-options-de-sécurité-au-niveau-du-démon">Sécurité - configurer les options de sécurité au niveau du démon</a></li>
+<li><a href="#sécurité---se-méfier-des-expositions-de-port">Sécurité - se méfier des expositions de port</a></li>
+<li><a href="#références">Références</a></li>
+</ul>
+<h2 id="empaqueter-une-seule-application-par-conteneur">Empaqueter une seule application par conteneur</h2><p>Par exemple, nous éviterons de produire une image incluant une application et une instance PostgreSQL. Pour faciliter le démarrage de l&#39;application, nous fournirons plutôt un docker-compose.yaml.</p>
+<blockquote>
+<p>NB : Il reste possible (et recommandé) d&#39;inclure dans une même image un service et les commandes utilitaires de ce service.</p>
+</blockquote>
+<h2 id="faire-en-sorte-quun-conteneur-puisse-être-recréé-sans-perte-de-données">Faire en sorte qu&#39;un conteneur puisse être recréé sans perte de données</h2><p>Il convient pour ce faire d&#39;externaliser les données de l&#39;application dans des volumes.</p>
+<h2 id="ne-pas-inclure-des-secrets-dans-les-images">Ne pas inclure des secrets dans les images</h2><ul>
+<li><strong>Ne pas inclure la configuration pour l&#39;exécution dans l&#39;image</strong> (c.f. <a href="../12-facteurs.html#iii-configuration---stockez-la-configuration-dans-lenvironnement-factor-03">12 facteurs - III. Configuration - Stockez la configuration dans l’environnement</a>)</li>
+<li><strong>Ne pas inclure le dossier <code>.git</code> dans les images</strong> :<ul>
+<li>Inclure <code>.git</code> dans <code>.dockerignore</code></li>
+<li>Éviter <code>COPY . .</code></li>
+</ul>
+</li>
+<li><strong>Ne pas utiliser <code>--build-arg</code> pour fournir des secrets à la construction</strong><ul>
+<li>Noter que <code>docker image history ...</code> permet de récupérer les secrets correspondants</li>
+<li>Éviter les dépendances (git, npm, PHP composer...) impliquant une authentification</li>
+<li>Voir <a href="https://docs.docker.com/build/building/secrets/" target="_blank">docs.docker.com - Build secrets</a> si vous ne pouvez vraiment éviter de telles dépendances...</li>
+</ul>
+</li>
+<li><strong>Veiller à ne pas inclure un fichier <code>.env</code> incluant des secrets utilisé pour le développement dans l&#39;image</strong> :<ul>
+<li>Option 1) Si le framework propose de gérer de tels fichiers à la racine du projet (ex : PHP Symfony), être très attentif à leurs présences dans <code>.dockerignore</code> et <code>.gitignore</code>.</li>
+<li>Option 2) Pour limiter réellement le risque d&#39;inclure de tels fichiers dans une image, stocker et chiffrer ces secrets loin du Dockerfile et des dépôts GIT.</li>
+</ul>
+</li>
+</ul>
+<h2 id="minimiser-la-taille-des-images">Minimiser la taille des images</h2><ul>
+<li><strong>Comprendre les mécanismes de couches</strong> dans les images (<code>docker image history mon-image</code>)</li>
+<li><strong>Grouper les instructions</strong> (<code>RUN ... &amp;&amp; ... &amp;&amp; </code>) en conséquence</li>
+<li><strong>Installer uniquement ce qui est nécessaire</strong> à l&#39;exécution par exemple en utilisant des <strong>multi-stage build</strong></li>
+</ul>
+<h2 id="minimiser-le-temps-de-construction-des-images">Minimiser le temps de construction des images</h2><ul>
+<li>Utiliser <code>.dockerignore</code> pour limiter la taille du contexte</li>
+<li><strong>Comprendre les mécanismes de cache dans la construction</strong> des images</li>
+<li>Exploiter ces mécanismes de cache pour limiter les opérations :</li>
+</ul>
+<pre><code class="language-dockerfile"># pour ne pas exécuter npm install à chaque changement dans src/
+COPY package-lock.json .
+RUN npm install 
+# ... ajouter les fichiers dynamiques dans un second temps
+COPY src/ src
+</code></pre>
+<h2 id="ne-pas-gérer-un-proxy-sortant-dans-le-dockerfile">Ne pas gérer un proxy sortant dans le Dockerfile</h2><p>Ne pas inclure des éléments relatifs à l&#39;utilisation d&#39;un proxy sortant dans le fichier <code>Dockerfile</code> (ex : <code>ENV HTTP_PROXY ...</code>).</p>
+<p>Au besoin, il est possible de faire suivre la définition du proxy à la construction à la construction (<code>--build-arg HTTP_PROXY --build-arg HTTP_PROXYS ...</code>) et à l&#39;exécution (<code>-e HTTP_PROXY -e HTTPS_PROXY ...</code>).</p>
+<h2 id="utiliser-un-miroir-pour-laccès-aux-images-publiques">Utiliser un miroir pour l&#39;accès aux images publiques</h2><p>Utiliser un miroir pour l&#39;accès aux images DockerHub est important pour éviter d&#39;atteindre la limite de pull (c.f. <a href="https://docs.docker.com/docker-hub/download-rate-limit/" target="_blank">Docker Hub rate limit</a> ).</p>
+<p>Noter que :</p>
+<ul>
+<li>Il est possible de <strong>configurer l&#39;utilisation transparente d&#39;un miroir au niveau du démon docker</strong> (même chose pour containerd)</li>
+<li>Il convient de <strong>modifier le nom des images pour l&#39;exécution</strong> dans le cas où cette configuration n&#39;est pas traitée (<code>nginx:latest</code> -&gt; <code>dockerhub-proxy.exemple.fr/library/nginx:latest</code>)</li>
+<li>Il est possible de <strong>permettre l&#39;utilisation du miroir pour la construction dans le fichier Dockerfile</strong> (<code>--build-arg registry=dockerhub-proxy.exemple.fr</code>) :</li>
+</ul>
+<pre><code class="language-dockerfile">ARG registry=docker.io
+FROM ${registry}/library/ubuntu:22.04
+</code></pre>
+<h2 id="observabilité---respecter-le-cadre-pour-les-journaux-applicatif">Observabilité - Respecter le cadre pour les journaux applicatif</h2><p>Il convient d&#39;écrire les journaux dans les flux standard (stdout et stderr) en utilisant des formats standards (nginx, apache2, json,...).</p>
+<p>Nous soulignerons que si ce point ne peut être traité au niveau du développement de l&#39;application, il est possible de rediriger les écritures dans des fichiers dans ces flux standard :</p>
+<pre><code class="language-dockerfile">#------------------------------------------------------------------------
+# Illustration du cas apache2
+# (adaptée à partir de https://github.com/docker-library/php)
+#------------------------------------------------------------------------
+RUN ln -sfT /dev/stderr &quot;/var/log/apache2/error.log&quot; \
+ &amp;&amp; ln -sfT /dev/stdout &quot;/var/log/apache2/access.log&quot; \
+ &amp;&amp; ln -sfT /dev/stdout &quot;/var/log/apache2/other_vhosts_access.log&quot; \
+ &amp;&amp; chown www-data:www-data /var/log/apache2/*.log
+</code></pre>
+<h2 id="observabilité---permettre-la-surveillance-de-létat-du-service">Observabilité - Permettre la surveillance de l&#39;état du service</h2><ul>
+<li>Prévoir des endpoints dédiés à la surveillance de l&#39;état de l&#39;application (<code>livenessProbe</code>, <code>readinessProbe</code>)</li>
+<li>Prévoir des endpoints dédiés à la surveillance des services utilisés en backend (<code>/health/db</code>, <code>/health/s3</code>,...)</li>
+</ul>
+<h2 id="résilience---traiter-proprement-les-signaux-sigterm-pour-accélérer-les-arrêtsredémarrages-des-conteneurs">Résilience - Traiter proprement les signaux SIGTERM pour accélérer les arrêts/redémarrages des conteneurs</h2><h3 id="cas-des-services">Cas des services</h3><p>En substance, la commande <code>docker stop mon-conteneur -t 600</code> ne doit pas mettre 10 minutes. Si c&#39;est le cas, l&#39;application ne s&#39;arrête pas proprement lorsqu&#39;elle reçoit un signal d&#39;arrêt (SIGTERM) et docker finit par procéder à un arrêt brutal.</p>
+<p>Il en sera de même en environnement Kubernetes où devoir attendre 60 secondes pour que le conteneur s&#39;arrête sera problématique.</p>
+<p>Vous pourrez voir par exemple la page <a href="https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html" target="_blank">expressjs.com - Health Checks and Graceful Shutdown</a> pour le cas particulier de NodeJS et Express. Pour les autres cas, votre moteur de recherche préféré devrait être en mesure de trouver les ressources qui vous aideront.</p>
+<h3 id="cas-des-traitements-longs">Cas des traitements longs</h3><p>Pour <strong>les traitements longs</strong>, traiter SIGTERM sera synonyme de <strong>se mettre en capacité de recommencer ou de poursuivre le traitement</strong> s&#39;il doit être interrompu pour une raison ou une autre (ex : redémarrage d&#39;une machine, maintenance sur un noeud Kubernetes, libération d&#39;une instance spot,...).</p>
+<p>La stratégie de traitement du message SIGTERM dépendra toutefois du contexte :</p>
+<ul>
+<li>Retour d&#39;un état <code>PROCESSING</code> à <code>PENDING</code> avec stockage d&#39;une éventuelle progression.</li>
+<li>Remise en pile du message correspondant au traitement réalisé.</li>
+<li>...</li>
+</ul>
+<h3 id="cas-particulier-des-images-apache2">Cas particulier des images apache2</h3><p>Dans le cas des images intégrant apache2 (ex : <code>php:8.3-apache2</code>), le signal SIGTERM est parfois remplacé par SIGWINCH à l&#39;aide d&#39;une commande <code>STOPSIGNAL=SIGWINCH</code> dans le fichier Dockerfile.</p>
+<p>Le savoir évite de passer des heures à se demander pourquoi les scripts bash et PHP intégrés dans une image ne reçoivent pas SIGTERM...</p>
+<h2 id="sécurité---ne-pas-exécuter-les-conteneurs-en-tant-quutilisateur-root">Sécurité - Ne pas exécuter les conteneurs en tant qu&#39;utilisateur root</h2><ul>
+<li>Utiliser un utilisateur dédié à l&#39;application pour l&#39;exécution (ex : <code>USER node</code>)</li>
+<li>Gérer proprement les droits sur les fichiers dans le conteneur</li>
+<li>Utiliser des ports non privilégiés (&gt;1024) pour permettre l&#39;exécution non root (<code>runAsNotRoot: true</code> et <code>runAsUser: &lt;uid&gt;</code>)</li>
+</ul>
+<h2 id="sécurité---permettre-lexécution-des-conteneurs-avec-un-système-de-fichier-en-lecture-seule">Sécurité - Permettre l&#39;exécution des conteneurs avec un système de fichier en lecture seule</h2><p>Avec Kubernetes, une option <code>readOnlyRootFilesystem: true</code> permet d&#39;avoir un conteneur avec un système de fichier en lecture seule présentant différents avantages :</p>
+<ul>
+<li>Bloquer les modifications sur l&#39;application en cas d&#39;attaque</li>
+<li>Identifier les dossiers contenant des données dynamiques (et pouvoir <strong>se protéger contre un risque de full sur les noeuds</strong>)</li>
+</ul>
+<p>Pour permettre son utilisation sur une image que l&#39;on met à disposition :</p>
+<ul>
+<li><strong>Identifier les dossiers dynamiques</strong> dans l&#39;image pour lesquels il conviendra de monter des volumes</li>
+<li><strong>Ne pas inclure du contenu statique dans ces dossiers dynamique</strong> (un montage <code>emptyDir</code> conservant le contenu de l&#39;image sera impossible avec Kubernetes, permettre la génération au démarrage d&#39;un fichier <code>/app/config/params.yaml</code> sans vider <code>/app/config</code> sera délicat)</li>
+</ul>
+<h2 id="sécurité---ne-pas-exécuter-nimporte-quoi-ou-nimporte-quelle-image">Sécurité - Ne pas exécuter n&#39;importe quoi ou n&#39;importe quelle image</h2><p>Cette précaution qui s&#39;applique à d&#39;autres outils susceptibles d&#39;exécuter du code malveillant (npm, PHP composer,...) s&#39;applique évidemment aussi pour docker.</p>
+<h2 id="sécurité---scanner-les-images-pour-détecter-des-failles-ou-des-secrets">Sécurité - Scanner les images pour détecter des failles ou des secrets</h2><p>Nous trouverons de tels outils au niveau des dépôts d&#39;image (ex : DockerHub, GitHub Container Registry, Harbor,...). Notez toutefois qu&#39;il est possible d&#39;utiliser localement des outils tels <a href="https://aquasecurity.github.io/trivy/" target="_blank">Trivy</a> qui est utilisé par Harbor :</p>
+<pre><code class="language-bash">triyv image mon-image:latest
+</code></pre>
+<p>A date (juin 2024), la difficulté de l&#39;exercice tient à la présence de failles critiques au sens de ces outils dans les images officielles massivement utilisées (ex : <a href="img/trivy-debian-202406.png">trivy image --severity HIGH,CRITICAL debian:12-slim</a>)</p>
+<h2 id="sécurité---configurer-les-options-de-sécurité-au-niveau-du-démon">Sécurité - configurer les options de sécurité au niveau du démon</h2><p>Plusieurs options de sécurité limitent les risques liés à l&#39;utilisation de docker. Par exemple, l&#39;option <a href="https://docs.docker.com/engine/security/userns-remap/" target="_blank">userns-remap</a> permet d&#39;associer l&#39;utilisateur &quot;root&quot; au niveau des conteneurs à un utilisateur non root sur le hôte.</p>
+<p>Il convient par exemple de s&#39;appuyer sur <a href="https://hub.docker.com/r/docker/docker-bench-security" target="_blank">docker-bench-security</a> pour configurer ces aspects.</p>
+<p>Au niveau de l&#39;environnement de développement, vous devrez faire particulièrement attention à :</p>
+<h2 id="sécurité---se-méfier-des-expositions-de-port">Sécurité - se méfier des expositions de port</h2><p>Si vous utiliser docker <strong>sur une machine exposée</strong>, vous devrez <strong>éviter les expositions sur des ports</strong> (ex : <code>-p 5432:5432</code>). En effet, <span style="font-weight: bold; color: red">docker manipule iptables et les règles de pare-feu local que vous configurez par exemple avec UFW seront tout simplement ignorées.</span>.</p>
+<p>Plusieurs autres options sont préférables :</p>
+<ul>
+<li>Utiliser des réseaux pour la communication entre les conteneurs</li>
+<li>Accéder au besoin aux services via les IP des conteneurs depuis le hôte (<code>docker inspect ...</code>)</li>
+<li>Mapper certains port uniquement sur l&#39;hôte (ex : <code>-p 127.0.0.1:9200:9200</code>)</li>
+<li>Utiliser un reverse proxy tel <a href="../../outils/traefik/index.html">Traefik</a> pour avoir des URL propres</li>
+</ul>
+<h2 id="références">Références</h2><ul>
+<li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr" target="_blank">cloud.google.com - Bonnes pratiques en matière de création de conteneurs</a><ul>
+<li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr#signal-handling" target="_blank">Traiter correctement le PID 1, le traitement de signal et les processus zombie</a></li>
+<li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr#optimize-for-the-docker-build-cache" target="_blank">Optimiser les conteneurs pour le cache de création de Docker</a></li>
+<li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr#remove_unnecessary_tools" target="_blank">Supprimer les outils inutiles</a></li>
+<li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr#build-the-smallest-image-possible" target="_blank">Créer la plus petite image possible</a></li>
+<li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr#use-vulnerability-scanning" target="_blank">Utiliser l&#39;analyse des failles dans Container Registry</a></li>
+<li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr#properly_tag_your_images" target="_blank">Ajouter des tags pertinents aux images</a></li>
+<li><a href="https://cloud.google.com/solutions/best-practices-for-building-containers?hl=fr#carefully_consider_whether_to_use_a_public_image" target="_blank">Envisager sérieusement l&#39;utilisation d&#39;une image publique</a></li>
+</ul>
+</li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/" target="_blank">docs.docker.com - Best practices for writing Dockerfiles</a><ul>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#decouple-applications" target="_blank">Decouple applications</a> : Empaqueter une seule application par conteneur</li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#dont-install-unnecessary-packages" target="_blank">Don’t install unnecessary packages</a> : Installer uniquement les packages nécessaires dans les images</li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#create-ephemeral-containers" target="_blank">Create ephemeral containers</a> : Faire en sorte qu&#39;un conteneur puisse être recréé sans perte de données (volumes nommés)</li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#understand-build-context" target="_blank">Understand build context</a> : Comprendre que les fichiers du contexte de construction sont envoyés au démon docker.</li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#exclude-with-dockerignore" target="_blank">Exclude with .dockerignore</a> : Exclure des fichiers lors de la construction de l&#39;image docker à l&#39;aide de <code>.dockerignore</code></li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#use-multi-stage-builds" target="_blank">Use multi-stage builds</a></li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#minimize-the-number-of-layers" target="_blank">Minimize the number of layers</a> : Limiter le nombre de couches dans l&#39;image en regroupant les commandes</li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache" target="_blank">Leverage build cache</a> : Comprendre les mécanismes de cache de construction pour mieux les exploiter</li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#pipe-dockerfile-through-stdin" target="_blank">Pipe Dockerfile through stdin</a> : Envoyer directement le contenu <code>Dockerfile</code> à via stdin quand son contenu est généré.</li>
+<li><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#sort-multi-line-arguments" target="_blank">Sort multi-line arguments</a> : Organiser les commandes sur plusieurs lignes pour faciliter la relecture et la maintenance</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2023 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> - <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>

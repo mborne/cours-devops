@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Résoudre les problèmes fréquents avec docker</title>
+  <title>Docker - Les réseaux</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
     integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/style.css">
 </head>
 
 <body>
@@ -24,8 +24,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../index.html">
-          <img src="../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        <a class="navbar-brand" href="../../index.html">
+          <img src="../../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -33,13 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="../index.html">Annexes</a>
+              <a class="nav-link" href="../../index.html">Annexes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../references.html">Références</a>
+              <a class="nav-link" href="../../references.html">Références</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../depots.html">Dépôts</a>
+              <a class="nav-link" href="../../depots.html">Dépôts</a>
             </li>
           </ul>
         </div>
@@ -50,41 +50,40 @@
   <main id="main" class="container">
 
     <div class="markdown-body">
-      <h1 id="résoudre-les-problèmes-fréquents-avec-docker">Résoudre les problèmes fréquents avec docker</h1><p>Quelques notes pour aider à résoudre les problèmes classiques rencontrés par les débutants :</p>
-<ul>
-<li><a href="#utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</a></li>
-<li><a href="#configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</a></li>
-<li><a href="#utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</a></li>
+      <h1 id="docker---les-réseaux">Docker - Les réseaux</h1><h2 id="principe">Principe</h2><p>Les réseaux docker sont fonctionnellement équivalents à des réseaux privés.</p>
+<h2 id="points-clés">Points clés</h2><ul>
+<li>La présence de réseaux créés par défaut (<code>none</code>, <code>host</code> et <code>bridge</code>)</li>
+<li>La possibilité pour un conteneur d&#39;accéder à un autre conteneur du même réseau par son nom (<code>ping db</code> fonctionnera depuis <code>app</code>)</li>
+<li>La définition du réseau via <code>docker run --network &lt;network-name&gt;</code> (par défaut : <code>bridge</code>)</li>
+<li>La présence de plusieurs drivers pour les réseaux, dont un driver <a href="https://docs.docker.com/network/overlay/" target="_blank">overlay</a> permettant la communication entre conteneur sur plusieurs hôtes docker en mode swarm</li>
 </ul>
-<h2 id="utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</h2><p>Si vous devez utiliser un proxy pour accéder à internet, vous rencontrerez sûrement des problèmes avec :</p>
-<ul>
-<li>La commande <code>docker pull</code></li>
-<li>Les commandes <code>RUN apt-get update &amp;&amp; apt-get install</code> dans vos <code>Dockerfile</code></li>
-<li>L&#39;accès aux ressources internet depuis vos conteneurs.</li>
+<h2 id="quelques-commandes">Quelques commandes</h2><ul>
+<li><a href="https://docs.docker.com/engine/reference/commandline/network_ls/" target="_blank">docker network ls</a> pour lister les réseaux</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/network_create/" target="_blank">docker network create</a> pour créer un réseau</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/network_inspect/" target="_blank">docker network inspect</a> pour récupérer des informations détaillées sur un réseau</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/network_rm/" target="_blank">docker network rm</a> pour supprimer un réseau</li>
+<li><code>docker run --network</code> pour connecter un conteneur à un réseau (par défaut <code>bridge</code>)</li>
 </ul>
-<p>Voir <a href="../proxy-sortant/proxy-docker.html">Travailler derrière un proxy avec Docker</a>.</p>
-<h2 id="configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</h2><p>Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable que ce soit un problème de configuration DNS :</p>
-<ul>
-<li>Adaptez ce qui suit dans <code>/etc/docker/daemon.json</code> :</li>
-</ul>
-<pre><code class="language-json">{
-   &quot;dns&quot;: [&quot;8.8.8.8&quot;,&quot;8.8.4.4&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
-</ul>
-<h2 id="utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</h2><p>Si vous avez un dépôt d&#39;images privé qui n&#39;utilise pas https (ex : <a href="http://localhost:5000" target="_blank">http://localhost:5000</a> démarré avec <a href="https://hub.docker.com/_/registry" target="_blank">registry:2</a> pour tester la publication d&#39;image), docker refusera de puller les images :</p>
-<ul>
-<li>Déclarer ce dépôt dans <code>/etc/docker/daemon.json</code> :</li>
-</ul>
-<pre><code class="language-json">{
-   &quot;insecure-registry&quot;:[&quot;localhost:5000&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
-</ul>
+<h2 id="configuration-du-démons">Configuration du démons</h2><p>Les points suivants peuvent être configurés dans <code>/etc/docker/daemon.json</code> :</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Description</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bip</code></td>
+<td><a href="https://success.docker.com/article/how-do-i-configure-the-default-bridge-docker0-network-for-docker-engine-to-a-different-subnet" target="_blank">La plage d&#39;IP du réseau bridge par défaut</a></td>
+<td><code>172.26.0.1/16</code></td>
+</tr>
+<tr>
+<td><code>&quot;default-address-pools</code></td>
+<td>Les plages d&#39;IP utilisées les autres réseaux docker</td>
+<td><code>[{&quot;base&quot;: &quot;172.80.0.0/16&quot;, &quot;size&quot;: 24}, {&quot;base&quot;: &quot;172.90.0.0/16&quot;, &quot;size&quot;: 24}</code> ]</td>
+</tr>
+</tbody></table>
 
     </div>
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Résoudre les problèmes fréquents avec docker</title>
+  <title>Docker - les volumes</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
     integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/style.css">
 </head>
 
 <body>
@@ -24,8 +24,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../index.html">
-          <img src="../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        <a class="navbar-brand" href="../../index.html">
+          <img src="../../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -33,13 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="../index.html">Annexes</a>
+              <a class="nav-link" href="../../index.html">Annexes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../references.html">Références</a>
+              <a class="nav-link" href="../../references.html">Références</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../depots.html">Dépôts</a>
+              <a class="nav-link" href="../../depots.html">Dépôts</a>
             </li>
           </ul>
         </div>
@@ -50,40 +50,27 @@
   <main id="main" class="container">
 
     <div class="markdown-body">
-      <h1 id="résoudre-les-problèmes-fréquents-avec-docker">Résoudre les problèmes fréquents avec docker</h1><p>Quelques notes pour aider à résoudre les problèmes classiques rencontrés par les débutants :</p>
+      <h1 id="docker---les-volumes">Docker - les volumes</h1><h2 id="principe">Principe</h2><p>Les volumes docker permettent de réaliser des montages dans les conteneurs. L&#39;utilisation de ces derniers est fondamentale pour <strong>externaliser les données des conteneurs afin que celles-ci survivent à la recréation des conteneurs</strong>.</p>
+<h2 id="volume-nommé-et-volume-mappé">Volume nommé et volume mappé</h2><p>Nous soulignerons l&#39;existence de <strong>volumes nommés</strong> (<code>docker run -v &lt;volume-name&gt;:/data</code>) et de <strong>volumes mappés</strong> (<code>docker run -v /path/on/host:/data</code>).</p>
+<p>Nous préfèrerons l&#39;utilisation de volumes nommés en notant <strong>une différence de comportement au lancement d&#39;un conteneur</strong> :</p>
 <ul>
-<li><a href="#utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</a></li>
-<li><a href="#configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</a></li>
-<li><a href="#utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</a></li>
+<li>Le contenu d&#39;<strong>un volume nommé est initialisé à partir du contenu de l&#39;image</strong></li>
+<li>Le contenu d&#39;<strong>un volume mappé est initialisé à vide</strong></li>
 </ul>
-<h2 id="utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</h2><p>Si vous devez utiliser un proxy pour accéder à internet, vous rencontrerez sûrement des problèmes avec :</p>
-<ul>
-<li>La commande <code>docker pull</code></li>
-<li>Les commandes <code>RUN apt-get update &amp;&amp; apt-get install</code> dans vos <code>Dockerfile</code></li>
-<li>L&#39;accès aux ressources internet depuis vos conteneurs.</li>
+<h2 id="quelques-commandes">Quelques commandes</h2><ul>
+<li><a href="https://docs.docker.com/engine/reference/commandline/volume_ls/" target="_blank">docker volume ls</a> pour <strong>lister les volumes</strong></li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/volume_create/" target="_blank">docker volume create</a> pour <strong>créer un volume</strong></li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/volume_inspect/" target="_blank">docker volume inspect</a> pour <strong>récupérer des informations détaillées sur un volume</strong> (dont le chemin de stockage effectif)</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/volume_rm/" target="_blank">docker volume rm</a> pour <strong>supprimer un volume</strong></li>
+<li><code>docker run -v </code> pour monter un volume dans un conteneur</li>
 </ul>
-<p>Voir <a href="../proxy-sortant/proxy-docker.html">Travailler derrière un proxy avec Docker</a>.</p>
-<h2 id="configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</h2><p>Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable que ce soit un problème de configuration DNS :</p>
-<ul>
-<li>Adaptez ce qui suit dans <code>/etc/docker/daemon.json</code> :</li>
+<h2 id="ressources">Ressources</h2><ul>
+<li><a href="https://docs.docker.com/storage/volumes/" target="_blank">docs.docker.com - Volumes</a><ul>
+<li><a href="https://docs.docker.com/storage/volumes/#back-up-restore-or-migrate-data-volumes" target="_blank">Back up, restore, or migrate data volumes</a></li>
+<li><a href="https://docs.docker.com/storage/volumes/#create-a-service-which-creates-an-nfs-volume" target="_blank">Create a service which creates an NFS volume</a></li>
+<li><a href="https://docs.docker.com/storage/volumes/#create-cifssamba-volumes" target="_blank">Create CIFS/Samba volumes</a></li>
 </ul>
-<pre><code class="language-json">{
-   &quot;dns&quot;: [&quot;8.8.8.8&quot;,&quot;8.8.4.4&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
-</ul>
-<h2 id="utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</h2><p>Si vous avez un dépôt d&#39;images privé qui n&#39;utilise pas https (ex : <a href="http://localhost:5000" target="_blank">http://localhost:5000</a> démarré avec <a href="https://hub.docker.com/_/registry" target="_blank">registry:2</a> pour tester la publication d&#39;image), docker refusera de puller les images :</p>
-<ul>
-<li>Déclarer ce dépôt dans <code>/etc/docker/daemon.json</code> :</li>
-</ul>
-<pre><code class="language-json">{
-   &quot;insecure-registry&quot;:[&quot;localhost:5000&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
+</li>
 </ul>
 
     </div>

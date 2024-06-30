@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Résoudre les problèmes fréquents avec docker</title>
+  <title>docker-compose - Orchestration des conteneurs sur une machine</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
     integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
@@ -50,40 +50,55 @@
   <main id="main" class="container">
 
     <div class="markdown-body">
-      <h1 id="résoudre-les-problèmes-fréquents-avec-docker">Résoudre les problèmes fréquents avec docker</h1><p>Quelques notes pour aider à résoudre les problèmes classiques rencontrés par les débutants :</p>
-<ul>
-<li><a href="#utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</a></li>
-<li><a href="#configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</a></li>
-<li><a href="#utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</a></li>
+      <h1 id="docker-compose---orchestration-des-conteneurs-sur-une-machine">docker-compose - Orchestration des conteneurs sur une machine</h1><h2 id="principes">Principes</h2><ul>
+<li>Le fichier <code>docker-compose.yml</code> définit les services, volumes, réseaux, etc.</li>
+<li>Le démarrage des services est simplifié à l&#39;aide de l&#39;exécutable <code>docker-compose</code></li>
 </ul>
-<h2 id="utilisation-dun-proxy-sortant">Utilisation d&#39;un proxy sortant</h2><p>Si vous devez utiliser un proxy pour accéder à internet, vous rencontrerez sûrement des problèmes avec :</p>
+<h2 id="quelques-commandes-utiles">Quelques commandes utiles</h2><table>
+<thead>
+<tr>
+<th>Commande</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>docker-compose up</code></td>
+<td>Démarrer tous les services</td>
+</tr>
+<tr>
+<td><code>docker-compose up -d</code></td>
+<td>Démarrer l&#39;ensemble des services en mode détaché</td>
+</tr>
+<tr>
+<td><code>docker-compose up site</code></td>
+<td>Démarrer le service <code>site</code></td>
+</tr>
+<tr>
+<td><code>docker-compose up -d --scale site=2</code></td>
+<td>Démarrer deux instances du service <code>site</code></td>
+</tr>
+<tr>
+<td><code>docker-compose run mon-service /bin/bash</code></td>
+<td>Démarrer un service avec une commande particulière</td>
+</tr>
+<tr>
+<td><code>docker-compose exec mon-service /bin/bash</code></td>
+<td>Démarrer un programme dans un conteneur existant (simule connexion SSH)</td>
+</tr>
+</tbody></table>
+<h2 id="partage-de-réseau-entre-plusieurs-stacks">Partage de réseau entre plusieurs stacks</h2><p>En l&#39;absence de spécification, <code>docker-compose</code> définit un réseau spécifique chaque stack démarrée à l&#39;aide de <code>docker compose up</code>. Il est toutefois possible de partager un même réseau en procédant comme suit :</p>
 <ul>
-<li>La commande <code>docker pull</code></li>
-<li>Les commandes <code>RUN apt-get update &amp;&amp; apt-get install</code> dans vos <code>Dockerfile</code></li>
-<li>L&#39;accès aux ressources internet depuis vos conteneurs.</li>
+<li>Créer un réseau partagé en amont du démarrage des stacks (ex : <code>docker network create devbox</code>)</li>
+<li>Définir ce réseau comme étant le réseau par défaut des stacks dans <code>docker-compose.yaml</code> :</li>
 </ul>
-<p>Voir <a href="../proxy-sortant/proxy-docker.html">Travailler derrière un proxy avec Docker</a>.</p>
-<h2 id="configuration-de-lutilisation-dun-serveur-dns-particulier">Configuration de l&#39;utilisation d&#39;un serveur DNS particulier</h2><p>Si docker ne parvient pas à résoudre des noms de domaine, il est fort probable que ce soit un problème de configuration DNS :</p>
-<ul>
-<li>Adaptez ce qui suit dans <code>/etc/docker/daemon.json</code> :</li>
-</ul>
-<pre><code class="language-json">{
-   &quot;dns&quot;: [&quot;8.8.8.8&quot;,&quot;8.8.4.4&quot;]
-}
+<pre><code class="language-yaml">networks:
+  default:
+    external:
+      name: devbox
 </code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
-</ul>
-<h2 id="utilisation-dun-dépôt-dimage-en-http">Utilisation d&#39;un dépôt d&#39;image en HTTP</h2><p>Si vous avez un dépôt d&#39;images privé qui n&#39;utilise pas https (ex : <a href="http://localhost:5000" target="_blank">http://localhost:5000</a> démarré avec <a href="https://hub.docker.com/_/registry" target="_blank">registry:2</a> pour tester la publication d&#39;image), docker refusera de puller les images :</p>
-<ul>
-<li>Déclarer ce dépôt dans <code>/etc/docker/daemon.json</code> :</li>
-</ul>
-<pre><code class="language-json">{
-   &quot;insecure-registry&quot;:[&quot;localhost:5000&quot;]
-}
-</code></pre>
-<ul>
-<li>Redémarrer le démon docker (<code>sudo service docker restart</code>)</li>
+<h2 id="resources">Resources</h2><ul>
+<li><a href="https://docs.docker.com/compose/gettingstarted/" target="_blank">docs.docker.com - Get started with Docker Compose</a></li>
+<li><a href="https://docs.docker.com/compose/compose-file/#compose-file-structure-and-examples" target="_blank">docs.docker.com - Compose file version 3 reference</a></li>
 </ul>
 
     </div>
