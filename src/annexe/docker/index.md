@@ -6,15 +6,15 @@ Docker s'appuie sur les [technologies d'isolation linux (LXC) pour apporter des 
 
 ## Points clés
 
-* Docker amène des concepts et des outils qui facilitent le déploiement des applications en offrant un **cadre générique pour l'empaquetage des applications**
-* Docker s'appuie sur une **API mise à disposition par le démon docker** et exploitée par plusieurs clients.
+* Docker amène des concepts et des outils qui facilitent le déploiement des applications en offrant un **cadre générique pour l'empaquetage des applications**.
+* Docker s'appuie sur une **API mise à disposition par le démon docker** qui est exploitée par plusieurs clients.
 * Les conteneurs partagent les ressources de l'hôte :
-  * Il n'est pas nécessaire de démarrer un OS complet pour chaque application
-  * Il n'est pas nécessaire d'allouer de la RAM ou des CPU pour chacun
-* Les conteneurs démarrent plus rapidement que les VM car démarrer un conteneur = démarrer un processus
-* La construction et le téléchargement des images sont optimisés par la mise en cache au niveau des couches de l'image
-* Docker amène un cadre pour la gestion des journaux applicatifs et la collecte de métriques systèmes
-* Docker s'appuyant sur des mécanismes d'isolation, il faut s'intéresser par exemple à [Kubernetes](../kubernetes/index.md) pour travailler avec plusieurs machines
+  * Il n'est pas nécessaire de démarrer un OS complet pour chaque application.
+  * Il n'est pas nécessaire d'allouer de la RAM ou des CPU pour chacun.
+* Les conteneurs démarrent plus rapidement que les VM car démarrer un conteneur = démarrer un processus.
+* La construction et le téléchargement des images sont optimisés par la mise en cache au niveau des couches de l'image.
+* Docker amène un cadre pour la gestion des journaux applicatifs et la collecte de métriques systèmes.
+* Docker s'appuyant sur des mécanismes d'isolation, il faut s'intéresser par exemple à Kubernetes pour travailler avec plusieurs machines.
 
 ## Installation
 
@@ -33,32 +33,43 @@ Docker s'appuie sur les [technologies d'isolation linux (LXC) pour apporter des 
 | Nom                                                                 | Fonction                                                                                                                                    |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | [docker](https://docs.docker.com/engine/reference/commandline/cli/) | Programme en ligne de commande pour la gestion des objets docker                                                                            |
-| [docker-compose](docker-compose.md)                                 | Programme en ligne de commande pour l'orchestration de conteneurs pour simplifier la gestion des stacks applicatives sur **un** hôte docker |
-| [docker-machine](https://docs.docker.com/machine/overview/)         | Programme en ligne de commande pour la création et gestion de machine docker dans VirtualBox, AWS,...                                       |
+| [docker compose](docker-compose.md)                                 | Programme en ligne de commande pour l'orchestration de conteneurs pour simplifier la gestion des stacks applicatives sur **un** hôte docker |
 
 ## Utiliser docker
 
-* [github.com - mborne/docker-exemples](https://github.com/mborne/docker-exemples#readme) pour une découverte progressive des principales commandes
-* [container.training - Introduction to Containers](https://container.training/intro-selfpaced.yml.html#1) pour la version longue (857 slides)
-* [ddocs.docker.com - CLI reference](https://docs.docker.com/reference/cli/docker/) pour la documentation officielle de l'ensemble des commandes.
-* [docs.docker.com - CLI Cheat Sheet](https://docs.docker.com/get-started/docker_cheatsheet.pdf) pour un résumé
-* [docs.docker.com - Dockerfile reference](https://docs.docker.com/engine/reference/builder/) pour la rédaction de Dockerfile
-* [Docker - Les bonnes pratiques](bonnes-pratiques.md)
-* [Résoudre les problèmes fréquents avec docker](problemes-frequents.md)
-* [Travailler derrière un proxy avec Docker](../proxy-sortant/proxy-docker.md)
+* [github.com - mborne/docker-exemples](https://github.com/mborne/docker-exemples#readme) pour une **découverte progressive via des exemples**.
+* [container.training - Introduction to Containers](https://container.training/intro-selfpaced.yml.html#1) pour la version longue (~850 slides).
+* [docs.docker.com - CLI reference](https://docs.docker.com/reference/cli/docker/) pour la documentation officielle avec une **vue d'ensemble des commandes**.
+* [docs.docker.com - CLI Cheat Sheet](https://docs.docker.com/get-started/docker_cheatsheet.pdf) pour un résumé des **principales commandes**.
+* [docs.docker.com - Dockerfile reference](https://docs.docker.com/engine/reference/builder/) pour une **vue d'ensemble des commandes disponibles pour écrire un Dockerfile**.
+* [Docker - Les bonnes pratiques](bonnes-pratiques.md).
+* [Résoudre les problèmes fréquents avec docker](problemes-frequents.md).
+* [Travailler derrière un proxy avec Docker](../proxy-sortant/proxy-docker.md).
 
 ## Utiliser docker compose
 
-* [docs.docker.com - Overview of docker compose CLI](https://docs.docker.com/compose/reference/)
+* [docs.docker.com - Docker Compose Quickstart](https://docs.docker.com/compose/gettingstarted/).
+* [docs.docker.com - Overview of docker compose CLI](https://docs.docker.com/compose/reference/).
 
 ## Pour comprendre et aller plus loin
 
 L'implémentation des conteneurs :
 
-* [www.lemagit.fr - Conteneurs Linux et Conteneurs Docker : quelle(s) différence(s) ?](https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences)
-* [phoenixnap.com - Docker vs containerd vs CRI-O: An In-Depth Comparison](https://phoenixnap.com/kb/docker-vs-containerd-vs-cri-o) présente des **alternatives à docker pour l'exécution de conteneurs** et la relation entre docker et containerd utilisée au niveau de Kubernetes.
-* [podman](https://podman.io/) est une de ces **alternatives à docker** (mise en avant par exemple dans la certification CKAD pour Kubernetes)
+* [www.lemagit.fr - Conteneurs Linux et Conteneurs Docker : quelle(s) différence(s) ?](https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences).
+* [phoenixnap.com - Docker vs containerd vs CRI-O: An In-Depth Comparison](https://phoenixnap.com/kb/docker-vs-containerd-vs-cri-o) présente des **alternatives à docker pour l'exécution de conteneurs** et la relation entre docker et containerd.
+* [Podman](https://podman.io/) est l'une de ces **alternatives à docker** (mise en avant par exemple dans la certification CKAD pour Kubernetes).
 
 L'implémentation du stockage :
 
-* [docs.docker.com - About storage drivers](https://docs.docker.com/storage/storagedriver/) présente le **système de fichier par couche** des conteneurs et les différentes implémentations (ex : [overlay2](https://docs.docker.com/storage/storagedriver/overlayfs-driver/))
+* [docs.docker.com - About storage drivers](https://docs.docker.com/storage/storagedriver/) présente le **système de fichier par couche** des conteneurs et les différentes implémentations (ex : [overlay2](https://docs.docker.com/storage/storagedriver/overlayfs-driver/)).
+
+Les options de configuration du démon :
+
+* [docs.docker.com - Daemon CLI (dockerd)](https://docs.docker.com/reference/cli/dockerd/)
+  * [docs.docker.com - Configure logging drivers](https://docs.docker.com/config/containers/logging/configure/)
+
+L'API de docker :
+
+* [docs.docker.com - Develop with Docker Engine API](https://docs.docker.com/engine/api/)
+  * [docs.docker.com - Docker Engine API (1.45)](https://docs.docker.com/engine/api/v1.45/#tag/Container) pour les **spécifications OpenAPI**.
+  * [www.docker.com - How to deploy on remote Docker hosts with docker-compose](https://www.docker.com/blog/how-to-deploy-on-remote-docker-hosts-with-docker-compose/) qui aborde `DOCKER_HOST` (par défaut `/var/run/docker.sock`) et [Docker Context](https://docs.docker.com/engine/context/working-with-contexts/) pour **se connecter à l'API docker sur un hôte distant**.

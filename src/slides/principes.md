@@ -174,7 +174,7 @@ Au niveau du développement logiciel, Le **Lean** se retrouvera à travers les p
 * **Construire la qualité intrinsèque** (intégrer la qualité dans la construction plutôt que vérifier après coup)
 * **Optimiser le système dans son ensemble**
 
-> c.f. [www.journaldunet.com - Lean Software Development et gestion de projet : décryptage]((https://www.journaldunet.com/web-tech/developpeur/1031853-lean-software-development-et-gestion-de-projet-decryptage/))
+> c.f. [www.journaldunet.com - Lean Software Development et gestion de projet : décryptage](https://www.journaldunet.com/developpeur/1031853-lean-software-development-et-gestion-de-projet-decryptage/)
 
 ---
 

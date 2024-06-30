@@ -52,38 +52,28 @@
     <div class="markdown-body">
       <h1 id="docker---les-réseaux">Docker - Les réseaux</h1><h2 id="principe">Principe</h2><p>Les réseaux docker sont fonctionnellement équivalents à des réseaux privés.</p>
 <h2 id="points-clés">Points clés</h2><ul>
-<li>La présence de réseaux créés par défaut (<code>none</code>, <code>host</code> et <code>bridge</code>)</li>
-<li>La possibilité pour un conteneur d&#39;accéder à un autre conteneur du même réseau par son nom (<code>ping db</code> fonctionnera depuis <code>app</code>)</li>
-<li>La définition du réseau via <code>docker run --network &lt;network-name&gt;</code> (par défaut : <code>bridge</code>)</li>
-<li>La présence de plusieurs drivers pour les réseaux, dont un driver <a href="https://docs.docker.com/network/overlay/" target="_blank">overlay</a> permettant la communication entre conteneur sur plusieurs hôtes docker en mode swarm</li>
+<li>Docker définit plusieurs réseaux par défaut :<ul>
+<li><code>bridge</code> qui est un réseau virtuel créé par docker et <strong>utilisé par défaut avec <code>docker run</code></strong> (voir <code>docker0</code> dans <code>ip link</code>)</li>
+<li><code>host</code> qui permet de désactiver l&#39;isolation réseau</li>
+<li><code>none</code> qui permet de désactiver le réseau</li>
+</ul>
+</li>
+<li>Docker permet la création de nouveaux réseaux (ex : <code>docker create network devbox</code>)</li>
+<li>Docker fonctionne avec un <strong>modèle d&#39;isolation par défaut</strong> (<strong>deux conteneurs doivent partager un même réseau pour communiquer entre eux</strong>)</li>
+<li>Un conteneur peut être attaché à un ou plusieurs réseaux (ex : <code>docker run --network devbox ...</code>)</li>
+<li>Un serveur DNS est intégré à docker (<code>ping db</code> fonctionnera depuis <code>app</code> sur un même réseau)</li>
+<li>Il existe un <a href="https://docs.docker.com/network/overlay/" target="_blank">driver réseau overlay</a> lié à <a href="https://docs.docker.com/engine/swarm/" target="_blank">Swarm</a> qui permet la communication entre conteneurs sur plusieurs hôtes.</li>
 </ul>
 <h2 id="quelques-commandes">Quelques commandes</h2><ul>
-<li><a href="https://docs.docker.com/engine/reference/commandline/network_ls/" target="_blank">docker network ls</a> pour lister les réseaux</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/network_create/" target="_blank">docker network create</a> pour créer un réseau</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/network_inspect/" target="_blank">docker network inspect</a> pour récupérer des informations détaillées sur un réseau</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/network_rm/" target="_blank">docker network rm</a> pour supprimer un réseau</li>
-<li><code>docker run --network</code> pour connecter un conteneur à un réseau (par défaut <code>bridge</code>)</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/network_ls/" target="_blank">docker network ls</a> pour lister les réseaux.</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/network_create/" target="_blank">docker network create</a> pour créer un réseau.</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/network_inspect/" target="_blank">docker network inspect</a> pour récupérer des informations détaillées sur un réseau.</li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/network_rm/" target="_blank">docker network rm</a> pour supprimer un réseau.</li>
+<li><code>docker run --network</code> pour connecter un conteneur à un réseau (par défaut <code>bridge</code>).</li>
 </ul>
-<h2 id="configuration-du-démons">Configuration du démons</h2><p>Les points suivants peuvent être configurés dans <code>/etc/docker/daemon.json</code> :</p>
-<table>
-<thead>
-<tr>
-<th>Paramètre</th>
-<th>Description</th>
-<th>Exemple</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>bip</code></td>
-<td><a href="https://success.docker.com/article/how-do-i-configure-the-default-bridge-docker0-network-for-docker-engine-to-a-different-subnet" target="_blank">La plage d&#39;IP du réseau bridge par défaut</a></td>
-<td><code>172.26.0.1/16</code></td>
-</tr>
-<tr>
-<td><code>&quot;default-address-pools</code></td>
-<td>Les plages d&#39;IP utilisées les autres réseaux docker</td>
-<td><code>[{&quot;base&quot;: &quot;172.80.0.0/16&quot;, &quot;size&quot;: 24}, {&quot;base&quot;: &quot;172.90.0.0/16&quot;, &quot;size&quot;: 24}</code> ]</td>
-</tr>
-</tbody></table>
+<h2 id="ressources">Ressources</h2><ul>
+<li><a href="https://docs.docker.com/network/" target="_blank">docs.docker.com - Networking overview</a></li>
+</ul>
 
     </div>
 
