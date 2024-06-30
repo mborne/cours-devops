@@ -235,6 +235,9 @@ Le **partage** et la **transparence** seront importants à plusieurs niveaux. Il
 
 Nous allons ici nous limiter à **quelques métriques parlantes** en nous interrogeant en séance sur les **méthodes permettant de les calculer**. Vous en rencontrerez bien d'autres.
 
+
+> Voir [effectivesoftwaredesign.com - Lean Startup Principles: Vanity Metrics and Actionable Metrics](https://effectivesoftwaredesign.com/2021/03/23/lean-startup-principles-vanity-metrics-and-actionable-metrics/) qui décrit la distinction entre *Vanity Metrics* et *Actionable Metrics* proposée par Eric RIES dans "The Lean Startup".
+
 ---
 
 ## Les métriques
