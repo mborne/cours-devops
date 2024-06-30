@@ -412,4 +412,7 @@ services:
   * [Leverage build cache](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache) : Comprendre les mécanismes de cache de construction pour mieux les exploiter
   * [Pipe Dockerfile through stdin](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#pipe-dockerfile-through-stdin) : Envoyer directement le contenu `Dockerfile` à via stdin quand son contenu est généré.
   * [Sort multi-line arguments](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#sort-multi-line-arguments) : Organiser les commandes sur plusieurs lignes pour faciliter la relecture et la maintenance
+* [cyber.gouv.fr - ANSSI - Recommandations de sécurité relatives au déploiement de conteneurs Docker](https://cyber.gouv.fr/publications/recommandations-de-securite-relatives-au-deploiement-de-conteneurs-docker) qui **aborde plus en détail les aspects systèmes** que cette fiche où nous nous concentrons sur les éléments structurants dans la conception des applications et la création de conteneur.
+
+
 
