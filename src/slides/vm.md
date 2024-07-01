@@ -255,6 +255,8 @@ L'idée de ce cours n'étant pas de former à la rédaction de script Ansible, n
 * [mborne/vagrantbox - Ansible - QuickStart](https://github.com/mborne/vagrantbox#ansible) qui applique un post-traitement après création des VM (configuration `/etc/hosts`, ajout de votre clé SSH, nettoyage `~/.ssh/known_host`...)
 * [mborne/geostack-deploy](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible) qui assure le déploiement de GeoStack avec Ansible.
 
+Nous utiliserons la procédure d'[installation de Ansible](annexe/ansible.html#installation) dans l'annexe correspondante qui pointe des ressources utiles pour ceux qui souhaiteront approfondir.
+
 ---
 
 ## Le déploiement de l'application
@@ -265,7 +267,7 @@ Nous mémoriserons que Ansible permet de **décrire as code le déploiement d'un
 
 ```bash
 # déploiement en QUALIF
-ansible-playbook -i inventory/qualif mon-application.yml
+ansible-playbook -i inventory/qualif playbooks/mon-application.yml
 ```
 
 Nous insisterons sur l'apport de Ansible pour :
@@ -361,11 +363,11 @@ Pour pouvoir exploiter ces deux composants, il faudrait :
 
 ## Que manque-t'il?
 
-### Les sauvegardes
+### Les sauvegardes (1/2)
 
 En l'état, **si l'une de nos machines vient à s'embraser : Les données sont perdues**. Il serait donc important d'adopter une stratégie de sauvegarde et plusieurs options sont possibles :
 
-* S'appuyer sur des mécanismes de snapshot de VM.
+* S'appuyer sur des mécanismes de snapshot de VM ou de leurs volumes.
 * Exporter et externaliser régulièrement les seules données de l'application par exemple en créant une archive avec :
   * Une sauvegarde de la base PostgreSQL (`pg_dump`)
   * Les fichiers de GeoServer (`GEOSERVER_DATA_DIR`).
@@ -376,16 +378,59 @@ En l'état, **si l'une de nos machines vient à s'embraser : Les données sont p
 
 ## Que manque-t'il?
 
+### Les sauvegardes (2/2)
+
+Nous soulignerons qu'une **approche basée sur l'export des seules données sera préférable à l'approche par snapshot** :
+
+* Elle facilitera les **tests de restauration hors production** et les **migrations** (les snapshots incluants des éléments de configuration)
+* Elle garantira la **cohérence des sauvegardes** (synchroniser les sauvegardes de 2 VM est délicat).
+* Il sera plus simple de **vérifier qu'une sauvegarde n'est pas corrompue** (chose plus délicate avec des snapshots)
+
+---
+
+## Que manque-t'il?
+
+### Les sauvegardes incrémentales
+
+Avec des volumétries importantes, une **approche incrémentale sera possible et intéressante**. Nous pourrons en effet nous donner la capacité de **remonter dans le temps** en nous appuyant par exemple sur :
+
+* [rclone](https://rclone.org/) et les **mécanismes de versionning sur S3**.
+* **[restic](https://restic.net/)** (1)
+
+> (1) Nous trouverons une intégration de celui-ci dans [Velero](https://velero.io/) qui permet de sauvegarder des clusters Kubernetes.
+
+---
+
+## Que manque-t'il?
+
 ### La résilience
 
-Pour les systèmes critiques, il ne sera pas acceptable de devoir attendre la fin d'une restauration de sauvegarde pour que le système redémarre. De même, pour les volumétries importantes, il ne sera pas réaliste de procéder à des sauvegardes complètes.
+Pour les systèmes critiques ou avec des volumétries importantes, il ne sera pas acceptable de devoir attendre la fin d'une restauration de sauvegarde complète pour que le système redémarre suite à un problème (1).
 
-A ce titre, nous soulignerons que nous pourrions mettre en oeuvre de **mécanismes de redondance** au niveau des composants GeoStack avec des stratégies propres à chaque application :
+A ce titre, nous pourrions mettre en oeuvre de **mécanismes de redondance** au niveau des composants GeoStack avec des **stratégies de réplication propres à chaque application** :
 
 * [PostgreSQL - High Availability, Load Balancing, and Replication](https://www.postgresql.org/docs/current/high-availability.html)
 * [GeoServer - Clustering GeoServer](https://docs.geoserver.geo-solutions.it/edu/en/clustering/index.html#clustering-geoserver)
 
-Nous soulignerons que l'exercice est loin d'être trivial et comprendrons mieux pourquoi **certaines applications sont conçues pour répondre nativement à cette problématique (ElasticSearch, etcd, MongoDB,...)**
+Nous soulignerons que l'exercice est loin d'être trivial avec ces deux services et comprendrons mieux pourquoi **d'autres sont conçus pour répondre nativement à cette problématique (ElasticSearch, etcd,...)**
+
+> (1) [Chaos_Monkey](https://fr.wikipedia.org/wiki/Chaos_Monkey) et les variantes (Chaos Gorilla, Chaos Kong) pour les tests correspondants imaginés par Netflix.
+
+---
+
+## Que manque-t'il?
+
+### Un DevOps capable de traiter tous ces sujets
+
+Voici une illustration du profil nécessaire :
+
+<div class="center">
+    <img src="img/bing-mouton-1000-pattes.jpg" alt="Le dessin d'un mouton à mille pattes, fatigué, dans un salle de serveurs informatique" style="height: 300px" />
+    <br />
+    <p style="text: center"><a href="https://www.bing.com/images/create/le-dessin-d27un-mouton-c3a0-mille-pattes2c-fatiguc3a92c-dan/1-66832e29580340c89543cd8254ee7318?id=indItxQD79oCEdWpY9f29g.376rS7BYkjK%2Fy%2BtJCHodRQ&view=detailv2&idpp=genimg&thid=OIG4.uETirnIgKZpm13JPMJAC&form=GCRIDP&ajaxhist=0&ajaxserp=0">(contenu généré par IA avec bing)</a></p>
+</div>
+
+**En l'état, il faudra en trouver un par équipe de développement en donnant les clés d'un IAAS aux équipes de DEV...**
 
 ---
 
@@ -393,7 +438,7 @@ Nous soulignerons que l'exercice est loin d'être trivial et comprendrons mieux 
 
 ### La nécessité de traiter globalement ces problèmes
 
-Il est illusoire d'espérer **traiter de manière homogène ces problématiques au niveau de chaque application**. Traiter ces problématiques de manière efficace demandera la **mise en place d'un cadre** pour l'accueil des applications.
+En réalité, il est illusoire d'espérer **traiter de manière homogène ces problématiques au niveau de chaque application**. Traiter ces problématiques de manière efficace demandera la **mise en place d'un cadre** pour l'accueil des applications.
 
 Les déploiements seront donc généralement réalisés dans une **zone d'hébergement** (1) prévue pour l'accueil des applications.
 
@@ -417,7 +462,7 @@ Dans cette zone d'hébergement, nous trouverons par exemple l'architecture suiva
 
 ### Le délicat recours à une équipe dédiée... (1/3)
 
-Pour faire face à la complexité et à la diversité des sujets, nous conviendrons qu'il sera difficile d'éviter de **recourir à une équipe dédiée** pour la construction de la zone d'hébergement.
+Pour faire face à la complexité et à la diversité des sujets, nous conviendrons qu'il sera difficile d'éviter de **recourir à des équipes dédiées** pour la **construction et l'exploitation de la zone d'hébergement**.
 
 Nous soulignerons qu'il sera alors possible de préciser les rôles des DEV et des OPS avec par exemple :
 
@@ -443,10 +488,12 @@ Il conviendra de **s'assurer que le cadre technique et la méthode de travail pe
 
 ### Le délicat recours à une équipe dédiée... (3/3)
 
-Poser un **cadre "as code"** et **être précis sur les responsabilités et les demandes** sera incontournable :
+Poser un **cadre "as code"** et **être précis sur les responsabilités (1) et les demandes** sera incontournable :
 
 * Avec "je veux des mises à jour régulière", l'équipe en charge de la zone d'hébergement ajoutera potentiellement en bonus un `rm -rf /etc/apt/sources.list.d/*` pour reconfigurer ses seuls dépôts.
 * Avec "je veux une exécution régulière de `apt-get update && apt-get upgrade -y`", il y aura moins de place pour la fantaisie.
+
+> (1) En pratique, nous pourrons lister les différentes actions à traiter (créer les VM, installer et configurer l'antivirus, mettre à jour les paquets systèmes, installer les applications,...) et préciser qui traite, qui valide, qui est consulté et qui est informé à l'aide d'une [matrice RACI](https://fr.wikipedia.org/wiki/RACI).
 
 ---
 
@@ -456,7 +503,7 @@ Poser un **cadre "as code"** et **être précis sur les responsabilités et les 
 
 Nous verrons par la suite comment :
 
-* Les [conteneurs](conteneurs.md) solutionnent ce **problème de partage de responsabilité** en embarquant les dépendances des applications dans les images (1).
+* Les [conteneurs](conteneurs.md) solutionnent ce **problème de partage de responsabilité au niveau des VM** en embarquant les dépendances des applications dans les images (1).
 * [Kubernetes](kubernetes.md) traite ces problèmes **à l'échelle d'une zone d'hébergement** par exemple en **cloisonnant les applications** (concept *Namespace*) et en permettant aux équipes applicatives de **spécifier les URL externes** (concept *Ingress* pour la configuration du LoadBalancer).
 
 > (1) Je passerai sous silence la possibilité de fournir l'image d'une VM applicative complète avec un outil tel [Packer](https://www.packer.io/) voire un simple fichier [cloud-init](https://cloud-init.io/).
