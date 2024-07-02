@@ -5,8 +5,10 @@
 * Découvrir Kubernetes par la pratique
 * Les principaux concepts
 * Le dashboard Kubernetes
+* L'observabilité
 * L'orchestration du déploiement
 * Intérêt de Kubernetes
+* Que manque-t'il à ce stade?
 
 ---
 
@@ -324,13 +326,43 @@ Nous reprendrons le déploiement de whoami à l'aide de ArgoCD.
 
 ---
 
+## Intérêt de Kubernetes
+
+### Un cadre standardisé pour la zone d'hébergement
+
+En effet, Kubernetes offre des **concepts pour chacun des éléments à configurer dans la zone d'hébergement** :
+
+<div class="center">
+    <img src="img/archi-hebergement-k8s.drawio.png" alt="Exemple d'architecture de zone d'hébergement K8S" style="height: 260px" />
+</div>
+
+Ces concepts permettront de **gérer as code** le **déploiement et la configuration des services techniques**, la **configuration du load-balancer (Ingress)**, la configuration du **pare-feu (NetworkPolicy)**, les comptes de services (ServiceAccount), les droits sur les différents objets (RBAC),...
+
+---
+
+## Intérêt de Kubernetes
+
+### Un cadre pour la création d'un écosystème
+
+L'API extensible quand a elle amène un cadre pour le développement d'outil réutilisables sur différentes instances Kubernetes :
+
+* Prometheus / Grafana / Loki pour l'**observabilité**
+* ArgoCD, GitLab-CI,... pour l'**orchestration des déploiements**
+* cert-manager pour la **gestion des certificats**
+
+Nous trouverons même des **opérateurs pour déployer des services tels PostgreSQL** avec une approche déclarative (ex : [CloudNativePG](https://cloudnative-pg.io/) permettant la définition d'un [postgis-cluster.yaml](https://github.com/mborne/docker-devbox/blob/master/cnpg/manifest/postgis-cluster.yaml)) .
+
+---
+
 ## Que manque-t'il à ce stade?
 
 ### Kubernetes n'est pas une solution clé en main
 
-A ce stade, nous soulignerons que **Kubernetes n'est pas une solution offrant une zone d'hébergement clé en main**.
+A ce stade, nous soulignerons que **Kubernetes n'est pas une solution offrant une zone d'hébergement clé en main**. Il faudra par exemple **déployer, configurer et exploiter des services techniques** (ex : Ingress Controller, Prometheus, Grafana...).
 
-Il faut **déployer et configurer des services techniques** (ex : Ingress Controller, Prometheus, Grafana...). Nous pourrions **limiter les efforts avec des distributions plus riches** (ex : Rancher, VMWare Tanzu,...) ou en ayant recours à **Kubernetes en mode SaaS** (Managed Kubernetes Service chez OVH, Google Kubernetes Engine,...)
+Nous pourrons **limiter les efforts sur certains points avec des distributions plus riches** (ex : Rancher, VMWare Tanzu,...) ou en ayant recours à **Kubernetes en mode SaaS** (Managed Kubernetes Service chez OVH, Google Kubernetes Engine,...).
+
+**Les efforts seront variables selon le choix** (ex : fluent-bit sera déployé automatiquement pour alimenter Google Cloud Logging avec GKE). Néanmoins, **il restera toujours des choix à faire en matière de gestion des droits** (ex : sur quel environnement donner des droits aux DEV?), des **utilisateurs à gérer** et **un système et des coûts à surveiller**.
 
 ---
 
@@ -353,11 +385,10 @@ securityContext:
     type: RuntimeDefault
 ```
 
-Or, l'activation de ces options n'est pas indolore :
+Or, l'activation de ces options n'est pas indolore au niveau des applications :
 
 * Il convient de **gérer proprement les droits sur les fichiers dans le conteneur**.
 * Il convient de **ne pas utiliser des ports privilégiés tels le port 80**.
-
 
 ---
 
@@ -385,8 +416,8 @@ Ceci induira qu'**il faudra une bonne maîtrise de la consommation RAM et de la 
 
 Il convient aussi de noter que :
 
-* **Déployer et maintenir des applications "Stateful"** telles des bases de données **en environnement Kubernetes n'est pas trivial** et demande une **maîtrise du stockage**.
-* **Kubernetes est une solution bas niveau** qui sera **moins efficace qu'une offre PaaS ou SaaS pour déployer certaines applications** (ex : CMS).
+* **Déployer et maintenir des applications "Stateful"** telles des bases de données **en environnement Kubernetes n'est pas trivial** et demandera une **maîtrise du stockage** avec Kubernetes (qui n'est pas le point le plus trivial).
+* **Kubernetes est une solution bas niveau** qui sera **moins efficace qu'une offre PaaS ou SaaS pour déployer certaines applications** (ex : CMS, site statique,...).
 
-Nous prendrons à ce titre prendre un peu de recul dans la partie [DevOps dans le cloud](cloud.md) et aborder la possibilité d'hybrider les solutions.
+Nous allons à ce titre prendre un peu de recul dans la partie [DevOps dans le cloud](cloud.md) et aborder la possibilité d'hybrider les solutions.
 
