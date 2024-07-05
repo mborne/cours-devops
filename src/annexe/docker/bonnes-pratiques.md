@@ -61,7 +61,7 @@ volumes:
   * Option 2) Pour limiter réellement le risque d'inclure de tels fichiers dans une image, stocker et chiffrer ces secrets loin du Dockerfile et des dépôts GIT.
 
 
-### Utiliser le fichier `.dockerignore` pour exclure les fichiers inutiles ou dangereux
+### Utiliser le fichier .dockerignore pour exclure les fichiers inutiles ou dangereux
 
 * Ajouter un fichier `.dockerignore` pour exclure les fichiers inutiles ou dangereux (`.git`) :
 
@@ -265,7 +265,7 @@ FROM ${registry}/library/ubuntu:22.04
 
 ### Limiter l'utilisation des ressources
 
-Pour **éviter de consommation toutes les ressources de l'hôte** et préparer des déploiements en environnement de production (ex : Kubernetes) où la consommation RAM / CPU doit être maîtrisée et déclarée pour assurer la stabilité :
+Pour **éviter de consommer toutes les ressources de l'hôte** et préparer des déploiements en environnement de production (ex : Kubernetes) où la consommation RAM / CPU doit être maîtrisée et déclarée pour assurer la stabilité :
 
 * Configurer les limites de consommation CPU et RAM :
 
@@ -312,15 +312,15 @@ process.on('SIGTERM', () => {
 
 * Écouter et faire suivre au besoin les messages SIGTERM (1)
 * Utiliser une stratégie adaptée au contexte pour permettre la reprise du traitement :
-  * Retour d'un état `PROCESSING` à `PENDING` avec stockage d'une éventuelle progression.
-  * Remise en pile du message correspondant au traitement réalisé.
+  * Remettre en pile le message correspondant au traitement réalisé.
+  * Remettre l'état d'un traitement `PROCESSING` à `PENDING` pour redémarrage.
   * ...
 
 > (1) Pour les scripts Bash, voir [www.baeldung.com - Handling Signals in Bash Script](https://www.baeldung.com/linux/bash-signal-handling) (commande `trap`) et [www.baeldung.com - The Uses of the Exec Command](https://www.baeldung.com/linux/exec-command-in-shell-script) (approche `exec`)
 
 #### Cas particulier des images apache2
 
-> Pour vous éviter de passer des heures à vous demander pourquoi les scripts bash et PHP intégrés dans une image ne reçoivent pas le message SIGTERM...
+> Pour vous éviter de passer des heures à vous demander pourquoi les scripts bash et PHP intégrés dans une image ne reçoivent pas le signal SIGTERM...
 
 * Savoir que dans le cas d'images intégrant le server apache2 (ex : [php:8.3-apache](https://hub.docker.com/layers/library/php/8.3-apache/images/sha256-20a5a87a4752077ff5dc3621a1c107295d6c976e09e95aa5f8fa369471922599?context=explore)), le signal SIGTERM est parfois remplacé par SIGWINCH :
 

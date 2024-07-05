@@ -59,7 +59,7 @@
 <li><a href="#empaqueter-une-seule-application-par-conteneur">Empaqueter une seule application par conteneur</a></li>
 <li><a href="#faire-en-sorte-quun-conteneur-puisse-être-recréé-sans-perte-de-données">Faire en sorte qu&#39;un conteneur puisse être recréé sans perte de données</a></li>
 <li><a href="#ne-pas-inclure-des-secrets-dans-les-images">Ne pas inclure des secrets dans les images</a></li>
-<li><a href="#utiliser-le-fichier">Utiliser le fichier </a></li>
+<li><a href="#utiliser-le-fichier-dockerignore-pour-exclure-les-fichiers-inutiles-ou-dangereux">Utiliser le fichier .dockerignore pour exclure les fichiers inutiles ou dangereux</a></li>
 <li><a href="#minimiser-la-taille-des-images">Minimiser la taille des images</a></li>
 <li><a href="#minimiser-le-temps-de-construction-des-images">Minimiser le temps de construction des images</a></li>
 </ul>
@@ -154,7 +154,7 @@ volumes:
 </ul>
 </li>
 </ul>
-<h3 id="utiliser-le-fichier-dockerignore-pour-exclure-les-fichiers-inutiles-ou-dangereux">Utiliser le fichier <code>.dockerignore</code> pour exclure les fichiers inutiles ou dangereux</h3><ul>
+<h3 id="utiliser-le-fichier-dockerignore-pour-exclure-les-fichiers-inutiles-ou-dangereux">Utiliser le fichier .dockerignore pour exclure les fichiers inutiles ou dangereux</h3><ul>
 <li>Ajouter un fichier <code>.dockerignore</code> pour exclure les fichiers inutiles ou dangereux (<code>.git</code>) :</li>
 </ul>
 <pre><code>node_modules
@@ -317,7 +317,7 @@ ENV LOG_LEVEL=inf
 <pre><code class="language-dockerfile">ARG registry=docker.io
 FROM ${registry}/library/ubuntu:22.04
 </code></pre>
-<h2 id="les-bonnes-pratiques-pour-la-robustesse">Les bonnes pratiques pour la robustesse</h2><h3 id="limiter-lutilisation-des-ressources">Limiter l&#39;utilisation des ressources</h3><p>Pour <strong>éviter de consommation toutes les ressources de l&#39;hôte</strong> et préparer des déploiements en environnement de production (ex : Kubernetes) où la consommation RAM / CPU doit être maîtrisée et déclarée pour assurer la stabilité :</p>
+<h2 id="les-bonnes-pratiques-pour-la-robustesse">Les bonnes pratiques pour la robustesse</h2><h3 id="limiter-lutilisation-des-ressources">Limiter l&#39;utilisation des ressources</h3><p>Pour <strong>éviter de consommer toutes les ressources de l&#39;hôte</strong> et préparer des déploiements en environnement de production (ex : Kubernetes) où la consommation RAM / CPU doit être maîtrisée et déclarée pour assurer la stabilité :</p>
 <ul>
 <li>Configurer les limites de consommation CPU et RAM :</li>
 </ul>
@@ -357,8 +357,8 @@ process.on(&#39;SIGTERM&#39;, () =&gt; {
 <ul>
 <li>Écouter et faire suivre au besoin les messages SIGTERM (1)</li>
 <li>Utiliser une stratégie adaptée au contexte pour permettre la reprise du traitement :<ul>
-<li>Retour d&#39;un état <code>PROCESSING</code> à <code>PENDING</code> avec stockage d&#39;une éventuelle progression.</li>
-<li>Remise en pile du message correspondant au traitement réalisé.</li>
+<li>Remettre en pile le message correspondant au traitement réalisé.</li>
+<li>Remettre l&#39;état d&#39;un traitement <code>PROCESSING</code> à <code>PENDING</code> pour redémarrage.</li>
 <li>...</li>
 </ul>
 </li>
@@ -367,7 +367,7 @@ process.on(&#39;SIGTERM&#39;, () =&gt; {
 <p>(1) Pour les scripts Bash, voir <a href="https://www.baeldung.com/linux/bash-signal-handling" target="_blank">www.baeldung.com - Handling Signals in Bash Script</a> (commande <code>trap</code>) et <a href="https://www.baeldung.com/linux/exec-command-in-shell-script" target="_blank">www.baeldung.com - The Uses of the Exec Command</a> (approche <code>exec</code>)</p>
 </blockquote>
 <h4 id="cas-particulier-des-images-apache2">Cas particulier des images apache2</h4><blockquote>
-<p>Pour vous éviter de passer des heures à vous demander pourquoi les scripts bash et PHP intégrés dans une image ne reçoivent pas le message SIGTERM...</p>
+<p>Pour vous éviter de passer des heures à vous demander pourquoi les scripts bash et PHP intégrés dans une image ne reçoivent pas le signal SIGTERM...</p>
 </blockquote>
 <ul>
 <li>Savoir que dans le cas d&#39;images intégrant le server apache2 (ex : <a href="https://hub.docker.com/layers/library/php/8.3-apache/images/sha256-20a5a87a4752077ff5dc3621a1c107295d6c976e09e95aa5f8fa369471922599?context=explore" target="_blank">php:8.3-apache</a>), le signal SIGTERM est parfois remplacé par SIGWINCH :</li>
