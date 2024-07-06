@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Kubernetes - les volumes et le stockage</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+    integrity="sha512-0aPQyyeZrWj9sCA46UlmWgKOP0mUipLQ6OZXu8l4IcAmD2u31EPEy9VcIMvl7SoAaKe8bLXZhYoMaE/in+gcgA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body>
+
+  <header class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-print-none">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/img/logo-ign.png" alt="IGN" style="padding: 5px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Annexes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../references.html">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../depots.html">Dépôts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+    <div>
+      <a href="https://github.com/mborne/cours-devops/blob/master/src/annexe/kubernetes/stockage.md?plain=1" target="_blank">Éditer sur GitHub</a>
+    </div>
+
+    <div class="markdown-body">
+      <h1 id="kubernetes---les-volumes-et-le-stockage">Kubernetes - les volumes et le stockage</h1><p>Cette annexe s&#39;efforce de donner une vue d&#39;ensemble du <a href="https://kubernetes.io/docs/concepts/storage/" target="_blank">stockage avec Kubernetes</a>. Elle a pour objectif premier d&#39;<strong>illustrer la complexité du sujet</strong> et de montrer qu&#39;<strong>héberger les données non jetables d&#39;applications dans un cluster demandera une grande maîtrise de Kubernetes</strong>.</p>
+<ul>
+<li><a href="#les-volumes">Les volumes</a></li>
+<li><a href="#les-pilotes-pour-le-stockage">Les pilotes pour le stockage</a></li>
+<li><a href="#provisionnement-statique-et-dynamique">Provisionnement statique et dynamique</a></li>
+<li><a href="#les-modes-daccès">Les modes d&#39;accès</a></li>
+</ul>
+<h2 id="les-volumes">Les volumes</h2><p>Kubernetes distingue <strong>plusieurs types de <a href="https://kubernetes.io/docs/concepts/storage/volumes/" target="_blank">volumes</a></strong> répondant à différents cas d&#39;utilisation :</p>
+<ul>
+<li><a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" target="_blank">Les volumes persistants (PersistentVolume)</a> avec <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes" target="_blank">plusieurs types</a> dont :<ul>
+<li><a href="https://kubernetes.io/docs/concepts/storage/volumes/#hostpath" target="_blank">hostPath</a> correspondant à un dossier sur un noeud.</li>
+<li><a href="https://kubernetes.io/docs/concepts/storage/volumes/#nfs" target="_blank">nfs</a> pour un montage réseau.</li>
+</ul>
+</li>
+<li><a href="https://kubernetes.io/docs/concepts/storage/projected-volumes/" target="_blank">Les volumes projetés</a><ul>
+<li><a href="https://kubernetes.io/docs/concepts/storage/volumes/#configmap" target="_blank">configMap</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/storage/volumes/#secret" target="_blank">secret</a></li>
+</ul>
+</li>
+<li><a href="https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/" target="_blank">Les volumes éphémères</a> :<ul>
+<li><a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir-configuration-example" target="_blank">emptyDir</a> pour stocker les <strong>données temporaires propres à chaque Pod</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="les-pilotes-pour-le-stockage">Les pilotes pour le stockage</h2><p>Kubernetes dispose d&#39;un <strong>mécanisme de plugin permettant d&#39;intégrer différentes solutions de stockage</strong> (c.f. <a href="https://kubernetes-csi.github.io/docs/drivers.html" target="_blank">kubernetes-csi.github.io - CSI Drivers</a>) dont :</p>
+<ul>
+<li><a href="https://github.com/kubernetes-csi/csi-driver-nfs#readme" target="_blank">NFS</a></li>
+<li><a href="https://github.com/kubernetes-csi/csi-driver-smb#readme" target="_blank">SMB</a></li>
+<li><a href="https://github.com/ceph/ceph-csi#readme" target="_blank">CephFS</a></li>
+</ul>
+<p>Dans les cas où nous utilisons <strong>Kubernetes en mode SaaS</strong>, nous soulignerons que les <strong>possibilités offertes par défaut seront fonctions de l&#39;infrastructure</strong> :</p>
+<ul>
+<li>Des volumes Cinder si nous utilisons <a href="https://www.ovhcloud.com/fr/public-cloud/kubernetes/" target="_blank">Managed Kubernetes Service d&#39;OVH</a> qui s&#39;appuie sur OpenStack.</li>
+<li>Des <a href="https://cloud.google.com/persistent-disk?hl=fr#documentation" target="_blank">GCE Persistent Disk</a> si nous utilisons <a href="https://cloud.google.com/kubernetes-engine?hl=fr" target="_blank">Google Kubernetes Engine</a>.</li>
+</ul>
+<h2 id="provisionnement-statique-et-dynamique">Provisionnement statique et dynamique</h2><p>Le concept de <a href="https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/#using-dynamic-provisioning" target="_blank">PersistentVolumeClaim</a> permettra de faire <strong>abstraction sur la commande d&#39;un volume persistant</strong> :</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-nginx
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: fast
+  resources:
+    requests:
+      storage: 30Gi
+</code></pre>
+<p>Le concept de <a href="https://kubernetes.io/docs/concepts/storage/storage-classes/" target="_blank">StorageClass</a> permettra de répondre à cette demande avec deux cas de figure :</p>
+<ul>
+<li>La création du <strong>PersistentVolume</strong> correspondant par un administrateur du cluster (<strong>provisionnement statique</strong>)</li>
+<li>La création automatique du <strong>PersistentVolume</strong> via l&#39;utilisation d&#39;une classe de stockage prévue à cet effet (<strong>provisionnement dynamique</strong>)</li>
+</ul>
+<p>La commande <code>kubectl get storageclass</code> renverra la liste des classes de stockage mise à disposition pour le provisionnement dynamique.</p>
+<h2 id="les-modes-daccès">Les modes d&#39;accès</h2><p>Nous soulignerons que <strong>tous les types de stockage n&#39;offrent pas les mêmes possibilités</strong>. En particulier, Kubernetes distinguera plusieurs <strong>modes d&#39;accès</strong> dont :</p>
+<ul>
+<li><strong>ReadWriteOnce</strong> (RWO) indiquant que le volume peut être utilisé en lecture/écriture par des <strong>Pods s&#39;exécutant sur un même noeud</strong>.</li>
+<li><strong>ReadWriteMany</strong> (RWX) dans le cas où les <strong>Pods s&#39;exécutent sur plusieurs noeuds</strong>.</li>
+</ul>
+<p>Ainsi :</p>
+<ul>
+<li><strong>ReadWriteOnce</strong> sera le reflet d&#39;une contrainte : <strong>Il n&#39;est généralement pas possible d&#39;attacher un disque virtuel à plusieurs machines virtuelles</strong>.</li>
+<li><strong>ReadWriteMany</strong> correspondra à l&#39;utilisation d&#39;un <strong>stockage de fichier en réseau</strong> ou <strong>système de stockage distribué</strong>.</li>
+</ul>
+<p>En règle générale, il sera <strong>préférable de ne pas avoir recours à un stockage ReadWriteMany</strong> pour des raisons de <strong>performance</strong> et éventuellement de coût (mais se libérer de cette contrainte pourra demander des efforts de refonte importants).</p>
+
+    </div>
+
+  </main>
+
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        ©2024 - <a href="https://github.com/mborne" target="_blank">Mickaël Borne</a> <br /> <a href="https://mborne.github.io/cours-devops">mborne.github.io/cours-devops</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+    integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>hljs.highlightAll();</script> 
+
+</body>
+
+</html>
