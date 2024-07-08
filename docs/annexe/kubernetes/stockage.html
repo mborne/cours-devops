@@ -53,12 +53,14 @@
     </div>
 
     <div class="markdown-body">
-      <h1 id="kubernetes---les-volumes-et-le-stockage">Kubernetes - les volumes et le stockage</h1><p>Cette annexe s&#39;efforce de donner une vue d&#39;ensemble du <a href="https://kubernetes.io/docs/concepts/storage/" target="_blank">stockage avec Kubernetes</a>. Elle a pour objectif premier d&#39;<strong>illustrer la complexité du sujet</strong> et de montrer qu&#39;<strong>héberger les données non jetables d&#39;applications dans un cluster demandera une grande maîtrise de Kubernetes</strong>.</p>
+      <h1 id="kubernetes---les-volumes-et-le-stockage">Kubernetes - les volumes et le stockage</h1><p>Cette annexe s&#39;efforce de donner une vue d&#39;ensemble du <a href="https://kubernetes.io/docs/concepts/storage/" target="_blank">stockage avec Kubernetes</a>. Elle a pour objectif premier d&#39;<strong>illustrer la complexité du sujet</strong> et de montrer qu&#39;<strong>héberger les données non jetables d&#39;applications dans Kubernetes</strong> ne sera pas une mince affaire.</p>
 <ul>
 <li><a href="#les-volumes">Les volumes</a></li>
 <li><a href="#les-pilotes-pour-le-stockage">Les pilotes pour le stockage</a></li>
 <li><a href="#provisionnement-statique-et-dynamique">Provisionnement statique et dynamique</a></li>
 <li><a href="#les-modes-daccès">Les modes d&#39;accès</a></li>
+<li><a href="#cas-des-statefulset">Cas des StatefulSet</a></li>
+<li><a href="#mise-en-garde">Mise en garde</a></li>
 </ul>
 <h2 id="les-volumes">Les volumes</h2><p>Kubernetes distingue <strong>plusieurs types de <a href="https://kubernetes.io/docs/concepts/storage/volumes/" target="_blank">volumes</a></strong> répondant à différents cas d&#39;utilisation :</p>
 <ul>
@@ -118,6 +120,14 @@ spec:
 <li><strong>ReadWriteMany</strong> correspondra à l&#39;utilisation d&#39;un <strong>stockage de fichier en réseau</strong> ou <strong>système de stockage distribué</strong>.</li>
 </ul>
 <p>En règle générale, il sera <strong>préférable de ne pas avoir recours à un stockage ReadWriteMany</strong> pour des raisons de <strong>performance</strong> et éventuellement de coût (mais se libérer de cette contrainte pourra demander des efforts de refonte importants).</p>
+<h2 id="cas-des-statefulset">Cas des StatefulSet</h2><p>La propriété <code>volumeClaimTemplates</code> sur les <a href="https://kubernetes.io/fr/docs/concepts/workloads/controllers/statefulset/#composants" target="_blank">StatefulSet</a> permettra de <strong>laisser Kubernetes se charger de la création d&#39;un PVC par Pod</strong> (<code>postgres-0, postgres-1,...</code>) :</p>
+<p>Il convient de noter qu&#39;il n&#39;y aura <strong>pas de suppression automatique sur les PVC créés automatiquement pour les Pod d&#39;un StatefulSet</strong> (ils survivront à la suppression des Pods et du StatefulSet).</p>
+<h2 id="mise-en-garde">Mise en garde</h2><ul>
+<li>La <strong>suppression d&#39;un PersistentVolumeClaim se traduit généralement par la suppression du PersistentVolume correspondant</strong> (voir <a href="https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/" target="_blank">kubernetes.io - Change the Reclaim Policy of a PersistentVolume</a>)</li>
+<li>Si vous utilisez <a href="helm.html">Helm</a> pour créer des PVC, <code>helm uninstall mon-application</code> incluera la suppression des PVC (voir <a href="https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource" target="_blank">helm.sh - Tell Helm Not To Uninstall a Resource</a> et <strong>créer les PVC en amont du déploiment</strong>)</li>
+<li>L&#39;<strong>utilisation de volumes persistants dans un cluster Kubernetes</strong> induira une <strong>prudence particulière et une complexité accrue dans l&#39;exploitation d&#39;un cluster Kubernetes</strong>.</li>
+</ul>
+<p>Par exemple, la suppression brutale d&#39;un Pod récalcitrant à la suppression (<code>status=Terminating</code>) se traduira par le démontage incomplet de ces volumes et le blocage du redémarrage du Pod sur un autre noeud.</p>
 
     </div>
 

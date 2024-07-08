@@ -1,6 +1,6 @@
 # Kubernetes - les volumes et le stockage
 
-Cette annexe s'efforce de donner une vue d'ensemble du [stockage avec Kubernetes](https://kubernetes.io/docs/concepts/storage/). Elle a pour objectif premier d'**illustrer la complexité du sujet** et de montrer qu'**héberger les données non jetables d'applications dans un cluster demandera une grande maîtrise de Kubernetes**.
+Cette annexe s'efforce de donner une vue d'ensemble du [stockage avec Kubernetes](https://kubernetes.io/docs/concepts/storage/). Elle a pour objectif premier d'**illustrer la complexité du sujet** et de montrer qu'**héberger les données non jetables d'applications dans Kubernetes** ne sera pas une mince affaire.
 
 [[toc]]
 
@@ -69,4 +69,18 @@ Ainsi :
 * **ReadWriteMany** correspondra à l'utilisation d'un **stockage de fichier en réseau** ou **système de stockage distribué**.
 
 En règle générale, il sera **préférable de ne pas avoir recours à un stockage ReadWriteMany** pour des raisons de **performance** et éventuellement de coût (mais se libérer de cette contrainte pourra demander des efforts de refonte importants).
+
+## Cas des StatefulSet
+
+La propriété `volumeClaimTemplates` sur les [StatefulSet](https://kubernetes.io/fr/docs/concepts/workloads/controllers/statefulset/#composants) permettra de **laisser Kubernetes se charger de la création d'un PVC par Pod** (`postgres-0, postgres-1,...`) :
+
+Il convient de noter qu'il n'y aura **pas de suppression automatique sur les PVC créés automatiquement pour les Pod d'un StatefulSet** (ils survivront à la suppression des Pods et du StatefulSet).
+
+## Mise en garde
+
+* La **suppression d'un PersistentVolumeClaim se traduit généralement par la suppression du PersistentVolume correspondant** (voir [kubernetes.io - Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/))
+* Si vous utilisez [Helm](helm.md) pour créer des PVC, `helm uninstall mon-application` incluera la suppression des PVC (voir [helm.sh - Tell Helm Not To Uninstall a Resource](https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource) et **créer les PVC en amont du déploiment**)
+* L'**utilisation de volumes persistants dans un cluster Kubernetes** induira une **prudence particulière et une complexité accrue dans l'exploitation d'un cluster Kubernetes**.
+
+Par exemple, la suppression brutale d'un Pod récalcitrant à la suppression (`status=Terminating`) se traduira par le démontage incomplet de ces volumes et le blocage du redémarrage du Pod sur un autre noeud.
 
