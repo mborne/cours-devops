@@ -40,12 +40,12 @@ Il existe plusieurs solutions d'**orchestration de conteneurs** permettant :
 
 ### Swarm
 
-Nous soulignerons l'existence de la solution d'orchestration [swarm](https://docs.docker.com/engine/swarm/) qui est intégrée à docker (1) et qui permettrait par exemple de :
+Nous soulignerons l'existence de la solution d'orchestration [Swarm](https://docs.docker.com/engine/swarm/) qui est intégrée à docker et qui permettrait par exemple de :
 
 * [Créer un cluster avec les machines vagrantbox](https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/)
 * [Déployer GeoStack sous forme d'un service sur ce cluster](https://docs.docker.com/engine/swarm/swarm-tutorial/deploy-service/)
 
-> (1) Le développement de swarm a amené l'ajout d'un réseau de type "overlay" permettant la communication des conteneurs entre plusieurs machines (`docker network create --driver overlay geostack`)
+Nous noterons que le développement de [Swarm](https://docs.docker.com/engine/swarm/) a principalement amené l'ajout d'un réseau de type "overlay" à Docker pour la communication des conteneurs entre plusieurs machines.
 
 ---
 
@@ -53,7 +53,7 @@ Nous soulignerons l'existence de la solution d'orchestration [swarm](https://doc
 
 ### Kubernetes
 
-Pour ce cours, nous allons plutôt nous concentrer sur **Kubernetes** qui est une référence en matière d'orchestration de conteneurs et qui bénéficie d'un riche écosystème incluant des **solutions de plus haut niveau d'abstraction** ("serverless") qui ne seront pas présentées dans ce cours :
+Nous allons plutôt nous concentrer sur **Kubernetes** qui est une référence en matière d'orchestration de conteneurs et qui bénéficie d'un riche écosystème incluant des **solutions de plus haut niveau d'abstraction** ("serverless") qui ne seront pas présentées dans ce cours :
 
 * [KNative - Serverless and Event Driven Applications](https://knative.dev/docs/)
 * [OpenFaaS - Serverless Functions, Made Simple](https://www.openfaas.com/)
@@ -82,13 +82,14 @@ Nous verrons que **cette API est centrale dans l'écosystème Kubernetes** :
 
 ### L'API de Kubernetes (2/2)
 
-Cette API est centrale pour l'administration d'un cluster Kubernetes. Le client [kubectl](https://kubernetes.io/docs/reference/kubectl/) permettra de communiquer avec elle :
+Cette API sera centrale pour l'administration d'un cluster Kubernetes :
 
 <div class="center">
-    <img src="img/admin-vm-vs-k8s.drawio.png" alt="Administration VM vs K8S" style="height: 240px" />
+    <img src="img/admin-vm-vs-k8s.drawio.png" alt="Administration VM vs K8S" style="height: 260px" />
 </div>
 
-A l'aide des mécanismes de gestion de droit, il sera possible de distinguer les objets gérés par les **administrateurs du cluster** de ceux gérés par les **administrateurs des applications métiers**.
+* Le client [kubectl](https://kubernetes.io/docs/reference/kubectl/) remplacera `ssh`.
+* Il sera possible de distinguer les objets gérés par les **administrateurs du cluster** de ceux gérés par les **administrateurs des applications métiers**.
 
 ---
 
@@ -101,7 +102,7 @@ Le **plan de contrôle** (*control-plane*) héberge les composants relatifs à l
 * L'API Kubernetes (`kube-apiserver`)
 * La base de données clé/valeur de l'API (`etcd`)
 
-En production, les conteneurs applicatifs s'exécuteront sur des **noeuds** (`nodes`) distinct de ceux hébergeant le plan de contrôle.
+En production, les conteneurs applicatifs s'exécuteront sur des **noeuds** (`nodes`) distincts de ceux hébergeant les composants du plan de contrôle.
 
 > Voir [kubernetes.io - Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/) pour un schéma d'architecture et des explications plus détaillées.
 
@@ -115,12 +116,15 @@ Avec docker, pour que deux conteneurs puissent communiquer, il faut s'assurer qu
 
 Avec Kubernetes, nous aurons :
 
-* Un **modèle réseau permettant par défaut la communication au sein du cluster**
-* La **possibilité de restreindre les communications réseaux** avec un concept dédié que nous ne détaillerons pas dans cette introduction : [NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
+* Un **modèle réseau ouvert par défaut** pour la communication au sein du cluster (1).
+* La **possibilité de restreindre les communications réseaux** avec un concept dédié : [NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
 
-Nous insisterons toutefois sur son importance dans la mesure où **l'utilisation d'un pare-feu classique ne permettra pas de maîtriser finement les flux réseaux** (le pare-feu ne verra que les IP des noeuds, il ne sera pas possible d'établir des règles en fonction des services).
+Dans ce cours, nous nous limiterons à noter que **l'utilisation d'un pare-feu classique ne permettra pas de maîtriser finement les flux réseaux** (2).
 
-> Voir [kubernetes.io - The Kubernetes network model](https://kubernetes.io/docs/concepts/services-networking/#the-kubernetes-network-model) et [youtube.com - Understanding Kubernetes Networking. Part 2: POD Network, CNI, and Flannel CNI Plug-in](https://www.youtube.com/watch?v=U35C0EPSwoY) pour des explications plus détaillées.
+
+> (1)Voir [kubernetes.io - The Kubernetes network model](https://kubernetes.io/docs/concepts/services-networking/#the-kubernetes-network-model) et [youtube.com - Understanding Kubernetes Networking. Part 2: POD Network, CNI, and Flannel CNI Plug-in](https://www.youtube.com/watch?v=U35C0EPSwoY) pour des explications plus détaillées.
+> 
+> (2) Un pare-feu externe au cluster ne verra que les IP des noeuds, il ne sera pas possible de raisonner à l'échelle des services pour imposer par exemple l'utilisation d'un proxy sortant.
 
 ---
 
@@ -136,16 +140,16 @@ Pour communiquer avec un cluster, nous installerons le client [kubectl](https://
 
 ### Création d'un cluster de développement
 
-Il existe différents outils permettant d'installer un environnement de développement Kubernetes pour découvrir les concepts par la pratique :
+Il existe différents outils permettant d'installer un environnement de développement Kubernetes :
 
 * [K3S](https://k3s.io/) de Rancher.
-* [Kind (Kubernetes in docker)](https://kind.sigs.k8s.io/) (1)
 * [MicroK8S](https://microk8s.io/) de Canonical (Ubuntu).
 * [Minikube](https://kubernetes.io/fr/docs/setup/learning-environment/minikube/)
+* [Kind (Kubernetes in docker)](https://kind.sigs.k8s.io/) (à éviter pour débuter)
 
-Nous traiterons l'**installation de K3S avec Ansible sur les VM vagrantbox** à l'aide du dépôt [mborne/k3s-deploy](https://github.com/mborne/k3s-deploy#k3s-deploy).
+Nous traiterons l'**installation de K3S avec Ansible sur les VM vagrantbox** à l'aide du dépôt [mborne/k3s-deploy](https://github.com/mborne/k3s-deploy#k3s-deploy) pour faire le lien avec les parties précédentes.
 
-> (1) L'installation demande moins de travail mais il est plus difficile de comprendre le fonctionnement de Kubernetes et les choses se compliquent pour tester certaines fonctionnalités (LoadBalancer et Ingress en particulier). Voir [mborne/docker-devbox - kind](https://github.com/mborne/docker-devbox/tree/master/kind#readme) après le cours.
+> Nous pourrions [installer K3S sur une simple VM](https://k3s.io/). Vous pourrez aussi tester [mborne/docker-devbox - kind - quickstart.sh](https://github.com/mborne/docker-devbox/tree/master/kind#readme) quand vous serez familiarisé à Kubernetes.
 
 ---
 
@@ -153,7 +157,16 @@ Nous traiterons l'**installation de K3S avec Ansible sur les VM vagrantbox** à 
 
 ### Lister les noeuds
 
-En premier contact, nous allons nous assurer que `kubectl` est correctement configuré (`export KUBECONFIG=chemin/vers/k3s-deploy/.k3s/k3s.yaml`) et **lister les noeuds** à l'aide des commandes suivantes :
+En premier contact, nous pourrons :
+
+* Configurer `kubectl` pour utiliser le cluster déployé sur les machines vagrantbox :
+
+```bash
+# Copier l'aide affichée par k3s-deploy :
+export KUBECONFIG=/home/formation/k3s-deploy/.k3s/k3s.yaml
+```
+
+* Lister les noeuds à l'aide des commandes suivantes :
 
 ```bash
 # Information sur le cluster
@@ -161,6 +174,14 @@ kubectl cluster-info
 # Lister les noeuds
 kubectl get nodes
 ```
+
+---
+
+## Découvrir Kubernetes par la pratique
+
+### Et maintenant?
+
+Nous allons maintenant pouvoir **découvrir progressivement les principaux concepts de Kubernetes à l'aide d'exemples**.
 
 ---
 
@@ -173,9 +194,9 @@ Les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) sont la plus pet
 * Le même réseau (communication en localhost)
 * Le même stockage (accès aux volumes)
 
-Nous traiterons les exemples [mborne/k8s-exemples - Pods](https://github.com/mborne/k8s-exemples#pod) en faisant le lien avec [les exemples de prise en main de docker](https://github.com/mborne/docker-exemples#readme).
+Nous traiterons les exemples [mborne/k8s-exemples - Pods](https://github.com/mborne/k8s-exemples#pod) en faisant le lien avec [les exemples de prise en main de docker](https://github.com/mborne/docker-exemples#readme) pour nous familiariser avec ce concept.
 
-> Nous ne détaillerons pas les cas d'utilisations des Pod avec plusieurs conteneurs (sidecar, ambassador, adapter) et des conteneurs d'initialisation (disposer d'outils supplémentaires, télécharger des données, retarder le démarrage d'un service,...)
+> Nous ne détaillerons pas les cas d'utilisations des Pod avec plusieurs conteneurs (sidecar, ambassador, adapter) et des conteneurs d'initialisation (ex : télécharger des données au démarrage, retarder le démarrage d'un service,...)
 
 ---
 
@@ -185,11 +206,11 @@ Nous traiterons les exemples [mborne/k8s-exemples - Pods](https://github.com/mbo
 
 En pratique, les [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) ne sont pas créés manuellement. Nous définissons plutôt des [charges de travail (*workloads*)](https://kubernetes.io/docs/concepts/workloads/) adaptées à la nature de l'application pour créer les Pods :
 
-* Un [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) pour un service sans état (ex : nginx)
-* Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) dans le cas contraire (ex : PostgreSQL)
-* Un [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) dans le cas où ils doivent s'exécuter sur tous les noeuds (ex : [fluent-bit](https://fluentbit.io/) pour la collecte des logs)
+* Un [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) pour un **service sans état** (ex : [whoami](schema/whoami-deployment.png))
+* Un [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) pour **un service avec état** (ex : [PostgreSQL](schema/postgres-statefulset.png) où chaque Pod disposera de son propre stockage)
+* Un [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) pour exécuter **un Pod par noeud** (ex : [fluent-bit](https://fluentbit.io/) pour la collecte des logs)
 
-Nous traiterons [mborne/k8s-exemples - Création de plusieurs Pod whoami à l'aide d'un Deployment](https://github.com/mborne/k8s-exemples#deployment).
+Nous traiterons le premier cas avec [mborne/k8s-exemples - Création de plusieurs Pod whoami à l'aide d'un Deployment](https://github.com/mborne/k8s-exemples#deployment).
 
 ---
 
@@ -197,7 +218,7 @@ Nous traiterons [mborne/k8s-exemples - Création de plusieurs Pod whoami à l'ai
 
 ### Les charges de travail (2/2)
 
-Nous soulignerons aussi la possibilité de définir :
+En complément, nous soulignerons aussi la possibilité de définir :
 
 * Des [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) pour des **tâches ponctuelles**.
 * Des [CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) pour des **tâches périodiques**.
@@ -208,17 +229,31 @@ Nous traiterons la [création d'un Job calculant 2000 décimales de PI](https://
 
 ## Les principaux concepts
 
-### Le concept de Service
+### Le concept de Service (1/2)
 
-En première approche, un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) pourra être vu comme un reverse proxy devant les Pods.
+En première approche, un [Service](https://kubernetes.io/docs/concepts/services-networking/service/) pourra être vu comme un reverse proxy devant les Pods :
 
-Nous soulignerons qu'il existe plusieurs types de service dont :
+<div class="center">
+    <img src="schema/whoami-service.png" alt="Illustration du concept de service" style="height: 280px" />
+</div>
 
-* `ClusterIP` (type par défaut) rendant le **service accessible dans le cluster**
+Nous traiterons [mborne/k8s-exemples - Création d'un service whoami devant ces Pods](https://github.com/mborne/k8s-exemples#service) et constaterons qu'**un service offre un point d'accès stable à l'un des Pod** dans le cluster (ex : `http://whoami`)
+
+---
+
+## Les principaux concepts
+
+### Le concept de Service (2/2)
+
+Nous remarquerons qu'il existe [plusieurs types de services](https://kubernetes.io/fr/docs/concepts/services-networking/service/#publishing-services-service-types) dont :
+
+* `ClusterIP` rendant le **service accessible dans le cluster** (type par défaut)
 * `LoadBalancer` permettant de demander l'**exposition sur une IP publique**.
 * `NodePort` permettant l'**exposition via un port sur un noeud (<u>à éviter</u>**)
 
-Nous traiterons le cas ClusterIP avec [mborne/k8s-exemples - Création d'un service whoami devant ces Pods](https://github.com/mborne/k8s-exemples#service).
+Nous traiterons [mborne/k8s-exemples - Exposition du service whoami sur une IP publique](https://github.com/mborne/k8s-exemples#service) pour accéder au service depuis notre machine sur une IP publique en exploitant le type `LoadBalancer` (*).
+
+> (*) K3S simulera la publication en exposant le service sur les machines vagrantbox. Dans d'autres contextes (ex : Google Kubernetes Engine), une IP publique serait affectée pour notre service avec routage du traffic vers le service Kubernetes.
 
 ---
 
@@ -226,114 +261,96 @@ Nous traiterons le cas ClusterIP avec [mborne/k8s-exemples - Création d'un serv
 
 ### Le concept de Namespace
 
-Les [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) permettent d'isoler les ressources des différentes applications hébergées dans le cluster.
+Les [Namespace](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) permettent d'isoler des groupes de ressources définies dans un même cluster. Ils permettent d'héberger et de **cloisonner plusieurs applications dans un même cluster** (*Namespace as a service*).
 
-Ce concept permettra l'accueil de plusieurs applications dans un même cluster (**Namespace as a service**).
+Nous traiterons [mborne/k8s-exemples - Namespace](https://github.com/mborne/k8s-exemples#namespace) pour **inspecter les namespaces** existants dont :
 
-Nous traiterons [mborne/k8s-exemples - Namespace](https://github.com/mborne/k8s-exemples#namespace) pour **inspecter les namespaces** existants (dont "default" dans lequel nous travaillons sans le préciser) et verrons **comment créer et utiliser un namespace dédié à une application**.
+* "default" dans lequel nous avons travaillé jusque là sans le préciser
+* "kube-system" où nous trouverons un service assurant la résolution DNS (ex : pour l'appel à `http://whoami` testé précédemment)
 
-
----
-
-## Les principaux concepts
-
-### Le concept Ingress
-
-Le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) permet d'exposer un service en HTTP/HTTPS.
-
-Nous noterons que :
-
-* L'exposition des ressources [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) sera prise en charge par un contrôleur Ingress (ex : [nginx-ingress-controller](https://github.com/mborne/docker-devbox/blob/master/nginx-ingress-controller/README.md), [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes),...)
-* Le choix du contrôleur ingress passera par la définition de la propriété `ingressClass` (ex : `nginx`, `traefik`,... avec la possibilité de distinguer `nginx-private` et `nginx-public`)
-
-Nous traiterons [mborne/k8s-exemples - Ingress](https://github.com/mborne/k8s-exemples#ingress) où nous verrons comment **installer Traefik en tant que Ingress Controller** et l'**exposer le service whoami sous forme d'une URL**. En pré-requis, nous serons amené à [installer helm](annexe/kubernetes/helm.html) et expliquer brièvement son intérêt.
+Nous verrons **comment créer et utiliser un namespace dédié pour l'application whoami**.
 
 ---
 
 ## Les principaux concepts
 
-### La configuration
+### Le concept Ingress (1/3)
 
-Nous trouverons plusieurs concepts relatif à la [gestion de la configuration](https://kubernetes.io/docs/concepts/configuration/) dont :
+Le concept [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) permettra de **spécifier l'exposition d'un service en HTTP/HTTPS** :
 
-* [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
-* [Secret](https://kubernetes.io/docs/concepts/configuration/secret/)
-
-Ces éléments pourront être convertis en **variables d'environnement** ou monté sous forme de **fichiers** au niveau des conteneurs.
-
----
-
-## Les principaux concepts
-
-### Les concepts pour le stockage (1/3)
-
-Nous noterons que Kubernetes dispose d'un mécanisme de plugin permettant de supporter différentes solutions de stockage (c.f. [kubernetes-csi.github.io - CSI Drivers](https://kubernetes-csi.github.io/docs/drivers.html))
-
-Nous retrouverons le concept de [Volume](https://kubernetes.io/docs/concepts/storage/volumes/) repris à Docker avec une distinction entre :
-
-* [Les volumes persistants (PersistentVolume)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
-* [Les volumes éphémères](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) (ex : [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir))
+<div class="center">
+    <img src="schema/whoami-ingress.png" alt="Illustration du concept Ingress" style="height: 280px" />
+</div>
 
 ---
 
 ## Les principaux concepts
 
-### Les concepts pour le stockage (2/3)
+### Le concept Ingress (2/3)
 
-Pour le [provisionnement des volumes persistant (PersistentVolume)](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/), nous trouverons deux concepts intéressants :
+L'exposition des ressources [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) sera prise en charge par un [*Ingress Controller*](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) :
 
-* Le concept de **PersistentVolumeClaim** correspondant à la **commande d'un volume persistant**.
-* Le concept de [StorageClass](https://kubernetes.io/docs/concepts/storage/storage-classes/) permettant de répondre avec deux cas de figure :
-  * La création du **PersistentVolume** correspondant par un administrateur du cluster (**provisionnement statique**)
-  * La création automatique du **PersistentVolume** via l'utilisation d'une classe de stockage prévue à cet effet (**provisionnement dynamique**)
+<div class="center">
+    <img src="schema/traefik-ingress-controller.png" alt="Illustration de Traefik en tant qu'Ingress Controller" style="height: 280px" />
+</div>
 
-Il sera intéressant d'exécuter `kubectl get storageclass` pour lister les possibilités dans un cluster.
+Nous trouverons [plusieurs implémentations](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) dont une implémentation [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes) qui est installée par défault avec K3S (1).
 
+> (1) A date, une option `--disable traefik` désactive cette fonctionnalité dans [mborne/k3s-deploy - inventory/vagrantbox/group_vars/k3s_master/k3s.yml](https://github.com/mborne/k3s-deploy/blob/master/inventory/vagrantbox/group_vars/k3s_master/k3s.yml)
 
 ---
 
 ## Les principaux concepts
 
-### Les concepts pour le stockage (3/3)
+### Le concept Ingress (3/3)
 
-Nous soulignerons que tous les types de stockage n'offrent pas les mêmes possibilités. En particulier, Kubernetes distinguera plusieurs **modes d'accès** dont :
+Nous traiterons [mborne/k8s-exemples - Ingress](https://github.com/mborne/k8s-exemples#ingress) où nous verrons comment :
 
-* **ReadWriteOnce** (RWO) indiquant que le volume peut être utilisé en lecture/écriture par des **Pods s'exécutant sur un même noeud**.
-* **ReadWriteMany** (RWX) dans le cas où les **Pods s'exécutent sur plusieurs noeuds**.
+* **Installer Traefik en tant que Ingress Controller**
+* **Exposer le service whoami sous forme d'une URL**
 
-Ce deuxième mode de stockage ne sera pas souvent disponible en standard. Il faudra par exemple intégrer un **stockage de fichier en réseau (NFS)** (voir [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner#kubernetes-nfs-subdir-external-provisioner)) ou un **système de stockage distribué** (voir [mborne/docker-devbox - longhorn](https://github.com/mborne/docker-devbox/tree/master/longhorn#longhorn))
-
-En règle générale, il sera **préférable de ne pas avoir recours à un stockage ReadWriteMany** pour des raisons de performance et de coût (mais se libérer de cette contrainte en basculant par exemple sur un stockage S3 pourra demander des efforts de refonte importants des traitements).
+En pré-requis, nous serons amené à [installer helm](annexe/kubernetes/helm.html) et expliquer brièvement son intérêt.
 
 ---
 
-## Le dashboard Kubernetes
+## Les principaux concepts
 
-Nous remarquerons que l'équipe Kubernetes met à disposition une interface graphique plutôt complète : [Kubernetes Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard).
+### Le stockage et les volumes
 
-Nous pourrons l'installer à l'aide de [mborne/docker-devbox - kubernetes-dashboard](https://github.com/mborne/docker-devbox/blob/master/kubernetes-dashboard/README.md#kubernetes-dashboard) et inspecter [les fichiers YAML correspondant à ce déploiement](https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml) pour survoler des concepts non abordés jusqu'ici (ServiceAccount, RBAC,...).
+Nous retrouverons le concept de [Volume](https://kubernetes.io/docs/concepts/storage/volumes/) repris à Docker. Nous trouverons toutefois de nombreux concepts complémentaires permettant :
 
----
+* Le support d'un plus **grand nombre de systèmes de stockage**.
+* De mieux traiter **différents cas d'utilisation d'utilisation** avec une distinction entre :
+  * [Les volumes persistants (PersistentVolume)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
+  * [Les volumes éphémères](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) (ex : [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) pour un dossier de cache)
+  * [Les volumes projetés](https://kubernetes.io/docs/concepts/storage/projected-volumes/) (ex : [configMap](https://kubernetes.io/docs/concepts/storage/volumes/#configmap) pour un fichier de configuration)
 
-## L'observabilité
-
-Pour découvrir l'observabilité avec Kubernetes, nous pourrons nous appuyer sur [github.com - mborne/docker-devbox](https://github.com/mborne/docker-devbox) pour installer :
-
-* [Prometheus](https://github.com/mborne/docker-devbox/tree/master/prometheus#usage-with-kubernetes) pour collecter des métriques système.
-* [Loki](https://github.com/mborne/docker-devbox/tree/master/loki#usage-with-kubernetes) pour collecter les journaux applicatifs.
-* [Grafana](https://github.com/mborne/docker-devbox/tree/master/grafana#usage-with-kubernetes) pour disposer d'une interface graphique de consultations des journaux et des métriques.
-
-Nous remarquerons au passage que Grafana permet de gérer les dashboards as code ( [docker-devbox - grafana/helm/values.yaml](https://github.com/mborne/docker-devbox/blob/master/grafana/helm/values.yaml) ).
+Nous survolerons l'annexe [Kubernetes - les volumes et le stockage](annexe/kubernetes/stockage.html) pour constater que **Kubernetes offre de nombreuses possibilités en matière de stockage** mais que **c'est un sujet complexe**.
 
 ---
 
-## L'orchestration du déploiement
+## Les principaux concepts
 
-### Exemple avec ArgoCD
+### Les opérateurs
 
-Afin d'avoir un aperçu de l'utilisation d'un orchestrateur de déploiement utilisant une approche GitOps, nous installerons [ArgoCD à l'aide de mborne/docker-devbox - argocd](https://github.com/mborne/docker-devbox/tree/master/argocd#argo-cd).
+Pour les déploiements complexes, nous trouverons des **opérateurs** qui seront chargés de **déployer des applications complexes**.
 
-Nous reprendrons le déploiement de whoami à l'aide de ArgoCD.
+Par exemple, nous pourrons utiliser [CloudNativePG](https://cloudnative-pg.io/) pour déployer un cluster PostgreSQL (voir [postgis-cluster.yaml](https://github.com/mborne/docker-devbox/blob/master/cnpg/manifest/postgis-cluster.yaml)).
+
+---
+
+## Le déploiement de GeoStack avec Kubernetes
+
+### Principe
+
+Nous allons reprendre le déploiement de GeoStack :
+
+* Nous utiliserons [CloudNativePG](https://cloudnative-pg.io/) pour simplifier l'installation de PostgreSQL.
+* Nous inspecterons les YAML rédigés pour déployer GeoServer sans traitement de la scalabilité (1).
+
+Voir [mborne/geostack-deploy - k8s - Déploiement de GeoStack avec Kubernetes](https://github.com/mborne/geostack-deploy/blob/master/k8s/README.md)
+
+> (1) Vous pourrez d'inspecter [geoserver-cloud](https://github.com/geoserver/geoserver-cloud?tab=readme-ov-file#geoserver-cloud) qui est un cas d'école en matière de **décomposition d'un monolythe en micro-services pour faciliter le traitement de la scalabilité** et pour lequel l'article [camptocamp.com - Vers une meilleure intégration de GeoServer dans une infrastructure cloud](https://camptocamp.com/fr/actualites-evenements/integration-de-geoserver-dans-une-infrastructure-cloud) documente les travaux correspondants.
 
 ---
 
@@ -341,13 +358,11 @@ Nous reprendrons le déploiement de whoami à l'aide de ArgoCD.
 
 ### Un cadre standardisé pour la zone d'hébergement
 
-En effet, Kubernetes offre des **concepts pour chacun des éléments à configurer dans la zone d'hébergement** :
+En résumé, Kubernetes offre des **concepts pour chacun des éléments à configurer dans la zone d'hébergement** :
 
 <div class="center">
-    <img src="img/archi-hebergement-k8s.drawio.png" alt="Exemple d'architecture de zone d'hébergement K8S" style="height: 260px" />
+    <img src="img/archi-hebergement-k8s.drawio.png" alt="Exemple d'architecture de zone d'hébergement K8S" style="height: 350px" />
 </div>
-
-Ces concepts permettront de **gérer as code** le **déploiement et la configuration des services techniques**, la **configuration du load-balancer (Ingress)**, la configuration du **pare-feu (NetworkPolicy)**, les comptes de services (ServiceAccount), les droits sur les différents objets (RBAC),...
 
 ---
 
@@ -355,13 +370,43 @@ Ces concepts permettront de **gérer as code** le **déploiement et la configura
 
 ### Un cadre pour la création d'un écosystème
 
-L'API extensible quand a elle amène un cadre pour le développement d'outil réutilisables sur différentes instances Kubernetes :
+L'API extensible amène un cadre pour le développement de composants réutilisables sur différentes instances Kubernetes :
 
-* Prometheus / Grafana / Loki pour l'**observabilité**
-* ArgoCD, GitLab-CI,... pour l'**orchestration des déploiements**
-* cert-manager pour la **gestion des certificats**
+* [Kubernetes Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
+* [Prometheus](https://prometheus.io/) / [Grafana](https://grafana.com/grafana/dashboards/) / [Loki](https://github.com/grafana/loki#readme) pour l'**observabilité**
+* [ArgoCD](https://argo-cd.readthedocs.io/en/stable/), [GitLab-CI](https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html),... pour l'**orchestration des déploiements**
+* [cert-manager](https://cert-manager.io/) pour la **gestion des certificats**
 
-Nous trouverons même des **opérateurs pour déployer des services tels PostgreSQL** avec une approche déclarative (ex : [CloudNativePG](https://cloudnative-pg.io/) permettant la définition d'un [postgis-cluster.yaml](https://github.com/mborne/docker-devbox/blob/master/cnpg/manifest/postgis-cluster.yaml)) .
+---
+
+## Intérêt de Kubernetes
+
+### Un cadre complet pour *infrastructure as code*
+
+Avec une zone d'hébergement IAAS, une approche IaC partielle était possible mais limitante.
+
+Avec Kubernetes, nous pouvons **gérer as code** :
+
+* Le **déploiement et la configuration des services techniques** (nous pouvons donc gérer efficacement le proxy et les domaines autorisés à l'aide de pull-request).
+* La **configuration du load-balancer (Ingress)** (nous pouvons donc déployer une nouvelle version sans interruption de service).
+* La configuration du **pare-feu (NetworkPolicy)** (nous pouvons donc gérer plus finement les flux réseaux sans retarder les déploiements)
+* ...
+
+---
+
+## Intérêt de Kubernetes
+
+### Un cadre pour le partage des responsabilités
+
+Avec une **zone d'hébergement IAAS**, il était difficile d'aller loin qu'une approche du style suivant induisant des **conflits de gestion** :
+
+* Les PlatOps sont "sudoers" sur toutes les VM
+* Les AppOps sont "sudoers" sur les VM applicatives
+
+Avec **Kubernetes**, la présence d'une API REST permet de **gérer beaucoup plus finement les droits as code** :
+
+* Les AppOps disposent de droits sur des namespaces applicatifs
+* Les AppOps disposent de droits limités sur les différents types d'objet Kubernetes dans ces namespaces (ex : possibilité de consulter les règles de pare-feu (NetworkPolicy) sans possibilité de les modifier)
 
 ---
 
@@ -371,53 +416,53 @@ Nous trouverons même des **opérateurs pour déployer des services tels Postgre
 
 A ce stade, nous soulignerons que **Kubernetes n'est pas une solution offrant une zone d'hébergement clé en main**. Il faudra par exemple **déployer, configurer et exploiter des services techniques** (ex : Ingress Controller, Prometheus, Grafana...).
 
-Nous pourrons **limiter les efforts sur certains points avec des distributions plus riches** (ex : Rancher, VMWare Tanzu,...) ou en ayant recours à **Kubernetes en mode SaaS** (Managed Kubernetes Service chez OVH, Google Kubernetes Engine,...).
+Nous pourrons **limiter les efforts sur certains points avec des distributions plus riches** (ex : Rancher, VMWare Tanzu,...) ou en ayant recours à **Kubernetes en mode SaaS** (Managed Kubernetes Service chez OVH, Google Kubernetes Engine,...) mais :
 
-**Les efforts seront variables selon le choix** (ex : fluent-bit sera déployé automatiquement pour alimenter Google Cloud Logging avec GKE). Néanmoins, **il restera toujours des choix à faire en matière de gestion des droits** (ex : sur quel environnement donner des droits aux DEV?), des **utilisateurs à gérer** et **un système et des coûts à surveiller**.
-
----
-
-## Que manque-t'il à ce stade?
-
-### Sécuriser l'exécution des conteneurs n'est pas trivial
-
-Pour sécuriser l'exécution des conteneurs, il nous resterait par exemple à configurer des options de sécurité suivantes sur les conteneurs :
-
-```yaml
-securityContext:
-  allowPrivilegeEscalation: false
-  privileged: false
-  runAsUser: 1000
-  runAsNonRoot: true
-  capabilities:
-    drop:
-      - ALL
-  seccompProfile:
-    type: RuntimeDefault
-```
-
-Or, l'activation de ces options n'est pas indolore au niveau des applications :
-
-* Il convient de **gérer proprement les droits sur les fichiers dans le conteneur**.
-* Il convient de **ne pas utiliser des ports privilégiés tels le port 80**.
+* **Les efforts seront variables selon le choix** (ex : fluent-bit sera déployé automatiquement pour alimenter Google Cloud Logging avec GKE)
+* **Il restera toujours des choix à faire en matière de gestion des droits** (ex : sur quel environnement donner des droits aux DEV?), des **utilisateurs à gérer** et **un système et des coûts à surveiller**.
 
 ---
 
 ## Que manque-t'il à ce stade?
 
-### Éviter les problèmes de cohabitation n'est pas trivial
+### Sécuriser l'exécution des conteneurs
 
-Il est nécessaire de [spécifier les réservations et limites RAM et CPU des conteneurs](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#example-1) pour :
+Pour sécuriser l'exécution des conteneurs, il nous resterait à [configurer des options de sécurité sur les conteneurs](https://kubernetes.io/docs/concepts/security/pod-security-standards/).
 
-* Permettre la mise en oeuvre de quotas ou de l'autoscalling sur les noeuds.
-* Éviter qu'un service rencontre un OEMKill ou consomme toutes les ressources CPU et RAM d'un noeud.
+Or, l'activation de certaines options n'est pas indolore au niveau des applications. Par exemple, pour **exécuter des conteneurs en non root**, il faut :
 
-Il est aussi nécessaire de s'assurer qu'un Pod ne provoque pas un full sur un noeud par exemple en :
+* **Utiliser des ports non privilégiés** (utiliser le port 80 posera problème).
+* **Gérer proprement les droits sur les fichiers dans le conteneur**.
 
-* Mettant en oeuvre des quotas sur le stockage local.
-* Imposant la déclaration de volumes pour le stockage (`readOnlyRootFilesystem: true`) pour pouvoir mettre en oeuvre ces quotas.
+---
 
-Ceci induira qu'**il faudra une bonne maîtrise de la consommation RAM et de la rigueur sur la gestion des données** pour atteindre un haut niveau de stabilité.
+## Que manque-t'il à ce stade?
+
+### Maîtriser la consommation des ressources systèmes
+
+Il nous resterait aussi à [spécifier les réservations et limites RAM et CPU des conteneurs](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#example-1) pour :
+
+* Permettre la mise en oeuvre de l'**autoscalling sur les noeuds**.
+* **Éviter qu'un service consomme toutes les ressources CPU et RAM d'un noeud**.
+
+Il serait aussi nécessaire de **s'assurer qu'un Pod ne provoque pas un full sur un noeud** par exemple en :
+
+* Imposant la déclaration de volumes pour le stockage local (`readOnlyRootFilesystem: true`).
+* Imposant la déclaration de limites via la mise en oeuvre des quotas sur le stockage local.
+
+---
+
+## Que manque-t'il à ce stade?
+
+### Kubernetes n'est pas magique!
+
+Kubernetes offre un cadre permettant la cohabitation d'applications conteneurisées (limites de consommation de ressources, options de sécurité,...).
+
+Il est toutefois du ressort de l'utilisateur d'exploiter ce cadre en **respectant un ensemble de [bonnes pratiques](annexe/docker/bonnes-pratiques.html) dans la création et l'exécution des conteneurs** pour profiter d'un bon niveau de sécurité et d'un haut niveau de disponibilité (1).
+
+En substance, **Kubernetes ne sera pas en mesure de se substituer aux DEV pour produire des conteneurs "prod-ready"** (Kubernetes aura plutôt tendance à imposer une bonne maîtrise de la consommation RAM et une rigueur dans la gestion des données).
+
+> (1) NB : Les mécanismes de redémarrage automatique des Pods en cas de problème limiteront les effets de certains types de problème (ex : atteinte limite RAM). Il faudra intervenir pour d'autres (ex : full sur un noeud)
 
 ---
 
@@ -427,7 +472,7 @@ Ceci induira qu'**il faudra une bonne maîtrise de la consommation RAM et de la 
 
 Il convient aussi de noter que :
 
-* **Déployer et maintenir des applications "Stateful"** telles des bases de données **en environnement Kubernetes n'est pas trivial** et demandera une **maîtrise du stockage** avec Kubernetes (qui n'est pas le point le plus trivial).
+* **Déployer et maintenir des applications "Stateful"** telles des bases de données **en environnement Kubernetes n'est pas trivial** et demandera une **maîtrise du stockage** avec Kubernetes.
 * **Kubernetes est une solution bas niveau** qui sera **moins efficace qu'une offre PaaS ou SaaS pour déployer certaines applications** (ex : CMS, site statique,...).
 
 Nous allons à ce titre prendre un peu de recul dans la partie [DevOps dans le cloud](cloud.html) et aborder la possibilité d'hybrider les solutions.

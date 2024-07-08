@@ -506,5 +506,5 @@ Nous verrons par la suite comment :
 * Les [conteneurs](conteneurs.md) solutionnent ce **problème de partage de responsabilité au niveau des VM** en embarquant les dépendances des applications dans les images (1).
 * [Kubernetes](kubernetes.md) traite ces problèmes **à l'échelle d'une zone d'hébergement** par exemple en **cloisonnant les applications** (concept *Namespace*) et en permettant aux équipes applicatives de **spécifier les URL externes** (concept *Ingress* pour la configuration du LoadBalancer).
 
-> (1) Je passerai sous silence la possibilité de fournir l'image d'une VM applicative complète avec un outil tel [Packer](https://www.packer.io/) voire un simple fichier [cloud-init](https://cloud-init.io/).
+> (1) Nous passerons sous silence la possibilité de fournir l'image d'une VM applicative complète avec un outil tel [Packer](https://www.packer.io/) voire un simple fichier [cloud-init](https://cloud-init.io/).
 
