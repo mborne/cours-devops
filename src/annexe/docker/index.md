@@ -2,7 +2,7 @@
 
 ## Principe
 
-Docker s'appuie sur les [technologies d'isolation linux (LXC) pour apporter des mécanismes de virtualisation](https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences).
+Docker s'appuie sur les [technologies d'isolation linux (namespaces, cgroups,...) pour apporter des mécanismes de virtualisation](https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences).
 
 ## Points clés
 
@@ -55,6 +55,7 @@ Docker s'appuie sur les [technologies d'isolation linux (LXC) pour apporter des 
 
 L'implémentation des conteneurs :
 
+* [www.linkedin.com - Linux technologies fundamental to containers](https://www.linkedin.com/pulse/linux-technologies-fundamental-containers-hossein-abedinzadeh-x9fjf)
 * [www.lemagit.fr - Conteneurs Linux et Conteneurs Docker : quelle(s) différence(s) ?](https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences).
 * [phoenixnap.com - Docker vs containerd vs CRI-O: An In-Depth Comparison](https://phoenixnap.com/kb/docker-vs-containerd-vs-cri-o) présente des **alternatives à docker pour l'exécution de conteneurs** et la relation entre docker et containerd.
 * [Podman](https://podman.io/) est l'une de ces **alternatives à docker** (mise en avant par exemple dans la certification CKAD pour Kubernetes).
