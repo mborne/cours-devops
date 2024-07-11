@@ -53,7 +53,7 @@
     </div>
 
     <div class="markdown-body">
-      <h1 id="docker">Docker</h1><h2 id="principe">Principe</h2><p>Docker s&#39;appuie sur les <a href="https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences" target="_blank">technologies d&#39;isolation linux (LXC) pour apporter des mécanismes de virtualisation</a>.</p>
+      <h1 id="docker">Docker</h1><h2 id="principe">Principe</h2><p>Docker s&#39;appuie sur les <a href="https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences" target="_blank">technologies d&#39;isolation linux (namespaces, cgroups,...) pour apporter des mécanismes de virtualisation</a>.</p>
 <h2 id="points-clés">Points clés</h2><ul>
 <li>Docker amène des concepts et des outils qui facilitent le déploiement des applications en offrant un <strong>cadre générique pour l&#39;empaquetage des applications</strong>.</li>
 <li>Docker s&#39;appuie sur une <strong>API mise à disposition par le démon docker</strong> qui est exploitée par plusieurs clients.</li>
@@ -109,6 +109,7 @@
 </ul>
 <h2 id="pour-comprendre-et-aller-plus-loin">Pour comprendre et aller plus loin</h2><p>L&#39;implémentation des conteneurs :</p>
 <ul>
+<li><a href="https://www.linkedin.com/pulse/linux-technologies-fundamental-containers-hossein-abedinzadeh-x9fjf" target="_blank">www.linkedin.com - Linux technologies fundamental to containers</a></li>
 <li><a href="https://www.lemagit.fr/conseil/Conteneurs-Linux-et-Conteneurs-Docker-quelles-differences" target="_blank">www.lemagit.fr - Conteneurs Linux et Conteneurs Docker : quelle(s) différence(s) ?</a>.</li>
 <li><a href="https://phoenixnap.com/kb/docker-vs-containerd-vs-cri-o" target="_blank">phoenixnap.com - Docker vs containerd vs CRI-O: An In-Depth Comparison</a> présente des <strong>alternatives à docker pour l&#39;exécution de conteneurs</strong> et la relation entre docker et containerd.</li>
 <li><a href="https://podman.io/" target="_blank">Podman</a> est l&#39;une de ces <strong>alternatives à docker</strong> (mise en avant par exemple dans la certification CKAD pour Kubernetes).</li>

@@ -15,17 +15,15 @@
 * Principe de fonctionnement
 * Découvrir Kubernetes par la pratique
 * Les principaux concepts
-* Le dashboard Kubernetes
-* L'observabilité
-* L'orchestration du déploiement
+* Le déploiement de GeoStack avec Kubernetes
 * Intérêt de Kubernetes
 * Que manque-t'il à ce stade?
 
 ---
 
-## L'orchestration de conteneurs
+## Introduction
 
-### Introduction
+### L'orchestration de conteneurs
 
 Il existe plusieurs solutions d'**orchestration de conteneurs** permettant :
 
@@ -294,9 +292,7 @@ L'exposition des ressources [Ingress](https://kubernetes.io/docs/concepts/servic
     <img src="schema/traefik-ingress-controller.png" alt="Illustration de Traefik en tant qu'Ingress Controller" style="height: 280px" />
 </div>
 
-Nous trouverons [plusieurs implémentations](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) dont une implémentation [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes) qui est installée par défault avec K3S (1).
-
-> (1) A date, une option `--disable traefik` désactive cette fonctionnalité dans [mborne/k3s-deploy - inventory/vagrantbox/group_vars/k3s_master/k3s.yml](https://github.com/mborne/k3s-deploy/blob/master/inventory/vagrantbox/group_vars/k3s_master/k3s.yml)
+Nous trouverons [plusieurs implémentations](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers) dont une implémentation [Traefik](https://github.com/mborne/docker-devbox/tree/master/traefik#usage-with-kubernetes) qui est installée par défault avec K3S.
 
 ---
 
@@ -304,12 +300,10 @@ Nous trouverons [plusieurs implémentations](https://kubernetes.io/docs/concepts
 
 ### Le concept Ingress (3/3)
 
-Nous traiterons [mborne/k8s-exemples - Ingress](https://github.com/mborne/k8s-exemples#ingress) où nous verrons comment :
+Nous traiterons [mborne/k8s-exemples - Ingress](https://github.com/mborne/k8s-exemples#ingress) pour :
 
-* **Installer Traefik en tant que Ingress Controller**
-* **Exposer le service whoami sous forme d'une URL**
-
-En pré-requis, nous serons amené à [installer helm](annexe/kubernetes/helm.html) et expliquer brièvement son intérêt.
+* Vérifier l'installation de Traefik traitée par K3S
+* **Exposer le service whoami sous forme d'une URL** à l'aide d'une ressource Ingress.
 
 ---
 
@@ -376,6 +370,7 @@ L'API extensible amène un cadre pour le développement de composants réutilisa
 * [Prometheus](https://prometheus.io/) / [Grafana](https://grafana.com/grafana/dashboards/) / [Loki](https://github.com/grafana/loki#readme) pour l'**observabilité**
 * [ArgoCD](https://argo-cd.readthedocs.io/en/stable/), [GitLab-CI](https://docs.gitlab.com/ee/user/clusters/agent/ci_cd_workflow.html),... pour l'**orchestration des déploiements**
 * [cert-manager](https://cert-manager.io/) pour la **gestion des certificats**
+* ...
 
 ---
 
