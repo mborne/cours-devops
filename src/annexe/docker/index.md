@@ -37,6 +37,7 @@ Docker s'appuie sur les [technologies d'isolation linux (namespaces, cgroups,...
 
 ## Utiliser docker
 
+* [Cours docker (niveau 2, Cédric ESNAULT)](https://cedric-esnault-ign.github.io/cours_docker/public/#/)
 * [github.com - mborne/docker-exemples](https://github.com/mborne/docker-exemples#readme) pour une **découverte progressive via des exemples**.
 * [container.training - Introduction to Containers](https://container.training/intro-selfpaced.yml.html#1) pour la version longue (~850 slides).
 * [docs.docker.com - CLI reference](https://docs.docker.com/reference/cli/docker/) pour la documentation officielle avec une **vue d'ensemble des commandes**.
