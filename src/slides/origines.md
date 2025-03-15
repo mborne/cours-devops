@@ -1,16 +1,27 @@
+---
+theme: marp-ensg
+paginate: true
+footer: ENSG - <a href="./">Introduction à la méthode DevOps</a> - mars 2025
+header: '<div><img src="https://mborne.github.io/assets/logo-ensg.png" alt="ENSG" height="64px"/></div>'
+---
+
 # Les origines de DevOps
 
-* La démocratisation d'internet
-* Les géants du web
-* L'agilité dans les développements
-* L'automatisation des tests sur le code
-* La gestion des sources
-* L'intégration continue
-* La virtualisation
-* La démocratisation du cloud
-* La diversification des offres cloud
-* Les limites de l'exploitation traditionnelle
-* La naissance du terme DevOps
+<div style="font-size: 0.8em">
+
+- [La démocratisation d'internet](#la-démocratisation-dinternet)
+- [Les géants du web](#les-géants-du-web-13)
+- [L'agilité dans les développements](#lagilité-dans-les-développements-12)
+- [L'automatisation des tests sur le code](#lintégration-continue-12)
+- [La gestion des sources](#la-gestion-des-sources-12)
+- [L'intégration continue](#lintégration-continue-12)
+- [La virtualisation](#la-virtualisation-13)
+- [La démocratisation du cloud](#la-démocratisation-du-cloud-13)
+- [La diversification des offres cloud](#la-diversification-des-offres-cloud)
+- [Les limites de l'exploitation traditionnelle](#les-limites-de-lexploitation-traditionnelle-16)
+- [La naissance du terme DevOps](#la-naissance-du-terme-devops-12)
+
+</div>
 
 ---
 
@@ -18,11 +29,13 @@
 
 La fin des années 90 marque le début de la démocratisation d'internet :
 
-<div class="center" >
-    <img src="img/credoc-internet-historique.png" style="width: 80%" />
+<div class="illustration" >
+
+![h:400px](img/credoc-internet-historique.png)
+
 </div>
 
-Le nombre de clients potentiels pour une application en ligne suivra cette courbe.
+Le **nombre de clients potentiels** pour une application en ligne suivra cette courbe.
 
 ---
 
@@ -30,11 +43,11 @@ Le nombre de clients potentiels pour une application en ligne suivra cette courb
 
 Les **[géants du web](https://fr.wikipedia.org/wiki/G%C3%A9ants_du_Web)** naîtront sur cette période et feront rapidement face aux requêtes de **plusieurs millions d'utilisateurs** :
 
-* Amazon (1994)
-* Netflix (1997)
-* Google (1998)
-* Facebook (2004)
-* ...
+- Amazon (1994)
+- Netflix (1997)
+- Google (1998)
+- Facebook (2004)
+- ...
 
 ---
 
@@ -42,14 +55,20 @@ Les **[géants du web](https://fr.wikipedia.org/wiki/G%C3%A9ants_du_Web)** naît
 
 Ils répondront par de nouvelles approches au niveau des traitements (ex : [MapReduce (2004)](https://fr.wikipedia.org/wiki/MapReduce)) et du stockage (ex : [stockage NoSQL](https://fr.wikipedia.org/wiki/NoSQL)) permettant la **scalabilité horizontale** :
 
-<div class="center" >
-    <img src="img/scalabilite-horizontale-verticale.drawio.png" style="height: 250px" />
+<div class="left illustration" >
+
+![w:100%](img/scalabilite-horizontale-verticale.drawio.png)
+
 </div>
 
-Nous soulignerons que cette approche induira :
+<div class="right">
 
-* L'utilisation de [reverse proxy assurant un rôle de répartiteur de charge](annexe/lb-rp.html) au niveau des services web.
-* La **multiplication des équipements et services à déployer, administrer et surveiller**.
+Cette approche induira :
+
+- L'utilisation d'un [reverse proxy assurant un rôle de répartiteur de charge](annexe/lb-rp.html) au niveau des services web.
+- La **multiplication des équipements et services à déployer, administrer et surveiller**.
+
+</div>
 
 ---
 
@@ -65,8 +84,10 @@ Le rôle de [Site Reliability Engineer (SRE)](https://sre.google/books/) posé p
 
 La démocratisation d'internet et des applications en réseau se traduira aussi par **la possibilité de livrer à moindre frais des évolutions et des correctifs**
 
-<div class="center">
-    <img src="img/livraison-avant-apres.drawio.png" style="height: 300px" />
+<div class="illustration">
+
+![h:300px](img/livraison-avant-apres.drawio.png)
+
 </div>
 
 ---
@@ -77,8 +98,8 @@ La publication du **[manifeste agile](https://manifesteagile.fr/) en 2001** marq
 
 En effet, l'agilité inclura entre autre de :
 
-* **Livrer rapidement et régulièrement** une nouvelle version de l'application.
-* **Faire travailler ensemble** les personnes en charge du **métier ou des affaires** et les personnes en charge de la **réalisation** au quotidien tout au long du projet.
+- **Livrer rapidement et régulièrement** une nouvelle version de l'application.
+- **Faire travailler ensemble** les personnes en charge du **métier ou des affaires** et les personnes en charge de la **réalisation** au quotidien tout au long du projet.
 
 ---
 
@@ -98,9 +119,9 @@ Nous nous souviendrons des heures sombres où l'utilisation d'un gestionnaire de
 
 Nous soulignerons l'évolution des **gestionnaires de code source (*SCM*)** avec :
 
-* La gestion d'**historique client/serveur** : CVS (1990), SVN (2000)
-* La gestion d'**historique décentralisée** : **GIT** (2005)
-* L'introduction du **concept de *pull-request*** avec GitHub (2008)
+- La gestion d'**historique client/serveur** : CVS (1990), SVN (2000)
+- La gestion d'**historique décentralisée** : **GIT** (2005)
+- L'introduction du **concept de *pull-request*** avec GitHub (2008)
 
 Nous tâcherons de mesurer l'apport du concept de **pull-request** en terme de **traçabilité** par rapport aux **processus de validation** traditionnels. Il motivera l'utilisation des SCM pour d'autres cas d'usage (gestion des infrastructures, gestion de la documentation,...)
 
@@ -120,9 +141,9 @@ Nous citerons par exemple la méthode **[Test-driven development (TDD)](https://
 
 Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_%28software%29) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagneront naturellement en popularité. Ils seront utilisés entre autre pour :
 
-* **Centraliser l'exécution des tests** (et s'assurer qu'ils sont bien exécutés)
-* Présenter pour tous les **rapports d'exécution des tests**
-* **Produire des livrables** à déployer (archive zip/tar, paquet .deb pour debian, .rpm pour centos, installeur windows,...)
+- **Centraliser l'exécution des tests** (et s'assurer qu'ils sont bien exécutés)
+- Présenter pour tous les **rapports d'exécution des tests**
+- **Produire des livrables** à déployer (archive zip/tar, paquet .deb pour debian, .rpm pour centos, installeur windows,...)
 
 <div class="center">
     <img src="img/jenkins-demo-pipeline.png" alt="Jenkins example" style="height: 300px" />
@@ -191,13 +212,13 @@ A l'usage, nous mémoriserons que l'**utilisation de VM permet de faire abstract
 
 En 2006, Amazon lancera deux services qui contribueront à populariser le concept d'informatique en nuage :
 
-* [Amazon S3](https://en.wikipedia.org/wiki/Amazon_S3) pour le stockage de données.
-* [Amazon Elastic Compute Cloud (EC2)](https://en.wikipedia.org/wiki/Amazon_Elastic_Compute_Cloud) pour l'exécution d'application.
+- [Amazon S3](https://en.wikipedia.org/wiki/Amazon_S3) pour le stockage de données.
+- [Amazon Elastic Compute Cloud (EC2)](https://en.wikipedia.org/wiki/Amazon_Elastic_Compute_Cloud) pour l'exécution d'application.
 
 Avec ces services :
 
-* Disposer d'une infrastructure de stockage et de calcul capable de s'**adapter à la charge** n'est plus réservée à quelques grands groupes.
-* La **facturation à la consommation** donne l'opportunité aux entreprises de taille modeste de **lancer un nouveau service qui ne sera pas victime de son succès**.
+- Disposer d'une infrastructure de stockage et de calcul capable de s'**adapter à la charge** n'est plus réservée à quelques grands groupes.
+- La **facturation à la consommation** donne l'opportunité aux entreprises de taille modeste de **lancer un nouveau service qui ne sera pas victime de son succès**.
 
 
 ---
@@ -210,8 +231,8 @@ Au niveau d'AWS, Jeff BEZOS posera une règle d'architecture importante : **Tout
 
 Ceci jouera beaucoup dans :
 
-* La capacité d'AWS à **accroître efficacement son offre de service** (couplage faible, interfaces clairement définies,...)
-* La capacité des clients à **automatiser l'utilisation des ressources mises à disposition par AWS** (des appels à un service étant plus facilement automatisable que des clics dans une interface graphique)
+- La capacité d'AWS à **accroître efficacement son offre de service** (couplage faible, interfaces clairement définies,...)
+- La capacité des clients à **automatiser l'utilisation des ressources mises à disposition par AWS** (des appels à un service étant plus facilement automatisable que des clics dans une interface graphique)
 
 > NB : Cette règle s'applique aux <u>communications entre les services</u> (s'efforcer de construire toutes ses applications sur la base d'API REST/JSON développées par d'autres serait assez limitant...)
 
@@ -270,8 +291,8 @@ Nous trouverons par exemple le processus suivant pour déployer une application 
 
 ### Une approche en apparence parfaite!
 
-* Les **développeurs** sont **déchargés des problématiques d'exploitation**
-* Seuls des **administrateurs systèmes configurent le système**
+- Les **développeurs** sont **déchargés des problématiques d'exploitation**
+- Seuls des **administrateurs systèmes configurent le système**
 
 **C'est oublier la [loi de Murphy](https://fr.wikipedia.org/wiki/Loi_de_Murphy)!**
 
@@ -283,15 +304,15 @@ Nous trouverons par exemple le processus suivant pour déployer une application 
 
 La **mise en production initiale** de l'application prendra facilement **1 mois** pour diverses raisons :
 
-* Problème de **compréhension des documents**
-* Problème de **complétude des documents**
-* Problème d'**actualité des documents**
-* Problème de **disponibilité** des équipes
+- Problème de **compréhension des documents**
+- Problème de **complétude des documents**
+- Problème d'**actualité des documents**
+- Problème de **disponibilité** des équipes
 
 Il en sera de même pour **chaque évolution induisant le moindre changement d'architecture** (ajout d'un paramètre, ajout d'un service support,...) ce qui laissera deux options :
 
-* Conserver volontairement une **architecture non optimale**.
-* **Regrouper de nombreuses transformations** dans une version majeure où la **livraison sera longue et risquée**.
+- Conserver volontairement une **architecture non optimale**.
+- **Regrouper de nombreuses transformations** dans une version majeure où la **livraison sera longue et risquée**.
 
 ---
 
@@ -301,8 +322,8 @@ Il en sera de même pour **chaque évolution induisant le moindre changement d'a
 
 Une **demande d'exploitation ou une procédure** pourra être **mal comprise** ou **mal traduite en opérations** sans que l'expertise de chacun soit mise à contribution :
 
-* **Les OPS** ne participant pas à la conception de l'application **ne peuvent avoir un regard critique et une compréhension des demandes** (une mise à jour devient une montée en version, une action demandée en QUALIFICATION est appliquée en PRODUCTION,...)
-* **Les DEV** ne participant pas à la conception de l'infrastructure **n'exploitent pas le système de manière optimale** (utilisation du mauvais système de stockage, absence de compression, saturation de la bande passante,...)
+- **Les OPS** ne participant pas à la conception de l'application **ne peuvent avoir un regard critique et une compréhension des demandes** (une mise à jour devient une montée en version, une action demandée en QUALIFICATION est appliquée en PRODUCTION,...)
+- **Les DEV** ne participant pas à la conception de l'infrastructure **n'exploitent pas le système de manière optimale** (utilisation du mauvais système de stockage, absence de compression, saturation de la bande passante,...)
 
 ---
 
@@ -314,8 +335,8 @@ La frontière entre les rôles se traduit humainement par une tendance des équi
 
 Typiquement, avant de chercher une solution :
 
-* Il faut **prouver côté DEV que le problème n'est pas au niveau du code** pour que les OPS commencent à analyser la supervision et les logs.
-* Il faut **prouver côté OPS que le problème est lié au code ou à la conception** pour que les DEV revoient leur copie.
+- Il faut **prouver côté DEV que le problème n'est pas au niveau du code** pour que les OPS commencent à analyser la supervision et les logs.
+- Il faut **prouver côté OPS que le problème est lié au code ou à la conception** pour que les DEV revoient leur copie.
 
 > Voir la BD [www.commitstrip.com - Comment savoir si votre entreprise est DevOps?](https://www.commitstrip.com/fr/2015/02/02/is-your-company-ready-for-devops/?) qui résume bien la situation.
 
@@ -325,8 +346,8 @@ Typiquement, avant de chercher une solution :
 
 Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
-* En 2008, une conférence permettra la rencontre entre l'organisateur d'une rencontre sur le thème **« Infrastructure Agile »** et un chef de projet Patrick Debois faisant face au manque de  **cohésion entre les équipes de développement d'applications et les équipes d'exploitation**
-* En 2009, Patrick Debois contractera **développements (DEV)** et **opérations (OPS)** dans un hashtag pour annoncer la première [DevOpsDays](https://devopsdays.org/): **DevOps est né**.
+- En 2008, une conférence permettra la rencontre entre l'organisateur d'une rencontre sur le thème **« Infrastructure Agile »** et un chef de projet Patrick Debois faisant face au manque de  **cohésion entre les équipes de développement d'applications et les équipes d'exploitation**
+- En 2009, Patrick Debois contractera **développements (DEV)** et **opérations (OPS)** dans un hashtag pour annoncer la première [DevOpsDays](https://devopsdays.org/): **DevOps est né**.
 
 > [devopssec.fr - L'histoire du DevOps](https://devopssec.fr/article/histoire-du-devops) aborde cette genèse plus en détail.
 
@@ -336,7 +357,7 @@ Le terme DevOps naîtra d'une prise de conscience sur ces problématiques :
 
 DevOps dépasse à ce titre la simple problématique de l'automatisation des déploiement. DevOps est avant tout un constat :
 
-* Pour pouvoir **livrer régulièrement et fréquemment des applications** et **s'adapter à la charge**, il faut de **l'agilité dans la gestion des infrastructures**.
-* Pour introduire de l'**agilité dans les infrastructures**, il faut un **rapprochement entre les activités de développement (DEV) et d'exploitation (OPS)**.
+- Pour pouvoir **livrer régulièrement et fréquemment des applications** et **s'adapter à la charge**, il faut de **l'agilité dans la gestion des infrastructures**.
+- Pour introduire de l'**agilité dans les infrastructures**, il faut un **rapprochement entre les activités de développement (DEV) et d'exploitation (OPS)**.
 
 Dans la partie [les principes de DevOps](principes.md), nous allons tâcher de voir plus précisément comment procéder pour atteindre cette cible.

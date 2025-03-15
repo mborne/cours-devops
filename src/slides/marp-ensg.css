@@ -1,0 +1,59 @@
+/* @theme marp-ensg */
+
+@import 'default';
+
+section::after {
+    content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin-left: 100px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+footer {
+    text-align: center;
+    width: 100%;
+}
+
+/* images */
+
+img[alt~="center"] {
+    display: block;
+    margin: 0 auto;
+}
+
+.illustration img {
+    display: block;
+    margin: 0 auto;
+}
+
+.illustration p {
+    font-size: 0.7em;
+    text-align: center;
+    color: grey;
+}
+
+
+.left {
+    float: left;
+    width: 50%;
+}
+
+.right {
+    float: left;
+    width: 50%;
+}
+
+/* foot notes */
+blockquote p {
+    font-size: 0.8em;
+}
+
