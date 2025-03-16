@@ -370,4 +370,4 @@ En l'état, si cherchions à héberger GeoStack sur plusieurs machines, nous rem
 
 Les **conteneurs** étant une **technologie d'isolation**, nous avons actuellement uniquement l'option de **scalabilité verticale**.
 
-Nous allons voir comment y remédier dans la partie [DevOps avec Kubernetes](kubernetes.md).
+Nous allons voir comment y remédier dans la partie [DevOps avec Kubernetes](kubernetes.html).

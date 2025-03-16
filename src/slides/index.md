@@ -17,10 +17,10 @@ header: '<div><img src="./img/logo-ensg.png" alt="ENSG" height="64px"/></div>'
 
 # Sommaire
 
-- [Les origines de DevOps](origines.md)
-- [Les principes de DevOps](principes.md)
-- [DevOps avec des VM](vm.md)
-- [DevOps avec des conteneurs](conteneurs.md)
-- [DevOps avec des Kubernetes](kubernetes.md)
-- [DevOps dans le cloud](cloud.md)
+- [Les origines de DevOps](origines.html)
+- [Les principes de DevOps](principes.html)
+- [DevOps avec des VM](vm.html)
+- [DevOps avec des conteneurs](conteneurs.html)
+- [DevOps avec des Kubernetes](kubernetes.html)
+- [DevOps dans le cloud](cloud.html)
 - [Annexes et références](annexe/)

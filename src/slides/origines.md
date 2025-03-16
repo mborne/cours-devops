@@ -402,4 +402,4 @@ DevOps dépasse à ce titre la simple problématique de l'automatisation des dé
 - Pour pouvoir **livrer régulièrement et fréquemment des applications** et **s'adapter à la charge**, il faut de **l'agilité dans la gestion des infrastructures**.
 - Pour introduire de l'**agilité dans les infrastructures**, il faut un **rapprochement entre les activités de développement (DEV) et d'exploitation (OPS)**.
 
-Dans la partie [les principes de DevOps](principes.md), nous allons tâcher de voir plus précisément comment procéder pour atteindre cette cible.
+Dans la partie [les principes de DevOps](principes.html), nous allons tâcher de voir plus précisément comment procéder pour atteindre cette cible.

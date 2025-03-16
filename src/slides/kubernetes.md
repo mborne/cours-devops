@@ -395,7 +395,7 @@ Nous allons reprendre le déploiement de GeoStack :
 - Nous utiliserons [CloudNativePG](https://cloudnative-pg.io/) pour simplifier l'installation de PostgreSQL.
 - Nous inspecterons les YAML rédigés pour déployer GeoServer sans traitement de la scalabilité (1).
 
-Voir [mborne/geostack-deploy - k8s - Déploiement de GeoStack avec Kubernetes](https://github.com/mborne/geostack-deploy/blob/master/k8s/README.md)
+Voir [mborne/geostack-deploy - k8s - Déploiement de GeoStack avec Kubernetes](https://github.com/mborne/geostack-deploy/blob/master/k8s/README.html)
 
 > (1) Vous pourrez inspecter [geoserver-cloud](https://github.com/geoserver/geoserver-cloud?tab=readme-ov-file#geoserver-cloud) qui est un cas d'école en matière de **décomposition d'un monolythe en micro-services pour faciliter le traitement de la scalabilité** et pour lequel l'article [camptocamp.com - Vers une meilleure intégration de GeoServer dans une infrastructure cloud](https://camptocamp.com/fr/actualites-evenements/integration-de-geoserver-dans-une-infrastructure-cloud) documente les travaux correspondants.
 
@@ -555,5 +555,5 @@ Il convient aussi de noter que :
 - **Déployer et maintenir des applications "Stateful"** telles des bases de données **en environnement Kubernetes n'est pas trivial** et demandera une **maîtrise du stockage** avec Kubernetes.
 - **Kubernetes est une solution bas niveau** qui sera **moins efficace qu'une offre PaaS ou SaaS pour déployer certaines applications** (ex : CMS, site statique,...).
 
-Nous allons à ce titre prendre un peu de recul dans la partie [DevOps dans le cloud](cloud.md) et aborder la possibilité d'hybrider les solutions.
+Nous allons à ce titre prendre un peu de recul dans la partie [DevOps dans le cloud](cloud.html) et aborder la possibilité d'hybrider les solutions.
 
