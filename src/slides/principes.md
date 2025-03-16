@@ -206,7 +206,7 @@ La lecture de [LEAN PRIMER par Craig Larman et Bas Vodde](https://www.leanprimer
 
 ## Le modèle CALMS
 
-### *Lean* (3/4)
+### *Lean* (3/5)
 
 <div style="font-size: 0.78em">
 
@@ -306,11 +306,11 @@ Nous allons ici nous limiter à **quelques métriques parlantes** en nous interr
 
 ### Les métriques DevOps (1/3)
 
-Les métriques suivantes seront caractéristiques de l'**automatisation du déploiement** :
+Les métriques suivantes seront caractéristiques du **niveau d'automatisation du déploiement** :
 
 - La **fréquence de déploiement** (par an, par mois,... variable selon la maturité)
 - La **durée de déploiement** où il sera intéressant de distinguer :
-  - La **durée de déploiement d'une évolution ou d'un correctif mineur** (automatisation de la gestion du déploiement)
+  - La **durée de déploiement d'une évolution ou d'un correctif mineur** (automatisation du déploiement des applications)
   - La **durée de déploiement d'une évolution majeure** (automatisation de la gestion de l'infrastructure)
 
 ---
@@ -585,7 +585,7 @@ L'approche **Infrastructure as Code (IaC)** sera fondamentale en matière d'**au
 
 L'automatisation d'un déploiement concernera plusieurs couches du système :
 
-- La **création des ressources systèmes** (machines virtuelles, réseaux privés,...)
+- La **création des ressources systèmes** (machines, réseaux, stockages...)
 - La **configuration du système** (installer et configurer les cadriciels tels PHP, NodeJS, Java,...)
 - Le **déploiement de l'applicatif**
 - La **configuration des services d'infrastructure** (reverse proxy/load balancer, DNS,...)
@@ -612,7 +612,7 @@ Nous privilégierons **une approche déclarative** à une approche impérative p
 
 ### Quels pré-requis sur l'infrastructure?
 
-L'approche IaC laissera une grande liberté de choix dans les **outils du cadre technique** dès lors qu'ils sont **compatibles avec l'automatisation**. Il conviendra principalement d'**être attentif aux méthodes de configuration disponibles** (1) :
+L'approche IaC laissera une grande liberté de choix dans les **outils du cadre technique** dès lors qu'ils sont **compatibles avec l'automatisation**. Il conviendra principalement d'**être attentif aux méthodes de configuration disponibles** :
 
 - La configuration est basée sur des **variables d'environnements**?
 - La configuration est basée sur des **fichiers de configuration**?
