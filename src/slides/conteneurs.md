@@ -7,15 +7,15 @@ header: '<div><img src="https://mborne.github.io/assets/logo-ensg.png" alt="ENSG
 
 # DevOps avec des conteneurs
 
-- Principe de fonctionnement
-- Les principaux concepts
-- Les principaux clients
-- Les dépôts d'images
-- L'observabilité
-- Découvrir docker par la pratique
-- Le déploiement de GeoStack
-- L'intérêt des conteneurs
-- Que manque-t'il à ce stade?
+- [Principe de fonctionnement](#principe-de-fonctionnement)
+- [Les principaux concepts](#les-principaux-concepts)
+- [Les principaux clients](#les-principaux-clients)
+- [Les dépôts d'images](#les-dépôts-dimages)
+- [L'observabilité](#lobservabilité)
+- [Découvrir docker par la pratique](#découvrir-docker-par-la-pratique)
+- [Le déploiement de GeoStack](#le-déploiement-de-geostack)
+- [L'intérêt des conteneurs](#lintérêt-des-conteneurs)
+- [Que manque-t'il à ce stade?](#que-manque-til-à-ce-stade)
 
 ---
 
@@ -25,16 +25,22 @@ header: '<div><img src="https://mborne.github.io/assets/logo-ensg.png" alt="ENSG
 
 Par rapport aux VM, les conteneurs docker sont basés sur des **fonctionnalités d'isolation du noyau Linux** :
 
-<div class="center">
-    <img src="img/docker-vs-vm.png" alt="Conteneur vs VM" style="height: 200px" />
-    <br />
-    (source : <a href="https://www.docker.com/resources/what-container/">www.docker.com - Comparing Containers and Virtual Machines</a>)
+<div class="left illustration">
+
+<img src="img/docker-vs-vm.png" alt="Conteneur vs VM" style="height: 200px" />
+
+(source : <a href="https://www.docker.com/resources/what-container/">www.docker.com - Comparing Containers and Virtual Machines</a>)
+
 </div>
 
-Le **démarrage d'un conteneur sera plus rapide que le démarrage d'une VM** :
+<div class="right">
 
-- Démarrer un conteneur = démarrer un processus isolé
-- Démarrer une VM = démarrer un OS complet
+Le **démarrage d'un conteneur sera plus rapide que le démarrage d'une VM** car :
+
+- Démarrer un **conteneur** = démarrer un **processus isolé**
+- Démarrer une **VM** = démarrer un **OS complet**
+
+</div>
 
 ---
 
@@ -64,6 +70,8 @@ Docker apporte par contre un ensemble cohérent **de concepts et d'outils donnan
 
 ### Vue d'ensemble des concepts
 
+<div style="font-size: 0.9em">
+
 L'utilisation de docker amènera en effet à manipuler plusieurs concepts :
 
 - Les **images** qui sont fonctionnellement équivalentes aux images de VM
@@ -74,7 +82,6 @@ L'utilisation de docker amènera en effet à manipuler plusieurs concepts :
 - Les **réseaux** qui permettent la communication entre les conteneurs.
 - Le **démon docker** qui met à disposition [une API pour gérer les conteneurs, images, volumes, réseaux,...](https://docs.docker.com/engine/api/v1.45/).
 
-
 ---
 
 ## Les principaux clients
@@ -84,13 +91,15 @@ Nous utiliserons principalement les **clients en ligne de commande** suivants **
 - L'exécutable [**docker**](https://docs.docker.com/engine/reference/commandline/cli/) qui permettra de **manipuler individuellement les images, les conteneurs, les volumes, les réseaux,...**
 - Son plugin [**docker compose**](https://docs.docker.com/compose/) qui permettra de **gérer des stacks au format YAML** (des services exécutant des conteneurs, des réseaux et des volumes,...)
 
-Il existe des interfaces graphiques (ex : [Portainer](https://www.portainer.io/)) qui sont clientes de l'API docker. Elles ne seront pas utilisées dans ce cours pour une meilleure compréhension du fonctionnement.
+Nous mentionnerons l'existance d'**interfaces graphiques** (ex : [Portainer](https://www.portainer.io/)) qui sont clientes de l'API docker. Elles ne seront pas utilisées dans ce cours pour une meilleure compréhension du fonctionnement.
 
 ---
 
 ## Les dépôts d'images
 
 ### DockerHub
+
+<div style="font-size: 0.85em">
 
 Nous trouverons plusieurs dépôts d'images mettant à disposition des images docker prêtes à l'emploi. Le plus connu étant [DockerHub](https://hub.docker.com/search?q=) qui met à disposition :
 
@@ -105,11 +114,15 @@ Pour déployer GeoStack, nous y trouverons par exemple :
 
 > Nous remarquerons que l'utilisation de DockerHub pour stocker des images ne sera pas forcément gratuite (c.f. [docker.com - Pricing & Subscriptions](https://www.docker.com/pricing/)) et qu'il existe une [limite de nombre de téléchargement par IP ou par utilisateur](https://docs.docker.com/docker-hub/download-rate-limit/).
 
+</div>
+
 ---
 
 ## Les dépôts d'images
 
 ### Les autres dépôts d'images publiques
+
+<div style="font-size: 0.95em">
 
 Il existe d'autres dépôts d'images publiquement accessibles dont :
 
@@ -121,6 +134,8 @@ Ainsi :
 - **En l'absence de précision, nous utiliserons DockerHub** (utiliser l'image `keycloak/keycloak` sera équivalent à utiliser l'image `docker.io/keycloak/keycloak`).
 - **Nous préciserons le domaine en cas d'utilisation d'un autre dépôt** (ex : `quay.io/keycloak/keycloak`)
 
+</div>
+
 ---
 
 ## Les dépôts d'images
@@ -129,9 +144,13 @@ Ainsi :
 
 Il est possible de stocker des images avec des outils tels [Harbor](https://goharbor.io/), [Nexus](https://hub.docker.com/r/sonatype/nexus3) ou [registry](https://hub.docker.com/_/registry) déployés en propre.
 
+---
+
+## Les dépôts d'images
+
 ### Le dépôt d'images du gestionnaire de code source
 
-Toutefois, **la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,...) intègrent désormais un système de stockage d'image docker** (ghcr.io, registry.gitlab.com,...) ce qui :
+La plupart des **gestionnaires de code source (GitHub, GitLab, Gitea,...) intègrent désormais un système de stockage d'image docker** (ghcr.io, registry.gitlab.com,...) ce qui :
 
 - **Évite de gérer en parallèle des authentifications et des droits au niveau du dépôt d'images**.
 - **Simplifie la publication des images** au niveau des orchestrateurs d'intégration continue (qui sont eux aussi intégrés aux gestionnaires de code source)
@@ -140,11 +159,11 @@ Toutefois, **la plupart des gestionnaires de code source (GitHub, GitLab, Gitea,
 
 ## Les dépôts d'images
 
-### Le dépôt d'image des hébergeurs
+### Les dépôts d'images des hébergeurs
 
-Enfin, nous mentionneront l'existence de **dépôts d'images au niveau des solutions d'hébergement** (ex : Google Container Registry, Azure Container Registry, Amazon Elastic Container Registry (ECR)...).
+Enfin, nous mentionnerons l'existence de **dépôts d'images au niveau des solutions d'hébergement** (ex : Google Container Registry, Azure Container Registry, Amazon Elastic Container Registry (ECR)...).
 
-Leur utilisation sera parfois imposée pour utiliser certaines fonctionnalités.
+L'utilisation de ces derniers sera parfois imposée pour utiliser certaines fonctionnalités.
 
 > NB : Un hébergeur ne pourra pas garantir qu'il est capable de redéployer votre application en cas de problème s'il dépend une infrastructure tierce.
 
@@ -154,9 +173,11 @@ Leur utilisation sera parfois imposée pour utiliser certaines fonctionnalités.
 
 ### Les journaux applicatifs
 
-Nous soulignerons que la gestion des journaux applicatifs sera unifiée par :
+<div style="font-size: 0.9em">
 
-- La collecte des flux de sorties standards (stdout/stderr) des conteneurs par le démon docker (1).
+Nous soulignerons que **la gestion des journaux applicatifs est unifiée** par :
+
+- La **collecte des flux de sorties standards (stdout/stderr) des conteneurs** par le démon docker (1).
 - La présence d'une commande [docker logs](https://docs.docker.com/engine/reference/commandline/logs/) permettant de récupérer les journaux applicatifs d'un conteneur.
 - La [présence de plusieurs drivers pour l'écriture des logs](https://docs.docker.com/config/containers/logging/configure/#supported-logging-drivers) (2).
 
@@ -164,13 +185,15 @@ Nous soulignerons que la gestion des journaux applicatifs sera unifiée par :
 > 
 > (2) journald semble particulièrement intéressant pour unifier les journaux des conteneurs avec ceux des services systemd classiques afin d'en faciliter la centralisation.
 
+</div>
+
 ---
 
 ## L'observabilité
 
 ### Les métriques systèmes
 
-En outre, nous soulignerons que docker collectera des métriques systèmes (CPU, mémoire, entrées/sorties disque et réseau) sur les conteneurs.
+En outre, nous soulignerons que **docker collectera des métriques systèmes sur les conteneurs** (CPU, mémoire, entrées/sorties disque et réseau).
 
 Ces métriques seront disponibles au niveau de l'API docker et via la commande [docker stats](https://docs.docker.com/engine/reference/commandline/stats/).
 
@@ -194,13 +217,23 @@ Pour approfondir sur cette technologie, vous pourrez suivre un cours dédié ou 
 
 ### Installation de docker
 
-Nous allons nous assurer d'avoir une installation fonctionnelle de docker permettant d'exécuter `docker run hello-world`. Si docker n'est pas installé sur votre poste, vous pourrez :
+Nous allons nous assurer d'avoir une installation fonctionnelle de docker permettant d'exécuter `docker run hello-world`.
+
+<div class="left">
+
+Si docker n'est pas installé sur votre poste, vous pourrez :
 
 - [Installer docker sur une VM Linux](annexe/docker/#installation)
 - Utiliser le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) pour faire vos premiers tests en ligne (la création d'un compte personnel sur DockerHub sera requise):
 
-<div class="center">
-    <img src="img/play-with-docker.png" alt="Screenshot play-with-docker" style="height: 200px" />
+</div>
+
+<div class="right illustration">
+
+![h:280px](img/play-with-docker.png)
+
+Play with Docker
+
 </div>
 
 ---
@@ -219,7 +252,7 @@ En particulier, il vous faudra potentiellement traiter ceux liés à l'[utilisat
 
 ### Mise en garde
 
-**Éviter d'installer le démon docker directement sur un poste de travail branché sur le réseau de votre école/entreprise**.
+**Éviter d'installer le démon docker directement sur un poste de travail branché sur le réseau de votre école/entreprise.**
 
 La configuration par défaut du démon (`/etc/docker/daemon.json`) devra être adaptée pour :
 
@@ -279,9 +312,10 @@ Nous trouverons la démonstration correspondante dans le dépôt ci-après :
 
 [mborne/geostack-deploy - Déploiement de GeoStack avec docker compose](https://github.com/mborne/geostack-deploy/tree/master/docker#readme)
 
-Nous mémoriserons que **l'utilisation d'un fichier [docker-compose.yml](https://github.com/mborne/geostack-deploy/blob/master/docker/docker-compose.yml) permet de démarrer une pile applicative complète à l'aide de la commande `docker compose up -d`**.
+Nous mémoriserons que :
 
-Nous soulignerons que sans [docker compose](https://docs.docker.com/compose/reference/), nous serions amené à exécuter de nombreuses commandes docker.
+- **L'utilisation d'un fichier [docker-compose.yml](https://github.com/mborne/geostack-deploy/blob/master/docker/docker-compose.yml) permet de démarrer une pile applicative complète à l'aide de la commande `docker compose up -d`**.
+- Sans [docker compose](https://docs.docker.com/compose/reference/), nous serions amené à exécuter de nombreuses commandes docker.
 
 ---
 
@@ -309,6 +343,8 @@ En complément, nous constaterons que [traefik](https://doc.traefik.io/traefik/)
 
 ## L'intérêt des conteneurs
 
+<div style="font-size: 0.9em">
+
 En synthèse, nous soulignerons le succès de docker doit beaucoup aux points suivants :
 
 - **L'image est un livrable universel** (plus besoin de choisir entre un .deb, .rpm, .war, .zip,...)
@@ -318,9 +354,10 @@ En synthèse, nous soulignerons le succès de docker doit beaucoup aux points su
 - Les **téléchargements et constructions d'images sont optimisés**.
 - Un cadre est posé pour l'**observabilité** avec **journaux applicatifs** et les **métriques systèmes**
 - **L'API permet la construction d'un écosystème** avec par exemple :
-  * Le reverse proxy [traefik](https://doc.traefik.io/traefik/) qui se configure automatiquement en inspectant les conteneurs (**introspection**)
-  * L'IHM [portainer](https://www.portainer.io/) qui permet de démarrer des conteneurs (**réflexion**)
+  - Le reverse proxy [traefik](https://doc.traefik.io/traefik/) qui se configure automatiquement en inspectant les conteneurs (**introspection**)
+  - L'IHM [portainer](https://www.portainer.io/) qui permet de démarrer des conteneurs (**réflexion**)
 
+</div>
 
 ---
 
