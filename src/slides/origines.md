@@ -18,7 +18,7 @@ header: '<div><img src="https://mborne.github.io/assets/logo-ensg.png" alt="ENSG
 - [La virtualisation](#la-virtualisation-13)
 - [La démocratisation du cloud](#la-démocratisation-du-cloud-13)
 - [La diversification des offres cloud](#la-diversification-des-offres-cloud)
-- [Les limites de l'exploitation traditionnelle](#les-limites-de-lexploitation-traditionnelle-16)
+- [Les limites de l'exploitation traditionnelle](#les-limites-de-lexploitation-traditionnelle-17)
 - [La naissance du terme DevOps](#la-naissance-du-terme-devops-12)
 
 </div>
@@ -109,9 +109,13 @@ L'agilité des développements imposera d'**améliorer les outils et méthodes d
 
 Nous nous souviendrons des heures sombres où l'utilisation d'un gestionnaire de code source n'était pas une pratique répandue :
 
+<div class="illustration">
+
 ![La gestion traditionnelle d'un historique](img/scm-avant-git.png)
 
-> La gestion de l'historique d'un projet d'étudiant avant que l'utilisation d'un gestionnaire de code source soit enseignée à l'ENSG.
+La gestion de l'historique d'un projet d'étudiant <br /> (avant que l'utilisation d'un gestionnaire de code source soit enseignée à l'ENSG)
+
+</div>
 
 ---
 
@@ -141,26 +145,39 @@ Nous citerons par exemple la méthode **[Test-driven development (TDD)](https://
 
 Les outils d'**intégration continue** tels [Hudson sorti en 2005](https://en.wikipedia.org/wiki/Hudson_%28software%29) (forké et renommé en [Jenkins](https://www.jenkins.io/)) gagneront naturellement en popularité. Ils seront utilisés entre autre pour :
 
+<div class="left">
+
 - **Centraliser l'exécution des tests** (et s'assurer qu'ils sont bien exécutés)
 - Présenter pour tous les **rapports d'exécution des tests**
 - **Produire des livrables** à déployer (archive zip/tar, paquet .deb pour debian, .rpm pour centos, installeur windows,...)
 
-<div class="center">
-    <img src="img/jenkins-demo-pipeline.png" alt="Jenkins example" style="height: 300px" />
-    <br />
-    <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#creating-a-jenkinsfile">(www.jenkins.io - Creating a Jenkinsfile)</a>
+</div>
+
+<div class="right illustration">
+
+![h:300px](img/jenkins-demo-pipeline.png)
+
+[www.jenkins.io - Creating a Jenkinsfile](https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#creating-a-jenkinsfile)
 </div>
 
 ---
 
 ## L'intégration continue (2/2)
 
-Il sera très rapidement tentant d'**exécuter les tests avant d'accepter des demandes de modification du code (*pull request*)**. Des solutions d'**intégration continue** telles [GitHub actions](https://github.com/features/actions) et [GitLab-CI](https://docs.gitlab.com/ee/ci/) seront donc **intégrées aux gestionnaires de code source** quelques années plus tard. 
+Il sera très rapidement tentant d'**exécuter les tests avant d'accepter des demandes de modification du code (*pull request*)**.
 
-<div class="center">
-    <img src="img/github-actions-nodejs.png" alt="Exemple de CI NodeJS" style="height: 300px" />
-    <br />
-    <a href="https://github.com/mborne/node-extract/actions">(mborne/node-extract - actions)</a>
+<div class="left">
+
+Des solutions d'**intégration continue** telles [GitHub actions](https://github.com/features/actions) et [GitLab-CI](https://docs.gitlab.com/ee/ci/) seront donc **intégrées aux gestionnaires de code source** quelques années plus tard. 
+
+</div>
+
+<div class="right illustration">
+
+![h:300px](img/github-actions-nodejs.png)
+
+[mborne/node-extract - actions](https://github.com/mborne/node-extract/actions)
+
 </div>
 
 ---
@@ -169,15 +186,15 @@ Il sera très rapidement tentant d'**exécuter les tests avant d'accepter des de
 
 ### La popularisation de la virtualisation
 
-La virtualisation gagnera en popularité auprès des développeurs grâce à la sortie de logiciel gratuit tels [VirtualBox](https://www.virtualbox.org/) supportant les architectures x86 :
+La [virtualisation](https://blog.stephane-robert.info/docs/virtualiser/introduction/) gagnera en popularité auprès des développeurs grâce à la sortie de logiciel gratuit tels [VirtualBox](https://www.virtualbox.org/) supportant les architectures x86 :
 
-<div class="center">
-    <img src="img/virtualbox-devenv.png" alt="Illustration de VirtualBox" style="height: 300px" />
-    <br />
-    <span>(Illustration de l'utilisation de VirtualBox pour construire un environnement de développement)</span>
+<div class="illustration">
+
+![h:300px](img/virtualbox-devenv.png)
+
+Illustration de l'utilisation de VirtualBox pour construire un environnement de développement
+
 </div>
-
-> Voir [Virtualisation - Définition et Explications](https://www.techno-science.net/glossaire-definition/Virtualisation-page-3.html)
 
 ---
 ## La virtualisation (2/3)
@@ -186,8 +203,12 @@ La virtualisation gagnera en popularité auprès des développeurs grâce à la 
 
 Pour la culture, nous soulignerons qu'il existe différents types d'hyperviseurs :
 
-<div class="center">
-    <img src="img/types-hyperviseurs.drawio.png" alt="Les différents type d'hyperviseur" style="height: 350px" />
+<div class="illustration">
+
+![h:350px](img/types-hyperviseurs.drawio.png)
+
+Les différents type d'hyperviseurs.
+
 </div>
 
 
@@ -198,11 +219,18 @@ Pour la culture, nous soulignerons qu'il existe différents types d'hyperviseurs
 
 A l'usage, nous mémoriserons que l'**utilisation de VM permet de faire abstraction sur l'infrastructure** :
 
-<div class="center">
-    <img src="img/virtualisation-app.drawio.png" alt="Virtualisation des applications" style="height: 300px" />
+<div class="illustration left">
+
+![h:300px](img/virtualisation-app.drawio.png)
+
+Virtualisation des applications.
 </div>
 
-> Nous soulignerons qu'il est possible d'héberger **plusieurs applications sur une même VM** mais nous constaterons que ceci implique un **partage des bibliothèques systèmes** posant des problèmes de compatibilité de version (python 2/3, PHP 5.6/7.4/8.1,...)
+<div class="right">
+
+Il sera possible d'héberger **plusieurs applications sur une même VM** mais nous constaterons que ceci implique un **partage des bibliothèques systèmes** posant des problèmes de compatibilité de version (python 2/3, PHP 5.6/7.4/8.1,...)
+
+</div>
 
 ---
 
@@ -227,14 +255,12 @@ Avec ces services :
 
 ### Une conception permettant l'automatisation
 
-Au niveau d'AWS, Jeff BEZOS posera une règle d'architecture importante : **Toutes les communications entre les projets doivent passer par l'exposition et l'utilisation d'API en réseau** ( c.f. [The API Mandate: How a mythical memo from Jeff Bezos changed software forever](https://konghq.com/blog/api-mandate) ).
-
-Ceci jouera beaucoup dans :
+Au niveau d'AWS, Jeff BEZOS posera une règle d'architecture importante : **Toutes les communications entre les projets doivent passer par l'exposition et l'utilisation d'API en réseau** ( c.f. [The API Mandate: How a mythical memo from Jeff Bezos changed software forever](https://konghq.com/blog/api-mandate) ). Ceci jouera beaucoup dans :
 
 - La capacité d'AWS à **accroître efficacement son offre de service** (couplage faible, interfaces clairement définies,...)
-- La capacité des clients à **automatiser l'utilisation des ressources mises à disposition par AWS** (des appels à un service étant plus facilement automatisable que des clics dans une interface graphique)
+- La capacité des clients à **automatiser l'utilisation des ressources mises à disposition par AWS**.
 
-> NB : Cette règle s'applique aux <u>communications entre les services</u> (s'efforcer de construire toutes ses applications sur la base d'API REST/JSON développées par d'autres serait assez limitant...)
+> NB : Cette règle s'applique aux <u>communications entre les services</u> (ex : s'efforcer de construire toutes ses applications uniquement sur la base d'API REST/JSON développées par d'autres est assez limitant...)
 
 ---
 
@@ -244,28 +270,36 @@ Ceci jouera beaucoup dans :
 
 Plus largement, le principe de mise à disposition d'une **API permettant de contrôler une infrastructure virtualisée** se généralisera par la suite sous le nom **IaaS (*Infrastructure as a Service*)** :
 
-<div class="center">
-    <img src="img/virtualisation-app-iaas.drawio.png" alt="Illustration principe IaaS" style="height: 300px" />
+<div class="illustration left">
+
+<img src="img/virtualisation-app-iaas.drawio.png" alt="Illustration principe IaaS" style="height: 300px" />
+
 </div>
 
-> Les VM seront généralement initialisées par l'hébergeur sur la base d'un catalogue offrant plusieurs OS mais les mises à jour et l'installation des applications seront ensuite à la charge du client.
+<div class="right">
+
+- Les VM seront initialisées par l'hébergeur sur la base d'un catalogue offrant plusieurs OS.
+- Les mises à jour et l'installation des applications seront ensuite à la charge du client.
+
+</div>
 
 ---
 
 ## La diversification des offres cloud
 
-Les offres cloud se diversifieront assez rapidement avec une **prise en charge variables des différentes couches du système par les fournisseurs de service** :
+Les offres cloud se diversifieront assez naturellement avec une **prise en charge variables des différentes couches du système par les fournisseurs de service** :
 
-<div class="center">
-    <img src="img/iaas-paas-saas-redhat.png" alt="IaaS vs PaaS vs SaaS" style="height: 400px" />
-    <p class="text-center">
-    (Source : <a href="https://www.redhat.com/fr/topics/cloud-computing/iaas-vs-paas-vs-saas">www.redhat.com - IaaS, PaaS, SaaS : quelles sont les différences ?</a>)
-    </p>
+<div class="illustration">
+
+![h:350px](img/iaas-paas-saas-redhat.png)
+
+Source : <a href="https://www.redhat.com/fr/topics/cloud-computing/iaas-vs-paas-vs-saas">www.redhat.com - IaaS, PaaS, SaaS : quelles sont les différences ?</a>
+
 </div>
 
 ---
 
-## Les limites de l'exploitation traditionnelle (1/6)
+## Les limites de l'exploitation traditionnelle (1/7)
 
 ### Une séparation stricte des rôles
 
@@ -275,19 +309,21 @@ Il en résulte des situations où l'infrastructure est virtualisée et dotée d'
 
 ---
 
-## Les limites de l'exploitation traditionnelle (2/6)
+## Les limites de l'exploitation traditionnelle (2/7)
 
 ### Une communication centrée sur des documents
 
 Nous trouverons par exemple le processus suivant pour déployer une application :
 
-<div class="center">
-    <img src="img/processus-exploit-tradi.drawio.png" alt="Processus d'exploitation traditionnelle" style="height: 400px" />
+<div class="illustration">
+
+<img src="img/processus-exploit-tradi.drawio.png" alt="Processus d'exploitation traditionnelle" style="height: 400px" />
+
 </div>
 
 ---
 
-## Les limites de l'exploitation traditionnelle (3/6)
+## Les limites de l'exploitation traditionnelle (3/7)
 
 ### Une approche en apparence parfaite!
 
@@ -298,7 +334,7 @@ Nous trouverons par exemple le processus suivant pour déployer une application 
 
 ---
 
-## Les limites de l'exploitation traditionnelle (4/6)
+## Les limites de l'exploitation traditionnelle (4/7)
 
 ### Cette approche empêche de livrer rapidement!
 
@@ -309,6 +345,12 @@ La **mise en production initiale** de l'application prendra facilement **1 mois*
 - Problème d'**actualité des documents**
 - Problème de **disponibilité** des équipes
 
+---
+
+## Les limites de l'exploitation traditionnelle (5/7)
+
+### Cette approche empêche de livrer rapidement!
+
 Il en sera de même pour **chaque évolution induisant le moindre changement d'architecture** (ajout d'un paramètre, ajout d'un service support,...) ce qui laissera deux options :
 
 - Conserver volontairement une **architecture non optimale**.
@@ -316,7 +358,7 @@ Il en sera de même pour **chaque évolution induisant le moindre changement d'a
 
 ---
 
-## Les limites de l'exploitation traditionnelle (5/6)
+## Les limites de l'exploitation traditionnelle (6/7)
 
 ### Une approche qui génère des problèmes en production!
 
@@ -327,7 +369,7 @@ Une **demande d'exploitation ou une procédure** pourra être **mal comprise** o
 
 ---
 
-## Les limites de l'exploitation traditionnelle (6/6)
+## Les limites de l'exploitation traditionnelle (7/7)
 
 ### Une approche amenant à chercher un coupable plutôt qu'une solution!
 
