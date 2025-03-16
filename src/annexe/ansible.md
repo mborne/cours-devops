@@ -5,7 +5,10 @@
 
 ## Pré-requis
 
-* Une machine ou VM sous Linux (voir [docs.ansible.com - Can Ansible run on Windows?](https://docs.ansible.com/ansible/latest/user_guide/windows_faq.html#can-ansible-run-on-windows))
+* Une machine ou VM sous Linux (c.f. [docs.ansible.com - Can Ansible run on Windows?](https://docs.ansible.com/ansible/latest/user_guide/windows_faq.html#can-ansible-run-on-windows))
+
+> NB : Il est **possible de gérer des machines windows avec Ansible** à l'aide de [modules dédiés](https://docs.ansible.com/ansible/latest/collections/ansible/windows/index.html#modules)
+
 * [Configurer les variables d'environnement pour utilisation d'un proxy sortant](proxy-sortant/proxy-env-vars.md)
 
 ## Installation

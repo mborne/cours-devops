@@ -3,8 +3,9 @@
   "version": "0.1.0-pre",
   "description": "Introduction à la méthode DevOps",
   "scripts": {
+    "dev": "marp --html=true -s ./src/slides/",
     "build": "node build.js",
-    "serve": "http-server -p 3000 public"
+    "start": "http-server -p 3000 public"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://mborne.github.io/cours-devops",
   "devDependencies": {
+    "@marp-team/marp-cli": "^4.1.2",
     "@mborne/markdown-to-html": "^0.10.4",
     "http-server": "^14.1.1",
     "shelljs": "^0.9.1"
