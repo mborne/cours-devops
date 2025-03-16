@@ -156,6 +156,9 @@ Concrètement, il faudra aller [au-delà de Microsoft Office Excel pour la gesti
 
 Nous trouverons à ce titre des **framework d'agilité à l'échelle** tels [Scaled agile framework (SAFe)](https://www.scaledagileframework.com/) qui incluront **DevOps dans une démarche plus globale**.
 
+Il en va de même pour le [référentiel ITIL 4](https://www.atlassian.com/fr/itsm/itil) qui se concentre sur les flux de valeur et l'amélioration continue (ce qui n'était pas forcément le cas dans les versions précédentes).
+
+> Voir [www.alenia.io - ITIL 4 versus ITIL v3 : qu'est-ce qui change ?](https://www.alenia.io/post/itil-4-versus-itil-v3-ce-qui-change) et [www.atlassian.com - DevOps et ITIL : lequel est essentiel à votre équipe ?](https://www.atlassian.com/fr/itsm/itil/devops-vs-itil)
 
 ---
 
