@@ -1,7 +1,7 @@
 ---
 theme: marp-ensg
 paginate: true
-footer: ENSG - <a href="./">Introduction à la méthode DevOps</a> - mars 2025
+footer: ENSG - <a href="./#2">Introduction à la méthode DevOps</a> - mars 2025
 header: '<div><img src="https://mborne.github.io/assets/logo-ensg.png" alt="ENSG" height="64px"/></div>'
 ---
 
