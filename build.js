@@ -23,6 +23,8 @@ shell.exec('npx marp --html=true --theme ./src/slides/marp-ensg.css -I ./src/sli
  */
 console.log('src/slides/img -> public/img ...');
 shell.cp('-r',path.resolve(__dirname,'src/slides/img'),path.resolve(__dirname,'public/.'))
+console.log('src/slides/schema -> public/schema ...');
+shell.cp('-r',path.resolve(__dirname,'src/slides/schema'),path.resolve(__dirname,'public/.'))
 
 /*
  * Render src/annexe to public/annexe
