@@ -223,7 +223,7 @@ Nous allons nous assurer d'avoir une installation fonctionnelle de docker permet
 
 Si docker n'est pas installé sur votre poste, vous pourrez :
 
-- [Installer docker sur une VM Linux](annexe/docker/#installation)
+- [Installer docker sur une VM Linux](https://mborne.github.io/cours-devops/annexe/docker/#installation)
 - Utiliser le site [labs.play-with-docker.com](https://labs.play-with-docker.com/) pour faire vos premiers tests en ligne (la création d'un compte personnel sur DockerHub sera requise):
 
 </div>
@@ -242,9 +242,9 @@ Play with Docker
 
 ### Les problèmes classiques
 
-Une [annexe docker](annexe/docker/index.html) référence la procédure d'installation officielle et s'efforce de guider sur la [résolution des problèmes classiques](annexe/docker/problemes-frequents.html).
+Une [annexe docker](https://mborne.github.io/cours-devops/annexe/docker/index.html) référence la procédure d'installation officielle et s'efforce de guider sur la [résolution des problèmes classiques](https://mborne.github.io/cours-devops/annexe/docker/problemes-frequents.html).
 
-En particulier, il vous faudra potentiellement traiter ceux liés à l'[utilisation d'un proxy sortant avec docker](annexe/proxy-sortant/proxy-docker.html).
+En particulier, il vous faudra potentiellement traiter ceux liés à l'[utilisation d'un proxy sortant avec docker](https://mborne.github.io/cours-devops/annexe/proxy-sortant/proxy-docker.html).
 
 ---
 

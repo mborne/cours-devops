@@ -1,6 +1,6 @@
 # Docker - Les bonnes pratiques
 
-Cette annexe s'efforce de résumer un ensemble de bonnes pratiques classiques (c.f. [références](#références)) complétées de recommandations visant entre autres à guider dans la production d'images pouvant être exécutées dans des environnements sécurisés où il n'est par exemple pas possible d'utiliser le port 80 (c.f. [kubernetes.io - Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/) et [kyverno/policies - baseline et restricted](https://github.com/kyverno/policies/tree/main/pod-security))
+Cette fiche s'efforce de résumer un ensemble de bonnes pratiques classiques (c.f. [références](#références)) complétées de recommandations visant entre autres à guider dans la production d'images pouvant être exécutées dans des environnements sécurisés où il n'est par exemple pas possible d'utiliser le port 80 (c.f. [kubernetes.io - Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/) et [kyverno/policies - baseline et restricted](https://github.com/kyverno/policies/tree/main/pod-security))
 
 [[toc]]
 

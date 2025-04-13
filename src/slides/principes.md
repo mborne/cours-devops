@@ -115,7 +115,7 @@ Avant de cibler une **infrastructure agile**, il faudra être nombreux à consta
 
 - **La livraison d'une application** avec une simple mise à jour des dépendances **prend des jours** (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
 - La **procédure de déploiement n'est pas à jour**
-- L'ajout d'une VM pour **faire face à un pic de charge est impossible** (5j pour obtenir la machine, 5j pour configurer le [load balancer](annexe/lb-rp.html),...)
+- L'ajout d'une VM pour **faire face à un pic de charge est impossible** (5j pour obtenir la machine, 5j pour configurer le [load balancer](https://mborne.github.io/cours-devops/annexe/lb-rp.html),...)
 - ...
 
 ---
@@ -268,7 +268,7 @@ L'adage dit que **"ce qui ne se mesure pas n'existe pas" (Niels Bohr)**. Du moin
 
 ![h:230px](img/gantt-retex-livraison.png)
 
-Illustration de la [problématique des temps d'attente avec l'approche traditionnelle](annexe/gantt-efficacite-flux.html)
+Illustration de la [problématique des temps d'attente avec l'approche traditionnelle](https://mborne.github.io/cours-devops/annexe/gantt-efficacite-flux.html)
 
 </div>
 
@@ -293,7 +293,7 @@ Le **partage** et la **transparence** seront importants à plusieurs niveaux. Il
 
 ### Introduction
 
-**Définir des métriques pertinentes** et **faire en sorte pouvoir les calculer** sera loin d'être trivial. Se contenter d'avoir des métriques et [avoir des métriques non pertinentes sera contre-productif](annexe/metrique-contre-productive.html).
+**Définir des métriques pertinentes** et **faire en sorte pouvoir les calculer** sera loin d'être trivial. Se contenter d'avoir des métriques et [avoir des métriques non pertinentes sera contre-productif](https://mborne.github.io/cours-devops/annexe/metrique-contre-productive.html).
 
 Nous allons ici nous limiter à **quelques métriques parlantes** en nous interrogeant en séance sur les **méthodes permettant de les calculer**. Vous en rencontrerez bien d'autres.
 
@@ -598,9 +598,9 @@ L'automatisation d'un déploiement concernera plusieurs couches du système :
 
 Nous veillerons à nous assurer que les scripts de déploiement puissent :
 
-- Être exécutés plusieurs fois (**[idempotence](annexe/iac-idempotence.html)**)
+- Être exécutés plusieurs fois (**[idempotence](https://mborne.github.io/cours-devops/annexe/iac-idempotence.html)**)
 - Être interrompus et relancés (**atomicité**)
-- [Cohabiter avec d'autres](annexe/iac-cohabitation.html) (~orthogonalité)
+- [Cohabiter avec d'autres](https://mborne.github.io/cours-devops/annexe/iac-cohabitation.html) (~orthogonalité)
 - Être testés par exemple avec des environnements de qualification et de pré-production.
 - Permettre à la fois la mise à jour du système et sa reconstruction
 

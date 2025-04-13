@@ -23,4 +23,4 @@ header: '<div><img src="./img/logo-ensg.png" alt="ENSG" height="64px"/></div>'
 - [DevOps avec des conteneurs](conteneurs.html)
 - [DevOps avec des Kubernetes](kubernetes.html)
 - [DevOps dans le cloud](cloud.html)
-- [Annexes et références](annexe/)
+- [Annexes et références](https://mborne.github.io/cours-devops/annexe/)

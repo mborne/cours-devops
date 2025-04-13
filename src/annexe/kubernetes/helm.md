@@ -1,4 +1,6 @@
-# Helm - *The package manager for Kubernetes*
+# Helm
+
+*The package manager for Kubernetes*
 
 ## Principe de fonctionnement
 
@@ -15,7 +17,6 @@
 | NAME       | URL                                                                    |
 | ---------- | ---------------------------------------------------------------------- |
 | bitnami    | [https://charts.bitnami.com/bitnami/](https://bitnami.com/stacks/helm) |
-| netdata    | https://netdata.github.io/helmchart/                                   |
 | hashicorp  | https://helm.releases.hashicorp.com                                    |
 | jenkins    | https://charts.jenkins.io                                              |
 | opensearch | https://opensearch-project.github.io/helm-charts/                      |

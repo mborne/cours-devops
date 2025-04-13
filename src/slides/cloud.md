@@ -104,7 +104,7 @@ Nous inspecterons au passage Google Kubernetes Engine (GKE) où nous trouverons 
 
 ## Rendre ses applications cloud ready
 
-A l'échelle des applications, **respecter [les 12 facteurs](annexe/12-facteurs.html)** mis en avant par [Heroku](https://www.heroku.com/) sera un bon point de départ pour :
+A l'échelle des applications, **respecter [les 12 facteurs](https://mborne.github.io/cours-devops/annexe/12-facteurs.html)** mis en avant par [Heroku](https://www.heroku.com/) sera un bon point de départ pour :
 
 - **Pouvoir déployer facilement une application**
 - **Adapter l'infrastructure à la charge**

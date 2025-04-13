@@ -370,7 +370,7 @@ Nous retrouverons le concept de [Volume](https://kubernetes.io/docs/concepts/sto
   - [Les volumes éphémères](https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/) (ex : [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) pour un dossier de cache)
   - [Les volumes projetés](https://kubernetes.io/docs/concepts/storage/projected-volumes/) (ex : [configMap](https://kubernetes.io/docs/concepts/storage/volumes/#configmap) pour un fichier de configuration)
 
-Nous survolerons l'annexe [Kubernetes - les volumes et le stockage](annexe/kubernetes/stockage.html) pour constater que **Kubernetes offre de nombreuses possibilités en matière de stockage** mais que **c'est un sujet complexe**.
+Nous survolerons l'annexe [Kubernetes - les volumes et le stockage](https://mborne.github.io/cours-devops/annexe/kubernetes/stockage.html) pour constater que **Kubernetes offre de nombreuses possibilités en matière de stockage** mais que **c'est un sujet complexe**.
 
 </div>
 
@@ -530,7 +530,7 @@ Il serait aussi nécessaire de **s'assurer qu'un Pod ne provoque pas un full sur
 
 Kubernetes offre un cadre permettant la cohabitation d'applications conteneurisées (limites de consommation de ressources, options de sécurité,...).
 
-Il est toutefois du ressort de l'utilisateur d'exploiter ce cadre en **respectant un ensemble de [bonnes pratiques](annexe/docker/bonnes-pratiques.html) dans la création et l'exécution des conteneurs** pour profiter d'un bon niveau de sécurité et d'un haut niveau de disponibilité (1).
+Il est toutefois du ressort de l'utilisateur d'exploiter ce cadre en **respectant un ensemble de [bonnes pratiques](https://mborne.github.io/cours-devops/annexe/docker/bonnes-pratiques.html) dans la création et l'exécution des conteneurs** pour profiter d'un bon niveau de sécurité et d'un haut niveau de disponibilité (1).
 
 > (1) NB : Les mécanismes de redémarrage automatique des Pods en cas de problème limiteront les effets de certains types de problème (ex : atteinte limite RAM). Il faudra intervenir pour d'autres (ex : full sur un noeud)
 

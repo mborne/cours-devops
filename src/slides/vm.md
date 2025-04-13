@@ -70,7 +70,7 @@ Pour le déploiement d'une application en PRODUCTION, il est important de :
 
 - **Tagger une version** au niveau du gestionnaire de code source (ex : `v0.1.0`).
 - **Produire un livrable** pour cette version du code.
-- [Stocker ce livrable](annexe/stockage-artefact.html).
+- [Stocker ce livrable](https://mborne.github.io/cours-devops/annexe/stockage-artefact.html).
 - Déployer en PRODUCTION un livrable stocké en lieu sûr.
 
 (c.f. [Les 12 facteurs - V. Assemblez, publiez, exécutez](https://12factor.net/fr/build-release-run))
@@ -137,7 +137,7 @@ Nous trouverons des **concepts spécifiques à chaque solution dans ces API** (c
 
 ### Terraform
 
-Pour **gérer une infrastructure "as code" en production** sans programmer les appels à ces API, nous pourrons nous appuyer sur **[Terraform](https://www.terraform.io/intro#how-does-terraform-work)** qui apporte :
+Pour **gérer une infrastructure "as code" en production** sans programmer les appels à ces API, nous pourrons nous appuyer sur **[Terraform](https://developer.hashicorp.com/terraform/intro)** qui apporte :
 
 - Un **langage déclaratif** pour la création des ressources (machine virtuelle, réseau,...)
 - Le support d'un [grand nombre de fournisseurs](https://registry.terraform.io/browse/providers) dont :
@@ -177,7 +177,7 @@ Nous utilisons le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantb
 Nous soulignerons que :
 
 - La principale difficulté traitée dans le dépôt [mborne/vagrantbox](https://github.com/mborne/vagrantbox#vagrantbox) est l'utilisation optionnelle d'un proxy sortant avec le plugin [vagrant-proxyconf](https://rubygems.org/gems/vagrant-proxyconf/versions/1.5.2).
-- Une [annexe Vagrant](annexe/vagrant/index.html) explique comment créer ses propres `Vagrantfile`.
+- Une [annexe Vagrant](https://mborne.github.io/cours-devops/annexe/vagrant/index.html) explique comment créer ses propres `Vagrantfile`.
 - Vagrant est aussi pratique pour créer une VM de DEV Linux avec un environnement graphique (`apt-get install ubuntu-desktop`)
 - Nous créons ici des VM [VirtualBox](https://www.virtualbox.org/) mais [Vagrant supporte d'autres hyperviseurs (ex : KVM)](https://www.vagrantup.com/docs/providers)
 - Il existe [un dépôt public d'image de VM pour vagrant](https://app.vagrantup.com/boxes/search).
@@ -283,7 +283,7 @@ L'idée de ce cours n'étant pas de former à la rédaction de script Ansible, n
 - [mborne/vagrantbox - Ansible - QuickStart](https://github.com/mborne/vagrantbox#ansible) qui applique un **post-traitement après création des VM vagrantbox**.
 - [mborne/geostack-deploy](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible) qui assure le **déploiement de GeoStack avec Ansible**.
 
-Nous utiliserons la procédure d'[installation de Ansible](annexe/ansible.html#installation) dans l'annexe correspondante qui pointe des ressources utiles pour ceux qui souhaiteront approfondir.
+Nous utiliserons la procédure d'[installation de Ansible](https://mborne.github.io/cours-devops/annexe/ansible.html#installation) dans l'annexe correspondante qui pointe des ressources utiles pour ceux qui souhaiteront approfondir.
 
 ---
 
@@ -339,7 +339,7 @@ En terme de répartition des rôles, nous pourrions aboutir par exemple au proce
 
 Nous ne pourrions pas procéder ainsi avec des VM exposées sur internet :
 
-- Nos VM seraient rapidement la cible des nombreux bots qui scannent le web (voir [extrait de logs illustrant ces attaques sur SSH](annexe/securite/sshd-logs.txt))
+- Nos VM seraient rapidement la cible des nombreux bots qui scannent le web (voir [extrait de logs illustrant ces attaques sur SSH](https://mborne.github.io/cours-devops/annexe/securite/sshd-logs.txt))
 - Nous finirions sur [https://www.shodan.io](https://www.shodan.io/)
 
 ---
