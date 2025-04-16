@@ -5,8 +5,8 @@ Quelques notes complémentaires aux slides [DevOps avec Kubernetes](https://mbor
 
 ## Clients
 
-* [kubectl](https://github.com/mborne/toolbox/tree/master/kubectl#readme) : client en ligne de commande pour communiquer avec l'API CLI.
-* [helm](helm.md) : client en ligne de commande s'appuyant sur [GO template langage](https://pkg.go.dev/text/template) pour rendre paramétrable les déploiements.
+* [kubectl](https://mborne.github.io/outils/kubectl) : client en ligne de commande pour communiquer avec l'API CLI.
+* [helm](https://mborne.github.io/outils/helm/) : client en ligne de commande s'appuyant sur [GO template langage](https://pkg.go.dev/text/template) pour rendre paramétrable les déploiements.
 * [kubernetes-dasboard](https://github.com/kubernetes/dashboard#readme) (UI)
 
 ## Pods

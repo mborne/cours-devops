@@ -79,7 +79,7 @@ Il convient de noter qu'il n'y aura **pas de suppression automatique sur les PVC
 ## Mise en garde
 
 * La **suppression d'un PersistentVolumeClaim se traduit généralement par la suppression du PersistentVolume correspondant** (voir [kubernetes.io - Change the Reclaim Policy of a PersistentVolume](https://kubernetes.io/docs/tasks/administer-cluster/change-pv-reclaim-policy/))
-* Si vous utilisez [Helm](helm.md) pour créer des PVC, `helm uninstall mon-application` incluera la suppression des PVC (voir [helm.sh - Tell Helm Not To Uninstall a Resource](https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource) et **créer les PVC en amont du déploiment**)
+* Si vous utilisez [Helm](https://mborne.github.io/outils/helm/) pour créer des PVC, `helm uninstall mon-application` incluera la suppression des PVC (voir [helm.sh - Tell Helm Not To Uninstall a Resource](https://helm.sh/docs/howto/charts_tips_and_tricks/#tell-helm-not-to-uninstall-a-resource) et **créer les PVC en amont du déploiment**)
 * L'**utilisation de volumes persistants dans un cluster Kubernetes** induira une **prudence particulière et une complexité accrue dans l'exploitation d'un cluster Kubernetes**.
 
 Par exemple, la suppression brutale d'un Pod récalcitrant à la suppression (`status=Terminating`) se traduira par le démontage incomplet de ces volumes et le blocage du redémarrage du Pod sur un autre noeud.
