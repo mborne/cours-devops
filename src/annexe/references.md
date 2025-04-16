@@ -40,7 +40,7 @@ Pour aller plus loin sur les tests :
 Pour concevoir des applications faciles à déployer, à exploiter et capables de passer à l'échelle voir :
 
 * [12factor.net - Les 12 facteurs](https://12factor.net) pour la version officielle
-  * [DevOps - Les 12 facteurs](12-facteurs.md) pour la fiche de synthèse faisant le lien avec les éléments vu dans ce cours.
+  * [DevOps - Les 12 facteurs](https://mborne.github.io/fiches/12-facteurs/) pour la fiche de synthèse faisant le lien avec les éléments vu dans ce cours.
   * [www.softfluent.fr - The 12-factor app : sont-ils toujours d’actualité ?](https://www.softfluent.fr/blog/the-12-factor-app-sont-ils-toujours-dactualite/) qui passe en revue et étends ces principes posés en 2012
 * [learn.microsoft.com - Modèles de conception de cloud](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/) dont :
   * [learn.microsoft.com - Modèle Surveillance de point de terminaison](https://learn.microsoft.com/fr-fr/azure/architecture/patterns/health-endpoint-monitoring) qui décrit le principe d'URL dédiée à la surveillance.

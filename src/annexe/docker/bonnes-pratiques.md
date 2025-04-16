@@ -48,7 +48,7 @@ volumes:
 ### Ne pas inclure des secrets dans les images
 
 * **Ne pas inclure les paramètres pour l'exécution dans l'image**
-  * Utiliser plutôt des variables d'environnement (ex : `DATABASE_URL` ou `DB_PASSWORD`, c.f. [12 facteurs - III. Configuration - Stockez la configuration dans l’environnement](../12-facteurs.md#factor-03))
+  * Utiliser plutôt des variables d'environnement (ex : `DATABASE_URL` ou `DB_PASSWORD`, c.f. [12 facteurs - III. Configuration - Stockez la configuration dans l’environnement](https://12factor.net/config))
 * **Ne pas inclure le dossier `.git` dans les images** :
   * Inclure `.git` dans `.dockerignore`.
   * Éviter `COPY . .`.
