@@ -3,7 +3,7 @@
 ## Pré-requis
 
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-* [Configurer les variables d'environnement pour utilisation d'un proxy sortant](../proxy-sortant/index.md)
+* [Configurer les variables d'environnement pour utilisation d'un proxy sortant](https://mborne.github.io/fiches/proxy-sortant/proxy-env-vars/)
 
 ## Points clés
 

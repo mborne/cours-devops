@@ -9,7 +9,7 @@
 
 > NB : Il est **possible de gérer des machines windows avec Ansible** à l'aide de [modules dédiés](https://docs.ansible.com/ansible/latest/collections/ansible/windows/index.html#modules)
 
-* [Configurer les variables d'environnement pour utilisation d'un proxy sortant](proxy-sortant/proxy-env-vars.md)
+* [Configurer les variables d'environnement pour utilisation d'un proxy sortant](https://mborne.github.io/fiches/proxy-sortant/proxy-env-vars/)
 
 ## Installation
 

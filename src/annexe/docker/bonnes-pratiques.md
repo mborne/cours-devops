@@ -372,8 +372,7 @@ ENV HTTP_PROXY=http://proxy.devinez.fr:3128
 ENV HTTPS_PROXY=http://proxy.devinez.fr:3128
 ```
 
-* [Construire les images en spécifiant le proxy avec des arguments de construction](../proxy-sortant/proxy-docker.md#proxy-build)
-* [Démarrer les conteneurs en spécifiant le proxy avec des variables d'environnement](../proxy-sortant/proxy-docker.md#proxy-run)
+* Voir [Travailler derrière un proxy avec Docker](https://mborne.github.io/fiches/proxy-sortant/proxy-docker/)
 
 ## Références
 

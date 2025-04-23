@@ -8,7 +8,7 @@ Les concepts détaillés au besoin pendant la présentation :
 
 * [Le partage de charge et reverse proxy](lb-rp.md)
 * [blog.octo.com - Le bastion SSH](https://blog.octo.com/le-bastion-ssh/)
-* [Le proxy sortant](proxy-sortant/index.md)
+* [Le proxy sortant](https://mborne.github.io/fiches/proxy-sortant/)
 * [Le stockage des livrables et des artefacts](stockage-artefact.md)
 
 ## Les outils DevOps

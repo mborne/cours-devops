@@ -19,7 +19,6 @@ Docker s'appuie sur les [technologies d'isolation linux (namespaces, cgroups,...
 ## Installation
 
 * [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-* Pour ENSG, un script [install-docker-ensg.sh](install-docker-ensg.sh) est disponible (**ne pas utiliser à l'IGN** où il convient entre autre d'utiliser des plages d'IP spécifiques et de configurer l'utilisation du proxy)
 
 ## Les principaux concepts
 
@@ -45,7 +44,7 @@ Docker s'appuie sur les [technologies d'isolation linux (namespaces, cgroups,...
 * [docs.docker.com - Dockerfile reference](https://docs.docker.com/engine/reference/builder/) pour une **vue d'ensemble des commandes disponibles pour écrire un Dockerfile**.
 * [Docker - Les bonnes pratiques](bonnes-pratiques.md).
 * [Résoudre les problèmes fréquents avec docker](problemes-frequents.md).
-* [Travailler derrière un proxy avec Docker](../proxy-sortant/proxy-docker.md).
+* [Travailler derrière un proxy avec Docker](https://mborne.github.io/fiches/proxy-sortant/proxy-docker/).
 
 ## Utiliser docker compose
 

@@ -244,7 +244,7 @@ Play with Docker
 
 Une [annexe docker](https://mborne.github.io/cours-devops/annexe/docker/index.html) référence la procédure d'installation officielle et s'efforce de guider sur la [résolution des problèmes classiques](https://mborne.github.io/cours-devops/annexe/docker/problemes-frequents.html).
 
-En particulier, il vous faudra potentiellement traiter ceux liés à l'[utilisation d'un proxy sortant avec docker](https://mborne.github.io/cours-devops/annexe/proxy-sortant/proxy-docker.html).
+En particulier, il vous faudra potentiellement traiter ceux liés à l'[utilisation d'un proxy sortant avec docker](https://mborne.github.io/fiches/proxy-sortant/proxy-docker/).
 
 ---
 
