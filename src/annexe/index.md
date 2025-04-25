@@ -15,7 +15,7 @@ Les concepts détaillés au besoin pendant la présentation :
 
 Les principaux outils abordés dans ce cours :
 
-* [Vagrant](vagrant/index.md)
+* [Vagrant](https://mborne.github.io/outils/vagrant/)
 * [Ansible](ansible.md)
 * [Docker](docker/index.md)
 * [Terraform](https://www.terraform.io/) : voir [gce-playground](https://github.com/mborne/gce-playground) et [gke-playground](https://github.com/mborne/gke-playground) pour des exemples
