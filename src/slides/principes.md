@@ -115,7 +115,7 @@ Avant de cibler une **infrastructure agile**, il faudra être nombreux à consta
 
 - **La livraison d'une application** avec une simple mise à jour des dépendances **prend des jours** (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
 - La **procédure de déploiement n'est pas à jour**
-- L'ajout d'une VM pour **faire face à un pic de charge est impossible** (5j pour obtenir la machine, 5j pour configurer le [load balancer](https://mborne.github.io/cours-devops/annexe/lb-rp.html),...)
+- L'ajout d'une VM pour **faire face à un pic de charge est impossible** (5j pour obtenir la machine, 5j pour configurer le [load balancer](https://mborne.github.io/fiches/lb-rp/),...)
 - ...
 
 ---

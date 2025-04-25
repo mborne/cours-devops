@@ -65,7 +65,7 @@ Ils répondront par de nouvelles approches au niveau des traitements (ex : [MapR
 
 Cette approche induira :
 
-- L'utilisation d'un [reverse proxy assurant un rôle de répartiteur de charge](https://mborne.github.io/cours-devops/annexe/lb-rp.html) au niveau des services web.
+- L'utilisation d'un [reverse proxy assurant un rôle de répartiteur de charge](https://mborne.github.io/fiches/lb-rp/) au niveau des services web.
 - La **multiplication des équipements et services à déployer, administrer et surveiller**.
 
 </div>
