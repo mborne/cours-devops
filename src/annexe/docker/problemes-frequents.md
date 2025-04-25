@@ -12,7 +12,7 @@ Si vous devez utiliser un proxy pour accéder à internet, vous rencontrerez sû
 * Les commandes `RUN apt-get update && apt-get install` dans vos `Dockerfile`
 * L'accès aux ressources internet depuis vos conteneurs.
 
-Voir [Travailler derrière un proxy avec Docker](../proxy-sortant/proxy-docker.md).
+Voir [Travailler derrière un proxy avec Docker](https://mborne.github.io/fiches/proxy-sortant/proxy-docker/).
 
 ## Configuration de l'utilisation d'un serveur DNS particulier
 
