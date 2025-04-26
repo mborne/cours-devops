@@ -283,7 +283,7 @@ L'idée de ce cours n'étant pas de former à la rédaction de script Ansible, n
 - [mborne/vagrantbox - Ansible - QuickStart](https://github.com/mborne/vagrantbox#ansible) qui applique un **post-traitement après création des VM vagrantbox**.
 - [mborne/geostack-deploy](https://github.com/mborne/geostack-deploy/blob/master/ansible/README.md#d%C3%A9ploiement-de-geostack-avec-ansible) qui assure le **déploiement de GeoStack avec Ansible**.
 
-Nous utiliserons la procédure d'[installation de Ansible](https://mborne.github.io/cours-devops/annexe/ansible.html#installation) dans l'annexe correspondante qui pointe des ressources utiles pour ceux qui souhaiteront approfondir.
+Nous utiliserons la procédure d'[installation de Ansible](https://mborne.github.io/outils/ansible/#installation) dans l'annexe correspondante qui pointe des ressources utiles pour ceux qui souhaiteront approfondir.
 
 ---
 
