@@ -1,16 +1,8 @@
 const path = require('path');
 const shell = require('shelljs');
 
-const {Marpit} = require('@marp-team/marpit');
-const fs = require('fs');
-
 console.log('rm -rf public...');
 shell.rm('-rf',path.resolve(__dirname,'public'));
-
-const options = {
-    language: "fr"
-}
-
 
 /*
  * Render slides using marp-cli
@@ -25,16 +17,3 @@ console.log('src/slides/img -> public/img ...');
 shell.cp('-r',path.resolve(__dirname,'src/slides/img'),path.resolve(__dirname,'public/.'))
 console.log('src/slides/schema -> public/schema ...');
 shell.cp('-r',path.resolve(__dirname,'src/slides/schema'),path.resolve(__dirname,'public/.'))
-
-/*
- * Render src/annexe to public/annexe
- */
-const convert = require('@mborne/markdown-to-html').convert;
-
-console.log('src/annexe -> public/annexe with default layout...');
-convert(
-    path.resolve(__dirname,'src/annexe'),
-    path.resolve(__dirname,'public/annexe'),
-    path.resolve(__dirname,'layout/annexe'),
-    options
-);
