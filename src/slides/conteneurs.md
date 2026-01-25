@@ -60,9 +60,9 @@ Cette approche permettra à docker d'**optimiser le téléchargement et la const
 
 ### La surcouche docker
 
-Les mécanismes d'isolation ne sont pas nouveaux dans le noyau Linux (voir [LXC - LinuX Containers](https://fr.wikipedia.org/wiki/LXC) et [cgroups](https://fr.wikipedia.org/wiki/Cgroups)). [Les systèmes de fichiers par couches non plus](https://www.adaltas.com/fr/2021/06/03/linux-overlay-filesystem-docker/).
+Les mécanismes d'isolation ne sont pas nouveaux dans le noyau Linux (voir [Linux namespaces (2002-2007)](https://mborne.github.io/fiches/linux/namespace/), [cgroups (2006-2008)](https://fr.wikipedia.org/wiki/Cgroups) et [LXC - LinuX Containers (2008-2010)](https://fr.wikipedia.org/wiki/LXC)). [Les systèmes de fichiers par couches non plus](https://www.adaltas.com/fr/2021/06/03/linux-overlay-filesystem-docker/).
 
-Docker apporte par contre un ensemble cohérent **de concepts et d'outils donnant un cadre pour construire et déployer efficacement des applications** en s'appuyant sur ces mécanismes.
+Docker (2013) apporte par contre un ensemble cohérent **de concepts et d'outils donnant un cadre pour construire et déployer efficacement des applications** en s'appuyant sur ces mécanismes.
 
 ---
 
