@@ -1,11 +1,12 @@
 {
   "name": "cours-devops",
-  "version": "0.1.0-pre",
+  "version": "0.1.0",
   "description": "Introduction à la méthode DevOps",
   "scripts": {
     "dev": "marp --html=true -s ./src/slides/",
     "build": "node build.js",
-    "start": "http-server -p 3000 public"
+    "start": "http-server -p 3000 public",
+    "test": "markdown-link-check -c markdown-link-check.config.json src/slides"
   },
   "repository": {
     "type": "git",
@@ -24,8 +25,9 @@
   },
   "homepage": "https://mborne.github.io/cours-devops",
   "devDependencies": {
-    "@marp-team/marp-cli": "^4.2.3",
+    "@marp-team/marp-cli": "^4.3.1",
     "http-server": "^14.1.1",
+    "markdown-link-check": "^3.14.2",
     "shelljs": "^0.10.0"
   }
 }

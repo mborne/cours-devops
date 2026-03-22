@@ -16,7 +16,7 @@ header: '<div><img src="./img/logo-ensg.png" alt="ENSG" height="64px"/></div>'
 - [Infrastructure as Code](#infrastructure-as-code)
 - [GitOps](#gitops-13)
 - [Docs as Code](#docs-as-code-14)
-- [Everything as code!](#everything-as-code)
+- [Everything as code!](#everything-as-code-13)
 
 ---
 

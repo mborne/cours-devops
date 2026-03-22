@@ -1,0 +1,31 @@
+{
+    "ignorePatterns": [
+        {
+            "pattern": "cloud.html"
+        },
+        {
+            "pattern": "conteneurs.html"
+        },
+        {
+            "pattern": "docker.html"
+        },
+        {
+            "pattern": "kubernetes.html"
+        },
+        {
+            "pattern": "origines.html"
+        },
+        {
+            "pattern": "principes.html"
+        },
+        {
+            "pattern": "vm.html"
+        },
+        {
+            "pattern": "^https://(www\\.)?hashicorp.com/"
+        },
+        {
+            "pattern": "^https://docs.gitlab.com/"
+        }
+    ]
+}
