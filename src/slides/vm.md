@@ -484,13 +484,11 @@ Nous soulignerons que l'exercice est loin d'être trivial avec GeoServer et Post
 
 ### Un DevOps capable de traiter tous ces sujets...
 
-Voici une illustration du profil DevOps capable pour traiter tous ces sujets :
-
 <div class="left illustration">
 
-![h:300px](img/bing-mouton-1000-pattes.jpg)
+![h:300px](img/mouton-1000-pattes-gemini.png)
 
-<p style="text: center"><a href="https://www.bing.com/images/create/le-dessin-d27un-mouton-c3a0-mille-pattes2c-fatiguc3a92c-dan/1-66832e29580340c89543cd8254ee7318?id=indItxQD79oCEdWpY9f29g.376rS7BYkjK%2Fy%2BtJCHodRQ&view=detailv2&idpp=genimg&thid=OIG4.uETirnIgKZpm13JPMJAC&form=GCRIDP&ajaxhist=0&ajaxserp=0">Un mouton à 1000 pattes <br />(contenu généré par IA avec bing)</a></p>
+<p style="text: center">(contenu généré par IA avec Gemini)</a></p>
 
 </div>
 
