@@ -115,7 +115,7 @@ Avant de cibler une **infrastructure agile**, il faudra être nombreux à consta
 
 - **La livraison d'une application** avec une simple mise à jour des dépendances **prend des jours** (cas récent : [faille Log4Shell](https://fr.wikipedia.org/wiki/Log4Shell))
 - La **procédure de déploiement n'est pas à jour**
-- L'ajout d'une VM pour **faire face à un pic de charge est impossible** (5j pour obtenir la machine, 5j pour configurer le [load balancer](https://mborne.github.io/fiches/lb-rp/),...)
+- L'ajout d'une VM pour **faire face à un pic de charge est impossible** (5j pour obtenir la machine, 5j pour configurer le [load balancer](https://mborne.github.io/devops/lb-rp/),...)
 - ...
 
 ---
@@ -598,9 +598,9 @@ L'automatisation d'un déploiement concernera plusieurs couches du système :
 
 Nous veillerons à nous assurer que les scripts de déploiement puissent :
 
-- Être exécutés plusieurs fois (**[idempotence](https://mborne.github.io/fiches/devops/iac/idempotence/)**)
+- Être exécutés plusieurs fois (**[idempotence](https://mborne.github.io/devops/iac/idempotence/)**)
 - Être interrompus et relancés (**atomicité**)
-- [Cohabiter avec d'autres](https://mborne.github.io/fiches/devops/iac/cohabitation/) (~orthogonalité)
+- [Cohabiter avec d'autres](https://mborne.github.io/devops/iac/cohabitation/) (~orthogonalité)
 - Être testés par exemple avec des environnements de qualification et de pré-production.
 - Permettre à la fois la mise à jour du système et sa reconstruction
 

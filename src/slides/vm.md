@@ -70,7 +70,7 @@ Pour le déploiement d'une application en PRODUCTION, il est important de :
 
 - **Tagger une version** au niveau du gestionnaire de code source (ex : `v0.1.0`).
 - **Produire un livrable** pour cette version du code.
-- [Stocker ce livrable](https://mborne.github.io/fiches/devops/stockage-artefact/).
+- [Stocker ce livrable](https://mborne.github.io/devops/stockage-artefact/).
 - Déployer en PRODUCTION un livrable stocké en lieu sûr.
 
 (c.f. [Les 12 facteurs - V. Assemblez, publiez, exécutez](https://12factor.net/fr/build-release-run))
@@ -339,7 +339,7 @@ En terme de répartition des rôles, nous pourrions aboutir par exemple au proce
 
 Nous ne pourrions pas procéder ainsi avec des VM exposées sur internet :
 
-- Nos VM seraient rapidement la cible des nombreux bots qui scannent le web (voir [illustration des attaques au niveau SSH](https://mborne.github.io/fiches/devops/securite/#illustration-des-attaques-au-niveau-ssh))
+- Nos VM seraient rapidement la cible des nombreux bots qui scannent le web (voir [illustration des attaques au niveau SSH](https://mborne.github.io/devops/securite/#illustration-des-attaques-au-niveau-ssh))
 - Nous finirions sur [https://www.shodan.io](https://www.shodan.io/)
 
 ---
