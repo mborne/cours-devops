@@ -22,7 +22,313 @@
             "pattern": "vm.html"
         },
         {
-            "pattern": "^https://(?!(docs\\.docker\\.com|github\\.com|hub\\.docker\\.com|quay\\.io|registry\\.terraform\\.io|rubygems\\.org|www\\.docker\\.com)(/|$))"
+            "pattern": "^https://12factor\\.net(/|$)"
+        },
+        {
+            "pattern": "^https://about\\.gitlab\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://api\\.us\\.ovhcloud\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://app\\.vagrantup\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://argo-cd\\.readthedocs\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://blog\\.stephane-robert\\.info(/|$)"
+        },
+        {
+            "pattern": "^https://c4model\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://camptocamp\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://cert-manager\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://cloud-init\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://cloud\\.google\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://cloudnative-pg\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://code\\.gouv\\.fr(/|$)"
+        },
+        {
+            "pattern": "^https://commons\\.wikimedia\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://container\\.training(/|$)"
+        },
+        {
+            "pattern": "^https://cyber\\.gouv\\.fr(/|$)"
+        },
+        {
+            "pattern": "^https://dev-sec\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://developer\\.hashicorp\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://developers\\.scaleway\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://devopsdays\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://devopssec\\.fr(/|$)"
+        },
+        {
+            "pattern": "^https://diagrams\\.mingrammer\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://doc\\.traefik\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://doc\\.ubuntu-fr\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://docs\\.ansible\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://docs\\.chef\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://docs\\.digitalocean\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://docs\\.geoserver\\.geo-solutions\\.it(/|$)"
+        },
+        {
+            "pattern": "^https://docs\\.gitlab\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://docs\\.ovh\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://effectivesoftwaredesign\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://en\\.wikipedia\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://fluentbit\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://fpm\\.readthedocs\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://fr\\.wikipedia\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://galaxy\\.ansible\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://gcemetery\\.co(/|$)"
+        },
+        {
+            "pattern": "^https://geoserver\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://goharbor\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://grafana\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://graylog\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://help\\.sonatype\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://k3s\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://kind\\.sigs\\.k8s\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://knative\\.dev(/|$)"
+        },
+        {
+            "pattern": "^https://konghq\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://kubernetes\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://labs\\.play-with-docker\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://landscape\\.cncf\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://learn\\.microsoft\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://letsencrypt\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://manifesteagile\\.fr(/|$)"
+        },
+        {
+            "pattern": "^https://mborne\\.github\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://microk8s\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://munin-monitoring\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://opensearch\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://operatorhub\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://plugins\\.jenkins\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://postgis\\.net(/|$)"
+        },
+        {
+            "pattern": "^https://prometheus\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://puppet\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://rclone\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://restic\\.net(/|$)"
+        },
+        {
+            "pattern": "^https://sre\\.google(/|$)"
+        },
+        {
+            "pattern": "^https://stackstorm\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://stats\\.uptimerobot\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://support\\.microsoft\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://uptimerobot\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://velero\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://wiki\\.postgresql\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.adaltas\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.alenia\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.atlassian\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.centreon\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.cnil\\.fr(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.commitstrip\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.docker\\.elastic\\.co(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.elastic\\.co(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.hashicorp\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.heroku\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.jaegertracing\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.jenkins\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.journaldunet\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.kostango\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.leanprimer\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.netdata\\.cloud(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.openfaas\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.packer\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.portainer\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.postgresql\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.redhat\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.scaledagileframework\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.shodan\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.sonarqube\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.ssllabs\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.sslshopper\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.terraform\\.io(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.uptrends\\.fr(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.usinenouvelle\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.vagrantup\\.com(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.virtualbox\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.writethedocs\\.org(/|$)"
+        },
+        {
+            "pattern": "^https://www\\.youtube\\.com(/|$)"
         }
     ]
 }
