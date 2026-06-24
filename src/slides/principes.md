@@ -728,7 +728,7 @@ Dans le cas de DevOps, elle est importante pour :
 - [github.com - API-Security-Checklist](https://github.com/shieldfy/API-Security-Checklist/blob/master/README-fr.md#api-security-checklist) : Checklist pour la sécurité des API WEB.
 - [learn.microsoft.com](https://learn.microsoft.com/) : Le site de documentation de Microsoft généré à partir des dépôts [github.com - MicrosoftDocs](https://github.com/MicrosoftDocs)
 - [dev-sec.io](https://dev-sec.io/) : Un guide de sécurité généré à partir de la documentation de tests automatisés.
-- [geotribu.fr](https://geotribu.fr/) : Un média communautaire dont le contenu est maintenu dans le dépôt [github.com/geotribu/website](https://github.com/geotribu/website/tree/master/content).
+- Geotribu : Un média communautaire dont le contenu est maintenu dans le dépôt [github.com/geotribu/website](https://github.com/geotribu/website/tree/master/content).
 
 ---
 
@@ -757,4 +757,3 @@ Nous trouverons ainsi :
 ## Everything as Code! (3/3)
 
 <span style="color: red; font-weight: bold;">La seule exception concernera les secrets qui ne devront jamais être stockés dans un dépôt!</span> (pas même dans un dépôt privé, car il sera peut-être ouvert un jour!)
-
