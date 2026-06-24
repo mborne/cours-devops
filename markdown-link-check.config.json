@@ -26,6 +26,12 @@
         },
         {
             "pattern": "^https://docs.gitlab.com/"
+        },
+        {
+            "pattern": "^https://(12factor\\.net|about\\.gitlab\\.com|api\\.us\\.ovhcloud\\.com|app\\.vagrantup\\.com|cloud-init\\.io|code\\.gouv\\.fr|dev-sec\\.io|developer\\.hashicorp\\.com|developers\\.scaleway\\.com|doc\\.ubuntu-fr\\.org|docs\\.ansible\\.com|docs\\.chef\\.io|docs\\.digitalocean\\.com|docs\\.geoserver\\.geo-solutions\\.it|fpm\\.readthedocs\\.io|fr\\.wikipedia\\.org|galaxy\\.ansible\\.com|geoserver\\.org|help\\.sonatype\\.com|letsencrypt\\.org|mborne\\.github\\.io|plugins\\.jenkins\\.io|postgis\\.net|puppet\\.com|rclone\\.org|restic\\.net|velero\\.io|wiki\\.postgresql\\.org)/"
+        },
+        {
+            "pattern": "^https://(www\\.)?(cnil\\.fr|packer\\.io|postgresql\\.org|shodan\\.io|ssllabs\\.com|sslshopper\\.com|terraform\\.io|vagrantup\\.com|virtualbox\\.org)/"
         }
     ]
 }
