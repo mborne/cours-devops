@@ -22,7 +22,7 @@
             "pattern": "^https://docs\\.gitlab\\.com"
         },
         {
-            "pattern": "^https://(www\\.)?hashicorp\\.com/"
+            "pattern": "^https://(www\\.)?hashicorp\\.com"
         }
     ]
 }
