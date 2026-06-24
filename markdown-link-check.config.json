@@ -7,9 +7,6 @@
             "pattern": "conteneurs.html"
         },
         {
-            "pattern": "docker.html"
-        },
-        {
             "pattern": "kubernetes.html"
         },
         {
