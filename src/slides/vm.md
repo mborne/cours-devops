@@ -306,7 +306,7 @@ ansible-playbook -i inventory/qualif playbooks/mon-application.yml
 
 Nous insisterons sur l'apport de Ansible pour :
 
-- **Faciliter la rédaction et la maintenance des déploiements** (YAML et [nombreux modules disponibles](https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html) rendant les procédures lisibles même sans connaissance d'Ansible).
+- **Faciliter la rédaction et la maintenance des déploiements** (YAML et [nombreux modules disponibles](https://docs.ansible.com/collections.html) rendant les procédures lisibles même sans connaissance d'Ansible).
 - **Gérer des paramètres** en fonction des environnements (notamment par rapport à des scripts `install-geoserver.sh`)
 - **Permettre la réutilisation de scripts de déploiements complet** (téléchargement de rôles avec `ansible-galaxy`, composition de playbook à partir de rôles,...)
 - **Traiter des actions uniquement en cas de changement** (ex : éviter des redémarrages inutiles)
