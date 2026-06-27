@@ -159,7 +159,7 @@ Il existe différents outils permettant d'installer un environnement de dévelop
 
 - [K3S](https://k3s.io/) de Rancher.
 - [MicroK8S](https://microk8s.io/) de Canonical (Ubuntu).
-- [Minikube](https://kubernetes.io/fr/docs/setup/learning-environment/minikube/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
 - [Kind (Kubernetes in docker)](https://kind.sigs.k8s.io/) (à éviter pour débuter)
 
 Nous traiterons l'**installation de K3S avec Ansible sur les VM vagrantbox** à l'aide du dépôt [mborne/k3s-deploy](https://github.com/mborne/k3s-deploy#k3s-deploy) pour faire le lien avec les parties précédentes.

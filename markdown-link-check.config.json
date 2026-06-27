@@ -26,6 +26,18 @@
         },
         {
             "pattern": "^https://docs.gitlab.com/"
+        },
+        {
+            "pattern": "^https://www.writethedocs.org/"
+        },
+        {
+            "pattern": "^https://argo-cd.readthedocs.io/"
+        },
+        {
+            "pattern": "^https://docs.ansible.com"
+        },
+        {
+            "pattern": "^https://fpm.readthedocs.io"
         }
     ]
 }
